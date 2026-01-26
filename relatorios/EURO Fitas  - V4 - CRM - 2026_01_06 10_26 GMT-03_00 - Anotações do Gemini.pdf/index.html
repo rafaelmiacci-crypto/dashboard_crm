@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento Técnico de Implementação CRM - EURO Fitas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #111111;
+            color: #D1D5DB; /* light gray */
+            font-family: 'Inter', sans-serif;
+        }
+        .card {
+            background-color: #1A1A1A;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .section-title {
+            color: #EF4444; /* red */
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 1.5rem;
+        }
+        .flow-box {
+            background-color: #2D3748; /* Darker blue-gray */
+            color: #E2E8F0;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            font-weight: 600;
+            margin: 0.5rem 0;
+            border: 1px solid #4A5568;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        .arrow-down {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #9CA3AF;
+            margin: 0.5rem 0;
+        }
+        .arrow-right {
+            margin: 0 1rem;
+            color: #9CA3AF;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        th, td {
+            border: 1px solid #4A5568;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #2D3748;
+            font-weight: 600;
+            color: #E2E8F0;
+        }
+        .funnel-bar {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            border-radius: 0.25rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="max-w-5xl mx-auto p-8">
+        <!-- HEADER -->
+        <header class="text-center mb-12">
+            <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" class="h-16 mb-8 mx-auto" alt="V4 Company">
+            <h1 class="text-4xl font-extrabold text-gray-50 mb-4">Documento Técnico de Implementação CRM</h1>
+            <h2 class="text-2xl font-semibold text-gray-300">Projeto: EURO Fitas - V4 - CRM</h2>
+        </header>
+
+        <!-- Contexto Estratégico Card -->
+        <div class="card">
+            <h3 class="section-title text-2xl mb-4">1. Contexto Estratégico</h3>
+            <p class="mb-4 leading-relaxed">
+                A EURO Fitas, atuante no setor B2B, comercializa fitas diretamente para distribuidores e lojistas. Seu modelo de negócio é altamente dependente da comunicação direta e ágil, com o WhatsApp emergindo como o canal principal para interação com os clientes. Este projeto visa a implementação de um CRM conversacional focado especificamente na integração e otimização do WhatsApp, para capitalizar sobre a preferência de seus clientes por essa forma de contato e estruturar um processo de vendas mais robusto. A iniciativa é impulsionada pela necessidade premente de centralizar e controlar o fluxo de leads, que hoje se dispersa entre múltiplos canais e contatos.
+            </p>
+            <p class="leading-relaxed">
+                O desafio central reside na carência de um controle unificado sobre a captação e o acompanhamento de leads, resultando em perdas significativas de vendas, especialmente no pós-venda e na reativação de clientes. Tentativas anteriores com módulos genéricos de CRM de ERPs (como o CG Cloud) falharam devido à rigidez da ferramenta e à baixa adesão da equipe. A expectativa é que este novo CRM forneça visibilidade sobre o funil de vendas, dados analíticos para embasar decisões estratégicas e, fundamentalmente, capacite a equipe, liderada por Heber Almeida, a reter e reativar clientes, transformando a comunicação reativa em um processo proativo e eficiente.
+            </p>
+        </div>
+
+        <!-- ÁRVORE DE DECISÃO E TRIAGEM -->
+        <div class="card">
+            <h3 class="section-title">2. Árvore de Decisão e Triagem de Leads</h3>
+            <div class="flex flex-col items-center justify-center">
+                <div class="flow-box">Lead Chega (Site / Redes Sociais / Indicações)</div>
+                <div class="arrow-down">↓</div>
+                <div class="flow-box">Triagem Inicial (Heber Almeida)</div>
+                <div class="arrow-down">↓</div>
+                <div class="flex flex-row justify-center w-full">
+                    <div class="flex flex-col items-center w-1/2">
+                        <div class="flow-box bg-red-800 text-white">É Perfil B2C (Instalador/Consumidor Final)?</div>
+                        <div class="arrow-down">↓</div>
+                        <div class="flow-box bg-red-700">Encaminhar a Lojas Parceiras (Descarte no CRM)</div>
+                    </div>
+                    <div class="flex flex-col items-center w-1/2 ml-4">
+                        <div class="flow-box bg-green-800 text-white">É Perfil B2B (Lojista/Distribuidor)?</div>
+                        <div class="arrow-down">↓</div>
+                        <div class="flow-box">Avaliação de Qualificação (Volume & Região)</div>
+                        <div class="arrow-down">↓</div>
+                        <div class="flex flex-row justify-center w-full">
+                            <div class="flex flex-col items-center w-1/2">
+                                <div class="flow-box bg-red-800 text-white">Não atinge compra mínima (5000 fitas)?</div>
+                                <div class="arrow-down">↓</div>
+                                <div class="flow-box bg-red-700">Encaminhar a Distribuidores Parceiros (Descarte no CRM)</div>
+                            </div>
+                            <div class="flex flex-col items-center w-1/2 ml-4">
+                                <div class="flow-box bg-green-800 text-white">Atinge compra mínima?</div>
+                                <div class="arrow-down">↓</div>
+                                <div class="flow-box">Checagem de Região (Heber Almeida)</div>
+                                <div class="arrow-down">↓</div>
+                                <div class="flex flex-row justify-center w-full">
+                                    <div class="flex flex-col items-center w-1/2">
+                                        <div class="flow-box bg-yellow-800 text-white">Região Coberta por Distribuidor Exclusivo?</div>
+                                        <div class="arrow-down">↓</div>
+                                        <div class="flow-box bg-yellow-700">Direcionar ao Distribuidor ou Venda em Preço Superior (Perdida por "Região Coberta")</div>
+                                    </div>
+                                    <div class="flex flex-col items-center w-1/2 ml-4">
+                                        <div class="flow-box bg-green-800 text-white">Região NÃO Coberta / Expansão?</div>
+                                        <div class="arrow-down">↓</div>
+                                        <div class="flow-box bg-green-700">Distribuir ao Vendedor A / Vendedor B</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- O FUNIL VISUAL -->
+        <div class="card">
+            <h3 class="section-title">3. O Funil de Vendas Visual (Pirâmide Invertida)</h3>
+            <div class="flex flex-col items-center">
+                <div class="funnel-bar bg-[#DC2626] w-full" style="width: 100%;">Captação / Entrada de Lead</div>
+                <div class="funnel-bar bg-[#EF4444]" style="width: 90%;">Triagem & Qualificação</div>
+                <div class="funnel-bar bg-[#F97316]" style="width: 80%;">Primeiro Contato / Atendimento</div>
+                <div class="funnel-bar bg-[#FACC15]" style="width: 70%;">Negociação & Proposta</div>
+                <div class="funnel-bar bg-[#84CC16]" style="width: 60%;">Fechamento / Venda Ganha</div>
+                <div class="funnel-bar bg-[#10B981]" style="width: 50%;">Pós-Venda / Reativação</div>
+            </div>
+        </div>
+
+        <!-- MATRIZ DE REGRAS DE PASSAGEM -->
+        <div class="card">
+            <h3 class="section-title">4. Matriz de Regras de Passagem do Funil de Vendas</h3>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etapa</th>
+                            <th>Objetivo da Etapa</th>
+                            <th>Critério de Avanço (Gatilho)</th>
+                            <th>Critério de Perda (Descarte)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**1. Entrada de Lead**</td>
+                            <td>Capturar e registrar de forma centralizada todos os potenciais clientes.</td>
+                            <td>Lead cadastrado no CRM via formulário do site, WhatsApp (API) ou inserção manual.</td>
+                            <td>Lead é duplicado ou contato inválido (e-mail ou telefone).</td>
+                        </tr>
+                        <tr>
+                            <td>**2. Triagem & Qualificação**</td>
+                            <td>Validar o perfil do lead (B2B vs B2C), potencial de compra mínima e localização geográfica.</td>
+                            <td>Lead confirmado como B2B (distribuidor/lojista), atinge volume mínimo (5.000 fitas) ou possui potencial estratégico validado.</td>
+                            <td>Lead B2C (instalador/consumidor final), não atinge o volume mínimo de compra, ou demonstra falta de interesse após o primeiro contato de qualificação.</td>
+                        </tr>
+                        <tr>
+                            <td>**3. Primeiro Contato / Atendimento**</td>
+                            <td>Estabelecer comunicação inicial, apresentar a EURO Fitas e identificar a necessidade específica do cliente.</td>
+                            <td>Mensagem inicial enviada/recebida com sucesso, lead interage e confirma interesse em prosseguir.</td>
+                            <td>Sem resposta após 3 tentativas de contato via WhatsApp ou e-mail em um período de 72 horas.</td>
+                        </tr>
+                        <tr>
+                            <td>**4. Negociação & Proposta**</td>
+                            <td>Apresentar a oferta de produtos, negociar condições (preço, quantidade, frete) e enviar proposta formal.</td>
+                            <td>Cliente solicita proposta formal/orçamento, proposta é enviada e confirmada como recebida pelo cliente.</td>
+                            <td>Desistência explícita do cliente, objeções de preço/frete insuperáveis, ou cliente informa que fechou com concorrente.</td>
+                        </tr>
+                        <tr>
+                            <td>**5. Fechamento**</td>
+                            <td>Concluir a transação de venda e gerar o pedido no ERP.</td>
+                            <td>Proposta/orçamento aceito pelo cliente, pedido finalizado e registrado no ERP (CG Cloud).</td>
+                            <td>Cliente decide não realizar a compra, ou não responde à oferta final dentro do prazo acordado.</td>
+                        </tr>
+                        <tr>
+                            <td>**6. Pós-Venda / Reativação**</td>
+                            <td>Manter o relacionamento, garantir a satisfação do cliente e estimular futuras recompras.</td>
+                            <td>Venda concluída, cliente satisfeito com a entrega, e agendamento de follow-up para feedback ou nova oferta.</td>
+                            <td>Cliente inativo por 90+ dias sem engajamento, reclamação grave não resolvida.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- GESTÃO DE SLA E TAREFAS -->
+        <div class="card">
+            <h3 class="section-title">5. Gestão de SLA e Automação de Tarefas no CRM</h3>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Gatilho (Se...)</th>
+                            <th>Ação no CRM (Então...)</th>
+                            <th>Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Novo Lead entra na etapa "1. Entrada de Lead".</td>
+                            <td>Atribuir automaticamente ao Heber Almeida para triagem inicial.</td>
+                            <td>Automático / Heber Almeida</td>
+                        </tr>
+                        <tr>
+                            <td>Lead permanece na etapa "2. Triagem & Qualificação" por mais de 24 horas úteis.</td>
+                            <td>Criar tarefa de "Qualificar Lead Urgente" para Heber Almeida com prioridade alta.</td>
+                            <td>Automático / Heber Almeida</td>
+                        </tr>
+                        <tr>
+                            <td>Lead qualificado e distribuído para um vendedor.</td>
+                            <td>Criar tarefa de "Primeiro Contato WhatsApp" para o vendedor atribuído, com vencimento em 4 horas.</td>
+                            <td>Automático / Vendedor Atribuído</td>
+                        </tr>
+                        <tr>
+                            <td>Lead na etapa "3. Primeiro Contato / Atendimento" sem resposta do cliente por 48 horas.</td>
+                            <td>Criar tarefa de "Recontato - 2ª Tentativa" para o vendedor, sugerindo e-mail ou ligação.</td>
+                            <td>Automático / Vendedor Atribuído</td>
+                        </tr>
+                        <tr>
+                            <td>Lead na etapa "4. Negociação & Proposta" por mais de 72 horas úteis sem atualização.</td>
+                            <td>Criar tarefa de "Follow-up de Proposta" para o vendedor, com prioridade média.</td>
+                            <td>Automático / Vendedor Atribuído</td>
+                        </tr>
+                        <tr>
+                            <td>Negócio é marcado como "Perdido" em qualquer etapa.</td>
+                            <td>Exigir preenchimento do campo obrigatório "Motivo da Perda" para análise futura (Ex: Região Coberta, Preço, Concorrência).</td>
+                            <td>Vendedor</td>
+                        </tr>
+                        <tr>
+                            <td>Negócio é marcado como "Ganha" (Venda Concluída).</td>
+                            <td>Mover cliente para o segmento "Base de Clientes Ativos" e agendar "Follow-up Pós-Venda" para 30 dias após a entrega.</td>
+                            <td>Automático / Vendedor Atribuído</td>
+                        </tr>
+                        <tr>
+                            <td>Cliente na etapa "6. Pós-Venda / Reativação" inativo (sem compras/contato) por 60 dias.</td>
+                            <td>Criar tarefa de "Campanha de Reativação" ou "Oferta Especial" para Heber Almeida ou vendedor responsável.</td>
+                            <td>Automático / Heber Almeida / Vendedor</td>
+                        </tr>
+                        <tr>
+                            <td>Nova conversa iniciada pelo cliente via WhatsApp (API) com número não identificado.</td>
+                            <td>Criar um novo card de "Lead Entrada WhatsApp" e atribuir ao Heber Almeida para triagem inicial.</td>
+                            <td>Automático</td>
+                        </tr>
+                        <tr>
+                            <td>Envio de mensagem em massa via WhatsApp (recesso, oferta).</td>
+                            <td>Registrar o envio e a interação (lida, respondida) no histórico de cada contato afetado no CRM.</td>
+                            <td>Automático</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
