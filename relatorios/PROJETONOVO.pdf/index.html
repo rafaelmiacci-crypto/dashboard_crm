@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento Técnico de Implementação CRM - Hippus</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111111;
+            color: #E0E0E0;
+            overflow-x: hidden; /* Prevent horizontal scroll from blur */
+        }
+        .bg-blur-red {
+            position: absolute;
+            top: 10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background-color: #ef4444; /* red-500 */
+            filter: blur(200px);
+            opacity: 0.15;
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .bg-blur-red-2 {
+            position: absolute;
+            bottom: 5%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background-color: #dc2626; /* red-700 */
+            filter: blur(250px);
+            opacity: 0.1;
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        /* Custom scrollbar for tables on small screens */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+        .table-responsive::-webkit-scrollbar-track {
+            background: #2A2A2A;
+            border-radius: 10px;
+        }
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #4A4A4A;
+            border-radius: 10px;
+        }
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #5A5A5A;
+        }
+        .funnel-bar {
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            color: #FFFFFF;
+            font-weight: 600;
+            text-align: center;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .funnel-bar:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#111111] text-gray-200 font-sans relative">
+    <div class="bg-blur-red"></div>
+    <div class="bg-blur-red-2"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto p-8 pt-12">
+        <!-- HEADER E CONTEXTO -->
+        <header class="text-center mb-12">
+            <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" class="h-16 md:h-20 mb-8 mx-auto" alt="V4 Company">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-[#EF4444] mb-4 tracking-tight">
+                DOCUMENTO TÉCNICO DE IMPLEMENTAÇÃO CRM
+            </h1>
+            <h2 class="text-xl md:text-2xl font-semibold text-gray-300">
+                Projeto Hippus - Otimização do Funil de Acolhimento
+            </h2>
+        </header>
+
+        <!-- Contexto Estratégico -->
+        <div class="bg-[#1A1A1A] p-6 rounded-lg shadow-xl mb-12 border border-gray-700">
+            <h3 class="text-2xl font-bold text-[#EF4444] mb-4">1. Contexto Estratégico</h3>
+            <p class="mb-4 leading-relaxed text-gray-300">
+                A clínica Hippus atua na vanguarda do atendimento a crianças atípicas, oferecendo um leque multidisciplinar de serviços como psicologia, fonoaudiologia, ecoterapia e arteterapia. Seu modelo de negócio é profundamente humanizado, focado em proporcionar "qualidade de vida" e "acolhimento", em vez de uma abordagem de "venda" tradicional. A excelência e a experiência de seus terapeutas são pilares para o progresso de pacientes, como evidenciado pelo caso do paciente Eduardo, que adquiriu a fala após três anos de acompanhamento. Este documento visa estruturar a base tecnológica para escalar essa missão, garantindo que o fluxo de pacientes reflita a profundidade e o cuidado da Hippus.
+            </p>
+            <p class="leading-relaxed text-gray-300">
+                O desafio central da Hippus reside na sua alarmante baixa taxa de conversão de 0,2% (2 conversões de 1000 leads em um ano), principalmente devido à ineficácia na qualificação de leads na fase inicial. A ausência de um CRM funcional resultou na dispersão de informações em canais externos como grupos de WhatsApp, dificultando a rastreabilidade da origem dos leads e a gestão padronizada da jornada do paciente. A implementação de uma plataforma de CRM, com automação da captação via WhatsApp API e a centralização de todas as comunicações, é crucial para eliminar essas dores operacionais, qualificar leads de forma eficiente e elevar significativamente as taxas de acolhimento.
+            </p>
+        </div>
+
+        <!-- Árvore de Decisão e Triagem -->
+        <div class="bg-[#1A1A1A] p-6 rounded-lg shadow-xl mb-12 border border-gray-700">
+            <h3 class="text-2xl font-bold text-[#EF4444] mb-6">2. Árvore de Decisão e Triagem de Leads</h3>
+            <p class="mb-6 text-gray-300 leading-relaxed">Este fluxo detalha o processo de qualificação e triagem de leads, essencial para garantir que apenas os perfis mais adequados avancem no funil de acolhimento, otimizando o tempo da equipe e melhorando a taxa de conversão. As <strong>Tags de CRM</strong> são cruciais para segmentação e ações futuras.</p>
+
+            <div class="flex flex-col items-start space-y-4 md:space-y-6">
+                <!-- Step 1: Lead Inbound -->
+                <div class="flex items-center w-full">
+                    <div class="bg-blue-600 text-white p-3 rounded-lg flex-shrink-0 text-sm font-semibold shadow-md">
+                        <span class="md:hidden">Lead</span><span class="hidden md:inline">Lead Chega</span>
+                    </div>
+                    <div class="ml-4 md:ml-8 text-gray-400 text-sm md:text-base">
+                        (WhatsApp API / Direct)
+                    </div>
+                </div>
+                <div class="self-start ml-4 text-3xl text-gray-500">↓</div>
+
+                <!-- Step 2: Automação -->
+                <div class="flex items-center w-full">
+                    <div class="bg-purple-600 text-white p-3 rounded-lg flex-shrink-0 text-sm font-semibold shadow-md">
+                        Automação
+                    </div>
+                    <div class="ml-4 md:ml-8 text-gray-400 text-sm md:text-base">
+                        (Boas-vindas + Solicitação de Informações Iniciais)
+                    </div>
+                </div>
+                <div class="self-start ml-4 text-3xl text-gray-500">↓</div>
+
+                <!-- Step 3: Secretária Raquel Triagem Mensagem -->
+                <div class="flex items-center w-full">
+                    <div class="bg-indigo-600 text-white p-3 rounded-lg flex-shrink-0 text-sm font-semibold shadow-md">
+                        <span class="md:hidden">S. Raquel</span><span class="hidden md:inline">Secretária Raquel</span>
+                    </div>
+                    <div class="ml-4 md:ml-8 text-gray-400 text-sm md:text-base">
+                        (Triagem por Mensagem - SLA: mesmo dia)
+                    </div>
+                </div>
+                <div class="self-start ml-4 text-3xl text-gray-500">↓</div>
+
+                <!-- Step 4: Critério 1 - Plano de Saúde -->
+                <div class="flex flex-col md:flex-row items-start md:items-center w-full md:space-x-4">
+                    <div class="bg-yellow-600 text-white p-3 rounded-lg flex-shrink-0 text-sm font-semibold shadow-md">
+                        Critério: Plano de Saúde?
+                    </div>
+                    <div class="flex flex-col md:flex-row items-start md:items-center w-full mt-2 md:mt-0 md:ml-8 space-y-2 md:space-y-0 md:space-x-8">
+                        <!-- Yes Path -->
+                        <div class="flex flex-col items-start">
+                            <div class="flex items-center mb-2 md:mb-0">
+                                <span class="text-green-500 font-bold mr-2">SIM →</span>
+                                <div class="bg-gray-700 text-white p-3 rounded-lg flex-shrink-0 text-sm font-semibold shadow-md">
+                                    Critério: Distância até 30min?
+                                </div>
+                            </div>
+                            <div class="ml-6 md:ml-0 flex flex-col items-start space-y-2">
+                                <div class="flex items-center">
+                                    <span class="text-green-500 font-bold mr-2">SIM →</span>
+                                    <div class="bg-green-700 text-white p-3 rounded-lg text-sm font-semibold shadow-md flex-shrink-0">
+                                        <span class="font-bold">Lead Qualificado</span> <span class="text-xs italic">(#Qualificado)</span>
+                                    </div>
+                                </div>
+                                <div class="self-start ml-4 text-3xl text-gray-500">↓</div>
+                                <div class="flex items-center">
+                                    <div class="bg-blue-700 text-white p-3 rounded-lg text-sm font-semibold shadow-md flex-shrink-0">
+                                        Agenda Conversa Telefônica c/ Raquel
+                                    </div>
+                                </div>
+                                <div class="self-start ml-4 text-3xl text-gray-500">↓</div>
+                                <div class="flex items-center">
+                                    <div class="bg-green-800 text-white p-3 rounded-lg text-sm font-semibold shadow-md flex-shrink-0">
+                                        <span class="font-bold">TAG:</span> #PotencialAcolhimento
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- No Path for Distance -->
+                        <div class="flex flex-col items-start mt-4 md:mt-0">
+                            <div class="flex items-center mb-2 md:mb-0">
+                                <span class="text-red-500 font-bold mr-2">NÃO →</span>
+                                <div class="bg-orange-700 text-white p-3 rounded-lg text-sm font-semibold shadow-md flex-shrink-0">
+                                    <span class="font-bold">TAG:</span> #DistanciaLimitante
+                                </div>
+                            </div>
+                            <div class="ml-6 flex items-center mt-2">
+                                <div class="bg-gray-800 text-white p-3 rounded-lg text-sm font-semibold shadow-md flex-shrink-0">
+                                    Reengajar c/ Campanhas Específicas / Eventos
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- No Path for Plano de Saúde -->
+                        <div class="flex flex-col items-start mt-4 md:mt-0">
+                            <div class="flex items-center mb-2 md:mb-0">
+                                <span class="text-red-500 font-bold mr-2">NÃO →</span>
+                                <div class="bg-red-700 text-white p-3 rounded-lg text-sm font-semibold shadow-md flex-shrink-0">
+                                    <span class="font-bold">TAG:</span> #SemPlanoSaude
+                                </div>
+                            </div>
+                            <div class="ml-6 flex items-center mt-2">
+                                <div class="bg-gray-800 text-white p-3 rounded-lg text-sm font-semibold shadow-md flex-shrink-0">
+                                    Lead Não Qualificado (Reengajar p/ Conteúdo/Eventos)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="self-start ml-4 text-3xl text-gray-500 mt-4">↓</div>
+
+                <!-- Step 5: Secretária Raquel Triagem Telefone -->
+                <div class="flex items-center w-full">
+                    <div class="bg-indigo-700 text-white p-3 rounded-lg flex-shrink-0 text-sm font-semibold shadow-md">
+                        Secretária Raquel
+                    </div>
+                    <div class="ml-4 md:ml-8 text-gray-400 text-sm md:text-base">
+                        (Triagem por Telefone Aprofundada - SLA: mesmo/próximo dia)
+                    </div>
+                </div>
+                <div class="self-start ml-4 text-3xl text-gray-500">↓</div>
+
+                <!-- Step 6: Critério 2 - Necessita Jurídico? -->
+                <div class="flex flex-col md:flex-row items-start md:items-center w-full md:space-x-4">
+                    <div class="bg-yellow-700 text-white p-3 rounded-lg flex-shrink-0 text-sm font-semibold shadow-md">
+                        Critério: Necessita Jurídico?
+                    </div>
+                    <div class="flex flex-col md:flex-row items-start md:items-center w-full mt-2 md:mt-0 md:ml-8 space-y-2 md:space-y-0 md:space-x-8">
+                        <div class="flex items-center">
+                            <span class="text-green-500 font-bold mr-2">SIM →</span>
+                            <div class="bg-red-800 text-white p-3 rounded-lg text-sm font-semibold shadow-md flex-shrink-0">
+                                <span class="font-bold">TAG:</span> #CasoComplexo
+                            </div>
+                        </div>
+                        <div class="flex items-center mt-2 md:mt-0">
+                            <span class="text-green-500 font-bold mr-2">NÃO →</span>
+                            <div class="bg-blue-800 text-white p-3 rounded-lg text-sm font-semibold shadow-md flex-shrink-0">
+                                Procedimento Padrão
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="self-start ml-4 text-3xl text-gray-500">↓</div>
+
+                <!-- Step 7: Agendar Reunião de Acolhimento -->
+                <div class="flex items-center w-full">
+                    <div class="bg-teal-600 text-white p-3 rounded-lg flex-shrink-0 text-sm font-semibold shadow-md">
+                        Agendar Reunião de Acolhimento
+                    </div>
+                    <div class="ml-4 md:ml-8 text-gray-400 text-sm md:text-base">
+                        (Coordenadora Kate + Jurídico, se #CasoComplexo)
+                    </div>
+                </div>
+                <div class="self-start ml-4 text-3xl text-gray-500">↓</div>
+
+                <!-- Step 8: Reunião de Acolhimento -->
+                <div class="flex items-center w-full">
+                    <div class="bg-green-600 text-white p-3 rounded-lg flex-shrink-0 text-sm font-semibold shadow-md">
+                        Reunião de Acolhimento
+                    </div>
+                    <div class="ml-4 md:ml-8 text-gray-400 text-sm md:text-base">
+                        (Acolhimento efetivo do paciente)
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8">
+                <h4 class="text-xl font-semibold text-[#EF4444] mb-3">Principais Tags de CRM e Uso:</h4>
+                <ul class="list-disc list-inside text-gray-300 space-y-2">
+                    <li><span class="font-bold text-green-400">#Qualificado:</span> Lead que atende aos pré-requisitos (Plano de Saúde e Distância). Pronto para avançar.</li>
+                    <li><span class="font-bold text-orange-400">#DistanciaLimitante:</span> Lead com plano de saúde, mas fora da área de atendimento primária. Pode ser reengajado para teleatendimento (se aplicável) ou eventos específicos.</li>
+                    <li><span class="font-bold text-red-400">#SemPlanoSaude:</span> Lead sem plano de saúde. Não qualificado para atendimento imediato. Ideal para campanhas educativas sobre reembolso, convênios ou eventos gratuitos.</li>
+                    <li><span class="font-bold text-purple-400">#CasoComplexo:</span> Lead que demanda envolvimento jurídico. Prioridade para agendamento com a Coordenadora Kate e equipe jurídica.</li>
+                    <li><span class="font-bold text-blue-400">#PotencialAcolhimento:</span> Lead qualificado que está na fase de agendamento ou já agendou a reunião de acolhimento.</li>
+                    <li><span class="font-bold text-gray-400">#Reengajamento:</span> Tag genérica para leads não qualificados ou perdidos, que serão incluídos em fluxos de nutrição de longo prazo, como convites para o "Ipos Conecta".</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- O Funil Visual -->
+        <div class="bg-[#1A1A1A] p-6 rounded-lg shadow-xl mb-12 border border-gray-700">
+            <h3 class="text-2xl font-bold text-[#EF4444] mb-6 text-center">3. O Funil de Acolhimento Hippus</h3>
+            <p class="mb-8 text-center text-gray-300 leading-relaxed">Representação visual das etapas de acolhimento, desde a captação inicial até a efetivação do tratamento e fidelização, refletindo o caráter humanizado da clínica.</p>
+
+            <div class="flex flex-col items-center">
+                <!-- Etapa 1 -->
+                <div class="funnel-bar bg-red-700 w-full max-w-lg">
+                    <span class="text-lg">1. Captação de Leads</span>
+                    <span class="block text-sm opacity-80">(Início da Jornada - Tráfego Pago/Orgânico/WhatsApp)</span>
+                </div>
+                <!-- Etapa 2 -->
+                <div class="funnel-bar bg-red-600 w-full max-w-lg" style="width: 95%;">
+                    <span class="text-lg">2. Pré-Acolhimento</span>
+                    <span class="block text-sm opacity-80">(Triagem Inicial por Mensagem - Secretária Raquel)</span>
+                </div>
+                <!-- Etapa 3 -->
+                <div class="funnel-bar bg-orange-600 w-full max-w-lg" style="width: 85%;">
+                    <span class="text-lg">3. Triagem Aprofundada</span>
+                    <span class="block text-sm opacity-80">(Conversa Telefônica Qualificatória - Secretária Raquel)</span>
+                </div>
+                <!-- Etapa 4 -->
+                <div class="funnel-bar bg-amber-500 w-full max-w-lg" style="width: 75%;">
+                    <span class="text-lg">4. Reunião de Acolhimento Agendada</span>
+                    <span class="block text-sm opacity-80">(Compromisso com Coordenadora Kate / Jurídico)</span>
+                </div>
+                <!-- Etapa 5 -->
+                <div class="funnel-bar bg-lime-600 w-full max-w-lg" style="width: 65%;">
+                    <span class="text-lg">5. Reunião de Acolhimento Realizada</span>
+                    <span class="block text-sm opacity-80">(Primeiro contato pessoal / Avaliação)</span>
+                </div>
+                <!-- Etapa 6 -->
+                <div class="funnel-bar bg-emerald-600 w-full max-w-lg" style="width: 55%;">
+                    <span class="text-lg">6. Proposta de Tratamento</span>
+                    <span class="block text-sm opacity-80">(Plano terapêutico detalhado)</span>
+                </div>
+                <!-- Etapa 7 -->
+                <div class="funnel-bar bg-green-700 w-full max-w-lg" style="width: 45%;">
+                    <span class="text-lg">7. Acolhimento Efetivado (Cliente)</span>
+                    <span class="block text-sm opacity-80">(Início do Tratamento / Contrato Assinado)</span>
+                </div>
+                <!-- Etapa 8 (Pós-Acolhimento) -->
+                <div class="funnel-bar bg-green-800 w-full max-w-lg" style="width: 35%;">
+                    <span class="text-lg">8. Pós-Acolhimento / Fidelização</span>
+                    <span class="block text-sm opacity-80">(CSAT, Remarketing, Reengajamento)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Matriz de Regras de Passagem -->
+        <div class="bg-[#1A1A1A] p-6 rounded-lg shadow-xl mb-12 border border-gray-700">
+            <h3 class="text-2xl font-bold text-[#EF4444] mb-6">4. Matriz de Regras de Passagem no Funil de Acolhimento</h3>
+            <p class="mb-6 text-gray-300 leading-relaxed">Esta matriz define claramente os critérios para o avanço ou descarte de leads em cada etapa do funil de acolhimento, garantindo consistência e eficiência operacional.</p>
+
+            <div class="table-responsive">
+                <table class="w-full border-collapse text-sm md:text-base">
+                    <thead class="bg-[#2A2A2A]">
+                        <tr>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Etapa</th>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Objetivo da Etapa</th>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Critério de Avanço (Gatilho)</th>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Critério de Perda (Descarte)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">1. Captação de Leads</td>
+                            <td class="p-3">Coletar contato e interesse inicial.</td>
+                            <td class="p-3">Lead envia primeira mensagem/formulário preenchido.</td>
+                            <td class="p-3">Não há resposta inicial após 48h da automação. <span class="text-xs text-gray-500">(Tag: #Ignorado)</span></td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">2. Pré-Acolhimento</td>
+                            <td class="p-3">Verificar pré-requisitos básicos.</td>
+                            <td class="p-3">Lead responde questionário inicial com "Sim" para Plano de Saúde e Distância OK. <span class="text-xs text-gray-500">(Tag: #Qualificado)</span></td>
+                            <td class="p-3">Lead não possui Plano de Saúde ou está fora da distância limite. <span class="text-xs text-gray-500">(Tags: #SemPlanoSaude ou #DistanciaLimitante)</span></td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">3. Triagem Aprofundada</td>
+                            <td class="p-3">Compreender a necessidade do paciente e agendar reunião.</td>
+                            <td class="p-3">Lead realiza conversa telefônica e aceita agendar reunião de acolhimento. <span class="text-xs text-gray-500">(Tag: #PotencialAcolhimento)</span></td>
+                            <td class="p-3">Lead desiste da conversa telefônica ou não atende a 3 tentativas de ligação. <span class="text-xs text-gray-500">(Tag: #DesistenciaPre)</span></td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">4. Reunião de Acolhimento Agendada</td>
+                            <td class="p-3">Confirmar presença e preparar o acolhimento.</td>
+                            <td class="p-3">Confirmação da reunião por parte do lead (via WhatsApp ou email).</td>
+                            <td class="p-3">Lead não confirma ou cancela a reunião (sem remarcação). <span class="text-xs text-gray-500">(Tag: #Cancelado)</span></td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">5. Reunião de Acolhimento Realizada</td>
+                            <td class="p-3">Realizar avaliação inicial e apresentar a clínica.</td>
+                            <td class="p-3">Reunião de acolhimento concluída com sucesso e lead demonstra interesse na proposta.</td>
+                            <td class="p-3">Lead não comparece à reunião ou decide não dar seguimento após o encontro. <span class="text-xs text-gray-500">(Tag: #NaoCompareceu / #NaoSegue)</span></td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">6. Proposta de Tratamento</td>
+                            <td class="p-3">Apresentar o plano terapêutico e condições.</td>
+                            <td class="p-3">Lead aceita a proposta de tratamento e informa desejo de iniciar.</td>
+                            <td class="p-3">Lead rejeita a proposta de tratamento ou não responde em 7 dias após o envio. <span class="text-xs text-gray-500">(Tag: #PropostaRecusada)</span></td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">7. Acolhimento Efetivado (Cliente)</td>
+                            <td class="p-3">Finalizar burocracia e iniciar tratamento.</td>
+                            <td class="p-3">Contrato de prestação de serviços assinado e primeiro pagamento/agendamento realizado. <span class="text-xs text-gray-500">(Tag: #ClienteAtivo)</span></td>
+                            <td class="p-3">Lead desiste antes da assinatura do contrato. <span class="text-xs text-gray-500">(Tag: #DesistenciaFinal)</span></td>
+                        </tr>
+                        <tr class="hover:bg-[#202020]">
+                            <td class="p-3">8. Pós-Acolhimento / Fidelização</td>
+                            <td class="p-3">Garantir satisfação e potencializar novos engajamentos.</td>
+                            <td class="p-3">Envio de pesquisa de satisfação (CSAT) e inclusão em fluxos de nutrição de clientes.</td>
+                            <td class="p-3">Cliente encerra tratamento e não demonstra interesse em outros serviços. <span class="text-xs text-gray-500">(Tag: #ClienteInativo)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-8 text-gray-300 leading-relaxed">
+                <h4 class="text-xl font-semibold text-[#EF4444] mb-3">Detalhe sobre o uso de Tags:</h4>
+                <p>As tags devem ser aplicadas automaticamente por automações ou manualmente pela equipe de acolhimento em cada ponto de decisão. Elas servem para segmentar os leads, permitindo ações de marketing e reengajamento personalizadas. Por exemplo, leads com a tag <span class="font-bold text-red-400">#SemPlanoSaude</span> podem ser automaticamente adicionados a uma lista de e-mails para receber conteúdo sobre como conseguir reembolso ou informações sobre eventos gratuitos da clínica (como o "Ipos Conecta"). Leads com <span class="font-bold text-orange-400">#DistanciaLimitante</span> podem receber propostas de atendimento online ou informações sobre possíveis novas unidades.</p>
+            </div>
+        </div>
+
+        <!-- Gestão de SLA e Tarefas -->
+        <div class="bg-[#1A1A1A] p-6 rounded-lg shadow-xl mb-12 border border-gray-700">
+            <h3 class="text-2xl font-bold text-[#EF4444] mb-6">5. Gestão de SLA e Automações Chave no CRM</h3>
+            <p class="mb-6 text-gray-300 leading-relaxed">As automações propostas visam garantir o cumprimento dos SLAs, reduzir a perda de leads e centralizar a comunicação, focando na dor da baixa conversão e qualificação.</p>
+
+            <div class="table-responsive">
+                <table class="w-full border-collapse text-sm md:text-base">
+                    <thead class="bg-[#2A2A2A]">
+                        <tr>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Gatilho (Se...)</th>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Ação no CRM (Então...)</th>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Novo Lead entra no CRM (WhatsApp API)</td>
+                            <td class="p-3">1. Criar tarefa "Pré-Qualificação Inicial" para Secretária Raquel.<br>2. Enviar mensagem de boas-vindas automatizada via WhatsApp (API).</td>
+                            <td class="p-3">Automação / Secretária Raquel</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Lead parado na etapa "Pré-Acolhimento" por >4h úteis</td>
+                            <td class="p-3">1. Notificar Secretária Raquel e Gabriel Oliveira Luqueci.<br>2. Criar tarefa de "Follow-up Urgente".</td>
+                            <td class="p-3">Automação / Secretária Raquel</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Lead com Tag #SemPlanoSaude ou #DistanciaLimitante</td>
+                            <td class="p-3">1. Mover lead para funil de "Reengajamento".<br>2. Adicionar lead a lista de e-mails de nutrição específica.</td>
+                            <td class="p-3">Automação</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Reunião de Acolhimento Agendada (sem confirmação 24h antes)</td>
+                            <td class="p-3">Enviar lembrete automatizado via WhatsApp.</td>
+                            <td class="p-3">Automação</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Reunião de Acolhimento Realizada</td>
+                            <td class="p-3">1. Criar tarefa "Apresentar Proposta" para Coordenadora Kate (SLA: 24h).<br>2. Se #CasoComplexo, criar tarefa "Revisão Jurídica" para Jurídico.</td>
+                            <td class="p-3">Automação / Coordenadora Kate / Jurídico</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Lead parado na etapa "Proposta de Tratamento" por >3 dias úteis</td>
+                            <td class="p-3">1. Notificar Coordenadora Kate.<br>2. Criar tarefa "Follow-up Proposta".</td>
+                            <td class="p-3">Automação / Coordenadora Kate</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Lead perde o acolhimento (qualquer etapa de descarte)</td>
+                            <td class="p-3">Mover lead para funil de "Reengajamento" e adicionar a lista de eventos (ex: Ipos Conecta).</td>
+                            <td class="p-3">Automação</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Acolhimento Efetivado (Cliente)</td>
+                            <td class="p-3">1. Alterar status para "Cliente Ativo".<br>2. Criar tarefa para agendamento de pesquisa CSAT após 30 dias de tratamento.</td>
+                            <td class="p-3">Automação / Responsável pelo CSAT</td>
+                        </tr>
+                        <tr class="hover:bg-[#202020]">
+                            <td class="p-3">Cliente Ativo há 6 meses</td>
+                            <td class="p-3">Criar tarefa "Avaliação de Satisfação/Novas Necessidades" para Coordenadora Kate.</td>
+                            <td class="p-3">Automação / Coordenadora Kate</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-8 text-gray-300 leading-relaxed">
+                <h4 class="text-xl font-semibold text-[#EF4444] mb-3">Benefícios Chave das Automações:</h4>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>Redução de Perdas:</strong> Garante que nenhum lead seja esquecido ou fique estagnado.</li>
+                    <li><strong>Eficiência da Equipe:</strong> Libera a equipe para focar no acolhimento de leads qualificados, minimizando tarefas manuais repetitivas.</li>
+                    <li><strong>Padronização:</strong> Assegura que todos os leads passem pelos mesmos processos de qualificação e follow-up, independentemente do canal de entrada.</li>
+                    <li><strong>Melhora no SLA:</strong> Ajuda a equipe a responder e interagir com os leads dentro dos prazos esperados, aumentando a satisfação e confiança.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Estratégia de Pós-Acolhimento e Fidelização -->
+        <div class="bg-[#1A1A1A] p-6 rounded-lg shadow-xl mb-12 border border-gray-700">
+            <h3 class="text-2xl font-bold text-[#EF4444] mb-6">6. Estratégia de Pós-Acolhimento e Fidelização</h3>
+            <p class="mb-4 text-gray-300 leading-relaxed">
+                A jornada do paciente na Hippus não termina com o início do tratamento. O pós-acolhimento é fundamental para garantir a satisfação contínua, identificar novas necessidades e fortalecer o relacionamento, transformando clientes em defensores da clínica. Este funil de pós-venda, ou melhor, de pós-acolhimento, visa maximizar o valor de cada relacionamento estabelecido.
+            </p>
+            <div class="mt-6">
+                <h4 class="text-xl font-semibold text-[#EF4444] mb-3">Componentes da Estratégia:</h4>
+                <ul class="list-disc list-inside text-gray-300 space-y-2">
+                    <li><strong>Pesquisas de Satisfação (CSAT):</strong>
+                        <ul class="list-circle list-inside ml-4 text-gray-400">
+                            <li><strong>Gatilho:</strong> 30 dias após o início do tratamento; a cada 6 meses; e após a conclusão de um ciclo terapêutico.</li>
+                            <li><strong>Ação:</strong> Envio automático de questionário via e-mail/WhatsApp para coletar feedback sobre a experiência.</li>
+                            <li><strong>Objetivo:</strong> Monitorar a satisfação, identificar pontos de melhoria e prevenir churn.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Programas de Remarketing e Reengajamento:</strong>
+                        <ul class="list-circle list-inside ml-4 text-gray-400">
+                            <li><strong>Gatilho:</strong> Clientes com tags específicas (ex: #TratamentoConcluido, #InteresseNovoServico) ou inativos por X tempo.</li>
+                            <li><strong>Ação:</strong> Campanhas segmentadas via WhatsApp API (para convites a eventos como "Ipos Conecta"), e-mail marketing, e anúncios direcionados em redes sociais para:
+                                <ul class="list-square list-inside ml-4 text-gray-500">
+                                    <li>Divulgar novos serviços ou terapias complementares.</li>
+                                    <li>Convidar para workshops, palestras ou eventos da clínica.</li>
+                                    <li>Oferecer conteúdos educativos relevantes para a evolução do paciente e família.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Objetivo:</strong> Manter o cliente engajado, promover a continuidade do cuidado e explorar oportunidades de cross-sell/up-sell de forma ética e humanizada.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Gestão de Aniversários e Datas Comemorativas:</strong>
+                        <ul class="list-circle list-inside ml-4 text-gray-400">
+                            <li><strong>Gatilho:</strong> Data de aniversário do paciente ou responsável, aniversário de início do tratamento.</li>
+                            <li><strong>Ação:</strong> Envio de mensagens personalizadas de felicitação via WhatsApp, fortalecendo o vínculo emocional.</li>
+                            <li><strong>Objetivo:</strong> Humanizar o relacionamento e mostrar apreço.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <p class="mt-6 text-gray-300 leading-relaxed">
+                Esta abordagem proativa no pós-acolhimento não só garante a satisfação do cliente, mas também transforma a base de clientes em um ativo valioso para o crescimento orgânico da Hippus, através de recomendações e engajamento contínuo.
+            </p>
+        </div>
+
+        <!-- Campos Personalizados do Contato -->
+        <div class="bg-[#1A1A1A] p-6 rounded-lg shadow-xl mb-12 border border-gray-700">
+            <h3 class="text-2xl font-bold text-[#EF4444] mb-6">7. Campos Personalizados do Contato</h3>
+            <p class="mb-6 text-gray-300 leading-relaxed">A centralização e estruturação das informações do contato são cruciais para a qualificação eficiente, personalização do acolhimento e rastreamento da jornada do paciente. Os seguintes campos personalizados são propostos para o CRM:</p>
+
+            <div class="table-responsive">
+                <table class="w-full border-collapse text-sm md:text-base">
+                    <thead class="bg-[#2A2A2A]">
+                        <tr>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Nome do Campo</th>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Tipo</th>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Descrição</th>
+                            <th class="p-3 text-left text-[#EF4444] font-semibold border-b border-gray-600">Tags Associadas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Nome Completo (Responsável)</td>
+                            <td class="p-3">Texto</td>
+                            <td class="p-3">Nome completo do responsável legal pelo paciente.</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">CPF (Responsável)</td>
+                            <td class="p-3">Texto</td>
+                            <td class="p-3">Número de CPF do responsável para identificação.</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Nome Completo (Paciente)</td>
+                            <td class="p-3">Texto</td>
+                            <td class="p-3">Nome completo da criança atípica.</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Idade do Paciente</td>
+                            <td class="p-3">Número</td>
+                            <td class="p-3">Idade atual do paciente em anos.</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Diagnóstico Principal</td>
+                            <td class="p-3">Texto/Dropdown</td>
+                            <td class="p-3">Diagnóstico primário do paciente (ex: Autismo, TDAH, Atraso de Linguagem).</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Possui Plano de Saúde?</td>
+                            <td class="p-3">Sim/Não (Boolean)</td>
+                            <td class="p-3">Indica se o responsável possui plano de saúde para reembolso/liminar.</td>
+                            <td class="p-3">#Qualificado, #SemPlanoSaude</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Nome do Plano de Saúde</td>
+                            <td class="p-3">Texto</td>
+                            <td class="p-3">Nome da operadora do plano de saúde, se aplicável.</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">CEP Residencial</td>
+                            <td class="p-3">Texto (Formato)</td>
+                            <td class="p-3">Código de Endereçamento Postal do paciente/responsável.</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Distância da Clínica (KM)</td>
+                            <td class="p-3">Número</td>
+                            <td class="p-3">Distância aproximada da residência até a clínica.</td>
+                            <td class="p-3">#Qualificado, #DistanciaLimitante</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Necessita Apoio Jurídico?</td>
+                            <td class="p-3">Sim/Não (Boolean)</td>
+                            <td class="p-3">Indica se o caso do paciente pode requerer intervenção jurídica.</td>
+                            <td class="p-3">#CasoComplexo</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Origem do Lead</td>
+                            <td class="p-3">Dropdown</td>
+                            <td class="p-3">Canal de onde o lead veio (WhatsApp, Instagram Direct, Outdoor Qcode, Tráfego Pago, Orgânico).</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Data da Última Interação</td>
+                            <td class="p-3">Data/Hora</td>
+                            <td class="p-3">Registro da última vez que houve contato ativo com o lead.</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Status do Acolhimento</td>
+                            <td class="p-3">Dropdown</td>
+                            <td class="p-3">Status atual do lead no funil de acolhimento (sincronizado com as etapas).</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-[#202020]">
+                            <td class="p-3">Feedback CSAT</td>
+                            <td class="p-3">Texto/Número (1-5)</td>
+                            <td class="p-3">Resultado da pesquisa de satisfação do cliente.</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                        <tr class="hover:bg-[#202020]">
+                            <td class="p-3">Serviço(s) Contratado(s)</td>
+                            <td class="p-3">Multi-select</td>
+                            <td class="p-3">Terapias ou serviços que o paciente está utilizando (ex: Psicologia, Fono).</td>
+                            <td class="p-3">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-8 text-gray-300 leading-relaxed">
+                <h4 class="text-xl font-semibold text-[#EF4444] mb-3">Observações sobre Campos Personalizados:</h4>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>A tipagem correta dos campos otimiza filtros, relatórios e automações.</li>
+                    <li>Campos "Dropdown" ou "Multi-select" devem ter opções pré-definidas para padronização dos dados.</li>
+                    <li>Campos como "Origem do Lead" são cruciais para a análise de ROI das campanhas de marketing, especialmente com a integração via Qcode da Como.</li>
+                    <li>"Status do Acolhimento" deve ser automaticamente atualizado à medida que o lead avança no funil, ou manualmente pela equipe.</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer class="text-center text-gray-500 text-sm mt-16 pb-8">
+            <p>&copy; 2026 V4 Company. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>
