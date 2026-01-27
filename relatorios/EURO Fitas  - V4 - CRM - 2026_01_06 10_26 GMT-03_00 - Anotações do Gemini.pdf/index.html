@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EURO Fitas - Blueprint de Engenharia de Vendas e Implementação de CRM Conversacional</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111111;
+            color: #D1D5DB; /* Light Gray */
+            position: relative;
+            overflow-x: hidden; /* Prevent horizontal scroll due to blur */
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 50%;
+            height: 50%;
+            background: rgba(239, 68, 68, 0.15); /* Slightly transparent red */
+            filter: blur(150px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: rgba(239, 68, 68, 0.1); /* Slightly transparent red */
+            filter: blur(180px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        .card {
+            background-color: #1A1A1A;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border for cards */
+        }
+        .section-title {
+            color: #EF4444;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        .arrow-right {
+            display: inline-block;
+            margin: 0 0.5rem;
+            color: #EF4444; /* Red color for arrows */
+        }
+        .arrow-down {
+            display: block;
+            text-align: center;
+            margin: 0.5rem 0;
+            color: #EF4444; /* Red color for arrows */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            border: 1px solid #374151; /* Darker gray for table borders */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #2D3748; /* Darker header background */
+            color: #E5E7EB; /* Lighter text for headers */
+            font-weight: 600;
+        }
+        .tag {
+            display: inline-block;
+            background-color: #DC2626; /* Red background for tags */
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* Pill shape */
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="selection:bg-red-700 selection:text-white">
+    <div class="max-w-5xl mx-auto p-8 relative z-10">
+        <!-- HEADER E CONTEXTO -->
+        <header class="text-center mb-12">
+            <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" class="h-16 mb-8 mx-auto" alt="V4 Company">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">EURO Fitas</h1>
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-300">Blueprint de Engenharia de Vendas e Implementação de CRM Conversacional</h2>
+        </header>
+
+        <!-- 1. CONTEXTO ESTRATÉGICO -->
+        <div class="card">
+            <h3 class="section-title text-3xl">1. Contexto Estratégico</h3>
+            <p class="mb-4 leading-relaxed text-gray-300">
+                A EURO Fitas opera em um modelo de negócio B2B, comercializando fitas diretamente para distribuidores e lojistas. Sua estratégia de vendas é fortemente baseada em relacionamentos diretos e um ciclo de venda rápido, onde a negociação se concentra em variáveis como preço, quantidade e frete. O principal canal de comunicação e vendas é o WhatsApp, um reflexo do perfil de seus clientes — tipicamente lojistas e distribuidores menores que operam no balcão e preferem a agilidade da mensagem.
+            </p>
+            <p class="leading-relaxed text-gray-300">
+                Apesar da eficiência no primeiro contato e venda, a EURO Fitas enfrenta desafios críticos na gestão do funil de vendas, incluindo a ausência de um controle centralizado de leads e, mais significativamente, a perda de oportunidades no pós-venda devido à falta de acompanhamento e reativação de clientes. Esta lacuna impede a obtenção de dados analíticos robustos para aprimorar a estratégia comercial e resulta na não recuperação de faturamento de clientes antigos. A implementação de um CRM conversacional focado no WhatsApp é a resposta estratégica para sanar essas dores, otimizando o controle, o acompanhamento e a capacidade de reengajamento com a base de clientes.
+            </p>
+        </div>
+
+        <!-- 2. ÁRVORE DE DECISÃO E TRIAGEM -->
+        <div class="card">
+            <h3 class="section-title text-3xl">2. Árvore de Decisão e Triagem de Leads</h3>
+            <p class="mb-6 leading-relaxed text-gray-300">
+                Este fluxo detalha o processo de captação e qualificação inicial dos leads da EURO Fitas, com foco na otimização da distribuição e na utilização de tags para enriquecer o perfil do contato no CRM.
+            </p>
+
+            <div class="flex flex-col items-center justify-center p-4">
+                <!-- Start Node -->
+                <div class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-md mb-4 text-center min-w-[200px] sm:min-w-[250px]">
+                    Lead Chega (Site / Redes Sociais / Indicação)
+                </div>
+                <span class="arrow-down text-2xl">↓</span>
+
+                <!-- Triagem Inicial (Heber) -->
+                <div class="bg-[#2a2a2a] py-3 px-6 rounded-lg shadow-md mb-4 text-center min-w-[200px] sm:min-w-[250px] border border-gray-600">
+                    Heber (Triagem e Qualificação Preliminar)
+                </div>
+                <span class="arrow-down text-2xl">↓</span>
+
+                <!-- Conditional 1: É consumidor final/instalador? -->
+                <div class="flex flex-col sm:flex-row items-center justify-center w-full mb-4">
+                    <div class="bg-[#2a2a2a] py-3 px-6 rounded-lg shadow-md mb-2 sm:mb-0 sm:mr-4 text-center border border-gray-600 min-w-[200px] sm:min-w-[250px]">
+                        É Consumidor Final / Instalador?
+                    </div>
+                    <div class="flex sm:flex-row flex-col items-center">
+                        <!-- YES Path -->
+                        <div class="flex items-center">
+                            <span class="text-green-500 font-bold mr-2">SIM</span>
+                            <span class="arrow-right text-2xl">→</span>
+                            <div class="bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow-md text-center">
+                                <span class="tag bg-yellow-700">#CONSUMIDOR_FINAL</span>
+                                Direcionar para Lojas Parceiras
+                            </div>
+                        </div>
+                        <!-- NO Path -->
+                        <div class="flex flex-col sm:flex-row items-center mt-2 sm:mt-0 sm:ml-6">
+                            <span class="text-red-500 font-bold mr-2">NÃO</span>
+                            <span class="arrow-right text-2xl">→</span>
+                            <div class="bg-[#2a2a2a] py-3 px-6 rounded-lg shadow-md text-center border border-gray-600">
+                                Qualificar como Lojista/Distribuidor
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="arrow-down text-2xl">↓</span>
+
+                <!-- Conditional 2: Atende compra mínima (5000 fitas)? -->
+                <div class="flex flex-col sm:flex-row items-center justify-center w-full mb-4">
+                    <div class="bg-[#2a2a2a] py-3 px-6 rounded-lg shadow-md mb-2 sm:mb-0 sm:mr-4 text-center border border-gray-600 min-w-[200px] sm:min-w-[250px]">
+                        Atende Compra Mínima (5.000 Fitas)?
+                    </div>
+                    <div class="flex sm:flex-row flex-col items-center">
+                        <!-- NO Path -->
+                        <div class="flex items-center">
+                            <span class="text-red-500 font-bold mr-2">NÃO</span>
+                            <span class="arrow-right text-2xl">→</span>
+                            <div class="bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow-md text-center">
+                                <span class="tag bg-yellow-700">#SEM_MINIMO</span>
+                                Direcionar para Distribuidores Parceiros
+                            </div>
+                        </div>
+                        <!-- YES Path -->
+                        <div class="flex flex-col sm:flex-row items-center mt-2 sm:mt-0 sm:ml-6">
+                            <span class="text-green-500 font-bold mr-2">SIM</span>
+                            <span class="arrow-right text-2xl">→</span>
+                            <div class="bg-[#2a2a2a] py-3 px-6 rounded-lg shadow-md text-center border border-gray-600">
+                                <span class="tag bg-green-700">#QUALIFICADO</span>
+                                Seguir para Distribuição por Região
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="arrow-down text-2xl">↓</span>
+
+                <!-- Distribution by Region -->
+                <div class="flex flex-col sm:flex-row items-center justify-center w-full mb-4">
+                    <div class="bg-[#2a2a2a] py-3 px-6 rounded-lg shadow-md mb-2 sm:mb-0 sm:mr-4 text-center border border-gray-600 min-w-[200px] sm:min-w-[250px]">
+                        Região Coberta por Distribuidor Exclusivo?
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center">
+                        <!-- YES Path -->
+                        <div class="flex items-center">
+                            <span class="text-green-500 font-bold mr-2">SIM</span>
+                            <span class="arrow-right text-2xl">→</span>
+                            <div class="bg-orange-600 text-white font-bold py-2 px-4 rounded-lg shadow-md text-center">
+                                <span class="tag bg-orange-700">#PROTECAO_DISTRIBUIDOR</span>
+                                Oferecer Preço Superior ou Direcionar
+                            </div>
+                        </div>
+                        <!-- NO Path -->
+                        <div class="flex flex-col sm:flex-row items-center mt-2 sm:mt-0 sm:ml-6">
+                            <span class="text-red-500 font-bold mr-2">NÃO</span>
+                            <span class="arrow-right text-2xl">→</span>
+                            <div class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md text-center">
+                                <span class="tag bg-green-700">#NOVA_OPORTUNIDADE</span>
+                                <span class="tag bg-blue-700">#VENDEDOR_A</span> ou <span class="tag bg-blue-700">#VENDEDOR_B</span>
+                                Atribuição Automática/Manual para Vendedor
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-6 leading-relaxed text-gray-300">
+                <strong>Uso de Tags no CRM:</strong>
+                <ul class="list-disc pl-5 mt-2 text-gray-400">
+                    <li><span class="tag bg-yellow-700">#CONSUMIDOR_FINAL</span>: Para leads que não são B2B, indicando que devem ser direcionados a parceiros.</li>
+                    <li><span class="tag bg-yellow-700">#SEM_MINIMO</span>: Para lojistas/distribuidores que não atendem a compra mínima, a serem direcionados a parceiros.</li>
+                    <li><span class="tag bg-green-700">#QUALIFICADO</span>: Leads que atendem os critérios básicos para prosseguir no funil de vendas.</li>
+                    <li><span class="tag bg-orange-700">#PROTECAO_DISTRIBUIDOR</span>: Indica que o lead está em uma região com distribuidor exclusivo, necessitando de tratamento especial (preço diferenciado ou redirecionamento).</li>
+                    <li><span class="tag bg-green-700">#NOVA_OPORTUNIDADE</span>: Leads qualificados e sem restrições de região, prontos para serem trabalhados pelos vendedores.</li>
+                    <li><span class="tag bg-blue-700">#VENDEDOR_A</span> / <span class="tag bg-blue-700">#VENDEDOR_B</span>: Tags de atribuição para facilitar a filtragem e acompanhamento por parte dos gestores.</li>
+                </ul>
+            </p>
+        </div>
+
+        <!-- 3. O FUNIL VISUAL -->
+        <div class="card">
+            <h3 class="section-title text-3xl">3. O Funil Visual de Vendas e Pós-Venda</h3>
+            <p class="mb-6 leading-relaxed text-gray-300">
+                Este funil representa as etapas do processo comercial da EURO Fitas, desde a captação do lead até o pós-venda e reativação. As barras decrescentes simbolizam a progressão e a diminuição natural do volume de oportunidades a cada etapa.
+            </p>
+
+            <div class="flex flex-col items-center">
+                <!-- Stage 1: Lead Recebido -->
+                <div class="w-full bg-[#DC2626] text-white p-3 rounded-md mb-2 flex justify-between items-center relative" style="width: 100%;">
+                    <span class="font-bold text-lg sm:text-xl">1. Lead Recebido</span>
+                    <span class="text-sm sm:text-base">Captura e Identificação Inicial</span>
+                </div>
+                <!-- Stage 2: Qualificação / Triagem -->
+                <div class="w-11/12 bg-[#EF4444] text-white p-3 rounded-md mb-2 flex justify-between items-center relative" style="width: 95%;">
+                    <span class="font-bold text-lg sm:text-xl">2. Qualificação / Triagem</span>
+                    <span class="text-sm sm:text-base">Heber - Perfil e Compra Mínima</span>
+                </div>
+                <!-- Stage 3: Atribuição / Primeiro Contato -->
+                <div class="w-10/12 bg-[#F59E0B] text-white p-3 rounded-md mb-2 flex justify-between items-center relative" style="width: 85%;">
+                    <span class="font-bold text-lg sm:text-xl">3. Atribuição / Primeiro Contato</span>
+                    <span class="text-sm sm:text-base">Vendedor - WhatsApp Inicial</span>
+                </div>
+                <!-- Stage 4: Negociação / Proposta -->
+                <div class="w-9/12 bg-[#FBBF24] text-gray-900 p-3 rounded-md mb-2 flex justify-between items-center relative" style="width: 75%;">
+                    <span class="font-bold text-lg sm:text-xl">4. Negociação / Proposta</span>
+                    <span class="text-sm sm:text-base">Preço, Quantidade, Frete</span>
+                </div>
+                <!-- Stage 5: Fechamento / Pedido -->
+                <div class="w-8/12 bg-[#10B981] text-white p-3 rounded-md mb-2 flex justify-between items-center relative" style="width: 65%;">
+                    <span class="font-bold text-lg sm:text-xl">5. Fechamento / Pedido</span>
+                    <span class="text-sm sm:text-base">Venda Ganha</span>
+                </div>
+                <!-- Stage 6: Pós-Venda / Atendimento -->
+                <div class="w-7/12 bg-[#059669] text-white p-3 rounded-md mb-2 flex justify-between items-center relative" style="width: 55%;">
+                    <span class="font-bold text-lg sm:text-xl">6. Pós-Venda / Atendimento</span>
+                    <span class="text-sm sm:text-base">Suporte e Relacionamento</span>
+                </div>
+                <!-- Stage 7: Reativação / Recorrência -->
+                <div class="w-6/12 bg-[#047857] text-white p-3 rounded-md mb-2 flex justify-between items-center relative" style="width: 45%;">
+                    <span class="font-bold text-lg sm:text-xl">7. Reativação / Recorrência</span>
+                    <span class="text-sm sm:text-base">Estratégia de Longo Prazo / CSAT</span>
+                </div>
+            </div>
+            <p class="mt-6 leading-relaxed text-gray-300">
+                Este funil não só aborda a venda inicial, mas também estende o processo para o pós-venda, crucial para a reativação de clientes antigos e a construção de relacionamento a longo prazo, como identificado por Heber. A etapa de "Reativação / Recorrência" será fundamental para medir a satisfação do cliente (CSAT) e implementar estratégias de remarketing.
+            </p>
+        </div>
+
+        <!-- 4. MATRIZ DE REGRAS DE PASSAGEM -->
+        <div class="card">
+            <h3 class="section-title text-3xl">4. Matriz de Regras de Passagem e Tags do CRM</h3>
+            <p class="mb-6 leading-relaxed text-gray-300">
+                Esta matriz define os gatilhos para o avanço ou perda de um lead em cada etapa do funil, garantindo a padronização do processo e o registro preciso das interações e resultados. O uso de tags é vital para categorização e automação.
+            </p>
+
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etapa</th>
+                            <th>Objetivo da Etapa</th>
+                            <th>Critério de Avanço (Gatilho)</th>
+                            <th>Critério de Perda (Descarte)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Lead Recebido</strong></td>
+                            <td>Capturar dados e iniciar contato.</td>
+                            <td>Lead com dados mínimos (Nome, Contato) registrado no CRM. Mensagem de triagem enviada.</td>
+                            <td>Não há resposta do lead em 24h após 1ª tentativa de contato. <br><span class="tag bg-red-700">#PERDIDO_SEM_CONTATO</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Qualificação / Triagem</strong></td>
+                            <td>Validar perfil B2B e requisitos de compra.</td>
+                            <td>Lead confirmado como Lojista/Distribuidor e atingiu o mínimo de 5.000 fitas.<br><span class="tag bg-green-700">#QUALIFICADO</span></td>
+                            <td>É Consumidor Final/Instalador (<span class="tag bg-red-700">#PERDIDO_CONSUMIDOR</span>) OU Não atinge mínimo de 5.000 fitas (<span class="tag bg-red-700">#PERDIDO_SEM_MINIMO</span>) OU Região exclusiva de distribuidor e cliente não aceita preço diferenciado (<span class="tag bg-red-700">#PERDIDO_PROT_DISTRIB</span>).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Atribuição / Primeiro Contato</strong></td>
+                            <td>Estabelecer comunicação inicial com vendedor.</td>
+                            <td>Vendedor designado fez o primeiro contato via WhatsApp e obteve resposta.</td>
+                            <td>Lead sem resposta do vendedor em 8h úteis (falha SLA) ou sem resposta do lead após 2 tentativas do vendedor. <br><span class="tag bg-red-700">#PERDIDO_FALHA_SLA</span> <span class="tag bg-red-700">#PERDIDO_SEM_INTERESSE</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Negociação / Proposta</strong></td>
+                            <td>Apresentar oferta e negociar termos.</td>
+                            <td>Cliente recebeu proposta (preço, qtd, frete) e manifestou interesse em avançar (solicitou CNPJ, dados para pedido).<br><span class="tag bg-blue-700">#PROPOSTA_ENVIADA</span></td>
+                            <td>Cliente recusou proposta expressamente OU não respondeu por 7 dias após envio da proposta. <br><span class="tag bg-red-700">#PERDIDO_RECUSA_PROPOSTA</span> <span class="tag bg-red-700">#PERDIDO_FALTA_RESPOSTA</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Fechamento / Pedido</strong></td>
+                            <td>Confirmar venda e processar pedido.</td>
+                            <td>Pedido formalizado no ERP (CG Cloud) ou via Vendedor. <br><span class="tag bg-green-700">#VENDA_GANHA</span></td>
+                            <td>Cliente cancelou pedido formalmente ou desistiu na última etapa sem motivo claro. <br><span class="tag bg-red-700">#PERDIDO_DESISTENCIA</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>6. Pós-Venda / Atendimento</strong></td>
+                            <td>Garantir satisfação e suporte.</td>
+                            <td>Cliente recebeu o produto e confirmou satisfação (implícita ou explícita).</td>
+                            <td>Cliente reportou problemas não resolvidos ou insatisfação persistente. <br><span class="tag bg-orange-700">#CLIENTE_INSATISFEITO</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>7. Reativação / Recorrência</strong></td>
+                            <td>Fomentar novas compras e lealdade.</td>
+                            <td>Cliente realizou uma nova compra ou respondeu positivamente a campanha de reativação.<br><span class="tag bg-green-700">#REATIVADO</span></td>
+                            <td>Cliente não respondeu a 3 campanhas de reativação ou expressou desinteresse em novas compras. <br><span class="tag bg-red-700">#INATIVO_DEFINITIVO</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-6 leading-relaxed text-gray-300">
+                <strong>Detalhes sobre o uso das Tags:</strong>
+                <ul class="list-disc pl-5 mt-2 text-gray-400">
+                    <li><strong>Tags de Qualificação (<span class="tag bg-green-700">#QUALIFICADO</span>):</strong> Aplicadas após a triagem de Heber, indicando que o lead atende os critérios B2B e de volume.</li>
+                    <li><strong>Tags de Status (<span class="tag bg-blue-700">#PROPOSTA_ENVIADA</span>):</strong> Marcam o progresso do lead, facilitando a identificação de onde o lead se encontra no funil para follow-up.</li>
+                    <li><strong>Tags de Perda (<span class="tag bg-red-700">#PERDIDO_...</span>):</strong> Essenciais para categorizar o motivo da perda, fornecendo dados valiosos para análises e otimização do processo. Por exemplo, a tag <span class="tag bg-red-700">#PERDIDO_PROT_DISTRIB</span> captura a política de proteção de distribuidores como um motivo explícito de perda.</li>
+                    <li><strong>Tags de Sucesso (<span class="tag bg-green-700">#VENDA_GANHA</span>, <span class="tag bg-green-700">#REATIVADO</span>):</strong> Identificam o sucesso nas vendas e no relacionamento pós-venda.</li>
+                    <li><strong>Tags de Atenção (<span class="tag bg-orange-700">#CLIENTE_INSATISFEITO</span>):</strong> Sinalizam situações que exigem atenção extra ou intervenção da gestão.</li>
+                </ul>
+                A utilização consistente destas tags permitirá que os gestores filtrem, analisem e identifiquem gargalos ou oportunidades específicas em cada etapa do funil.
+            </p>
+        </div>
+
+        <!-- 5. GESTÃO DE SLA E TAREFAS -->
+        <div class="card">
+            <h3 class="section-title text-3xl">5. Gestão de SLA e Automações de Tarefas</h3>
+            <p class="mb-6 leading-relaxed text-gray-300">
+                Para garantir a agilidade no atendimento e a efetividade no acompanhamento, serão implementadas automações no CRM que criarão tarefas e alertas baseados em gatilhos específicos, focando nas dores de falta de controle e perda de vendas no pós-venda.
+            </p>
+
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Gatilho (Se...)</th>
+                            <th>Ação no CRM (Então...)</th>
+                            <th>Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Novo Lead</strong> registrado e Qualificado (Etapa 2).</td>
+                            <td>Criar Tarefa: "Primeiro Contato WhatsApp".<br>Prioridade: Alta. Vencimento: 4h úteis.</td>
+                            <td>Vendedor Responsável</td>
+                        </tr>
+                        <tr>
+                            <td>Lead na etapa "Atribuição / Primeiro Contato" por mais de 8h úteis sem resposta do vendedor.</td>
+                            <td>Enviar Alerta (Email/Notificação interna) para Vendedor e Heber: "SLA de Primeiro Contato Quase Violado".<br>Criar Tarefa de Follow-up para Vendedor.</td>
+                            <td>Vendedor, Heber Almeida</td>
+                        </tr>
+                        <tr>
+                            <td>Lead na etapa "Negociação / Proposta" por mais de 48h sem interação.</td>
+                            <td>Criar Tarefa: "Follow-up de Proposta (WhatsApp/Email)".<br>Prioridade: Média. Vencimento: 24h.</td>
+                            <td>Vendedor Responsável</td>
+                        </tr>
+                        <tr>
+                            <td>Lead na etapa "Fechamento / Pedido" por mais de 24h sem formalização do pedido no CG Cloud.</td>
+                            <td>Criar Tarefa: "Verificar Formalização do Pedido".<br>Prioridade: Alta. Vencimento: 12h.</td>
+                            <td>Vendedor Responsável</td>
+                        </tr>
+                        <tr>
+                            <td>Venda marcada como "Ganha" (Etapa 5).</td>
+                            <td>Agendar Tarefa: "Pesquisa de Satisfação (CSAT)" para 7 dias após a venda.<br>Agendar Lembrete para Vendedor: "Contato Pós-Venda" para 30 dias após a venda.</td>
+                            <td>Vendedor Responsável</td>
+                        </tr>
+                        <tr>
+                            <td>Cliente Inativo por 90 dias (última compra/interação).</td>
+                            <td>Criar Tarefa para Vendedor: "Campanha de Reativação WhatsApp/Email".<br>Prioridade: Baixa. Vencimento: 7 dias. <br><span class="tag bg-orange-700">#REATIVACAO_PENDENTE</span></td>
+                            <td>Vendedor Responsável / Marketing (se houver)</td>
+                        </tr>
+                        <tr>
+                            <td>Tag <span class="tag bg-orange-700">#CLIENTE_INSATISFEITO</span> aplicada ao contato.</td>
+                            <td>Enviar Alerta (Email/Notificação interna) para Heber e Fábio: "Cliente Insatisfeito Detectado".<br>Criar Tarefa: "Contato de Recuperação" para Heber.</td>
+                            <td>Heber Almeida / Fábio</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-6 leading-relaxed text-gray-300">
+                Estas automações visam reduzir a perda de leads por falta de acompanhamento e otimizar o ciclo de vida do cliente. A atribuição clara de responsabilidades para cada ação garante que as tarefas sejam executadas e que os gestores tenham visibilidade sobre o desempenho da equipe e a saúde dos relacionamentos com os clientes.
+            </p>
+        </div>
+
+        <!-- Campos Personalizados do Contato -->
+        <div class="card">
+            <h3 class="section-title text-3xl">6. Campos Personalizados do Contato</h3>
+            <p class="mb-6 leading-relaxed text-gray-300">
+                A estruturação de campos personalizados é crucial para capturar informações específicas do negócio da EURO Fitas, permitindo uma segmentação mais granular, automação eficiente e análises de dados mais precisas.
+            </p>
+
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campo Personalizado</th>
+                            <th>Tipo de Campo</th>
+                            <th>Descrição / Propósito</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tipo de Cliente</strong></td>
+                            <td>Dropdown (Lojista, Distribuidor, Instalador, Consumidor Final)</td>
+                            <td>Identifica o perfil do lead/cliente para triagem e direcionamento.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Volume de Compra Estimado (Fitas)</strong></td>
+                            <td>Número Inteiro</td>
+                            <td>Estimativa inicial do potencial de compra para qualificação (e.g., &lt; 5000, >= 5000).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Região de Atuação</strong></td>
+                            <td>Texto (dropdown para estados/cidades principais)</td>
+                            <td>Permite a distribuição de leads por região e a identificação de áreas com distribuidores protegidos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Distribuidor Protegido na Região</strong></td>
+                            <td>Checkbox (Sim/Não)</td>
+                            <td>Indica se a região do lead possui um distribuidor exclusivo da EURO Fitas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Canal de Origem do Lead</strong></td>
+                            <td>Dropdown (Site, Redes Sociais, Indicação, WhatsApp Direto)</td>
+                            <td>Rastreia a eficácia dos canais de captação.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Número WhatsApp Principal</strong></td>
+                            <td>Telefone</td>
+                            <td>Armazena o contato principal do cliente para comunicação via WhatsApp.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email Principal</strong></td>
+                            <td>Email</td>
+                            <td>Contato alternativo para comunicação e envio de propostas/materiais.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Última Data de Compra</strong></td>
+                            <td>Data</td>
+                            <td>Essencial para segmentação de clientes inativos e campanhas de reativação.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Valor Total Comprado (Lifetime)</strong></td>
+                            <td>Moeda</td>
+                            <td>Métrica de valor do cliente a longo prazo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Motivo da Perda</strong></td>
+                            <td>Dropdown (Consumidor Final, Sem Mínimo, Proteção Distribuidor, Recusa Proposta, Sem Resposta, Outros)</td>
+                            <td>Padroniza o registro dos motivos de perda, alimentando a análise da Matriz de Regras.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pontuação CSAT</strong></td>
+                            <td>Número (1-5 ou 1-10)</td>
+                            <td>Mede a satisfação do cliente após a venda ou atendimento, para a etapa de Pós-Venda/Reativação.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Próximo Contato (Reativação)</strong></td>
+                            <td>Data</td>
+                            <td>Campo para agendamento de follow-ups proativos para reativação.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-6 leading-relaxed text-gray-300">
+                Estes campos, aliados às tags, permitirão que a equipe de vendas e gestão da EURO Fitas tenha uma visão 360° do cliente, personalize a comunicação, automatize tarefas e gere relatórios estratégicos para impulsionar o crescimento.
+            </p>
+        </div>
+
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>&copy; 2026 V4 Company. Todos os direitos reservados. Documento Técnico de Implementação.</p>
+        </footer>
+    </div>
+</body>
+</html>
