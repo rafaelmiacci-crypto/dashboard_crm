@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento Técnico de Implementação CRM - Cacau & Alquimia</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111111; /* Dark background */
+            color: #D1D5DB; /* Light gray text */
+            position: relative;
+            overflow-x: hidden; /* Prevents horizontal scroll from blur */
+        }
+        .red-blur-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 10%, rgba(239, 68, 68, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 90%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.08) 0%, transparent 50%);
+            filter: blur(80px); /* Increased blur for a softer effect */
+            pointer-events: none; /* Allows interaction with elements below */
+            z-index: -1; /* Keep it in the background */
+        }
+        .card {
+            background-color: #1A1A1A;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .section-title {
+            color: #EF4444; /* Red */
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 1.5rem;
+        }
+        .subtitle {
+            color: #F87171; /* A lighter red for subtitles */
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* semi-bold */
+            margin-bottom: 1rem;
+        }
+        .table-header {
+            background-color: #2D3748; /* Darker gray for table headers */
+            color: #F8F8F8;
+            font-weight: 600;
+        }
+        .table-cell {
+            border-color: #4A5568; /* Gray border for table cells */
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+        .arrow {
+            font-size: 1.5rem;
+            color: #9CA3AF;
+            margin: 0.5rem 0;
+            display: flex;
+            justify-content: center;
+        }
+        .flow-box {
+            background-color: #2A2A2A;
+            color: #D1D5DB;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid #4A4A4A;
+            min-width: 180px;
+        }
+        .tag {
+            display: inline-block;
+            background-color: #444444;
+            color: #E2E8F0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .funnel-bar {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease-in-out;
+            text-align: center; /* Default center align */
+        }
+        @media (min-width: 640px) { /* Small screens and up */
+            .funnel-bar.text-left-sm { /* A custom class for left alignment only on small+ */
+                justify-content: flex-start;
+                padding-left: 2rem; /* Add some padding for left align */
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="red-blur-background"></div>
+
+    <div class="max-w-5xl mx-auto p-8 relative z-10">
+
+        <!-- HEADER E CONTEXTO -->
+        <header class="text-center mb-12">
+            <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" class="h-16 mb-8 mx-auto" alt="V4 Company">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">Documento Técnico de Implementação CRM</h1>
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-300">Cacau & Alquimia – Chocolataria Artesanal</h2>
+        </header>
+
+        <!-- 1. CONTEXTO ESTRATÉGICO -->
+        <section class="card">
+            <h3 class="section-title">1. Contexto Estratégico</h3>
+            <p class="mb-4">
+                A Cacau & Alquimia é uma chocolateria artesanal dedicada à produção de chocolates de alta qualidade, com um forte
+                enfoque na rastreabilidade e na origem do cacau. O modelo de negócio prima pela excelência do produto,
+                buscando que "cada barra conte uma história rastreável e que nossa operação seja tão refinada quanto nosso
+                produto", conforme aspiração da proprietária Beatriz Cavalcanti. A empresa está em um momento de transição
+                crítica, visando modernizar sua gestão de operações e estoque para suportar seu crescimento e garantir a
+                integridade da marca.
+            </p>
+            <p>
+                O principal desafio identificado reside na gestão manual de estoque, que gera perdas significativas (aproximadamente
+                12% da manteiga de cacau) devido à falta de controle de validade e alertas. Além disso, a falha na rastreabilidade
+                da matéria-prima e produtos acabados impede uma resposta ágil a questionamentos de clientes sobre a origem de
+                lotes específicos, levando até 48 horas para localização de informações vitais. A falta de controle centralizado
+                de embalagens sazonais agrava o problema, resultando em compras duplicadas ou falta de insumos críticos. A
+                implementação do sistema "Alquimia Digital" visa superar esses obstáculos, transformando a operação em um modelo
+                data-driven e elevando o padrão de gestão da qualidade e eficiência.
+            </p>
+        </section>
+
+        <!-- 2. ÁRVORE DE DECISÃO E TRIAGEM -->
+        <section class="card">
+            <h3 class="section-title">2. Árvore de Decisão e Triagem de Consultas (CRM)</h3>
+            <p class="mb-6">
+                Para endereçar a dor de rastreabilidade e centralizar o atendimento ao cliente, propõe-se um fluxo de triagem
+                de consultas baseado em tags de CRM, permitindo que a equipe identifique e direcione rapidamente cada solicitação.
+                Este fluxo é vital para transformar as consultas em dados acionáveis e melhorar o tempo de resposta.
+            </p>
+
+            <div class="flex flex-col items-center justify-center p-4">
+                <div class="flow-box mb-4"><strong>Consulta Cliente Recebida</strong> <br> (SAC: E-commerce, Email, Telefone)</div>
+                <div class="arrow">↓</div>
+                <div class="flow-box mb-4"><strong>Qualificação Inicial</strong> <br> (Coleta: Lote, Data Compra, Tipo de Problema)</div>
+                <div class="arrow">↓</div>
+                <div class="flex flex-col sm:flex-row items-center sm:items-start justify-center w-full">
+                    <div class="flex flex-col items-center w-full sm:w-1/3 mb-4 sm:mb-0">
+                        <div class="flow-box"><strong>É sobre Lote/Origem?</strong></div>
+                        <div class="arrow">↓ SIM</div>
+                        <div class="flow-box bg-red-800 border-red-600">
+                            <strong>Abrir Chamado CRM:</strong><br>
+                            <span class="tag">#RastreabilidadeLote</span>
+                            <span class="tag">#OrigemCacau</span>
+                            <br>Atribuir a: Ricardo Santos
+                        </div>
+                    </div>
+                    <div class="hidden sm:flex items-center justify-center h-full mx-4">
+                        <span class="text-4xl text-gray-500">→</span>
+                    </div>
+                    <div class="flex flex-col items-center w-full sm:w-1/3 mb-4 sm:mb-0">
+                        <div class="flow-box"><strong>É sobre Embalagem/Estoque?</strong></div>
+                        <div class="arrow">↓ SIM</div>
+                        <div class="flow-box bg-yellow-800 border-yellow-600">
+                            <strong>Abrir Chamado CRM:</strong><br>
+                            <span class="tag">#Embalagem</span>
+                            <span class="tag">#Sazonal</span>
+                            <br>Atribuir a: Ricardo Santos
+                        </div>
+                    </div>
+                    <div class="hidden sm:flex items-center justify-center h-full mx-4">
+                        <span class="text-4xl text-gray-500">→</span>
+                    </div>
+                    <div class="flex flex-col items-center w-full sm:w-1/3">
+                        <div class="flow-box"><strong>É sobre Validade/Qualidade?</strong></div>
+                        <div class="arrow">↓ SIM</div>
+                        <div class="flow-box bg-green-800 border-green-600">
+                            <strong>Abrir Chamado CRM:</strong><br>
+                            <span class="tag">#Validade</span>
+                            <span class="tag">#QualidadeProduto</span>
+                            <br>Atribuir a: Sofia Valente
+                        </div>
+                    </div>
+                </div>
+                <div class="arrow mt-4">↓ SE NENHUM DOS ACIMA</div>
+                <div class="flow-box bg-blue-800 border-blue-600">
+                    <strong>Abrir Chamado CRM:</strong><br>
+                    <span class="tag">#Geral</span>
+                    <span class="tag">#Outros</span>
+                    <br>Atribuir a: Atendimento Geral
+                </div>
+            </div>
+            <p class="mt-8 text-gray-400">
+                <strong>Uso das Tags no CRM:</strong> As tags permitem uma categorização rápida e precisa das consultas, facilitando a filtragem, a priorização e a atribuição aos responsáveis corretos. Elas serão cruciais para análises futuras sobre os tipos de problemas mais frequentes e para identificar pontos de melhoria nos processos ou produtos.
+                <br>
+                <em>Exemplos de uso:</em> A tag <span class="tag">#RastreabilidadeLote</span> indica a necessidade de consultar o sistema Alquimia Digital. A tag <span class="tag">#Sazonal</span> pode alertar sobre um problema específico de uma campanha ou produto de edição limitada.
+            </p>
+        </section>
+
+        <!-- 3. O FUNIL VISUAL (Pós-Vendas / Resolução de Consultas) -->
+        <section class="card">
+            <h3 class="section-title">3. O Funil Visual: Jornada de Resolução de Consultas Pós-Venda</h3>
+            <p class="mb-6">
+                Este funil representa as etapas que uma consulta ou reclamação de cliente percorrerá, desde o recebimento até a
+                resolução e coleta de feedback. O objetivo é garantir um processo estruturado e transparente, melhorando a satisfação
+                do cliente e a gestão da marca.
+            </p>
+
+            <div class="flex flex-col items-center w-full">
+                <div class="funnel-bar bg-red-700 w-full sm:w-full">Consulta Recebida</div>
+                <div class="funnel-bar bg-red-600 w-11/12 sm:w-11/12">Qualificação & Registro</div>
+                <div class="funnel-bar bg-yellow-600 w-10/12 sm:w-10/12">Investigação Interna (Alquimia Digital)</div>
+                <div class="funnel-bar bg-yellow-500 w-9/12 sm:w-9/12">Proposta de Resolução</div>
+                <div class="funnel-bar bg-green-600 w-8/12 sm:w-8/12">Resolução Concluída</div>
+                <div class="funnel-bar bg-green-700 w-7/12 sm:w-7/12">Follow-up & CSAT</div>
+                <div class="funnel-bar bg-green-800 w-6/12 sm:w-6/12">Engajamento Pós-Resolução (Remarketing)</div>
+            </div>
+            <p class="mt-8 text-gray-400">
+                Este funil é crucial para a Cacau & Alquimia, pois transforma cada consulta de cliente em uma oportunidade de
+                demonstrar compromisso com a qualidade e a satisfação. As cores indicam a progressão de um estado de "alerta" (vermelho)
+                para um estado de "resolvido e satisfeito" (verde), com as etapas intermediárias em amarelo representando a fase de trabalho.
+            </p>
+        </section>
+
+        <!-- 4. MATRIZ DE REGRAS DE PASSAGEM -->
+        <section class="card">
+            <h3 class="section-title">4. Matriz de Regras de Passagem (Funil de Resolução de Consultas)</h3>
+            <p class="mb-6">
+                A matriz a seguir detalha os critérios para avanço e descarte em cada etapa do funil de resolução de consultas,
+                garantindo clareza e padronização no processo. As tags de CRM são fundamentais para a categorização e a aplicação das regras.
+            </p>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-700 rounded-lg">
+                    <thead class="table-header">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-xs uppercase tracking-wider rounded-tl-lg">Etapa</th>
+                            <th scope="col" class="px-6 py-3 text-xs uppercase tracking-wider">Objetivo da Etapa</th>
+                            <th scope="col" class="px-6 py-3 text-xs uppercase tracking-wider">Critério de Avanço (Gatilho)</th>
+                            <th scope="col" class="px-6 py-3 text-xs uppercase tracking-wider rounded-tr-lg">Critério de Perda (Descarte)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-800 bg-[#222222]">
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Consulta Recebida</td>
+                            <td class="table-cell">Capturar a consulta do cliente e registrar a interação inicial.</td>
+                            <td class="table-cell">Cliente envia consulta via SAC (site, e-mail, telefone).</td>
+                            <td class="table-cell">- (Não há descarte nesta etapa inicial).</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Qualificação & Registro</td>
+                            <td class="table-cell">Coletar informações essenciais e categorizar a consulta com tags.</td>
+                            <td class="table-cell">Dados da consulta (lote, produto, tipo de problema) preenchidos no CRM e <span class="tag">#TagProblema</span> atribuída.</td>
+                            <td class="table-cell">Cliente não responde à solicitação de mais informações em 3 dias úteis. (Tag: <span class="tag">#ClienteSemResposta</span>).</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Investigação Interna</td>
+                            <td class="table-cell">Utilizar o sistema "Alquimia Digital" para rastrear e obter dados.</td>
+                            <td class="table-cell">Informação de rastreabilidade do lote ou causa-raiz do problema identificada e registrada no CRM.</td>
+                            <td class="table-cell">Informação não localizada em 5 dias úteis, exigindo escalonamento superior ou impossibilidade de resolução. (Tag: <span class="tag">#ImpossivelRastrear</span>).</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Proposta de Resolução</td>
+                            <td class="table-cell">Comunicar a resolução ou explicação ao cliente de forma clara.</td>
+                            <td class="table-cell">Resposta/proposta de solução formalmente enviada ao cliente.</td>
+                            <td class="table-cell">Cliente não aceita a resolução e não há mais alternativas viáveis. (Tag: <span class="tag">#ResolucaoRecusada</span>).</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Resolução Concluída</td>
+                            <td class="table-cell">Confirmar a satisfação do cliente e fechar o ciclo da consulta.</td>
+                            <td class="table-cell">Cliente confirma satisfação ou não há resposta em 3 dias úteis após o envio da proposta.</td>
+                            <td class="table-cell">Cliente reabre a consulta ou indica insatisfação persistente. (Tag: <span class="tag">#Reaberto</span>).</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Follow-up & CSAT</td>
+                            <td class="table-cell">Coletar feedback, medir satisfação e identificar oportunidades.</td>
+                            <td class="table-cell">Pesquisa de CSAT enviada e/ou feedback coletado.</td>
+                            <td class="table-cell">Email da pesquisa de CSAT retorna com erro ou cliente solicita não ser contatado. (Tag: <span class="tag">#NaoDesejaCSAT</span>).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-8 text-gray-400">
+                <strong>Importância das Tags:</strong> As tags de descarte não apenas marcam o motivo da perda, mas também servem como um dado valioso para análises futuras. Por exemplo, a recorrência da tag <span class="tag">#ImpossivelRastrear</span> pode indicar falhas na coleta de dados no sistema "Alquimia Digital" ou na entrada da matéria-prima. Já a tag <span class="tag">#ResolucaoRecusada</span> aponta para possíveis lacunas nas ofertas de solução ou expectativas do cliente.
+            </p>
+        </section>
+
+        <!-- 5. GESTÃO DE SLA E TAREFAS -->
+        <section class="card">
+            <h3 class="section-title">5. Gestão de SLA e Automações de Tarefas (CRM)</h3>
+            <p class="mb-6">
+                Para garantir agilidade no atendimento e evitar a perda de insumos (conforme dor inicial), serão implementadas
+                automações no CRM focadas em SLAs (Service Level Agreements) e na criação de tarefas.
+            </p>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-700 rounded-lg">
+                    <thead class="table-header">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-xs uppercase tracking-wider rounded-tl-lg">Gatilho (Se...)</th>
+                            <th scope="col" class="px-6 py-3 text-xs uppercase tracking-wider">Ação no CRM (Então...)</th>
+                            <th scope="col" class="px-6 py-3 text-xs uppercase tracking-wider rounded-tr-lg">Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-800 bg-[#222222]">
+                        <tr>
+                            <td class="table-cell">Novo chamado de consulta de cliente registrado no CRM.</td>
+                            <td class="table-cell">Enviar email automático de confirmação ao cliente com número de protocolo.</td>
+                            <td class="table-cell">Sistema (N/A)</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Chamado na etapa "Qualificação & Registro" por mais de 24h sem preenchimento completo.</td>
+                            <td class="table-cell">Criar tarefa "Ligar para cliente para coletar informações faltantes" com prioridade alta.</td>
+                            <td class="table-cell">Atendente SAC / Ricardo Santos</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Chamado na etapa "Investigação Interna" por mais de 48h sem informações localizadas (sem dados do Alquimia Digital).</td>
+                            <td class="table-cell">Criar tarefa "Escalonar investigação de lote e origem" e notificar Ricardo Santos.</td>
+                            <td class="table-cell">Ricardo Santos</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Sistema "Alquimia Digital" emite alerta de baixa de estoque de insumo crítico (ex: manteiga de cacau).</td>
+                            <td class="table-cell">Criar tarefa "Verificar e iniciar processo de recompra de insumo X" e notificar Sofia Valente.</td>
+                            <td class="table-cell">Sofia Valente</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Chamado na etapa "Resolução Concluída".</td>
+                            <td class="table-cell">Agendar envio automático de pesquisa de CSAT para 24h depois.</td>
+                            <td class="table-cell">Sistema (N/A)</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Cliente não responde à proposta de resolução em 72h.</td>
+                            <td class="table-cell">Enviar lembrete automático ao cliente ("Aguardamos seu retorno sobre a solução proposta").</td>
+                            <td class="table-cell">Sistema (N/A)</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell">Sistema "Alquimia Digital" detecta item de embalagem sazonal com estoque crítico e sem pedido de compra nos últimos 30 dias.</td>
+                            <td class="table-cell">Criar tarefa "Analisar necessidade de compra de embalagem Y" e notificar Ricardo Santos.</td>
+                            <td class="table-cell">Ricardo Santos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-8 text-gray-400">
+                Estas automações visam não apenas melhorar a experiência do cliente com respostas rápidas, mas também
+                mitigar problemas operacionais identificados, como a perda de insumos e a gestão ineficiente de embalagens,
+                integrando o fluxo de informações entre o CRM e o sistema "Alquimia Digital" para um controle proativo.
+            </p>
+        </section>
+
+        <!-- Campos personalizados do contato -->
+        <section class="card">
+            <h3 class="section-title">Campos Personalizados do Contato (CRM)</h3>
+            <p class="mb-6">
+                Para capturar informações relevantes e aprofundar o conhecimento sobre os clientes da Cacau & Alquimia,
+                os seguintes campos personalizados serão configurados no CRM. Eles permitirão segmentação precisa para
+                marketing e um atendimento mais personalizado.
+            </p>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-700 rounded-lg">
+                    <thead class="table-header">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-xs uppercase tracking-wider rounded-tl-lg">Campo</th>
+                            <th scope="col" class="px-6 py-3 text-xs uppercase tracking-wider">Tipo</th>
+                            <th scope="col" class="px-6 py-3 text-xs uppercase tracking-wider rounded-tr-lg">Descrição e Uso</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-800 bg-[#222222]">
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Nome Completo</td>
+                            <td class="table-cell">Texto</td>
+                            <td class="table-cell">Nome completo do cliente. Essencial para personalização da comunicação.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Email</td>
+                            <td class="table-cell">Email</td>
+                            <td class="table-cell">Endereço de email principal do cliente. Usado para comunicações e marketing.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Telefone</td>
+                            <td class="table-cell">Telefone</td>
+                            <td class="table-cell">Número de telefone para contato em caso de urgências ou preferência.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Data Última Compra</td>
+                            <td class="table-cell">Data</td>
+                            <td class="table-cell">Registra a data da compra mais recente. Útil para reengajamento e segmentação.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Produto Preferido</td>
+                            <td class="table-cell">Dropdown / Múltipla Escolha</td>
+                            <td class="table-cell">Indica qual tipo de chocolate ou produto o cliente mais compra/prefere. (Ex: "Chocolate 70% Cacau", "Barras Sazonais", "Bombons").</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Tags de Interesse</td>
+                            <td class="table-cell">Multi-seleção</td>
+                            <td class="table-cell">Interesses específicos do cliente para segmentação de campanhas. (Ex: <span class="tag">#Vegano</span>, <span class="tag">#SemLactose</span>, <span class="tag">#Presente</span>, <span class="tag">#Degustacao</span>).</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Lote Última Consulta</td>
+                            <td class="table-cell">Texto Curto</td>
+                            <td class="table-cell">O número do lote de um produto sobre o qual o cliente fez uma consulta. Integração com Alquimia Digital.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Status do Cliente</td>
+                            <td class="table-cell">Dropdown</td>
+                            <td class="table-cell">Classificação do cliente no ciclo de vida. (Ex: "Ativo", "Inativo", "VIP", "Potencial B2B", "Ex-cliente").</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Origem do Contato</td>
+                            <td class="table-cell">Dropdown</td>
+                            <td class="table-cell">Como o cliente interagiu pela primeira vez com a Cacau & Alquimia. (Ex: "E-commerce", "Loja Física", "Feira Artesanal", "Indicação").</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell whitespace-nowrap">Feedback CSAT</td>
+                            <td class="table-cell">Número (1-5) / Texto</td>
+                            <td class="table-cell">Pontuação da pesquisa de satisfação do cliente (CSAT).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-8 text-gray-400">
+                A utilização desses campos garantirá que a Cacau & Alquimia não apenas resolva problemas, mas também construa
+                relacionamentos duradouros e impulsione vendas através de uma compreensão aprofundada de seu público.
+            </p>
+        </section>
+
+
+        <!-- Pós-Vendas, CSAT e Remarketing -->
+        <section class="card">
+            <h3 class="section-title">6. Estratégias de Pós-Vendas, CSAT e Remarketing</h3>
+            <p class="mb-4">
+                A jornada do cliente não termina na compra ou na resolução de uma consulta. Para a Cacau & Alquimia, o pós-venda
+                é uma oportunidade crucial para fidelização e para o crescimento "data-driven".
+            </p>
+
+            <h4 class="subtitle">6.1. Coleta e Análise de CSAT (Customer Satisfaction Score)</h4>
+            <ul class="list-disc list-inside mb-4 ml-4 text-gray-400">
+                <li><strong>Gatilho:</strong> Após a "Resolução Concluída" de qualquer consulta, um e-mail com uma pesquisa de CSAT será enviado automaticamente.</li>
+                <li><strong>Métrica:</strong> Uma escala simples (ex: 1 a 5, ou Net Promoter Score - NPS com pergunta "Em uma escala de 0 a 10, o quão provável você indicaria Cacau & Alquimia a um amigo?").</li>
+                <li><strong>Benefício:</strong> Feedback direto sobre a qualidade do atendimento e resolução. Identifica promotores e detratores, permitindo ações corretivas e de reconhecimento. O campo personalizado <span class="font-semibold text-white">Feedback CSAT</span> no contato registrará a pontuação.</li>
+            </ul>
+
+            <h4 class="subtitle">6.2. Funil de Pós-Vendas Ativo</h4>
+            <p class="mb-4 text-gray-400">
+                Além do funil de resolução de consultas, um funil de pós-vendas será mantido para clientes que já realizaram compras:
+            </p>
+            <div class="flex flex-col items-start w-full ml-4">
+                <div class="funnel-bar bg-blue-700 w-full sm:w-full text-left-sm">1. Cliente Ativo (Comprou nos últimos 90 dias)</div>
+                <div class="funnel-bar bg-blue-600 w-11/12 sm:w-11/12 text-left-sm">2. Cliente Engajado (Abriu e-mails, visitou o site)</div>
+                <div class="funnel-bar bg-blue-500 w-10/12 sm:w-10/12 text-left-sm">3. Risco de Inatividade (Sem compra ou engajamento em 90-180 dias)</div>
+                <div class="funnel-bar bg-blue-400 w-9/12 sm:w-9/12 text-left-sm">4. Cliente Inativo (Sem compra ou engajamento há mais de 180 dias)</div>
+            </div>
+            <ul class="list-disc list-inside mt-4 ml-4 text-gray-400">
+                <li><strong>Automação:</strong> O campo <span class="font-semibold text-white">Data Última Compra</span> e <span class="font-semibold text-white">Status do Cliente</span> serão atualizados automaticamente, movendo o cliente entre as etapas do funil de pós-vendas.</li>
+                <li><strong>Ações:</strong> Clientes em "Risco de Inatividade" recebem e-mails de reengajamento ou ofertas especiais. Clientes "Ativos" podem receber comunicados sobre novos produtos ou programas de fidelidade.</li>
+            </ul>
+
+            <h4 class="subtitle">6.3. Estratégias de Remarketing Otimizadas</h4>
+            <ul class="list-disc list-inside mb-4 ml-4 text-gray-400">
+                <li><strong>Segmentação Avançada:</strong> Utilização das <span class="font-semibold text-white">Tags de Interesse</span> (ex: #Vegano, #Presente) e <span class="font-semibold text-white">Produto Preferido</span> para criar audiências segmentadas para campanhas de remarketing via e-mail e mídias sociais. Ex: Anúncios de chocolates de Páscoa para clientes que compraram produtos sazonais no ano anterior.</li>
+                <li><strong>Valor Vitalício do Cliente (LTV):</strong> Ao rastrear o histórico de compras e a satisfação (CSAT), a empresa pode identificar seus clientes VIPs e criar ofertas exclusivas para aumentar o LTV.</li>
+                <li><strong>Conteúdo Personalizado:</strong> Envio de newsletters e promoções baseadas nos produtos que o cliente comprou anteriormente ou demonstrou interesse, aumentando a relevância da comunicação.</li>
+            </ul>
+            <p class="mt-4 text-gray-400">
+                Estas iniciativas de pós-vendas e remarketing, impulsionadas pelos dados do CRM e pela integração com "Alquimia Digital",
+                permitirão à Cacau & Alquimia não apenas vender chocolate, mas construir uma comunidade de amantes de chocolate
+                engajados e satisfeitos, fortalecendo a visão de uma operação verdadeiramente "data-driven".
+            </p>
+        </section>
+
+    </div>
+</body>
+</html>
