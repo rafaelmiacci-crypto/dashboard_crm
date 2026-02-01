@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Estratégico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles if needed */
+    </style>
+</head>
+<body class="bg-slate-50 font-sans antialiased">
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-bold text-gray-800 mb-8">Dashboard Estratégico de Vendas</h1>
+
+        <!-- Diagnóstico de Travas Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Diagnóstico de Travas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- T1 Card -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-blue-700 mb-2">T1: Primeiro Contato</h3>
+                    <p class="text-gray-600 mb-4">Problema: Baixa taxa de abertura de e-mails/retorno de ligações. Mensagens genéricas.</p>
+                    <div class="text-sm">
+                        <p class="font-medium">Impacto:</p>
+                        <ul class="list-disc list-inside text-gray-500">
+                            <li>Perda de leads potenciais.</li>
+                            <li>Dificuldade em agendar primeiras reuniões.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- T2 Card -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-blue-700 mb-2">T2: Qualificação</h3>
+                    <p class="text-gray-600 mb-4">Problema: Não identificação clara das dores e necessidades do cliente. Perguntas superficiais.</p>
+                    <div class="text-sm">
+                        <p class="font-medium">Impacto:</p>
+                        <ul class="list-disc list-inside text-gray-500">
+                            <li>Propostas desalinhadas.</li>
+                            <li>Desperdício de tempo com leads não qualificados.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- T3 Card -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-blue-700 mb-2">T3: Proposta</h3>
+                    <p class="text-gray-600 mb-4">Problema: Propostas complexas, sem foco no valor e nos resultados para o cliente. Falta de personalização.</p>
+                    <div class="text-sm">
+                        <p class="font-medium">Impacto:</p>
+                        <ul class="list-disc list-inside text-gray-500">
+                            <li>Dificuldade de compreensão da oferta.</li>
+                            <li>Baixa taxa de aceitação de propostas.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- T4 Card -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-blue-700 mb-2">T4: Negociação</h3>
+                    <p class="text-gray-600 mb-4">Problema: Dificuldade em lidar com objeções de preço ou valor. Não conseguir mostrar o ROI.</p>
+                    <div class="text-sm">
+                        <p class="font-medium">Impacto:</p>
+                        <ul class="list-disc list-inside text-gray-500">
+                            <li>Perda de vendas para concorrentes.</li>
+                            <li>Concessões excessivas de preço.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- T5 Card (Gargalo) -->
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
+                    <h3 class="text-xl font-bold text-red-700 mb-2">T5: Fechamento (Gargalo Principal)</h3>
+                    <p class="text-gray-600 mb-4">Problema: Falta de assertividade no pedido de fechamento. Não criar senso de urgência ou próximos passos claros.</p>
+                    <div class="text-sm">
+                        <p class="font-medium">Impacto:</p>
+                        <ul class="list-disc list-inside text-gray-500">
+                            <li class="font-bold text-red-600">Perda de vendas no último estágio.</li>
+                            <li>Aumento do ciclo de vendas.</li>
+                            <li>Clientesperdem o interesse ou vão para concorrentes.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pipeline de Vendas Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Pipeline de Vendas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Estágio 1 -->
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <h3 class="text-xl font-bold text-blue-600 mb-2">Prospecção</h3>
+                    <p class="text-3xl font-bold text-gray-800">150</p>
+                    <p class="text-gray-500 text-sm">Leads</p>
+                </div>
+                <!-- Estágio 2 -->
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <h3 class="text-xl font-bold text-blue-600 mb-2">Qualificação</h3>
+                    <p class="text-3xl font-bold text-gray-800">75</p>
+                    <p class="text-gray-500 text-sm">Oportunidades</p>
+                </div>
+                <!-- Estágio 3 -->
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <h3 class="text-xl font-bold text-blue-600 mb-2">Proposta</h3>
+                    <p class="text-3xl font-bold text-gray-800">30</p>
+                    <p class="text-gray-500 text-sm">Propostas Enviadas</p>
+                </div>
+                <!-- Estágio 4 -->
+                <div class="bg-white rounded-lg shadow-md p-6 text-center border-b-4 border-red-500">
+                    <h3 class="text-xl font-bold text-red-600 mb-2">Fechamento</h3>
+                    <p class="text-3xl font-bold text-red-800">5</p>
+                    <p class="text-gray-500 text-sm">Negócios Fechados</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plano de 90 Dias Section -->
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Plano de 90 Dias</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Ações para T1-T4 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4">Ações para T1, T2, T3 e T4</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li><span class="font-semibold">T1:</span> Treinamento em copywriting para e-mails e scripts de ligação persuasivos.</li>
+                        <li><span class="font-semibold">T2:</span> Workshop sobre "Perguntas de Impacto" e técnica SPIN Selling.</li>
+                        <li><span class="font-semibold">T3:</span> Template de propostas focado em ROI e personalização.</li>
+                        <li><span class="font-semibold">T4:</span> Simulações de negociação e técnicas de contorno de objeções.</li>
+                    </ul>
+                </div>
+
+                <!-- Ações para T5 (Foco no Gargalo) -->
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
+                    <h3 class="text-xl font-bold text-red-700 mb-4">Foco Principal: Ações para T5 (Fechamento)</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li class="font-semibold text-red-600">Treinamento intensivo em "Técnicas de Fechamento Assertivo".</li>
+                        <li class="font-semibold text-red-600">Criação de um script de fechamento com senso de urgência e clareza nos próximos passos.</li>
+                        <li class="font-semibold text-red-600">Monitoramento diário das negociações em fase de fechamento.</li>
+                        <li class="font-semibold text-red-600">Definição de incentivos para fechamento rápido de negócios.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
