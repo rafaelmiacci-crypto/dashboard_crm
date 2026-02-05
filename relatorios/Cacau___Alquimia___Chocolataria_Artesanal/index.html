@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Executivo | V4 Company</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 30%;
+            background-color: #000;
+            color: #fff;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo-container img {
+            max-width: 80%;
+            height: auto;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: #E21F26;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-top: 15px;
+        }
+
+        .main-menu {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .main-menu li {
+            margin-bottom: 15px;
+        }
+
+        .main-menu a {
+            color: #ddd;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .main-menu a:hover, .main-menu a.active {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        .main-menu i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            color: #E21F26;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            color: #aaa;
+            font-size: 0.9rem;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main-content {
+            width: 70%;
+            padding: 0;
+            overflow-y: auto;
+        }
+
+        /* CAPA */
+        .hero-section {
+            background: linear-gradient(135deg, #0a0a0a 0%, #2c2c2c 100%);
+            color: white;
+            padding: 80px 60px;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(226, 31, 38, 0.15) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        .client-name {
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: 2px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-top: 20px;
+            max-width: 600px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        /* SEÇÕES DE CONTEÚDO */
+        .content-section {
+            padding: 50px 60px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #000;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            color: #E21F26;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* FUNIS */
+        .funnels-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .funnel-card {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid #E21F26;
+        }
+
+        .funnel-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .funnel-steps {
+            list-style: none;
+        }
+
+        .funnel-step {
+            padding: 18px 15px;
+            margin-bottom: 12px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #ddd;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .funnel-step:hover {
+            background-color: #fff0f0;
+            border-left-color: #E21F26;
+            transform: translateX(5px);
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: #E21F26;
+            color: white;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 26px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-right: 12px;
+        }
+
+        .step-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+            margin-left: 38px;
+        }
+
+        /* SLAS */
+        .slas-container {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .sla-card {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid #ffcccc;
+            text-align: center;
+        }
+
+        .sla-card.critical {
+            border-color: #E21F26;
+            background-color: #fff0f0;
+        }
+
+        .sla-time {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #E21F26;
+            line-height: 1;
+        }
+
+        .sla-label {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .sla-action {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* TAXONOMIA */
+        .taxonomy-table {
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 50px;
+        }
+
+        .taxonomy-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .taxonomy-table thead {
+            background-color: #000;
+            color: white;
+        }
+
+        .taxonomy-table th {
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .taxonomy-table tbody tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        .taxonomy-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .taxonomy-table td {
+            padding: 18px 15px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .tag-name {
+            font-weight: 700;
+            color: #E21F26;
+        }
+
+        /* CHECKLIST */
+        .checklist-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 50px;
+            border-left: 6px solid #E21F26;
+        }
+
+        .checklist-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #000;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist-title i {
+            color: #E21F26;
+            margin-right: 12px;
+        }
+
+        .criteria-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .criterion {
+            padding: 18px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            transition: all 0.3s;
+        }
+
+        .criterion:hover {
+            background-color: #fff0f0;
+            border-color: #ffcccc;
+        }
+
+        .criterion-number {
+            display: inline-block;
+            background-color: #000;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 12px;
+        }
+
+        .criterion-text {
+            font-weight: 600;
+            color: #333;
+            display: inline;
+        }
+
+        .criterion-ref {
+            font-size: 0.8rem;
+            color: #E21F26;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* GRID DE ESCOPO */
+        .initiatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .initiative-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid #E21F26;
+        }
+
+        .initiative-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(226, 31, 38, 0.1);
+        }
+
+        .initiative-icon {
+            font-size: 2.5rem;
+            color: #E21F26;
+            margin-bottom: 20px;
+        }
+
+        .initiative-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .initiative-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* REGRA DE OURO */
+        .golden-rule {
+            background-color: #fff0f0;
+            border: 2px solid #E21F26;
+            border-radius: 12px;
+            padding: 35px 40px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .golden-rule::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(226, 31, 38, 0.2);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .rule-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .rule-highlight {
+            color: #E21F26;
+            background-color: rgba(226, 31, 38, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* FOOTER DE SUCESSO */
+        .success-footer {
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            color: white;
+            padding: 50px 60px;
+            border-radius: 12px;
+            margin: 20px 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(226, 31, 38, 0) 0%, rgba(226, 31, 38, 0.3) 100%);
+        }
+
+        .success-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .success-goal {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #E21F26;
+            margin-bottom: 10px;
+        }
+
+        .success-desc {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: #ccc;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 1200px) {
+            .sidebar { width: 35%; }
+            .main-content { width: 65%; }
+        }
+
+        @media (max-width: 992px) {
+            body { flex-direction: column; }
+            .sidebar, .main-content { width: 100%; }
+            .sidebar { padding: 20px; }
+            .hero-section, .content-section { padding: 40px 30px; }
+            .success-footer { margin: 20px 30px 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3rem; }
+            .funnels-container, .slas-container { flex-direction: column; }
+            .initiatives-grid { grid-template-columns: 1fr; }
+            .criteria-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company Logo">
+            <div class="status-badge">FASE DE DIAGNÓSTICO</div>
+        </div>
+        
+        <ul class="main-menu">
+            <li><a href="#" class="active"><i class="fas fa-search"></i> Auditoria</a></li>
+            <li><a href="#"><i class="fas fa-chart-line"></i> Churn</a></li>
+            <li><a href="#"><i class="fas fa-funnel-dollar"></i> Pipeline</a></li>
+            <li><a href="#"><i class="fas fa-cogs"></i> Configurações</a></li>
+            <li><a href="#"><i class="fas fa-file-alt"></i> Relatórios</a></li>
+        </ul>
+        
+        <div class="sidebar-footer">
+            V4 Company © 2026<br>
+            Todos os direitos reservados
+        </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="main-content">
+        <!-- CAPA -->
+        <section class="hero-section">
+            <div class="client-name">CACAU & ALQUIMIA</div>
+            <h1 class="hero-title">PLANEJAMENTO CRM</h1>
+            <p class="hero-subtitle">Dashboard executivo para transformação digital e monetização do sistema "Alquimia Digital". Diagnóstico estratégico focado em vendas B2B e escalabilidade.</p>
+        </section>
+
+        <!-- FUNIS -->
+        <section class="content-section">
+            <h2 class="section-title"><i class="fas fa-filter"></i> Engenharia de Funis</h2>
+            
+            <div class="funnels-container">
+                <div class="funnel-card">
+                    <div class="funnel-title">Funil de Vendas <span style="color: #E21F26; font
