@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Executivo V4 | EURO Fitas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 25%;
+            background-color: #000000;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #333;
+        }
+
+        .sidebar-logo {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-logo img {
+            width: 100%;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .phase-badge {
+            background-color: #E21F26;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #1a1a1a;
+            border-left: 4px solid #E21F26;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            fill: #E21F26;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #333;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            width: 75%;
+            margin-left: 25%;
+            background-color: #121212;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .client-name {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #E21F26;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* CARDS GRID */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #333;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-title {
+            color: #E21F26;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title svg {
+            fill: #E21F26;
+            width: 24px;
+            height: 24px;
+        }
+
+        /* FUNNEL VISUALIZATION */
+        .funnel-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .funnel-step {
+            background-color: #252525;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+            border-top: 4px solid #E21F26;
+        }
+
+        .funnel-step-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .funnel-step-desc {
+            font-size: 14px;
+            color: #a0a0a0;
+        }
+
+        .funnel-arrow {
+            color: #E21F26;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* TABLE STYLES */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .data-table th {
+            background-color: #252525;
+            color: #E21F26;
+            text-align: left;
+            padding: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            border-bottom: 2px solid #333;
+        }
+
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            color: #cccccc;
+        }
+
+        .data-table tr:hover {
+            background-color: #252525;
+        }
+
+        .tag-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: #333;
+            color: #ffffff;
+            border-radius: 4px;
+            font-size: 12px;
+            margin: 2px;
+            border-left: 3px solid #E21F26;
+        }
+
+        /* CHECKLIST */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px;
+            background-color: #252525;
+            border-radius: 6px;
+        }
+
+        .checklist-icon {
+            color: #76ff03;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        /* MINI CARDS GRID */
+        .mini-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .mini-card {
+            background-color: #252525;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #444;
+        }
+
+        .mini-card-icon {
+            fill: #E21F26;
+            width: 32px;
+            height: 32px;
+            margin-bottom: 10px;
+        }
+
+        .mini-card-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .mini-card-desc {
+            font-size: 12px;
+            color: #a0a0a0;
+        }
+
+        /* GOLDEN RULE */
+        .golden-rule-container {
+            background-color: #2a1010;
+            border: 2px solid #E21F26;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .golden-rule-text {
+            font-size: 22px;
+            font-weight: 600;
+            color: #ffffff;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* FOOTER BANNER */
+        .footer-banner {
+            background: linear-gradient(90deg, #000000, #E21F26);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-subtitle {
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .funnel-container {
+                flex-direction: column;
+            }
+            .funnel-arrow {
+                transform: rotate(90deg);
+                margin: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company Logo">
+        </div>
+        
+        <div class="phase-badge">FASE DE DIAGNÓSTICO</div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item active">
+                <svg class="nav-icon" viewBox="0 0 24 24">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                </svg>
+                <span class="nav-text">Dashboard</span>
+            </li>
+            <li class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
+                <span class="nav-text">Funil de Vendas</span>
+            </li>
+            <li class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <span class="nav-text">Pós-Venda</span>
+            </li>
+            <li class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24">
+                    <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+                <span class="nav-text">Checklist</span>
+            </li>
+            <li class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                </svg>
+                <span class="nav-text">Analytics</span>
+            </li>
+            <li class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                <span class="nav-text">Usuários</span>
+            </li>
+        </ul>
+        
+        <div class="sidebar-footer">
+            V4 Company 2026
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="header">
+            <h1 class="client-name">EURO Fitas</h1>
+            <div class="subtitle">PLANEJAMENTO CRM</div>
+        </div>
+
+        <!-- ROW 1: FUNNELS -->
+        <div class="cards-grid">
+            <div class="card">
+                <h2 class="card-title">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                    </svg>
+                    Funil de Vendas
+                </h2>
+                <div class="funnel-container">
+                    <div class="funnel-step">
+                        <div class="funnel-step-title">Triagem</div>
+                        <div class="funnel-step-desc">Separar B2B (≥5.000 fitas)</div>
+                    </div>
+                    <div class="funnel-arrow">→</div>
+                    <div class="funnel-step">
+                        <div class="funnel-step-title">Diagnóstico</div>
+                        <div class="funnel-step-desc">Validar região e cobertura</div>
+                    </div>
+                    <div class="funnel-arrow">→</div>
+                    <div class="funnel-step">
+                        <div class="funnel-step-title">Proposta</div>
+                        <div class="funnel-step-desc">Preço conforme política</div>
+                    </div>
+                </div>
+                <div class="funnel-container" style="margin-top: 15px;">
+                    <div class="funnel-step">
+                        <div class="funnel-step-title">Negociação</div>
+                        <div class="funnel-step-desc">Fechamento no mesmo dia</div>
+                    </div>
+                    <div class="funnel-arrow">→</div>
+                    <div class="funnel-step">
+                        <div class="funnel-step-title">Onboarding</div>
+                        <div class="funnel-step-desc">Contato D+3 pós-venda</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Funil de Pós-Venda
+                </h2>
+                <div class="funnel-container">
+                    <div class="funnel-step">
+                        <div class="funnel-step-title">Consolidação</div>
+                        <div class="funnel-step-desc">0-90 dias</div>
+                    </div>
+                    <div class="funnel-arrow">→</div>
+                    <div class="funnel-step">
+                        <div class="funnel-step-title">Expansão</div>
+                        <div class="funnel-step-desc">90-360 dias</div>
+                    </div>
+                    <div class="funnel-arrow">→</div>
+                    <div class="funnel-step">
+                        <div class="funnel-step-title">Parceria</div>
+                        <div class="funnel-step-desc">>360 dias</div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background-color: #252525; border-radius: 8px;">
+                    <div style="color: #E21F26; font-weight: 600; margin-bottom: 10px;">Problema Identificado:</div>
+                    <div style="color: #cccccc; font-size: 14px;">Maior perda de vendas ocorre na falta de acompanhamento e pós-venda, resultando na não reativação de clientes antigos.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 2: SLA & TAGS -->
+        <div class="cards-grid">
+            <div class="card">
+                <h2 class="card-title">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                    </svg>
+                    Painel de SLAs
+                </h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>SLA</th>
+                            <th>Ação Automática</th>
+                            <th>Alvo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>3 horas</strong></td>
+                            <td>Notificação de lead sem resposta</td>
+                            <td>Vendedor + Gestor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>24 horas</strong></td>
+                            <td>Reatribuição automática</td>
+                            <td>Outro vendedor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>7 dias</strong></td>
+                            <td>Campanha de reativação (3 mensagens)</td>
+                            <td>Base inativa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D+3 pós-venda</strong></td>
+                            <td>Confirmação de recebimento</td>
+                            <td>Cliente novo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.41 4.94l-1.35-1.35c-.78-.78-2.05-.78-2.83 0L9 11.12 10.88 13l7.06-7.06 1.47 1.47-7.06 7.06 1.88 1.88 7.06-7.06c.78-.78.78-2.05 0-2.83zM4 20h16v2H4z"/>
+                    </svg>
+                    Dicionário de Tags
+                </h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Categoria</th>
+                            <th>Tags</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ORIGEM</strong></td>
+                            <td>
+                                <span class="tag-badge">site</span>
+                                <span class="tag-badge">instagram</span>
+                                <span class="tag-badge">indicacao</span>
+                                <span class="tag-badge">reativacao</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>PERFIL</strong></td>
+                            <td>
+                                <span class="tag-badge">distribuidor_exclusivo</span>
+                                <span class="tag-badge">lojista</span>
+                                <span class="tag-badge">atacadista</span>
+                                <span class="tag-badge">instalador</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>STATUS REGIÃO</strong></td>
+                            <td>
+                                <span class="tag-badge">coberta_distribuidor</span>
+                                <span class="tag-badge">zona_expansao</span>
+                                <span class="tag-badge">livre</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ROW 3: CHECKLIST & GRID -->
+        <div class="cards-grid">
+            <div class="card">
+                <h2 class="card-title">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                    </svg>
+                    Checklist de Qualificação
+                </h2>
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div>
+                        <strong>Ticket Mínimo:</strong> Compra inicial de pelo menos 5.000 fitas?
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div>
+                        <strong>Perfil Comercial:</strong> É distribuidor, lojista ou atacadista? (Não instalador/consumidor)
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div>
+                        <strong>Região Geográfica:</strong> Cidade/estado definidos para análise de cobertura?
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div>
+                        <strong>Canal Preferencial:</strong> WhatsApp comercial ativo e responsivo?
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div>
+                        <strong>Urgência:</strong> Necessidade de compra dentro dos próximos 30 dias?
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/>
+                    </svg>
+                    Grid de Escopo
+                </h2>
+                <div class="mini-cards">
+                    <div class="mini-card">
+                        <svg class="mini-card-icon" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                        <div class="mini-card-title">Auditoria de Base</div>
+                        <div class="mini-card-desc">Reclassificação 100% base histórica via WhatsApp</div>
+                    </div>
+                    <div class="mini-card">
+                        <svg class="mini-card-icon" viewBox="0 0 24 24">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/>
+                        </svg>
+                        <div class="mini-card-title">Régua de Relacionamento</div>
+                        <div class="mini-card-desc">3 trilhas automáticas pós-venda</div>
+                    </div>
+                    <div class="mini-card">
+                        <svg class="mini-card-icon" viewBox="0 0 24 24">
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <div class="mini-card-title">Recuperação de Churn</div>
+                        <div class="mini-card-desc">Alerta para queda >50% no volume</div>
+                    </div>
+                    <div class="mini-card">
+                        <svg class="mini-card-icon" viewBox="0 0 24 24">
+                            <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                        </svg>
+                        <div class="mini-card-title">Otimização de CAC</div>
+                        <div class="mini-card-desc">Relatório CAC por canal vs. LTV</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GOLDEN RULE -->
+        <div class="golden-rule-container">
+            <div class="golden-rule-text">
+                "Todo lead B2B qualificado (SQL) deve ter próxima ação agendada no CRM em até 1 hora após atribuição. Lead dorme, venda morre."
+            </div>
+        </div>
+
+        <!-- FOOTER BANNER -->
+        <div class="footer-banner">
+            <div class="footer-title">CONTROLE ANALÍTICO TOTAL</div>
+            <div class="footer-subtitle">Prazo de Implementação: 16 dias úteis | Volume: ~70 leads/mês | 3 números WhatsApp conectados</div>
+        </div>
+    </div>
+</body>
+</html>
