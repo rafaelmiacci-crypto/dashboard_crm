@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planejamento CRM - Cacau & Alquimia (V4 - Alinhamento Final)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #f8f9fa; 
+            color: #333; 
+            line-height: 1.6; 
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+        .container { 
+            max-width: min(1200px, 95%); 
+            margin: 0 auto; 
+            padding: clamp(15px, 3vw, 25px); 
+        }
+        header { 
+            background: linear-gradient(135deg, #5D4037, #3E2723); 
+            color: white; 
+            padding: clamp(25px, 5vw, 40px); 
+            border-radius: 12px; 
+            margin-bottom: 30px; 
+            text-align: center; 
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.3); 
+            position: relative;
+            overflow: hidden;
+        }
+        .logo-container {
+            background-color: #3E2723; 
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .logo-container img {
+            height: 40px;
+            filter: brightness(0) invert(1);
+        }
+        header h1 { 
+            font-size: clamp(1.5rem, 4vw, 2.2rem); 
+            margin-bottom: 10px; 
+            font-weight: 700;
+        }
+        header h2 { 
+            font-size: clamp(1rem, 2.5vw, 1.4rem); 
+            font-weight: 400; 
+            opacity: 0.9; 
+            margin-bottom: 15px;
+        }
+        .header-meta { 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px; 
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem); 
+            opacity: 0.85; 
+            text-align: left;
+        }
+        .meta-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #D7CCC8;
+        }
+        .meta-box strong {
+            display: block;
+            color: #D7CCC8;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        .version-badge { 
+            display: inline-block; 
+            background: rgba(255,255,255,0.2); 
+            padding: 6px 16px; 
+            border-radius: 20px; 
+            font-size: clamp(0.75rem, 1.5vw, 0.85rem); 
+            margin-top: 15px; 
+            font-weight: 500;
+        }
+        .section { 
+            background: white; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08); 
+            overflow: hidden; 
+        }
+        .section-header { 
+            background: #5D4037; 
+            color: white; 
+            padding: clamp(12px, 3vw, 15px) clamp(15px, 3vw, 20px); 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            transition: background 0.3s; 
+        }
+        .section-header:hover { 
+            background: #4E342E; 
+        }
+        .section-header h3 { 
+            font-size: clamp(1rem, 2.5vw, 1.1rem); 
+            font-weight: 600;
+        }
+        .section-header .toggle { 
+            font-size: 1.5rem; 
+            transition: transform 0.3s; 
+            flex-shrink: 0;
+        }
+        .section.collapsed .toggle { 
+            transform: rotate(-90deg); 
+        }
+        .section-content { 
+            padding: clamp(20px, 4vw, 25px); 
+            display: block; 
+        }
+        .section.collapsed .section-content { 
+            display: none; 
+        }
+        .subsection { 
+            margin-bottom: clamp(20px, 4vw, 25px); 
+        }
+        .subsection h4 { 
+            color: #5D4037; 
+            font-size: clamp(1rem, 2.5vw, 1.1rem); 
+            margin-bottom: 12px; 
+            padding-bottom: 8px; 
+            border-bottom: 2px solid #D7CCC8; 
+            font-weight: 600;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 15px 0; 
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem); 
+        }
+        th { 
+            background: #5D4037; 
+            color: white; 
+            padding: clamp(10px, 2vw, 12px) clamp(12px, 2vw, 15px); 
+            text-align: left; 
+            font-weight: 600; 
+        }
+        td { 
+            padding: clamp(10px, 2vw, 12px) clamp(12px, 2vw, 15px); 
+            border-bottom: 1px solid #e5e7eb; 
+            vertical-align: top; 
+        }
+        tr:hover { 
+            background: #F5F5F5; 
+        }
+        .quote { 
+            background: #EFEBE9; 
+            border-left: 4px solid #5D4037; 
+            padding: clamp(15px, 3vw, 20px); 
+            margin: 15px 0; 
+            font-style: italic; 
+            color: #4E342E; 
+            border-radius: 0 8px 8px 0; 
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+        .highlight-box { 
+            background: #FFF3E0; 
+            border: 1px solid #FFB74D; 
+            border-radius: 8px; 
+            padding: clamp(12px, 3vw, 15px); 
+            margin: 15px 0; 
+        }
+        .highlight-box strong { 
+            color: #E65100; 
+        }
+        
+        /* Estilos do Funil */
+        .funnel-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+            background: #FAFAFA; 
+            border-radius: 8px; 
+            margin: 15px 0; 
+            gap: 8px;
+        }
+        .funnel-step { 
+            padding: 12px; 
+            text-align: center; 
+            color: white; 
+            font-weight: 500; 
+            border-radius: 6px; 
+            transition: transform 0.2s; 
+            width: 100%; 
+            max-width: 600px;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+        .funnel-sales { 
+            background: #5D4037; 
+        }
+        .funnel-post { 
+            background: #8D6E63; 
+            border: 2px dashed #6D4C41; 
+        }
+        .funnel-win { 
+            background: #388E3C; 
+            color: white; 
+            padding: 12px; 
+            text-align: center; 
+            font-weight: 600; 
+            border-radius: 6px; 
+            max-width: 50%; 
+            margin: 3px 0; 
+        }
+
+        /* Estilos do Fluxograma */
+        .flow-wrapper { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+            background: #FAFAFA; 
+            border-radius: 10px; 
+            border: 1px solid #eee; 
+            margin: 20px 0; 
+            gap: 15px;
+        }
+        .flow-node { 
+            background: white; 
+            border: 2px solid #5D4037; 
+            border-radius: 8px; 
+            padding: clamp(10px, 2vw, 12px); 
+            width: min(280px, 90%); 
+            text-align: center; 
+            font-size: clamp(0.8rem, 1.8vw, 0.85rem); 
+            font-weight: 600; 
+            position: relative; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+        }
+        .flow-node.decision { 
+            border-color: #3E2723; 
+            background: #EFEBE9; 
+            border-radius: 12px; 
+        }
+        .flow-node.action { 
+            border-color: #388E3C; 
+            background: #E8F5E9; 
+            color: #1B5E20; 
+        }
+        .flow-arrow { 
+            height: 30px; 
+            width: 2px; 
+            background: #5D4037; 
+            position: relative; 
+        }
+        .flow-arrow::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: -4px; 
+            border-left: 5px solid transparent; 
+            border-right: 5px solid transparent; 
+            border-top: 8px solid #5D4037; 
+        }
+        .flow-split { 
+            display: flex; 
+            gap: clamp(20px, 5vw, 40px); 
+            margin-top: 10px; 
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flow-path { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            flex: 1;
+            min-width: 250px;
+        }
+        .path-label { 
+            font-size: clamp(0.7rem, 1.5vw, 0.75rem); 
+            font-weight: bold; 
+            color: #666; 
+            margin-bottom: 5px; 
+            background: #F5F5F5;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .tag-mql { 
+            background: #C8E6C9; 
+            color: #1B5E20; 
+            padding: 3px 8px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            font-size: clamp(0.7rem, 1.5vw, 0.75rem); 
+            border: 1px solid #388E3C; 
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .tag-discard { 
+            color: #D32F2F; 
+            font-weight: bold; 
+            font-size: clamp(0.75rem, 1.5vw, 0.8rem); 
+            display: block; 
+            margin-top: 5px; 
+        }
+        .tag-advance { 
+            color: #388E3C; 
+            font-weight: bold; 
+            font-size: clamp(0.75rem, 1.5vw, 0.8rem); 
+            display: block; 
+            margin-top: 5px; 
+        }
+        .tag-task { 
+            color: #F57C00; 
+            font-weight: bold; 
+            font-size: clamp(0.75rem, 1.5vw, 0.8rem); 
+            display: block; 
+            margin-top: 5px; 
+        }
+        .tag-info { 
+            background: #F5F5F5; 
+            color: #374151; 
+            padding: 3px 8px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            font-size: clamp(0.7rem, 1.5vw, 0.75rem); 
+            border: 1px solid #9ca3af; 
+            display: inline-block;
+        }
+
+        .change-note { 
+            background: #E8F5E9; 
+            border-left: 3px solid #388E3C; 
+            padding: 10px 15px; 
+            margin: 10px 0; 
+            font-size: clamp(0.8rem, 1.5vw, 0.85rem); 
+            color: #1B5E20; 
+            border-radius: 0 4px 4px 0;
+        }
+        .change-note::before { 
+            content: "✓ Atualizado: "; 
+            font-weight: bold; 
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) { 
+            .flow-split { 
+                flex-direction: column; 
+                gap: 20px; 
+            }
+            .flow-node { 
+                width: 100%; 
+                max-width: 250px;
+            }
+            .header-meta {
+                grid-template-columns: 1fr;
+            }
+            .funnel-step {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            header {
+                padding: 20px 15px;
+            }
+            .section-content {
+                padding: 15px;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company Logo">
+            </div>
+            <h1>Planejamento de Implementação CRM</h1>
+            <h2>Cliente: Cacau & Alquimia – Chocolataria Artesanal</h2>
+            
+            <div class="header-meta">
+                <div class="meta-box">
+                    <strong>Configuração:</strong> 
+                    Sistema "Alquimia Digital" - Rastreabilidade & Controle de Estoque
+                </div>
+                <div class="meta-box">
+                    <strong>Foco:</strong> 
+                    Eliminar perdas (12% atuais) e automação de validades
+                </div>
+                <div class="meta-box">
+                    <strong>Prazo:</strong> 
+                    Go-Live: 2ª quinzena de fevereiro/2026
+                </div>
+            </div>
+            
+            <div class="version-badge">V4 - Alinhamento Final (27/01/2026)</div>
+        </header>
+
+        <!-- SEÇÃO 1: CONTEXTO ESTRATÉGICO E VALIDAÇÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>1. Contexto Estratégico e Validação</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Com base na reunião de alinhamento de 27/01/2026, validamos a implementação do sistema "Alquimia Digital" para a Cacau & Alquimia:</p>
+                
+                <div class="subsection">
+                    <h4>Objetivos Principais</h4>
+                    <ul>
+                        <li><strong>Rastreabilidade Total:</strong> Implementar sistema com QR Code para rastrear origem do cacau do produtor rural até a barra final.</li>
+                        <li><strong>Controle de Perdas:</strong> Reduzir perda de insumos de 12% para menos de 3% através de alertas automáticos de validade.</li>
+                        <li><strong>Operação Data-Driven:</strong> Transformar a fábrica em operação guiada por dados, eliminando planilhas físicas.</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h4>Regras de Negócio Validadas</h4>
+                    <ul>
+                        <li><strong>Identificação por QR Code:</strong> Cada saca de cacau receberá etiqueta única na entrada do galpão.</li>
+                        <li><strong>Interface Mobile:</strong> Operários usarão tablets industriais para registrar movimentação (torra, moagem, temperagem).</li>
+                        <li><strong>Integração Automática:</strong> Sistema conectado à loja virtual dará baixa automática no estoque após confirmação de pagamento.</li>
+                        <li><strong>ROI Garantido:</strong> Economia com redução de desperdício deve cobrir investimento em 6 meses.</li>
+                    </ul>
+                    <div class="change-note">Foco principal: resolver dor de 48h para rastreabilidade e 12% de perda de manteiga de cacau.</div>
+                </div>
+
+                <div class="quote">
+                    "Não queremos apenas fazer chocolate; queremos que cada barra conte uma história rastreável e que nossa operação seja tão refinada quanto nosso produto." - Beatriz Cavalcanti (Proprietária)
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 2: FLUXO DE IMPLEMENTAÇÃO E RESPONSABILIDADES -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>2. Fluxo de Implementação e Responsabilidades</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Estrutura de Responsabilidades</h4>
+                    
+                    <div class="highlight-box">
+                        <strong>Decisão Alinhada:</strong> Implementação dividida em 4 pilares com responsabilidades claras para garantir sucesso do projeto.
+                    </div>
+                    
+                    <div class="flow-wrapper">
+                        <div class="flow-node">Início do Projeto</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node decision"><strong>BEATRIZ CAVALCANTI</strong><br>Validação estratégica e aprovação de orçamento para hardware</div>
+                        <div class="flow-split">
+                            <div class="flow-path">
+                                <span class="path-label">OPERACIONAL</span>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node"><strong>RICARDO SANTOS</strong><br>Garantir "bip" de entrada/saída pela equipe da fábrica</div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action">Cadastro de 20 principais insumos</div>
+                            </div>
+                            <div class="flow-path">
+                                <span class="path-label">TÉCNICO</span>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node"><strong>SOFIA VALENTE</strong><br>Configuração de gatilhos de recompra automática</div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action">Teste de Wi-Fi na área de resfriamento</div>
+                            </div>
+                            <div class="flow-path">
+                                <span class="path-label">GESTÃO</span>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node"><strong>LUCAS MONTENEGRO</strong><br>Gestão do cronograma e integração com NF</div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action">Envio de cronograma detalhado</div>
+                            </div>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node" style="background: #388E3C; color: white; border-color: #2E7D32;">
+                            <strong>GO-LIVE</strong><br>2ª quinzena de fevereiro/2026
+                        </div>
+                    </div>
+                    <div class="change-note">Cada responsável tem entregas específicas e prazos claros definidos na reunião.</div>
+                </div>
+
+                <div class="subsection">
+                    <h4>Cronograma de Implementação</h4>
+                    <table>
+                        <tr>
+                            <th style="width: 40%;">Fase</th>
+                            <th style="width: 20%;">Dias Úteis</th>
+                            <th>Responsável Principal</th>
+                        </tr>
+                        <tr>
+                            <td>Planejamento de Fluxo (Mapping)</td>
+                            <td>08 dias</td>
+                            <td>Lucas Montenegro</td>
+                        </tr>
+                        <tr>
+                            <td>Instalação de Hardware e Configuração</td>
+                            <td>12 dias</td>
+                            <td>Sofia Valente</td>
+                        </tr>
+                        <tr>
+                            <td>Treinamento da Equipe de Fábrica</td>
+                            <td>05 dias</td>
+                            <td>Ricardo Santos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total até Go-Live</strong></td>
+                            <td><strong>25 dias</strong></td>
+                            <td>Beatriz Cavalcanti (Aprovação final)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 3: DETALHAMENTO DO FUNIL DE PROJETO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>3. Detalhamento das Etapas do Projeto</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Funil de Implementação do Sistema</h4>
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-sales" style="max-width: 100%;">1. Discovery & Diagnóstico</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 90%;">2. Planejamento de Fluxo</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 80%;">3. Configuração Técnica</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 70%;">4. Treinamento da Equipe</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 60%; background: #3E2723;">5. Go-Live & Ajustes</div>
+                        <div class="funnel-win">✓ Operação Estabilizada</div>
+                    </div>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 20%;">Etapa</th>
+                            <th style="width: 40%;">Ações Principais</th>
+                            <th style="width: 40%;">Métricas de Sucesso</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Discovery</strong></td>
+                            <td>Identificação das dores: 12% perda de insumos, 48h para rastreabilidade, gestão caótica de embalagens sazonais.</td>
+                            <td>Documento de requisitos aprovado por Beatriz.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Planejamento</strong></td>
+                            <td>Mapeamento de fluxo completo do cacau, definição de QR Codes, cronograma detalhado.</td>
+                            <td>Cronograma aprovado com milestones claros.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Configuração</strong></td>
+                            <td>Instalação de scanners, tablets, servidores em nuvem, integração com loja virtual e sistema de NF.</td>
+                            <td>Sistema testado e funcionando em ambiente controlado.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Treinamento</strong></td>
+                            <td>Capacitação dos operários no uso dos tablets, Ricardo como responsável pelo "bip".</td>
+                            <td>100% da equipe treinada e usando sistema em testes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Go-Live</strong></td>
+                            <td>Ativação em produção, monitoramento intensivo, ajustes finos.</td>
+                            <td>Sistema operando sem interrupções por 72h.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Operação</strong></td>
+                            <td>Uso contínuo, geração de relatórios, alertas automáticos de validade.</td>
+                            <td>Redução de perdas para <3% e rastreabilidade em <1h.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h4>Funil de Pós-Implementação (Valor Contínuo)</h4>
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-post" style="max-width: 100%;">1. Adoção e Primeiros Resultados (0-90 dias)</div>
+                        <div class="funnel-step funnel-post" style="max-width: 90%;">2. Expansão e Otimização (90-360 dias)</div>
+                        <div class="funnel-step funnel-post" style="max-width: 80%;">3. Parceria e Advocacy (+360 dias)</div>
+                    </div>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 20%;">Fase</th>
+                            <th style="width: 40%;">Foco Estratégico</th>
+                            <th style="width: 40%;">Próximos Passos Possíveis</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Adoção</strong></td>
+                            <td>Garantir que alertas de validade e rastreabilidade estejam ativos e gerando economia.</td>
+                            <td>Relatório mensal de redução de perdas, ajuste de gatilhos de recompra.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Expansão</strong></td>
+                            <td>Adicionar módulos: controle de qualidade integrado, previsão de demanda para Páscoa/Natal.</td>
+                            <td>Integração com ERP financeiro, automação de pedidos para embalagens sazonais.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Parceria</strong></td>
+                            <td>Transformar em case de sucesso para outras chocolatarias artesanais.</td>
+                            <td>Depoimentos, visitas técnicas, referências no setor foodtech.</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="highlight-box">
+                        <strong>ROI Esperado:</strong> Payback em 6 meses através da redução do desperdício de 12% para menos de 3%. Economia mensal deve cobrir custos fixos de servidores e suporte.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SEÇÃO 4: GESTÃO DE SLAS E TAREFAS -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>4. Gestão de SLAs e Tarefas do Projeto</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Definição de prazos e responsabilidades para manter o projeto no cronograma:</p>
+                
+                <div class="highlight-box">
+                    <strong>Prazo Total:</strong> 25 dias úteis até Go-Live (2ª quinzena de fevereiro).<br>
+                    <strong>Meta Crítica:</strong> Reduzir perdas de 12% para <3% e tempo de rastreabilidade de 48h para <1h.
+                </div>
+
+                <table>
+                    <tr>
+                        <th style="width: 30%;">Gatilho / Tarefa</th>
+                        <th>Responsável</th>
+                        <th>Prazo / SLA</th>
+                    </tr>
+                    <tr>
+                        <td>Envio do cronograma detalhado</td>
+                        <td>Lucas Montenegro</td>
+                        <td><span class="tag-task">28/01/2026 (amanhã)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Lista dos 20 principais insumos</td>
+                        <td>Ricardo Santos</td>
+                        <td><span class="tag-task">30/01/2026</span></td>
+                    </tr>
+                    <tr>
+                        <td>Teste de Wi-Fi na área de resfriamento</td>
+                        <td>Sofia Valente</td>
+                        <td><span class="tag-task">29/01/2026</span></td>
+                    </tr>
+                    <tr>
+                        <td>Aprovação de orçamento de hardware</td>
+                        <td>Beatriz Cavalcanti</td>
+                        <td><span class="tag-task">31/01/2026</span></td>
+                    </tr>
+                    <tr>
+                        <td>Conclusão do mapeamento de fluxo</td>
+                        <td>Lucas Montenegro</td>
+                        <td><span class="tag-task">06/02/2026 (8 dias úteis)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Go-Live do Sistema</strong></td>
+                        <td><strong>Toda a equipe</strong></td>
+                        <td><span class="tag-task" style="background: #388E3C; color: white;">15-28/02/2026</span></td>
+                    </tr>
+                </table>
+                
+                <div class="change-note">Cada milestone tem responsável único e data definida, com Beatriz como ponto final de aprovação.</div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 5: MATRIZ DE USUÁRIOS E SEGURANÇA -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>5. Matriz de Usuários e Níveis de Acesso</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="highlight-box">
+                    <strong>Estrutura Definida:</strong> 4 usuários-chave com responsabilidades complementares no sistema.
+                </div>
+
+                <table>
+                    <tr>
+                        <th style="width: 25%;">Perfil / Função</th>
+                        <th>Usuário(s)</th>
+                        <th>Permissões e Responsabilidades</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Administrador Estratégico</strong></td>
+                        <td>Beatriz Cavalcanti<br><small>Proprietária e Decisora Final</small></td>
+                        <td>Acesso total a todos os módulos, relatórios financeiros, aprovação de orçamentos, visão macro da operação.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Supervisor Operacional</strong></td>
+                        <td>Ricardo Santos<br><small>Gerente de Operações</small></td>
+                        <td>Controle diário da produção, monitoramento dos "bips", cadastro de insumos, gestão da equipe da fábrica.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Consultor Técnico</strong></td>
+                        <td>Sofia Valente<br><small>Consultora de Sistemas</small></td>
+                        <td>Configuração do sistema, gatilhos automáticos, integrações, suporte técnico, manutenção dos servidores em nuvem.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gestor de Projeto</strong></td>
+                        <td>Lucas Montenegro<br><small>Gestor de Projetos Tech</small></td>
+                        <td>Controle do cronograma, integração com NF, gestão de entregas, relatórios de progresso do projeto.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Usuários Operacionais</strong></td>
+                        <td>Equipe da Fábrica<br><small>(Via tablets industriais)</small></td>
+                        <td>Acesso restrito à função de "bip" - registro de entrada/saída e movimentação entre etapas de produção.</td>
+                    </tr>
+                </table>
+
+                <div class="subsection">
+                    <h4>Regras de Segurança e Controle</h4>
+                    <ul>
+                        <li><strong>Hierarquia de Acesso:</strong> Cada perfil vê apenas os dados e funções relevantes para sua função.</li>
+                        <li><strong>Auditoria Completa:</strong> Todo registro de "bip" fica associado ao operador, data/hora e etapa da produção.</li>
+                        <li><strong>Backup Automático:</strong> Dados em nuvem com backup diário para garantir rastreabilidade histórica.</li>
+                        <li><strong>Controle de Alterações:</strong> Mudanças em gatilhos automáticos requerem aprovação de Sofia + Beatriz.</li>
+                    </ul>
+                </div>
+                
+                <div class="change-note">Estrutura de 4 pilares com responsabilidades complementares, mais equipe operacional com acesso restrito.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleSection(header)
