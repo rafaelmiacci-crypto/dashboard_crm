@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planeamento CRM - Cacau & Alquimia (V1 - Documento Oficial)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #f8f9fa; 
+            color: #333; 
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        /* HEADER */
+        .header { 
+            background: linear-gradient(135deg, #7B3F00, #5D2900); 
+            color: white; 
+            padding: 40px 30px; 
+            text-align: center; 
+            position: relative;
+        }
+        .header h1 { 
+            font-size: 2.2rem; 
+            margin-bottom: 10px; 
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .header h2 { 
+            font-size: 1.4rem; 
+            font-weight: 400; 
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        .header-meta { 
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .meta-item {
+            background: rgba(255,255,255,0.15);
+            padding: 8px 18px;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+        }
+        .version-badge { 
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.2); 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.8rem;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* SECTIONS */
+        .section { 
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .section:last-child { border-bottom: none; }
+        
+        .section-header { 
+            background: #f9fafb;
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 4px solid #7B3F00;
+        }
+        .section-header:hover { 
+            background: #f3f4f6;
+            padding-left: 30px;
+        }
+        .section-header h3 { 
+            font-size: 1.2rem; 
+            color: #1f2937;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header .section-icon {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        .section-header .toggle { 
+            font-size: 1.3rem; 
+            color: #6b7280;
+            transition: transform 0.3s;
+        }
+        .section.collapsed .toggle { transform: rotate(-90deg); }
+        
+        .section-content { 
+            padding: 0 25px;
+            max-height: 2000px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        .section.collapsed .section-content { 
+            padding: 0 25px;
+            max-height: 0;
+            opacity: 0;
+        }
+        
+        /* SUBSECTIONS */
+        .subsection { 
+            margin: 25px 0;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .subsection:last-child { border-bottom: none; }
+        
+        .subsection h4 { 
+            color: #7B3F00; 
+            font-size: 1.1rem; 
+            margin-bottom: 15px; 
+            padding-bottom: 8px;
+            border-bottom: 2px solid #E6CCB2;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .subsection h4 .sub-icon {
+            font-size: 1rem;
+        }
+        
+        /* TABLES */
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 15px 0; 
+            font-size: 0.9rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        th { 
+            background: #7B3F00; 
+            color: white; 
+            padding: 14px 16px; 
+            text-align: left; 
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        td { 
+            padding: 14px 16px; 
+            border-bottom: 1px solid #e5e7eb; 
+            vertical-align: top;
+        }
+        tr:hover { background: #FEF3C7; }
+        tr:last-child td { border-bottom: none; }
+        
+        /* SPECIAL BOXES */
+        .quote { 
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A); 
+            border-left: 4px solid #D97706; 
+            padding: 20px; 
+            margin: 20px 0; 
+            font-style: italic; 
+            color: #92400E;
+            border-radius: 0 10px 10px 0;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .quote::before {
+            content: "❝";
+            font-size: 2.5rem;
+            color: #D97706;
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        
+        .highlight-box { 
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A); 
+            border: 1px solid #D97706; 
+            border-radius: 8px; 
+            padding: 18px; 
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .highlight-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #D97706;
+        }
+        .highlight-box strong { color: #92400E; }
+        
+        .callout-box {
+            background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+            border: 1px solid #10B981;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .callout-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #10B981;
+        }
+        
+        /* FUNNELS */
+        .funnel-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+            border-radius: 10px; 
+            margin: 20px 0; 
+            border: 1px solid #e5e7eb;
+        }
+        .funnel-step { 
+            padding: 14px; 
+            text-align: center; 
+            color: white; 
+            font-weight: 600; 
+            margin: 4px 0; 
+            border-radius: 6px; 
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+        .funnel-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+        }
+        .funnel-step::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .funnel-sales { background: linear-gradient(135deg, #7B3F00, #5D2900); }
+        .funnel-post { background: linear-gradient(135deg, #D97706, #B45309); }
+        .funnel-win { 
+            background: linear-gradient(135deg, #16a34a, #15803d); 
+            color: white; 
+            padding: 16px; 
+            text-align: center; 
+            font-weight: 700; 
+            border-radius: 6px; 
+            margin: 6px 0;
+            box-shadow: 0 3px 6px rgba(22, 163, 74, 0.3);
+            font-size: 1rem;
+        }
+        
+        /* FLOWCHART */
+        .flow-wrapper { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 25px; 
+            background: #fafafa; 
+            border-radius: 10px; 
+            border: 1px solid #eee; 
+            margin: 25px 0;
+            position: relative;
+        }
+        .flow-node { 
+            background: white; 
+            border: 2px solid #7B3F00; 
+            border-radius: 6px; 
+            padding: 15px; 
+            width: 240px; 
+            text-align: center; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            position: relative; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        .flow-node:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .flow-node.decision { 
+            border-color: #5D2900; 
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A); 
+            border-radius: 10px;
+            border-width: 2px;
+        }
+        .flow-node.action { 
+            border-color: #10b981; 
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7); 
+            color: #065f46; 
+        }
+        .flow-node.redirect { 
+            border-color: #6b7280; 
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            color: #4b5563;
+        }
+        
+        .flow-arrow { 
+            height: 35px; 
+            width: 2px; 
+            background: #7B3F00; 
+            position: relative;
+            margin: 4px 0;
+        }
+        .flow-arrow::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: -5px; 
+            border-left: 6px solid transparent; 
+            border-right: 6px solid transparent; 
+            border-top: 8px solid #7B3F00; 
+        }
+        
+        .flow-split { 
+            display: flex; 
+            gap: 40px; 
+            margin-top: 15px;
+            position: relative;
+        }
+        .flow-split::before {
+            content: "";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 15px;
+            background: #7B3F00;
+        }
+        
+        .flow-path { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            flex: 1;
+        }
+        .path-label { 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            color: #7B3F00; 
+            margin-bottom: 8px;
+            background: #FEF3C7;
+            padding: 4px 12px;
+            border-radius: 12px;
+            border: 1px solid #E6CCB2;
+        }
+        
+        /* TAGS */
+        .tag { 
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            margin: 2px 3px;
+            border: 1px solid;
+        }
+        .tag-mql { background: #dcfce7; color: #166534; border-color: #166534; }
+        .tag-sql { background: #dbeafe; color: #1e40af; border-color: #1e40af; }
+        .tag-discard { background: #fee2e2; color: #dc2626; border-color: #dc2626; }
+        .tag-advance { background: #f0fdf4; color: #10b981; border-color: #10b981; }
+        .tag-task { background: #FEF3C7; color: #92400E; border-color: #92400E; }
+        .tag-info { background: #f3f4f6; color: #374151; border-color: #9ca3af; }
+        .tag-warning { background: #fef3c7; color: #92400e; border-color: #92400e; }
+        .tag-story { background: #E6CCB2; color: #5D2900; border-color: #5D2900; }
+        
+        /* CHANGE NOTES */
+        .change-note { 
+            background: linear-gradient(135deg, #ECFDF5, #D1FAE5); 
+            border-left: 3px solid #10B981; 
+            padding: 12px 16px; 
+            margin: 15px 0; 
+            font-size: 0.85rem; 
+            color: #065f46;
+            border-radius: 0 6px 6px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .change-note::before { 
+            content: "🔄"; 
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .insight-note {
+            background: linear-gradient(135deg, #E6CCB2, #D4B48C);
+            border-left: 3px solid #7B3F00;
+            padding: 12px 16px;
+            margin: 15px 0;
+            font-size: 0.85rem;
+            color: #5D2900;
+            border-radius: 0 6px 6px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .insight-note::before {
+            content: "💡";
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        
+        /* LISTS */
+        ul, ol {
+            padding-left: 20px;
+            margin: 12px 0;
+        }
+        li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        li strong {
+            color: #7B3F00;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) { 
+            .container { border-radius: 0; }
+            .header { padding: 30px 20px; }
+            .header h1 { font-size: 1.8rem; }
+            .header h2 { font-size: 1.1rem; }
+            .header-meta { flex-direction: column; gap: 8px; }
+            .meta-item { width: fit-content; margin: 0 auto; }
+            
+            .section-header { padding: 16px 20px; }
+            .section-content { padding: 0 20px; }
+            
+            .flow-split { flex-direction: column; gap: 25px; }
+            .flow-node { width: 200px; }
+            
+            table { font-size: 0.8rem; }
+            th, td { padding: 10px 12px; }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.6rem; }
+            .header h2 { font-size: 1rem; }
+            .flow-node { width: 180px; padding: 12px; }
+            .funnel-step { padding: 12px; font-size: 0.9rem; }
+        }
+        
+        /* PRINT STYLES */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; }
+            .section-header { background: #f0f0f0 !important; }
+            .section.collapsed .section-content { 
+                max-height: none !important;
+                opacity: 1 !important;
+                display: block !important;
+            }
+            .toggle { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="version-badge">V1 - Documento Oficial</div>
+            <h1>Planeamento de Implementação CRM</h1>
+            <h2>Cacau & Alquimia – Chocolataria Artesanal</h2>
+            <div class="header-meta">
+                <div class="meta-item"><strong>Configuração:</strong> CRM de Experiência & Rastreabilidade</div>
+                <div class="meta-item"><strong>Foco:</strong> Transformar Dados em Histórias</div>
+                <div class="meta-item"><strong>Prazo:</strong> 8d (Mapping) + 12d (Config) + 5d (Treino)</div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 1: CONTEXTO ESTRATÉGICO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3><span class="section-icon">🎯</span> 1. Contexto Estratégico e Diagnóstico</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4><span class="sub-icon">📊</span> Análise da Situação Atual</h4>
+                    <p>Com base na transcrição da reunião de 27/01/2026, identificamos os seguintes pontos críticos que o CRM deve resolver:</p>
+                    
+                    <div class="highlight-box">
+                        <strong>Problema Central:</strong> A Cacau & Alquimia opera com <strong>gestão manual de estoque</strong>, resultando em <strong>12% de perda de insumos</strong> (manteiga de cacau) por falta de alertas de vencimento e <strong>48 horas para rastrear a origem de um lote</strong> específico.
+                    </div>
+                    
+                    <div class="callout-box">
+                        <strong>Visão da Proprietária:</strong> Beatriz Cavalcanti declarou: <em>"Não queremos apenas fazer chocolate; queremos que cada barra conte uma história rastreável e que nossa operação seja tão refinada quanto nosso produto."</em> O CRM deve ser a ferramenta que transforma dados operacionais em narrativas de valor.
+                    </div>
+                    
+                    <div class="insight-note">
+                        <strong>Dado Crítico Extraído:</strong> A empresa possui desafios específicos com <strong>embalagens sazonais (Páscoa/Natal)</strong>, gerando compras em duplicidade ou falta de estoque crítico. O CRM deve ter módulo específico para gestão sazonal.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4><span class="sub-icon">🎯</span> Objetivos Validados na Reunião</h4>
+                    <ul>
+                        <li><strong>Rastreabilidade Total:</strong> Capacidade de rastrear qualquer barra de chocolate até a saca de cacau original em segundos (não 48 horas).</li>
+                        <li><strong>Eliminação de Desperdício:</strong> Reduzir perdas de 12% para próximo de 0% através de alertas automáticos de validade de insumos.</li>
+                        <li><strong>Operação Data-Driven:</strong> Transformar a empresa em uma operação guiada por dados, conforme expectativa de Beatriz.</li>
+                        <li><strong>Experiência do Cliente Premium:</strong> Oferecer ao cliente final a história por trás do chocolate que compra, criando conexão emocional e justificando o valor premium.</li>
+                        <li><strong>Integração Perfeita:</strong> Conectar o sistema de estoque/produção (Alquimia Digital) à loja virtual para baixa automática e à emissão de notas fiscais.</li>
+                    </ul>
+                    
+                    <div class="change-note">
+                        <strong>Validação Importante:</strong> Confirmada a estrutura de 4 responsáveis: Beatriz (validação estratégica), Ricardo (operações na fábrica), Sofia (configuração técnica), Lucas (gestão do projeto e integrações).
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4><span class="sub-icon">⚙️</span> Infraestrutura Técnica Validada</h4>
+                    <table>
+                        <tr>
+                            <th style="width: 30%;">Componente</th>
+                            <th>Configuração</th>
+                            <th>Observação</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Sistema Core</strong></td>
+                            <td>"Alquimia Digital" - Sistema de gestão de estoque e produção</td>
+                            <td>Foco em rastreabilidade via QR Code e controle de validades</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hardware</strong></td>
+                            <td>Scanners + Tablets industriais para "bip" na fábrica</td>
+                            <td>Orçamento aprovado por Beatriz</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Integração CRM</strong></td>
+                            <td>Loja virtual + Sistema de emissão de NF</td>
+                            <td>Baixa automática de estoque ao confirmar pagamento</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Custo Operacional</strong></td>
+                            <td>Servidores em nuvem + suporte técnico (custo fixo mensal)</td>
+                            <td>ROI previsto em 6 meses pela redução de desperdício</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 2: JORNADA DO CLIENTE E FLUXO DE EXPERIÊNCIA -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3><span class="section-icon">🔄</span> 2. Jornada do Cliente: Da Curiosidade ao Evangelismo</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4><span class="sub-icon">🤖</span> Funil de Conversão Baseado em Histórias</h4>
+                    
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-sales" style="max-width: 100%;">
+                            <strong>1. DESCOBERTA (Lead Novo)</strong><br>
+                            <small>Gatilho: Curiosidade sobre a origem</small>
+                        </div>
+                        <div class="funnel-step funnel-sales" style="max-width: 90%;">
+                            <strong>2. ENCANTAMENTO (Contato Relevante)</strong><br>
+                            <small>Recebe "Certificado de Rastreabilidade" de exemplo</small>
+                        </div>
+                        <div class="funnel-step funnel-sales" style="max-width: 80%;">
+                            <strong>3. CONEXÃO (Criação de Desejo)</strong><br>
+                            <small>Série "Da Floresta à Sua Mesa" (3-5 dias)</small>
+                        </div>
+                        <div class="funnel-step funnel-sales" style="max-width: 70%;">
+                            <strong>4. EXPERIÊNCIA (Checkout/Fechamento)</strong><br>
+                            <small>Compra da barra com LOTE ESPECÍFICO #P425</small>
+                        </div>
+                        <div class="funnel-step funnel-sales" style="max-width: 60%; background: linear-gradient(135deg, #5D2900, #4A2000);">
+                            <strong>5. PERTENCIMENTO (Pós-Venda)</strong><br>
+                            <small>Acesso à história exclusiva do seu lote + comunidade</small>
+                        </div>
+                        <div class="funnel-win">
+                            ✓ EVANGELISTA (Cliente que Indica)<br>
+                            <small>Compartilha histórias, participa de lançamentos exclusivos</small>
+                        </div>
+                    </div>
+                    
+                    <div class="change-note">
+                        <strong>Diferencial Estratégico:</strong> O produto não é "Barra de Chocolate 70%". É <strong>"Barra 70% - Lote #P425 - Fazenda Esperança, Pará"</strong>. A rastreabilidade deixa de ser um custo operacional e se torna o principal argumento de venda.
+                    </div>
+                    
+                    <div class="insight-note">
+                        <strong>Elemento de Uau (WOW Factor):</strong> Cada embalagem terá um QR Code com a label <strong>"Escaneie a Alma do Seu Chocolate"</strong>. Ao escanear, o cliente acessa uma micropágina exclusiva daquele lote com mapa da fazenda, foto do produtor, timeline do processo e notas de sabor.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h4><span class="sub-icon">🗺️</span> Fluxo de Rastreabilidade: Do Cacau ao Cliente</h4>
+                    <p>Como os dados do "Alquimia Digital" alimentam a experiência do cliente:</p>
+                    
+                    <div class="flow-wrapper">
+                        <div class="flow-node decision">
+                            <strong>ETAPA 1: ENTRADA DA MATÉRIA-PRIMA</strong><br>
+                            Sacas de cacau recebem QR Code único no galpão
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node">
+                            <strong>ETAPA 2: PRODUÇÃO</strong><br>
+                            Tablets registram cada "bip" (torra, moagem, temperagem)
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node action">
+                            <strong>ETAPA 3: LOTE FINAL</strong><br>
+                            Sistema associa QR Codes das sacas ao lote final (#P425)
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node action">
+                            <strong>ETAPA 4: VENDA ONLINE</strong><br>
+                            Cliente compra o <strong>Lote #P425</strong> especificamente
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node action">
+                            <strong>ETAPA 5: EXPERIÊNCIA PÓS-VENDA</strong><br>
+                            Cliente escaneia QR Code → Vê história completa do SEU lote
+                        </div>
+                    </div>
+                    
+                    <div class="quote">
+                        "Atualmente, se um cliente questiona a origem do lote de uma barra específica, a equipe leva até 48 horas para localizar a nota fiscal e o produtor rural correspondente."
+                    </div>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 25%;">Momento da Jornada</th>
+                            <th style="width: 35%;">Dado Coletado (Alquimia Digital)</th>
+                            <th style="width: 40%;">Como é Transformado em Experiência (CRM)</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Compra do Insumo</strong></td>
+                            <td>Nota fiscal do produtor, data, quantidade, fazenda</td>
+                            <td>Vira "Capítulo 1" da história: "Nosso cacau vem da Fazenda Esperança no Pará, colhido em [DATA]"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Processo na Fábrica</strong></td>
+                            <td>Datas de torra, moagem, temperagem; operador responsável</td>
+                            <td>Vira "Capítulo 2": Timeline interativa mostrando cada etapa com fotos/vídeos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Validade do Insumo</strong></td>
+                            <td>Alertas automáticos de vencimento (evita 12% de perda)</td>
+                            <td>Vira garantia de frescor: "Seu chocolate foi feito com manteiga de cacau com validade até [DATA + 6 meses]"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Venda Online</strong></td>
+                            <td>Cliente X comprou Barra do Lote #P425 em [DATA]</td>
+                            <td>Gatilho para email personalizado: "Sua História do Lote #P425 está pronta!" + Programa de fidelidade</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 3: AUTOMAÇÕES E SEGMENTAÇÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3><span class="section-icon">🤖</span> 3. Automações e Segmentação Inteligente</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4><span class="sub-icon">📧</span> Régua de Automação Omnichannel</h4>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 15%;">Etapa</th>
+                            <th style="width: 25%;">Gatilho</th>
+                            <th style="width: 30%;">Ação no CRM</th>
+                            <th style="width: 30%;">Objetivo</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Lead Novo</strong></td>
+                            <td>Clique em "Conheça a Origem" ou cadastro na newsletter</td>
+                            <td>• Email: "Sua Jornada do Cacau Começa" (com Certificado de exemplo)<br>• Tag: <span class="tag-story">lead_novo_origem</span></td>
+                            <td>Demonstrar transparência radical e valor imediato</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Criação de Desejo</strong></td>
+                            <td>Após 1 dia do lead novo</td>
+                            <td>Série de emails "Da Floresta à Sua Mesa" (5 dias)<br>• Dia 1: Vídeo do produtor<br>• Dia 3: "Bip" na fábrica<br>• Dia 5: Depoimento de cliente</td>
+                            <td>Construir narrativa emocional e prova social</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Abandono de Carrinho</strong></td>
+                            <td>Cliente deixa produto no carrinho por 1h</td>
+                            <td>• WhatsApp (1h): "Vi que deixou uma história de cacau esperando..."<br>• Email (24h): "Lote #[NUMERO] pode ser adquirido por outro conhecedor"</td>
+                            <td>Recuperar venda com urgência e exclusividade</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pós-Compra</strong></td>
+                            <td>Confirmação de pagamento</td>
+                            <td>• Email: "Sua História do Lote #[NUMERO] está pronta!" (link rastreabilidade)<br>• WhatsApp (7 dias): "Beatriz aqui! Já experimentou o Lote #[NUMERO]?"</td>
+                            <td>Reforçar valor premium e abrir canal para feedback</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reativação</strong></td>
+                            <td>Sem compra em 90 dias</td>
+                            <td>• Email: "O Lote #[ÚLTIMO_LOTE_COMPRADO +1] chegou! Notas de frutas vermelhas."<br>• Oferta: 15% off para "conhecedores retornantes"</td>
+                            <td>Recuperar cliente inativo com novidade personalizada</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="change-note">
+                        <strong>Automação Crítica:</strong> Ao confirmar pagamento na loja virtual, o sistema automaticamente: 1) Dá baixa no estoque do "Alquimia Digital", 2) Associa o cliente ao número do lote específic
