@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planejamento CRM - EURO Fitas (V4 - Alinhamento Final)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #f8f9fa; 
+            color: #333; 
+            line-height: 1.6; 
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+        .container { 
+            max-width: min(1200px, 95%); 
+            margin: 0 auto; 
+            padding: clamp(15px, 3vw, 25px); 
+            position: relative;
+            padding-bottom: 80px;
+        }
+        header { 
+            background: linear-gradient(135deg, #dc2626, #991b1b); 
+            color: white; 
+            padding: clamp(25px, 5vw, 40px); 
+            border-radius: 12px; 
+            margin-bottom: 30px; 
+            text-align: center; 
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3); 
+            position: relative;
+            overflow: hidden;
+        }
+        .logo-container {
+            background-color: #991b1b; 
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .logo-container img {
+            height: 40px;
+            filter: brightness(0) invert(1);
+        }
+        header h1 { 
+            font-size: clamp(1.5rem, 4vw, 2.2rem); 
+            margin-bottom: 10px; 
+            font-weight: 700;
+        }
+        header h2 { 
+            font-size: clamp(1rem, 2.5vw, 1.4rem); 
+            font-weight: 400; 
+            opacity: 0.9; 
+            margin-bottom: 15px;
+        }
+        .header-meta { 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px; 
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem); 
+            opacity: 0.85; 
+            text-align: left;
+        }
+        .meta-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #fecaca;
+        }
+        .meta-box strong {
+            display: block;
+            color: #fecaca;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        .version-badge { 
+            display: inline-block; 
+            background: rgba(255,255,255,0.2); 
+            padding: 6px 16px; 
+            border-radius: 20px; 
+            font-size: clamp(0.75rem, 1.5vw, 0.85rem); 
+            margin-top: 15px; 
+            font-weight: 500;
+        }
+        .section { 
+            background: white; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08); 
+            overflow: hidden; 
+        }
+        .section-header { 
+            background: #dc2626; 
+            color: white; 
+            padding: clamp(12px, 3vw, 15px) clamp(15px, 3vw, 20px); 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            transition: background 0.3s; 
+        }
+        .section-header:hover { 
+            background: #b91c1c; 
+        }
+        .section-header h3 { 
+            font-size: clamp(1rem, 2.5vw, 1.1rem); 
+            font-weight: 600;
+        }
+        .section-header .toggle { 
+            font-size: 1.5rem; 
+            transition: transform 0.3s; 
+            flex-shrink: 0;
+        }
+        .section.collapsed .toggle { 
+            transform: rotate(-90deg); 
+        }
+        .section-content { 
+            padding: clamp(20px, 4vw, 25px); 
+            display: block; 
+        }
+        .section.collapsed .section-content { 
+            display: none; 
+        }
+        .subsection { 
+            margin-bottom: clamp(20px, 4vw, 25px); 
+        }
+        .subsection h4 { 
+            color: #991b1b; 
+            font-size: clamp(1rem, 2.5vw, 1.1rem); 
+            margin-bottom: 12px; 
+            padding-bottom: 8px; 
+            border-bottom: 2px solid #fecaca; 
+            font-weight: 600;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 15px 0; 
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem); 
+        }
+        th { 
+            background: #991b1b; 
+            color: white; 
+            padding: clamp(10px, 2vw, 12px) clamp(12px, 2vw, 15px); 
+            text-align: left; 
+            font-weight: 600; 
+        }
+        td { 
+            padding: clamp(10px, 2vw, 12px) clamp(12px, 2vw, 15px); 
+            border-bottom: 1px solid #e5e7eb; 
+            vertical-align: top; 
+        }
+        tr:hover { 
+            background: #fef2f2; 
+        }
+        .quote { 
+            background: #fef2f2; 
+            border-left: 4px solid #dc2626; 
+            padding: clamp(15px, 3vw, 20px); 
+            margin: 15px 0; 
+            font-style: italic; 
+            color: #991b1b; 
+            border-radius: 0 8px 8px 0; 
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+        .highlight-box { 
+            background: #fffbeb; 
+            border: 1px solid #f59e0b; 
+            border-radius: 8px; 
+            padding: clamp(12px, 3vw, 15px); 
+            margin: 15px 0; 
+        }
+        .highlight-box strong { 
+            color: #b45309; 
+        }
+        
+        /* Estilos do Funil */
+        .funnel-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+            background: #f9fafb; 
+            border-radius: 8px; 
+            margin: 15px 0; 
+            gap: 8px;
+        }
+        .funnel-step { 
+            padding: 12px; 
+            text-align: center; 
+            color: white; 
+            font-weight: 500; 
+            border-radius: 6px; 
+            transition: transform 0.2s; 
+            width: 100%; 
+            max-width: 600px;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+        .funnel-sales { 
+            background: #dc2626; 
+        }
+        .funnel-post { 
+            background: #b45309; 
+            border: 2px dashed #92400e; 
+        }
+        .funnel-win { 
+            background: #16a34a; 
+            color: white; 
+            padding: 12px; 
+            text-align: center; 
+            font-weight: 600; 
+            border-radius: 6px; 
+            max-width: 50%; 
+            margin: 3px 0; 
+        }
+
+        /* Estilos do Fluxograma */
+        .flow-wrapper { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+            background: #FAFAFA; 
+            border-radius: 10px; 
+            border: 1px solid #eee; 
+            margin: 20px 0; 
+            gap: 15px;
+        }
+        .flow-node { 
+            background: white; 
+            border: 2px solid #dc2626; 
+            border-radius: 8px; 
+            padding: clamp(10px, 2vw, 12px); 
+            width: min(280px, 90%); 
+            text-align: center; 
+            font-size: clamp(0.8rem, 1.8vw, 0.85rem); 
+            font-weight: 600; 
+            position: relative; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+        }
+        .flow-node.decision { 
+            border-color: #991b1b; 
+            background: #fff5f5; 
+            border-radius: 12px; 
+        }
+        .flow-node.action { 
+            border-color: #10b981; 
+            background: #f0fdf4; 
+            color: #065f46; 
+        }
+        .flow-arrow { 
+            height: 30px; 
+            width: 2px; 
+            background: #dc2626; 
+            position: relative; 
+        }
+        .flow-arrow::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: -4px; 
+            border-left: 5px solid transparent; 
+            border-right: 5px solid transparent; 
+            border-top: 8px solid #dc2626; 
+        }
+        .flow-split { 
+            display: flex; 
+            gap: clamp(20px, 5vw, 40px); 
+            margin-top: 10px; 
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flow-path { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            flex: 1;
+            min-width: 250px;
+        }
+        .path-label { 
+            font-size: clamp(0.7rem, 1.5vw, 0.75rem); 
+            font-weight: bold; 
+            color: #666; 
+            margin-bottom: 5px; 
+            background: #F5F5F5;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .tag-mql { 
+            background: #dcfce7; 
+            color: #166534; 
+            padding: 3px 8px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            font-size: clamp(0.7rem, 1.5vw, 0.75rem); 
+            border: 1px solid #166534; 
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .tag-discard { 
+            color: #dc2626; 
+            font-weight: bold; 
+            font-size: clamp(0.75rem, 1.5vw, 0.8rem); 
+            display: block; 
+            margin-top: 5px; 
+        }
+        .tag-advance { 
+            color: #10b981; 
+            font-weight: bold; 
+            font-size: clamp(0.75rem, 1.5vw, 0.8rem); 
+            display: block; 
+            margin-top: 5px; 
+        }
+        .tag-task { 
+            color: #f59e0b; 
+            font-weight: bold; 
+            font-size: clamp(0.75rem, 1.5vw, 0.8rem); 
+            display: block; 
+            margin-top: 5px; 
+        }
+        .tag-info { 
+            background: #f3f4f6; 
+            color: #374151; 
+            padding: 3px 8px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            font-size: clamp(0.7rem, 1.5vw, 0.75rem); 
+            border: 1px solid #9ca3af; 
+            display: inline-block;
+        }
+
+        .change-note { 
+            background: #ecfdf5; 
+            border-left: 3px solid #10b981; 
+            padding: 10px 15px; 
+            margin: 10px 0; 
+            font-size: clamp(0.8rem, 1.5vw, 0.85rem); 
+            color: #065f46; 
+            border-radius: 0 4px 4px 0;
+        }
+        .change-note::before { 
+            content: "✓ Atualizado: "; 
+            font-weight: bold; 
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Botão de Download */
+        .download-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .download-btn:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+        }
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) { 
+            .flow-split { 
+                flex-direction: column; 
+                gap: 20px; 
+            }
+            .flow-node { 
+                width: 100%; 
+                max-width: 250px;
+            }
+            .header-meta {
+                grid-template-columns: 1fr;
+            }
+            .funnel-step {
+                padding: 10px;
+            }
+            .download-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+                padding-bottom: 70px;
+            }
+            header {
+                padding: 20px 15px;
+            }
+            .section-content {
+                padding: 15px;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+            .download-btn {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company Logo">
+            </div>
+            <h1>Planejamento de Implementação CRM</h1>
+            <h2>Cliente: EURO Fitas</h2>
+            
+            <div class="header-meta">
+                <div class="meta-box">
+                    <strong>Configuração:</strong> 
+                    CRM Conversacional WhatsApp B2B
+                </div>
+                <div class="meta-box">
+                    <strong>Foco:</strong> 
+                    Centralização de Leads e Pós-Venda
+                </div>
+                <div class="meta-box">
+                    <strong>Prazo:</strong> 
+                    11d planejamento + 16d implementação
+                </div>
+            </div>
+            
+            <div class="version-badge">V4 - Alinhamento Final (06/01/2026)</div>
+        </header>
+
+        <!-- SEÇÃO 1: CONTEXTO ESTRATÉGICO E VALIDAÇÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>1. Contexto Estratégico e Validação</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Com base na reunião de alinhamento de 06/01/2026, validamos a implementação do CRM conversacional para a EURO Fitas:</p>
+                
+                <div class="subsection">
+                    <h4>Objetivos Principais</h4>
+                    <ul>
+                        <li><strong>Centralização do Controle:</strong> Resolver a falta de controle centralizado de leads que chegam por múltiplos canais (site, redes sociais, indicações).</li>
+                        <li><strong>Otimização do Pós-Venda:</strong> Reduzir a perda de vendas por falta de acompanhamento e reativação de clientes antigos.</li>
+                        <li><strong>Dados Analíticos:</strong> Obter insights para informar a estratégia comercial com base em dados reais de conversação.</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h4>Regras de Negócio Validadas</h4>
+                    <ul>
+                        <li><strong>Produto B2B:</strong> Venda direta para distribuidores e lojistas. Instaladores (consumidor final) são direcionados para lojas parceiras.</li>
+                        <li><strong>WhatsApp como Canal Principal:</strong> Primeiro contato sempre por mensagem, devido ao perfil dos clientes (no balcão, preferem mensagens).</li>
+                        <li><strong>Política de Vendas Complexa:</strong> Proteção de distribuidores existentes (ex: Frigelar). Em regiões com distribuidor, lojistas são direcionados a comprar deles.</li>
+                        <li><strong>Compra Mínima:</strong> 5.000 fitas para venda direta B2B. Abaixo disso, direcionamento para distribuidores parceiros.</li>
+                    </ul>
+                    <div class="change-note">Foco principal: CRM conversacional integrado ao WhatsApp via API oficial para evitar bloqueios.</div>
+                </div>
+
+                <div class="quote">
+                    "A maior perda de vendas ocorre na falta de acompanhamento e pós-venda, resultando na não reativação de clientes antigos devido à falta de relacionamento." - Heber Almeida
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 2: FLUXO DE TRIAGEM E DISTRIBUIÇÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>2. Fluxo de Triagem e Distribuição</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Triagem Automatizada (Bot + Heber)</h4>
+                    
+                    <div class="highlight-box">
+                        <strong>Volume de Leads:</strong> Aproximadamente 70 leads/mês, com qualificação variável. Necessidade de filtro eficiente para separar B2B (venda direta) de B2C/instaladores (encaminhar para parceiro).
+                    </div>
+                    
+                    <div class="flow-wrapper">
+                        <div class="flow-node">Lead chega via WhatsApp (Heber)</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node decision"><strong>BOT/HEBER:</strong><br>"Você é Lojista/Distribuidor ou Instalador?"</div>
+                        <div class="flow-split">
+                            <div class="flow-path">
+                                <span class="path-label">LOJISTA/DISTRIBUIDOR</span>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node decision"><strong>HEBER:</strong><br>"Qual sua região?"</div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action">Verifica se região tem distribuidor exclusivo</div>
+                                <div class="flow-split">
+                                    <div class="flow-path">
+                                        <span class="path-label">REGIÃO LIVRE</span>
+                                        <div class="flow-arrow"></div>
+                                        <div class="flow-node action">Direciona para vendedor da região</div>
+                                        <div class="flow-arrow"></div>
+                                        <div class="flow-node"><strong>VENDEDOR:</strong><br>Qualifica volume (5.000+ fitas?)</div>
+                                    </div>
+                                    <div class="flow-path">
+                                        <span class="path-label">REGIÃO COM DISTRIBUIDOR</span>
+                                        <div class="flow-arrow"></div>
+                                        <div class="flow-node action">Encaminha para distribuidor parceiro</div>
+                                        <div class="flow-arrow"></div>
+                                        <div class="flow-node" style="border-color:#6b7280; background: #f3f4f6;">Registra como "Lead para Parceiro"</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flow-path">
+                                <span class="path-label">INSTALADOR (FINAL)</span>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action" style="border-color:#6b7280; background: #f3f4f6;">Direciona para loja parceira mais próxima</div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node" style="border-color:#6b7280; background: #f3f4f6;">Registra como "Não Qualificado"</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="change-note">Processo manual inicial (Heber), com potencial para automação via bot após validação dos fluxos.</div>
+                </div>
+
+                <div class="subsection">
+                    <h4>Infraestrutura WhatsApp</h4>
+                    <table>
+                        <tr>
+                            <th style="width: 30%;">Número WhatsApp</th>
+                            <th>Responsável</th>
+                            <th>Tipo de Cliente</th>
+                        </tr>
+                        <tr>
+                            <td>Número Principal</td>
+                            <td>Heber Almeida</td>
+                            <td>Contas principais (atendimento por ligação)</td>
+                        </tr>
+                        <tr>
+                            <td>Número Comercial 1</td>
+                            <td>Vendedor 1</td>
+                            <td>Lojas menores (atendimento por mensagem)</td>
+                        </tr>
+                        <tr>
+                            <td>Número Comercial 2</td>
+                            <td>Vendedor 2</td>
+                            <td>Lojas menores (atendimento por mensagem)</td>
+                        </tr>
+                    </table>
+                    <p style="font-size: clamp(0.8rem, 1.5vw, 0.85rem); color: #666; margin-top: 10px;">* Todos os números conectados ao CRM via API oficial WhatsApp Business. Custo: ~R$0,35 por conversa iniciada pela empresa.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 3: DETALHAMENTO DO FUNIL -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>3. Detalhamento e Regras das Etapas do Funil</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Funil de Vendas (Processo Rápido)</h4>
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-sales" style="max-width: 100%;">1. Triagem (Heber)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 90%;">2. Atribuição & 1º Contato</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 80%;">3. Qualificação (5.000+ fitas?)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 70%;">4. Proposta & Negociação</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 60%; background: #991b1b;">5. Fechamento (CG Cloud)</div>
+                        <div class="funnel-win">✓ Venda Ganha (Pedido Confirmado)</div>
+                    </div>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 20%;">Etapa</th>
+                            <th style="width: 40%;">Ação da Etapa</th>
+                            <th style="width: 40%;">Regras e Automações</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Triagem</strong></td>
+                            <td>Heber classifica lead: Lojista/Distribuidor vs Instalador. Verifica região.</td>
+                            <td>Bot pode automatizar perguntas iniciais. Tag automática: `[PERFIL]` e `[REGIAO]`.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Atribuição</strong></td>
+                            <td>Lead atribuído ao vendedor correto baseado na região (se venda direta).</td>
+                            <td>SLA: Atribuição em até 1 hora. Notificação push para vendedor.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Qualificação</strong></td>
+                            <td>Vendedor confirma se atende compra mínima (5.000+ fitas) e necessidade real.</td>
+                            <td>Se não atende mínimo: direcionar para distribuidor. Registrar motivo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Proposta</strong></td>
+                            <td>Envio de orçamento via CG Cloud. Negociação de preço, quantidade, frete.</td>
+                            <td>Template de proposta no CRM. Registrar objeções (`[MOTIVO_PERDA]`).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Fechamento</strong></td>
+                            <td>Confirmação do pedido, geração no CG Cloud. Venda concluída no mesmo dia.</td>
+                            <td>Ao fechar: mover para "Venda Ganha" e copiar card para Pós-Venda.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Perdido</strong></td>
+                            <td>Lead descartado. Motivos: Região com distribuidor, volume insuficiente, preço, instalador.</td>
+                            <td>Registro obrigatório do motivo. Tag: `[MOTIVO_PERDA: ...]`.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h4>Funil de Pós-Venda (Foco Principal)</h4>
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-post" style="max-width: 100%;">1. Onboarding (0-30 dias)</div>
+                        <div class="funnel-step funnel-post" style="max-width: 90%;">2. Relacionamento (30-180 dias)</div>
+                        <div class="funnel-step funnel-post" style="max-width: 80%;">3. Reativação (+180 dias)</div>
+                    </div>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 20%;">Etapa</th>
+                            <th style="width: 40%;">Ação da Etapa</th>
+                            <th style="width: 40%;">Automações WhatsApp</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Onboarding</strong></td>
+                            <td>Confirmar recebimento, qualidade do produto, oferecer suporte inicial.</td>
+                            <td>Mensagem automática 3 dias após entrega: "Tudo certo com o pedido?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Relacionamento</strong></td>
+                            <td>Estabelecer ritmo de contato baseado no ciclo de consumo do cliente.</td>
+                            <td>Disparos para reposição baseados no histórico (ex: a cada 45 dias).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Reativação</strong></td>
+                            <td>Cliente adormecido (>90 dias sem compra). Tentativa de recuperação.</td>
+                            <td>Sequência de 3 mensagens (dias 1, 7, 14) com oferta especial.</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="highlight-box">
+                        <strong>Meta de Negócio:</strong> Reduzir a perda de vendas no pós-venda, aumentando a taxa de recompra em 15% nos primeiros 6 meses após implementação.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SEÇÃO 4: GESTÃO DE SLAS E TAREFAS -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>4. Gestão de SLAs e Tarefas</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Definição de prazos para manter o processo ágil e evitar perda de leads:</p>
+                
+                <div class="highlight-box">
+                    <strong>Processo Comercial Rápido:</strong> Venda concluída no mesmo dia na maioria dos casos.<br>
+                    <strong>Foco no Pós-Venda:</strong> Maior perda ocorre por falta de acompanhamento após a venda.
+                </div>
+
+                <table>
+                    <tr>
+                        <th style="width: 30%;">Gatilho / Situação</th>
+                        <th>Ação no CRM</th>
+                        <th>SLA / Prazo</th>
+                    </tr>
+                    <tr>
+                        <td>Lead chega no WhatsApp</td>
+                        <td><span class="tag-task">Triagem por Heber</span></td>
+                        <td>Máximo 1 hora</td>
+                    </tr>
+                    <tr>
+                        <td>Lead atribuído a vendedor</td>
+                        <td><span class="tag-task">Primeiro contato do vendedor</span></td>
+                        <td>Máximo 1 hora após atribuição</td>
+                    </tr>
+                    <tr>
+                        <td>Cliente faz pedido</td>
+                        <td><span class="tag-task">Checklist pós-venda iniciado</span></td>
+                        <td>3 dias após entrega</td>
+                    </tr>
+                    <tr>
+                        <td>Cliente sem compra há 90 dias</td>
+                        <td><span class="tag-task">Sequência de reativação automática</span></td>
+                        <td>Disparo no dia 91</td>
+                    </tr>
+                    <tr>
+                        <td>Lead sem movimento há 7 dias</td>
+                        <td><span class="tag-task">Alerta para vendedor</span></td>
+                        <td>Notificação push + email</td>
+                    </tr>
+                </table>
+                
+                <div class="change-note">SLAs agressivos refletem o processo comercial rápido. O diferencial estará no acompanhamento sistemático pós-venda.</div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 5: MATRIZ DE USUÁRIOS E SEGURANÇA -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>5. Matriz de Usuários e Acessos</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="highlight-box">
+                    <strong>Estrutura Leve:</strong> 3 usuários no CRM (2 vendedores + 1 gestor compartilhado) + 3 números WhatsApp conectados.
+                </div>
+
+                <table>
+                    <tr>
+                        <th style="width: 25%;">Perfil</th>
+                        <th>Usuário(s)</th>
+                        <th>Permissões e Responsabilidades</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Administrador/Gestor</strong></td>
+                        <td>Heber Almeida e Fábio<br><small>Compartilham 1 acesso admin</small></td>
+                        <td>Visão total de todos os funis, relatórios analíticos, configurações. Heber é o principal responsável pela adoção.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vendedor 1</strong></td>
+                        <td>A definir</td>
+                        <td>"Carteira Privada" - visualiza apenas seus leads. Responsável por número WhatsApp comercial 1.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vendedor 2</strong></td>
+                        <td>A definir</td>
+                        <td>"Carteira Privada" - visualiza apenas seus leads. Responsável por número WhatsApp comercial 2.</td>
+                    </tr>
+                </table>
+
+                <div class="subsection">
+                    <h4>Regras de Segurança e Controle</h4>
+                    <ul>
+                        <li><strong>WhatsApp Oficial:</strong
