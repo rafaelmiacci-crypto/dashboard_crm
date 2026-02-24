@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planejamento CRM - Stone Mall (V4 - Alinhamento Final)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; font-size: clamp(0.875rem, 2vw, 1rem); }
+        .container { max-width: min(1000px, 95%); margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #dc2626, #991b1b); color: white; padding: clamp(30px, 5vw, 40px); border-radius: 12px; margin-bottom: 30px; text-align: center; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3); position: relative; }
+        .logo-container { background-color: #991b1b; padding: 10px; border-radius: 8px; margin-bottom: 20px; display: inline-block; }
+        .logo-container img { height: 40px; width: auto; }
+        header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin-bottom: 10px; }
+        header h2 { font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 400; opacity: 0.9; }
+        .header-meta { margin-top: 15px; font-size: clamp(0.75rem, 1.5vw, 0.9rem); opacity: 0.85; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+        .meta-box { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 6px; }
+        .version-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; margin-top: 10px; }
+        .section { background: white; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); overflow: hidden; }
+        .section-header { background: #dc2626; color: white; padding: 15px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+        .section-header:hover { background: #b91c1c; }
+        .section-header h3 { font-size: clamp(1rem, 2vw, 1.1rem); }
+        .section-header .toggle { font-size: 1.5rem; transition: transform 0.3s; }
+        .section.collapsed .toggle { transform: rotate(-90deg); }
+        .section-content { padding: clamp(15px, 3vw, 25px); display: block; }
+        .section.collapsed .section-content { display: none; }
+        .subsection { margin-bottom: 25px; }
+        .subsection h4 { color: #991b1b; font-size: clamp(1rem, 2vw, 1.1rem); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #fecaca; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: clamp(0.8rem, 1.5vw, 0.9rem); overflow-x: auto; display: block; }
+        th { background: #991b1b; color: white; padding: 12px 15px; text-align: left; font-weight: 600; }
+        td { padding: 12px 15px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+        tr:hover { background: #fef2f2; }
+        .quote { background: #fef2f2; border-left: 4px solid #dc2626; padding: 20px; margin: 15px 0; font-style: italic; color: #991b1b; border-radius: 0 8px 8px 0; }
+        .highlight-box { background: #fffbeb; border: 1px solid #f59e0b; border-radius: 8px; padding: 15px; margin: 15px 0; }
+        .highlight-box strong { color: #b45309; }
+        
+        /* Estilos do Funil */
+        .funnel-container { display: flex; flex-direction: column; align-items: center; padding: 20px; background: #f9fafb; border-radius: 8px; margin: 15px 0; }
+        .funnel-step { padding: 12px; text-align: center; color: white; font-weight: 500; margin: 3px 0; border-radius: 4px; transition: transform 0.2s; width: 100%; max-width: 100%; }
+        .funnel-sales { background: #dc2626; }
+        .funnel-post { background: #b45309; max-width: 45%; border: 2px dashed #92400e; margin-top: 10px; }
+        .funnel-win { background: #16a34a; color: white; padding: 12px; text-align: center; font-weight: 600; border-radius: 4px; max-width: 50%; margin: 3px 0; }
+
+        /* Estilos do Fluxograma */
+        .flow-wrapper { display: flex; flex-direction: column; align-items: center; padding: 20px; background: #fafafa; border-radius: 10px; border: 1px solid #eee; margin: 20px 0; }
+        .flow-node { background: white; border: 2px solid #dc2626; border-radius: 6px; padding: 12px; width: min(220px, 90%); text-align: center; font-size: clamp(0.75rem, 1.5vw, 0.85rem); font-weight: 600; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .flow-node.decision { border-color: #991b1b; background: #fff5f5; border-radius: 12px; }
+        .flow-node.action { border-color: #10b981; background: #f0fdf4; color: #065f46; }
+        .flow-arrow { height: 30px; width: 2px; background: #dc2626; position: relative; }
+        .flow-arrow::after { content: ''; position: absolute; bottom: 0; left: -4px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid #dc2626; }
+        .flow-split { display: flex; gap: clamp(20px, 4vw, 40px); margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+        .flow-path { display: flex; flex-direction: column; align-items: center; }
+        .path-label { font-size: 0.7rem; font-weight: bold; color: #666; margin-bottom: 5px; }
+
+        .tag-mql { background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; border: 1px solid #166534; }
+        .tag-discard { color: #dc2626; font-weight: bold; font-size: 0.8rem; display: block; margin-top: 5px; }
+        .tag-advance { color: #10b981; font-weight: bold; font-size: 0.8rem; display: block; margin-top: 5px; }
+        .tag-task { color: #f59e0b; font-weight: bold; font-size: 0.8rem; display: block; margin-top: 5px; }
+        .tag-info { background: #f3f4f6; color: #374151; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; border: 1px solid #9ca3af; }
+
+        .change-note { background: #ecfdf5; border-left: 3px solid #10b981; padding: 8px 12px; margin: 10px 0; font-size: 0.85rem; color: #065f46; }
+        .change-note::before { content: "✓ Atualizado: "; font-weight: bold; }
+
+        /* Botão de Download */
+        .download-btn { position: fixed; bottom: 20px; right: 20px; background: #dc2626; color: white; border: none; padding: 12px 20px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); z-index: 100; transition: all 0.3s; }
+        .download-btn:hover { background: #b91c1c; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4); }
+
+        @media (max-width: 768px) { 
+            .flow-split { flex-direction: column; gap: 20px; }
+            .flow-node { width: 180px; }
+            .header-meta { grid-template-columns: 1fr; }
+            .download-btn { bottom: 10px; right: 10px; padding: 10px 16px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company Logo">
+            </div>
+            <h1>Planejamento de Implementação CRM</h1>
+            <h2>Cliente: Stone Mall</h2>
+            <div class="header-meta">
+                <div class="meta-box"><strong>Configuração:</strong> Vendas B2B & Qualificação</div>
+                <div class="meta-box"><strong>Foco:</strong> Conversão de Leads Mornos/Frios</div>
+                <div class="meta-box"><strong>Prazo:</strong> 30 dias (Base de 800 leads)</div>
+            </div>
+            <div class="version-badge">V4 - Alinhamento Final (Baseado na Call)</div>
+        </header>
+
+        <!-- SECÇÃO 1: CONTEXTO E VALIDAÇÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>1. Contexto Estratégico e Validação</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Com base na análise da call, validamos o cenário atual do funil de vendas da Stone Mall (negócio de full slabs de pedra):</p>
+                
+                <div class="subsection" style="margin-top: 15px;">
+                    <h4>Diagnóstico do Gargalo</h4>
+                    <ul>
+                        <li><strong>Base Estagnada:</strong> 800 leads no follow-up sem critérios objetivos de qualificação além de "hot/warm/cold".</li>
+                        <li><strong>Modelo B2B (95%):</strong> Negócio é predominantemente com fabricantes, designers e contratistas, não com cliente final.</li>
+                        <li><strong>Falta de MQL:</strong> Não há entrada de leads "frios" qualificados pelo marketing. Leads já entram quentes via agendamento.</li>
+                        <li><strong>Timing Variável:</strong> Clientes com projetos futuros (casa pronta em agosto/novembro) ficam no funil sem ação específica.</li>
+                    </ul>
+                </div>
+
+                <div class="subsection" style="margin-top: 15px;">
+                    <h4>Regras de Negócio Validadas</h4>
+                    <ul>
+                        <li><strong>Foco B2B Exclusivo:</strong> Cliente final (5%) não é comprador direto. O avatar é fabricante/designer/contratista.</li>
+                        <li><strong>Venda Apenas Full Slab:</strong> Não há corte ou fabricação. Venda é da pedra inteira (~70 sq ft em média).</li>
+                        <li><strong>Comissão para Fabricador:</strong> Cliente final é faturado através do fabricador, que recebe comissão.</li>
+                        <li><strong>Comunicação por WhatsApp:</strong> 75-80% dos clientes B2B são brasileiros e preferem WhatsApp.</li>
+                    </ul>
+                    <div class="change-note">Mudança de estratégia: foco total em B2B, excluindo campanhas para cliente final.</div>
+                </div>
+
+                <div class="quote">
+                    "O índice de cliente final aqui é muito baixo... 95% dos negócios giram com fabricador/designer. O brasileiro gosta de usar WhatsApp. Seria muito bacana uma campanha estratégica de captação para esse cliente que traz o cliente."
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 2: QUALIFICAÇÃO E DISTRIBUIÇÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>2. Fluxo de Qualificação e Segmentação</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Automações Implementadas (Como CRM)</h4>
+                    <p>A Stone Mall já implementou automações básicas no Como:</p>
+                    <ul>
+                        <li><strong>Entrada via StoneProfit:</strong> Leads de agendamento migram para o Como.</li>
+                        <li><strong>SLA de 24h:</strong> Vendedor deve classificar lead como "hot", "warm" ou "cold".</li>
+                        <li><strong>Tags Automáticas:</strong> Classificação gera tag correspondente.</li>
+                        <li><strong>Tarefas Automáticas:</strong> Hot (3 dias), Warm (7 dias), Cold (10 dias).</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <strong>Próximo Passo Crítico:</strong> Estratégia de conversão para leads "warm" e "cold". Definição de sequências de mensagens (WhatsApp/Email) e integração com GoTo (SMS).
+                    </div>
+                    
+                    <div class="flow-wrapper">
+                        <div class="flow-node">Lead Entra (Agendamento StoneProfit)</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node decision"><strong>VENDEDOR (24h):</strong><br>Classifica como Hot/Warm/Cold</div>
+                        <div class="flow-split">
+                            <div class="flow-path">
+                                <span class="path-label">HOT</span>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action">Tarefa: Follow-up em 3 dias<br><span class="tag-task">Foco: Fechamento</span></div>
+                            </div>
+                            <div class="flow-path">
+                                <span class="path-label">WARM</span>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action">Tarefa: Follow-up em 7 dias<br><span class="tag-task">Foco: Qualificação</span></div>
+                            </div>
+                            <div class="flow-path">
+                                <span class="path-label">COLD</span>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action">Tarefa: Follow-up em 10 dias<br><span class="tag-task">Foco: Reaquecimento</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="change-note">Automação básica já está rodando. Foco agora é na estratégia de mensagens para warm/cold.</div>
+                </div>
+
+                <div class="subsection" style="margin-top: 20px;">
+                    <h4>Checklist de Qualificação B2B (MQL → SQL)</h4>
+                    <table>
+                        <tr>
+                            <th style="width: 20%;">Critério</th>
+                            <th>Descrição</th>
+                            <th style="width: 20%;">Ação</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Perfil</strong></td>
+                            <td>Fabricante / Designer / Contratista (excluir cliente final)</td>
+                            <td><span class="tag-advance">Avançar</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Projeto Ativo</strong></td>
+                            <td>Obra em andamento com timeline definida</td>
+                            <td><span class="tag-advance">Avançar</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Material</strong></td>
+                            <td>Tipo de pedra identificado (luxo vs. básico)</td>
+                            <td><span class="tag-info">Registrar</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Budget</strong></td>
+                            <td>Consciente do investimento em full slab</td>
+                            <td><span class="tag-info">Registrar</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Decision Maker</strong></td>
+                            <td>Capacidade de fechar sem intermediários</td>
+                            <td><span class="tag-advance">Avançar</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 3: DETALHAMENTO DO FUNIL -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>3. Funil de Vendas B2B e Pós-Venda</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Funil de Vendas B2B (5 etapas)</h4>
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-sales" style="max-width: 100%;">1. Prospecção Qualificada</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 90%;">2. Diagnóstico Técnico (Visita)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 80%;">3. Proposta Estratégica</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 70%;">4. Negociação B2B</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 60%; background: #991b1b;">5. Fechamento e Logística</div>
+                        <div class="funnel-win">✓ Pedido Confirmado (Full Slab)</div>
+                    </div>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 20%;">Etapa</th>
+                            <th style="width: 40%;">Ação da Etapa</th>
+                            <th style="width: 40%;">Automações/Integrações</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Prospecção</strong></td>
+                            <td>Formulário de qualificação B2B (perfil, projeto, timeline, material).</td>
+                            <td>Bot de WhatsApp para qualificação inicial. Integração GoTo para SMS.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Diagnóstico</strong></td>
+                            <td>Visita ao showroom + análise de projeto do cliente.</td>
+                            <td>Lembretes automáticos para visita. Registro de preferências no card.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Proposta</strong></td>
+                            <td>Apresentação com opções de material + comissão para fabricador.</td>
+                            <td>Template de proposta automática. Follow-up em 3 dias.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Negociação</strong></td>
+                            <td>Negociação de preço, entrega, comissão (foco em parceria B2B).</td>
+                            <td>Tarefas de follow-up. Alertas para supervisor se passar de 7 dias.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Fechamento</strong></td>
+                            <td>Contrato + coordenação logística do full slab.</td>
+                            <td>Confirmação automática via WhatsApp/SMS. Início do pós-venda.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection" style="margin-top: 30px;">
+                    <h4>Funil de Fidelização (Pós-Venda)</h4>
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-post" style="max-width: 100%;">1. Onboarding de Parceria</div>
+                        <div class="funnel-step funnel-post" style="max-width: 90%;">2. Expansão de Conta</div>
+                        <div class="funnel-step funnel-post" style="max-width: 80%;">3. Advocacy Program</div>
+                    </div>
+                    
+                    <table style="margin-top: 20px;">
+                        <tr>
+                            <th style="width: 20%;">Etapa</th>
+                            <th style="width: 40%;">Ação da Etapa</th>
+                            <th style="width: 40%;">Automações Planejadas</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Onboarding</strong></td>
+                            <td>Estabelecer processo de recompra com fabricador/designer.</td>
+                            <td>Sequência de boas-vindas B2B. Pesquisa de satisfação em 30 dias.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Expansão</strong></td>
+                            <td>Vender materiais premium para mesma base (upgrade).</td>
+                            <td>Alertas de novos materiais em estoque. Ofertas especiais para clientes ativos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Advocacy</strong></td>
+                            <td>Converter em indicadores (programa de referência).</td>
+                            <td>Campanhas de indicação com comissão. Destaque em cases de sucesso.</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="highlight-box" style="margin-top: 15px;">
+                        <strong>Integração GoTo (SMS):</strong> Suporte necessário para configurar sequências automáticas de SMS para leads warm/cold, com foco em reaquecimento e qualificação.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECÇÃO 4: GESTÃO DE SLAs E TAREFAS -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>4. SLAs, Tarefas e Taxonomia</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Estrutura de prazos e organização para os 800 leads existentes:</p>
+                
+                <div class="highlight-box">
+                    <strong>Meta:</strong> Converter base de 800 leads em pipeline qualificado em 30 dias.<br>
+                    <strong>Cadência Alvo:</strong> 2-3 vendas de full slab por semana.
+                </div>
+
+                <table>
+                    <tr>
+                        <th style="width: 30%;">Gatilho / Situação</th>
+                        <th>Ação no CRM</th>
+                        <th>Objetivo</th>
+                    </tr>
+                    <tr>
+                        <td>Lead classificada como HOT</td>
+                        <td><span class="tag-task">Tarefa de Follow-up (3 dias)</span><br>+ Mensagem via WhatsApp</td>
+                        <td>Fechamento rápido (projeto ativo).</td>
+                    </tr>
+                    <tr>
+                        <td>Lead classificada como WARM</td>
+                        <td><span class="tag-task">Tarefa de Qualificação (7 dias)</span><br>+ Sequência de educação (materiais)</td>
+                        <td>Avancar para diagnóstico técnico.</td>
+                    </tr>
+                    <tr>
+                        <td>Lead classificada como COLD</td>
+                        <td><span class="tag-task">Tarefa de Reaquecimento (10 dias)</span><br>+ Campanha de reengajamento</td>
+                        <td>Recuperar lead antiga ou sem resposta.</td>
+                    </tr>
+                    <tr>
+                        <td>Lead > 30 dias sem movimento</td>
+                        <td><span class="tag-task">Tag #RevisãoUrgente</span><br>+ Reclassificação obrigatória</td>
+                        <td>Evitar estoque de leads paradas.</td>
+                    </tr>
+                </table>
+
+                <div class="subsection" style="margin-top: 20px;">
+                    <h4>Taxonomia de Tags (Dicionário)</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
+                        <div><span class="tag-info">campanha_agendamento</span> <small>Origem</small></div>
+                        <div><span class="tag-info">indicacao_organica</span> <small>Origem</small></div>
+                        <div><span class="tag-info">fabricante</span> <small>Perfil</small></div>
+                        <div><span class="tag-info">designer</span> <small>Perfil</small></div>
+                        <div><span class="tag-info">contratista</span> <small>Perfil</small></div>
+                        <div><span class="tag-info">qualificado_b2b</span> <small>Status</small></div>
+                        <div><span class="tag-info">visita_agendada</span> <small>Status</small></div>
+                        <div><span class="tag-info">luxo_top</span> <small>Material</small></div>
+                        <div><span class="tag-info">basico</span> <small>Material</small></div>
+                        <div><span class="tag-info">super_jumbo</span> <small>Material</small></div>
+                        <div><span class="tag-info">urgente_30d</span> <small>Timeline</small></div>
+                        <div><span class="tag-info">futuro_180d</span> <small>Timeline</small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 5: ESTRATÉGIA DE CONVERSÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>5. Estratégia de Conversão Warm/Cold</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="highlight-box">
+                    <strong>Necessidade da Ingrid:</strong> "Precisamos de ajuda para estruturar a parte estratégica de conversão de leads mornas e frias. Criar estratégias, sequência de mensagens, tanto e-mail como SMS."
+                </div>
+
+                <div class="subsection">
+                    <h4>Régua de Relacionamento Warm (7 dias)</h4>
+                    <table>
+                        <tr>
+                            <th style="width: 15%;">Dia</th>
+                            <th style="width: 35%;">Canal / Ação</th>
+                            <th style="width: 50%;">Conteúdo / Objetivo</th>
+                        </tr>
+                        <tr>
+                            <td><strong>D0</strong></td>
+                            <td>Classificação WARM</td>
+                            <td>Tag automática + tarefa para vendedor em 7 dias.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D1</strong></td>
+                            <td>WhatsApp (Automático)</td>
+                            <td>"Olá [Nome], vimos seu interesse em nossos full slabs. Para te ajudar melhor, qual o tipo de projeto você tem em mente?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D4</strong></td>
+                            <td>Email (Automático)</td>
+                            <td>Catálogo dos materiais mais vendidos + cases de sucesso com designers.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D7</strong></td>
+                            <td>Tarefa Vendedor</td>
+                            <td>Ligação para qualificação: confirmar perfil, projeto, timeline.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection" style="margin-top: 20px;">
+                    <h4>Régua de Reaquecimento Cold (10 dias +)</h4>
+                    <table>
+                        <tr>
+                            <th style="width: 15%;">Dia</th>
+                            <th style="width: 35%;">Canal / Ação</th>
+                            <th style="width: 50%;">Conteúdo / Objetivo</th>
+                        </tr>
+                        <tr>
+                            <td><strong>D0</strong></td>
+                            <td>Classificação COLD</td>
+                            <td>Tag automática + tarefa para vendedor em 10 dias.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D1</strong></td>
+                            <td>WhatsApp (Automático)</td>
+                            <td>"[Nome], tudo bem? Estamos com novidades em estoque! Temos novos mármores e granitos. Gostaria de ver fotos?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D5</strong></td>
+                            <td>SMS (GoTo)</td>
+                            <td>"Oferta especial para clientes Stone Mall! Esta semana, frete grátis para pedidos acima de 2 slabs. Saiba mais: [link]"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D10</strong></td>
+                            <td>Tarefa Vendedor</td>
+                            <td>Tentativa de ligação final. Se sem resposta, mover para "Inativo" com tag #Reativar_90dias.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="change-note">Estratégia deve ser ajustada com base nos 5 melhores clientes atuais (lookalike). Foco em WhatsApp para brasileiros, SMS/Email como backup.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="download-btn" onclick="downloadPDF()">Baixar Documento</button>
+
+    <script>
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('collapsed');
+        }
+
+        function downloadPDF() {
+            // Esta função seria implementada com uma biblioteca como jsPDF ou html2pdf
+            // Por enquanto, é um placeholder que alerta o usuário
+            alert("Funcionalidade de download PDF será implementada. Por enquanto, você pode usar a função de imprimir do navegador (Ctrl+P) e salvar como PDF.");
+            // Em produção, substituir por:
+            // const element = document.querySelector('.container');
+            // html2pdf().from(element).save('Planejamento-CRM-Stone-Mall.pdf');
+        }
+    </script>
+</body>
+</html>
