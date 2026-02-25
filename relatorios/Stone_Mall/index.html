@@ -261,20 +261,16 @@
             <div class="section-content">
                 <div class="subsection">
                     <h4>Automações Implementadas (Kommo CRM)</h4>
-                    <p>A Stone Mall já implementou automações básicas no Kommo:</p>
-                    <ul>
-                        <li><strong>Entrada via StoneProfit:</strong> Leads de agendamento migram para o Kommo (Entram como SQL).</li>
-                        <li><strong>SLA de 24h:</strong> Vendedor deve classificar lead como "hot", "warm" ou "cold" (baseado na urgência).</li>
-                    </ul>
+                    <p>A Stone Mall já implementou automações básicas no Kommo para evitar estagnação de leads:</p>
                     
                     <div class="change-note" style="margin-top: 15px;">
-                        <strong>NOVO GATILHO DE FOLLOW-UP:</strong> Criada automação de segurança - se o lead ficar <strong>'X' dias estagnado</strong> em qualquer etapa do funil (sem movimentação), ele <strong>avança automaticamente para a etapa de 'Follow Up'</strong> e gera uma notificação. O valor de 'X' varia conforme a temperatura configurada pela Ingrid.
+                        <strong>GATILHO DE FOLLOW-UP ATIVO:</strong> Automação de segurança criada - se o lead ficar <strong>'X' dias estagnado</strong> em qualquer etapa do funil (sem movimentação), ele <strong>avança automaticamente para a etapa de 'Follow Up'</strong> e gera uma notificação.
                     </div>
                     
                     <div class="flow-wrapper">
                         <div class="flow-node">Lead Entra (Agendamento StoneProfit)</div>
                         <div class="flow-arrow"></div>
-                        <div class="flow-node decision"><strong>VENDEDOR (24h):</strong><br>Classifica Baseado na Urgência de Compra</div>
+                        <div class="flow-node decision"><strong>VENDEDOR (24h):</strong><br>Qualifica e Define a Urgência</div>
                         <div class="flow-split">
                             <div class="flow-path">
                                 <span class="path-label">HOT</span>
@@ -292,6 +288,17 @@
                                 <div class="flow-node action">Tempo de Etapa: max 10 dias<br><span class="tag-task">Foco: Reaquecimento</span></div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <h4>🛠 Como o Vendedor Qualifica e Avança o Lead?</h4>
+                        <p>Para tirar o lead da etapa de entrada e movê-lo pelo funil, o vendedor <strong>não pode agir por intuição</strong>. Ele deve obrigatoriamente realizar o contato inicial e preencher os seguintes dados no card do CRM:</p>
+                        <ol style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                            <li><strong>Perfil do Cliente:</strong> Preencher campo (Ex: Designer, Fabricador, Contratista, ou Cliente Final com Fabricador).</li>
+                            <li><strong>Ciência da Venda:</strong> Confirmar se o cliente entende que a venda é apenas do <em>Full Slab</em>.</li>
+                            <li><strong>Prazo da Obra:</strong> Preencher a data ou estimativa de quando a pedra será instalada.</li>
+                        </ol>
+                        <p style="margin-top: 10px;">Após preencher essas informações, o vendedor altera a <strong>Temperatura da Lead (Hot, Warm, Cold)</strong>. O sistema reconhecerá o preenchimento e liberará o gatilho para mover o lead automaticamente para a próxima etapa (Visita ou Proposta).</p>
                     </div>
                 </div>
 
@@ -341,12 +348,61 @@
                         <div class="funnel-step funnel-sales" style="max-width: 100%; background: #9ca3af; color: #111;">0. Leads (Incoming Leads)</div>
                         <div class="funnel-step funnel-sales" style="max-width: 90%;">1. Captação MQL (Prospecção Qualificada / Filtro)</div>
                         <div class="funnel-step funnel-sales" style="max-width: 80%;">2. Diagnóstico Técnico (Visita Showroom)</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 70%;">3. Proposta Estratégica</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 60%;">4. Negociação B2B</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 50%;">5. Follow Up (Organização de leads sem contato)</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 45%; background: #991b1b;">6. Fechamento e Logística</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 70%;">3. Proposta Estratégica (Envio e Negociação)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 60%;">4. Follow Up (Organização de leads sem contato)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 50%; background: #991b1b;">5. Fechamento e Logística</div>
                         <div class="funnel-win">✓ Pedido Confirmado (Full Slab)</div>
                     </div>
+                </div>
+
+                <div class="subsection" style="margin-top: 30px;">
+                    <h4>Detalhamento das Etapas e Critérios de Transição</h4>
+                    <p>O funil foi simplificado (unificando a negociação à proposta) para dar mais agilidade. Abaixo, as regras de quando o lead avança ou é retido/descartado:</p>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 20%;">Etapa</th>
+                            <th style="width: 30%;">Objetivo / O que acontece?</th>
+                            <th style="width: 25%;">Quando AVANÇAR o lead?</th>
+                            <th style="width: 25%;">Se NÃO avançar, o que fazer?</th>
+                        </tr>
+                        <tr>
+                            <td><strong>0. Leads</strong></td>
+                            <td>Caixa de entrada para todos os novos agendamentos ou contatos recebidos via site/WhatsApp.</td>
+                            <td>Avançar assim que o vendedor iniciar o primeiro contato para qualificação.</td>
+                            <td>Se não responder, o sistema o enviará automaticamente para a régua de nutrição ou para Follow-Up.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Captação MQL</strong></td>
+                            <td>Etapa onde o vendedor preenche o formulário obrigatório (confirmando se é B2B e perfil full slab).</td>
+                            <td>Avançar quando o lead confirmar o perfil ideal e demonstrar interesse em visitar ou ver pedras.</td>
+                            <td><strong>Descartar (Lost):</strong> Se for cliente final procurando apenas cortes/pequenos reparos e sem fabricador.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Diagnóstico Técnico</strong></td>
+                            <td>Apresentação do material. Geralmente ocorre com a visita presencial ao showroom ou envio de vídeos detalhados das chapas.</td>
+                            <td>Avançar quando o lead escolher a pedra e solicitar o orçamento (cotação oficial).</td>
+                            <td>Se a obra for para o futuro e ele não decidir agora, classificar como WARM ou COLD e manter sob cadência de nutrição.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Proposta Estratégica</strong></td>
+                            <td>Envio dos valores e trâmites da negociação B2B (faturamento para o parceiro, ajuste de comissão, etc).</td>
+                            <td>Avançar para <em>Fechamento</em> quando o lead der o "De Acordo" verbal ou digital.</td>
+                            <td>Se ficar caro ou estagnar, mover para a etapa <strong>4. Follow-Up</strong> para tentativa de resgate posterior. Se recusar de vez, <strong>Lost</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Follow Up</strong></td>
+                            <td>A "sala de espera". Leads que travaram nas etapas anteriores vêm para cá para não poluir o pipeline ativo dos vendedores.</td>
+                            <td>Avançar de volta para a Proposta caso o lead retome o interesse e aceite negociar.</td>
+                            <td>Manter recebendo e-mails/SMS institucionais em cadência longa. Se passar 90 dias sem resposta, <strong>Lost</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Fechamento</strong></td>
+                            <td>Acerto financeiro, validação do contrato e preparação para a liberação da pedra inteira para a logística do fabricador.</td>
+                            <td>Avançar para o "✓ Pedido Confirmado" assim que a pedra sair do showroom.</td>
+                            <td>-</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -359,11 +415,11 @@
             </div>
             <div class="section-content">
                 <div class="subsection" style="margin-top: 10px;">
-                    <h4>Régua de Nutrição Geral</h4>
-                    <p><strong>Objetivo:</strong> Manter a Stone Mall no radar da base de leads B2B (designers, fabricadores, contratistas) que já visitaram o showroom ou demonstraram interesse, estimulando um novo ponto de contato ou agendamento sem classificar precipitadamente o lead.</p>
+                    <h4>Régua de Nutrição Geral (Cadência Sprint)</h4>
+                    <p><strong>Objetivo:</strong> Manter a Stone Mall no radar da base de leads B2B (designers, fabricadores, contratistas) que já visitaram o showroom ou demonstraram interesse. Essa régua tem a finalidade de "forçar" uma resposta da base estagnada em pouco tempo, limpando o funil rapidamente.</p>
                     
                     <ul style="margin-left: 20px; margin-top: 10px;">
-                        <li><strong>Cadência Recomendada:</strong> A cada 15 dias (para não ser invasivo), totalizando um ciclo de 45 a 60 dias.</li>
+                        <li><strong>Cadência Recomendada:</strong> Ciclo rápido de alto impacto ("Sprint"). Totalizando 3 toques distribuídos em uma semana (7 a 10 dias). Se o lead não responder após isso, deve ser descartado ou enviado para arquivo frio.</li>
                         <li><strong>Canais:</strong> Centralizados via integração GoTo Connect (WhatsApp/SMS e Ligação).</li>
                     </ul>
 
@@ -379,12 +435,12 @@
                             <td><strong>"Check-in" do Projeto:</strong> "Olá [Nome], vimos seu interesse em nossos full slabs recentemente. Como está o andamento da sua obra/projeto? Se precisar de ajuda para estimar as pedras, estamos à disposição."</td>
                         </tr>
                         <tr>
-                            <td><strong>Toque 2 (D+15)</strong></td>
+                            <td><strong>Toque 2 (D+3)</strong></td>
                             <td>Email / WhatsApp</td>
                             <td><strong>Prova Social / Autoridade:</strong> Envio de um catálogo atualizado, apresentação de um lote exclusivo de materiais premium ou compartilhamento de um case rápido de sucesso de um parceiro da região.</td>
                         </tr>
                         <tr>
-                            <td><strong>Toque 3 (D+30)</strong></td>
+                            <td><strong>Toque 3 (D+7)</strong></td>
                             <td>Ligação Ativa (GoTo)</td>
                             <td><strong>Reativação Direta:</strong> Tarefa para o vendedor realizar uma ligação ativa (registrada no Kommo) para atualização de cadastro e entendimento do timing real do cliente. O objetivo é avançar para uma visita ou manter no fluxo de nutrição longa.</td>
                         </tr>
