@@ -36,6 +36,8 @@
         .quote { background: #fef2f2; border-left: 4px solid #dc2626; padding: 20px; margin: 15px 0; font-style: italic; color: #991b1b; border-radius: 0 8px 8px 0; }
         .highlight-box { background: #fffbeb; border: 1px solid #f59e0b; border-radius: 8px; padding: 15px; margin: 15px 0; }
         .highlight-box strong { color: #b45309; }
+        .ingrid-note { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0;}
+        .ingrid-note h5 { color: #1d4ed8; margin-bottom: 8px; font-size: 0.95rem; }
         
         /* Estilos do Funil */
         .funnel-container { display: flex; flex-direction: column; align-items: center; padding: 20px; background: #f9fafb; border-radius: 8px; margin: 15px 0; }
@@ -68,19 +70,60 @@
         .download-btn { position: fixed; bottom: 20px; right: 20px; background: #dc2626; color: white; border: none; padding: 12px 20px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); z-index: 100; transition: all 0.3s; }
         .download-btn:hover { background: #b91c1c; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4); }
 
+        .points-badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-left: 8px; }
+
         @media (max-width: 768px) { 
             .flow-split { flex-direction: column; gap: 20px; }
             .flow-node { width: 180px; }
             .header-meta { grid-template-columns: 1fr; }
             .download-btn { bottom: 10px; right: 10px; padding: 10px 16px; font-size: 0.9rem; }
         }
+
+        /* --- Estilos do Botão de Tradução --- */
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background: white;
+            color: #dc2626;
+        }
+        
+        /* Ocultar elementos originais do Google Translate */
+        #google_translate_element { display: none; }
+        .goog-te-banner-frame.skiptranslate { display: none !important; }
+        body { top: 0px !important; }
+        .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+       <header>
+            <div id="google_translate_element"></div>
+            
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="changeLanguage('pt', this)">PT</button>
+                <button class="lang-btn" onclick="changeLanguage('en', this)">EN</button>
+            </div>
+
             <div class="logo-container">
-                <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company Logo">
+                <div style="color: white; font-weight: bold; font-size: 1.5rem; letter-spacing: 2px;">V4 COMPANY</div>
             </div>
             <h1>Planejamento de Implementação CRM</h1>
             <h2>Cliente: Stone Mall</h2>
@@ -89,7 +132,7 @@
                 <div class="meta-box"><strong>Foco:</strong> Conversão de Leads Mornos/Frios</div>
                 <div class="meta-box"><strong>Prazo:</strong> 30 dias (Base de 800 leads)</div>
             </div>
-            <div class="version-badge">V4 - Alinhamento Final (Baseado na Call)</div>
+            <div class="version-badge">V5 - Alinhamento Final (Centralização Kommo + GoTo Connect)</div>
         </header>
 
         <!-- SECÇÃO 1: CONTEXTO E VALIDAÇÃO -->
@@ -122,31 +165,94 @@
                     <div class="change-note">Mudança de estratégia: foco total em B2B, excluindo campanhas para cliente final.</div>
                 </div>
 
+                <div class="ingrid-note">
+                    <h5>Direcionamento da Ingrid (Foco Estratégico)</h5>
+                    <p><strong>Foco em Leads Específicos:</strong> Necessidade de criar estratégias de conversão voltadas especificamente para leads classificados como mornos e frios.</p>
+                </div>
+
                 <div class="quote">
                     "O índice de cliente final aqui é muito baixo... 95% dos negócios giram com fabricador/designer. O brasileiro gosta de usar WhatsApp. Seria muito bacana uma campanha estratégica de captação para esse cliente que traz o cliente."
                 </div>
             </div>
         </div>
 
-        <!-- SECÇÃO 2: QUALIFICAÇÃO E DISTRIBUIÇÃO -->
+        <!-- NOVA SECÇÃO: DEFINIÇÕES DE LEAD (MQL x SQL) -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h3>2. Fluxo de Qualificação e Segmentação</h3>
+                <h3>2. Definições de Qualificação (MQL vs SQL)</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Para garantir que marketing e vendas falem a mesma língua e os leads certos sejam trabalhados, definimos os seguintes critérios de passagem de bastão:</p>
+                
+                <div class="subsection" style="margin-top: 20px;">
+                    <h4>MQL (Marketing Qualified Lead)</h4>
+                    <p>O MQL é o lead que demonstra interesse inicial e é pré-qualificado pelo marketing para garantir que ele possui o perfil ideal de cliente.</p>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 25%;">Critério MQL</th>
+                            <th>Descrição</th>
+                            <th style="width: 15%;">Pontuação (Scoring)</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Perfil Ideal</strong></td>
+                            <td>Focado em profissionais como designers, arquitetos, contratistas e fabricadores.</td>
+                            <td><span class="points-badge">+4 pontos</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Filtro B2B</strong></td>
+                            <td>O lead deve ser uma empresa ou profissional com sua própria carteira de clientes, excluindo o "consumidor final" que não possui um fabricador.</td>
+                            <td><span class="points-badge">+1 ponto</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Origem</strong></td>
+                            <td>Geralmente capturado via campanhas digitais (Google, Meta ou WhatsApp) ou contato orgânico.</td>
+                            <td><span class="points-badge">+2 pontos</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Objetivo de Compra</strong></td>
+                            <td>Validar se o lead entende que a empresa vende apenas a pedra inteira (full slab) e não realiza a fabricação/corte.</td>
+                            <td><span class="points-badge">+2 pontos</span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection" style="margin-top: 30px;">
+                    <h4>SQL (Sales Qualified Lead)</h4>
+                    <p>O SQL é o lead que avançou no funil e já está pronto para uma abordagem direta de vendas.</p>
+                    
+                    <ul>
+                        <li style="margin-bottom: 10px;"><strong>Critério de Conversão:</strong> É um MQL que solicitou um orçamento ou agendou uma visita ao showroom.</li>
+                        <li style="margin-bottom: 10px;"><strong>Ação de Venda:</strong> Caracteriza-se pelo contato direto do vendedor, seja por ligação, reunião ou atendimento presencial.</li>
+                        <li style="margin-bottom: 10px;"><strong>Status de Temperatura:</strong> No CRM, esses leads são classificados pelos vendedores como Hot (Quente), Warm (Morno) ou Cold (Frio) para definir a urgência do acompanhamento.</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <strong>Exceção - O Papel do Consumidor Final:</strong> Embora o faturamento geralmente ocorra via fabricador (B2B), o consumidor final é tratado como parte do processo de SQL <strong>apenas quando chega acompanhado ou indicado por um profissional.</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 3: QUALIFICAÇÃO E DISTRIBUIÇÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>3. Fluxo de Automação e Follow-up</h3>
                 <span class="toggle">▼</span>
             </div>
             <div class="section-content">
                 <div class="subsection">
-                    <h4>Automações Implementadas (Como CRM)</h4>
-                    <p>A Stone Mall já implementou automações básicas no Como:</p>
+                    <h4>Automações Implementadas (Kommo CRM)</h4>
+                    <p>A Stone Mall já implementou automações básicas no Kommo:</p>
                     <ul>
-                        <li><strong>Entrada via StoneProfit:</strong> Leads de agendamento migram para o Como.</li>
+                        <li><strong>Entrada via StoneProfit:</strong> Leads de agendamento migram para o Kommo (Entram como SQL).</li>
                         <li><strong>SLA de 24h:</strong> Vendedor deve classificar lead como "hot", "warm" ou "cold".</li>
                         <li><strong>Tags Automáticas:</strong> Classificação gera tag correspondente.</li>
-                        <li><strong>Tarefas Automáticas:</strong> Hot (3 dias), Warm (7 dias), Cold (10 dias).</li>
                     </ul>
                     
-                    <div class="highlight-box">
-                        <strong>Próximo Passo Crítico:</strong> Estratégia de conversão para leads "warm" e "cold". Definição de sequências de mensagens (WhatsApp/Email) e integração com GoTo (SMS).
+                    <div class="change-note" style="margin-top: 15px;">
+                        <strong>NOVO GATILHO DE FOLLOW-UP:</strong> Criada automação de segurança - se o lead ficar <strong>'X' dias estagnado</strong> em qualquer etapa do funil (sem movimentação), ele <strong>avança automaticamente para a etapa de 'Follow Up'</strong> e gera uma notificação para o vendedor responsável. O valor de 'X' varia conforme a temperatura (ex: Hot = 3 dias, Warm = 7 dias, Cold = 15 dias).
                     </div>
                     
                     <div class="flow-wrapper">
@@ -157,287 +263,196 @@
                             <div class="flow-path">
                                 <span class="path-label">HOT</span>
                                 <div class="flow-arrow"></div>
-                                <div class="flow-node action">Tarefa: Follow-up em 3 dias<br><span class="tag-task">Foco: Fechamento</span></div>
+                                <div class="flow-node action">Tempo de Etapa: max 3 dias<br><span class="tag-task">Foco: Fechamento</span></div>
                             </div>
                             <div class="flow-path">
                                 <span class="path-label">WARM</span>
                                 <div class="flow-arrow"></div>
-                                <div class="flow-node action">Tarefa: Follow-up em 7 dias<br><span class="tag-task">Foco: Qualificação</span></div>
+                                <div class="flow-node action">Tempo de Etapa: max 7 dias<br><span class="tag-task">Foco: Qualificação</span></div>
                             </div>
                             <div class="flow-path">
                                 <span class="path-label">COLD</span>
                                 <div class="flow-arrow"></div>
-                                <div class="flow-node action">Tarefa: Follow-up em 10 dias<br><span class="tag-task">Foco: Reaquecimento</span></div>
+                                <div class="flow-node action">Tempo de Etapa: max 15 dias<br><span class="tag-task">Foco: Reaquecimento</span></div>
                             </div>
                         </div>
                     </div>
-                    <div class="change-note">Automação básica já está rodando. Foco agora é na estratégia de mensagens para warm/cold.</div>
                 </div>
 
-                <div class="subsection" style="margin-top: 20px;">
-                    <h4>Checklist de Qualificação B2B (MQL → SQL)</h4>
-                    <table>
+                <div class="subsection" style="margin-top: 35px;">
+                    <h4>Stack de Comunicação: Centralização (Kommo + GoTo Connect)</h4>
+                    <div class="change-note" style="margin-bottom: 15px; border-left-color: #ef4444; background: #fef2f2; color: #b91c1c;">
+                        <strong>✓ Pivotagem de Ferramenta (Saída do Twilio):</strong> Conforme direcionamento da Ingrid, a operação <strong>não</strong> utilizará o Twilio. Toda a comunicação (Voz, SMS e E-mails) será 100% centralizada na integração nativa entre o GoTo Connect e o Kommo CRM.
+                    </div>
+                    <p>Abaixo estão as configurações técnicas e estratégicas necessárias para o funcionamento adequado deste stack unificado:</p>
+                    
+                    <table style="margin-top: 15px;">
                         <tr>
-                            <th style="width: 20%;">Critério</th>
-                            <th>Descrição</th>
-                            <th style="width: 20%;">Ação</th>
+                            <th style="width: 30%;">Configuração / Ação</th>
+                            <th style="width: 70%;">Objetivo Técnico no CRM</th>
                         </tr>
                         <tr>
-                            <td><strong>1. Perfil</strong></td>
-                            <td>Fabricante / Designer / Contratista (excluir cliente final)</td>
-                            <td><span class="tag-advance">Avançar</span></td>
+                            <td><strong>1. Configuração do Marketplace e Widget</strong></td>
+                            <td>Garantir que a integração do GoTo Connect esteja espelhando corretamente as chamadas dentro do Kommo.</td>
                         </tr>
                         <tr>
-                            <td><strong>2. Projeto Ativo</strong></td>
-                            <td>Obra em andamento com timeline definida</td>
-                            <td><span class="tag-advance">Avançar</span></td>
+                            <td><strong>2. Digital Pipeline (Salesbot)</strong></td>
+                            <td>Configurar gatilhos para que, quando um lead mude de etapa, o GoTo dispare o SMS de forma automática (sem necessidade de ação manual do vendedor).</td>
                         </tr>
                         <tr>
-                            <td><strong>3. Material</strong></td>
-                            <td>Tipo de pedra identificado (luxo vs. básico)</td>
-                            <td><span class="tag-info">Registrar</span></td>
+                            <td><strong>3. Saneamento e Formatação de Dados</strong></td>
+                            <td>Implementar máscaras de entrada ou revisar os contatos para garantir que todos utilizem o prefixo <strong>+1</strong>.<br><span style="color: #dc2626; font-weight: bold;">Importante: Sem isso, a integração de SMS falha.</span></td>
                         </tr>
                         <tr>
-                            <td><strong>4. Budget</strong></td>
-                            <td>Consciente do investimento em full slab</td>
-                            <td><span class="tag-info">Registrar</span></td>
+                            <td><strong>4. Centralização de Canais (E-mail)</strong></td>
+                            <td>Configurar o envio de e-mails diretamente pelo Kommo, conforme o desejo da cliente de unificar toda a comunicação.</td>
                         </tr>
                         <tr>
-                            <td><strong>5. Decision Maker</strong></td>
-                            <td>Capacidade de fechar sem intermediários</td>
-                            <td><span class="tag-advance">Avançar</span></td>
+                            <td><strong>5. Registro de Histórico (Logging)</strong></td>
+                            <td>Garantir que toda ligação feita pelo GoTo gere uma nota automática no "card" do lead, permitindo que a Ingrid veja o que foi discutido sem sair do CRM.</td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- SECÇÃO 3: DETALHAMENTO DO FUNIL -->
+        <!-- SECÇÃO 4: DETALHAMENTO DO FUNIL -->
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">
-                <h3>3. Funil de Vendas B2B e Pós-Venda</h3>
+                <h3>4. Funil de Vendas B2B e Pós-Venda</h3>
                 <span class="toggle">▼</span>
             </div>
             <div class="section-content">
                 <div class="subsection">
-                    <h4>Funil de Vendas B2B (5 etapas)</h4>
+                    <h4>Funil de Vendas B2B (MQL -> SQL -> Fechamento)</h4>
                     <div class="funnel-container">
-                        <div class="funnel-step funnel-sales" style="max-width: 100%;">1. Prospecção Qualificada</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 90%;">2. Diagnóstico Técnico (Visita)</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 80%;">3. Proposta Estratégica</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 70%;">4. Negociação B2B</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 60%; background: #991b1b;">5. Fechamento e Logística</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 100%; background: #9ca3af; color: #111;">0. Captação MQL (Marketing)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 90%;">1. Prospecção Qualificada (Transição p/ SQL)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 80%;">2. Diagnóstico Técnico (Visita Showroom)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 70%;">3. Proposta Estratégica</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 60%;">4. Negociação B2B</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 50%;">5. Follow Up (Automação de Estagnação)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 45%; background: #991b1b;">6. Fechamento e Logística</div>
                         <div class="funnel-win">✓ Pedido Confirmado (Full Slab)</div>
                     </div>
-                    
+
+                    <div class="subsection" style="margin-top: 30px;">
+                        <h4>Encaixe das Ferramentas no Funil de Vendas</h4>
+                        <p>Abaixo, o detalhamento de como a atuação técnica do GoTo Connect e Kommo suporta cada fase do funil discutida na reunião:</p>
+                        
+                        <table style="margin-top: 15px;">
+                            <tr>
+                                <th style="width: 25%;">Fase do Funil</th>
+                                <th style="width: 35%;">Ação Desejada</th>
+                                <th style="width: 40%;">Papel da Ferramenta (Automação)</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Topo do Funil (MQL/Entrada)</strong></td>
+                                <td>Assim que o lead entra via StoneProfit ou agendamento, o Kommo deve registrar a origem.</td>
+                                <td>Disparar um SMS imediato de "recebimento de contato" para reduzir o tempo de resposta drasticamente.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Meio do Funil (SQL/Follow-up)</strong></td>
+                                <td>Nutrir leads que já visitaram o showroom, mas ainda não fecharam (a base de "800 leads" estagnada).</td>
+                                <td>Criar a "Régua de Mensagens" estratégica pedida pela Ingrid (3 a 4 toques) via SMS e e-mail para converter leads mornos.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fundo do Funil (Conversão/Reaquecimento)</strong></td>
+                                <td>Atacar a base de leads frios e antigos (ex: leads parados desde maio de 2025).</td>
+                                <td>Gerar tarefas automáticas de Ligação Ativa via GoTo para o vendedor, imediatamente após um lead frio responder a um SMS de reaquecimento.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pós-Venda (Sucesso do Cliente)</strong></td>
+                                <td>Medir a satisfação após a entrega da pedra (Full Slab).</td>
+                                <td>Automação com foco em NPS, enviando uma mensagem de agradecimento e um link de avaliação logo após o fechamento da venda.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 5: ESTRATÉGIA DE CONVERSÃO WARM/COLD -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>5. Estratégia de Conversão: Leads Mornos e Frios</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="ingrid-note">
+                    <h5>Dúvidas e Direcionamentos da Ingrid</h5>
+                    <p><strong>Sequências de Contato:</strong> Qual a estrutura ideal? (3 ou 4 mensagens? Qual a periodicidade? Mensal?)<br>
+                    <strong>Reaquecimento Ativo:</strong> Para leads antigos (ex: maio de 2025), proposta de mensagens de reaquecimento acompanhadas de ligações ativas.</p>
+                </div>
+
+                <div class="subsection" style="margin-top: 25px;">
+                    <h4>Régua de Nutrição - Leads Mornos (WARM)</h4>
+                    <p><strong>Objetivo:</strong> Manter a Stone Mall no radar do cliente enquanto o projeto amadurece (ex: obra em andamento) e agendar a visita ao showroom.</p>
+                    <p><strong>Periodicidade Recomendada (Respondendo à Ingrid):</strong> Para leads mornos, a cadência ideal é <strong>quinzenal</strong> (a cada 15 dias) para não ser invasivo, totalizando <strong>3 a 4 toques</strong> em um ciclo de 45-60 dias. Mensal é muito espaçado e pode esfriar o lead. Se após o ciclo ele não avançar, ele é rebaixado para COLD.</p>
+
                     <table>
                         <tr>
-                            <th style="width: 20%;">Etapa</th>
-                            <th style="width: 40%;">Ação da Etapa</th>
-                            <th style="width: 40%;">Automações/Integrações</th>
+                            <th style="width: 15%;">Timing</th>
+                            <th style="width: 25%;">Canal</th>
+                            <th style="width: 60%;">Conteúdo / Ação</th>
                         </tr>
                         <tr>
-                            <td><strong>1. Prospecção</strong></td>
-                            <td>Formulário de qualificação B2B (perfil, projeto, timeline, material).</td>
-                            <td>Bot de WhatsApp para qualificação inicial. Integração GoTo para SMS.</td>
+                            <td><strong>D+0</strong></td>
+                            <td>WhatsApp (Automático)</td>
+                            <td><strong>"Check-in do Projeto":</strong> "Olá [Nome], vimos seu interesse em nossos full slabs recentemente. Como está o andamento da sua obra/projeto? Se precisar de ajuda para estimar as pedras, estamos à disposição."</td>
                         </tr>
                         <tr>
-                            <td><strong>2. Diagnóstico</strong></td>
-                            <td>Visita ao showroom + análise de projeto do cliente.</td>
-                            <td>Lembretes automáticos para visita. Registro de preferências no card.</td>
+                            <td><strong>D+15</strong></td>
+                            <td>Email</td>
+                            <td><strong>Prova Social/Autoridade:</strong> Catálogo dos materiais mais vendidos na temporada + um case rápido de sucesso de um parceiro (designer/fabricador) da região.</td>
                         </tr>
                         <tr>
-                            <td><strong>3. Proposta</strong></td>
-                            <td>Apresentação com opções de material + comissão para fabricador.</td>
-                            <td>Template de proposta automática. Follow-up em 3 dias.</td>
+                            <td><strong>D+30</strong></td>
+                            <td>WhatsApp</td>
+                            <td><strong>Gatilho de Visita:</strong> "Oi [Nome]! Acabamos de receber um lote exclusivo de [Material Premium]. Gostaria de agendar uma visita rápida ao showroom esta semana para conferir as peças inteiras antes que acabem?"</td>
                         </tr>
                         <tr>
-                            <td><strong>4. Negociação</strong></td>
-                            <td>Negociação de preço, entrega, comissão (foco em parceria B2B).</td>
-                            <td>Tarefas de follow-up. Alertas para supervisor se passar de 7 dias.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>5. Fechamento</strong></td>
-                            <td>Contrato + coordenação logística do full slab.</td>
-                            <td>Confirmação automática via WhatsApp/SMS. Início do pós-venda.</td>
+                            <td><strong>D+45</strong></td>
+                            <td>Tarefa Vendedor</td>
+                            <td><strong>Ligação de Alinhamento:</strong> Tentativa de contato telefônico para entender o timing real do cliente. Avançar para visita ou rebaixar para COLD.</td>
                         </tr>
                     </table>
                 </div>
 
                 <div class="subsection" style="margin-top: 30px;">
-                    <h4>Funil de Fidelização (Pós-Venda)</h4>
-                    <div class="funnel-container">
-                        <div class="funnel-step funnel-post" style="max-width: 100%;">1. Onboarding de Parceria</div>
-                        <div class="funnel-step funnel-post" style="max-width: 90%;">2. Expansão de Conta</div>
-                        <div class="funnel-step funnel-post" style="max-width: 80%;">3. Advocacy Program</div>
-                    </div>
-                    
-                    <table style="margin-top: 20px;">
-                        <tr>
-                            <th style="width: 20%;">Etapa</th>
-                            <th style="width: 40%;">Ação da Etapa</th>
-                            <th style="width: 40%;">Automações Planejadas</th>
-                        </tr>
-                        <tr>
-                            <td><strong>1. Onboarding</strong></td>
-                            <td>Estabelecer processo de recompra com fabricador/designer.</td>
-                            <td>Sequência de boas-vindas B2B. Pesquisa de satisfação em 30 dias.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2. Expansão</strong></td>
-                            <td>Vender materiais premium para mesma base (upgrade).</td>
-                            <td>Alertas de novos materiais em estoque. Ofertas especiais para clientes ativos.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>3. Advocacy</strong></td>
-                            <td>Converter em indicadores (programa de referência).</td>
-                            <td>Campanhas de indicação com comissão. Destaque em cases de sucesso.</td>
-                        </tr>
-                    </table>
-                    
-                    <div class="highlight-box" style="margin-top: 15px;">
-                        <strong>Integração GoTo (SMS):</strong> Suporte necessário para configurar sequências automáticas de SMS para leads warm/cold, com foco em reaquecimento e qualificação.
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- SECÇÃO 4: GESTÃO DE SLAs E TAREFAS -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <h3>4. SLAs, Tarefas e Taxonomia</h3>
-                <span class="toggle">▼</span>
-            </div>
-            <div class="section-content">
-                <p>Estrutura de prazos e organização para os 800 leads existentes:</p>
-                
-                <div class="highlight-box">
-                    <strong>Meta:</strong> Converter base de 800 leads em pipeline qualificado em 30 dias.<br>
-                    <strong>Cadência Alvo:</strong> 2-3 vendas de full slab por semana.
-                </div>
+                    <h4>Campanha de Reaquecimento Ativo - Leads Frios (COLD) / Base Antiga</h4>
+                    <p><strong>Objetivo:</strong> Limpar a base de 800 leads estagnados e reviver leads antigos (ex: cadastros de meses anteriores) identificando quem tem nova demanda.</p>
+                    <p><strong>Estratégia (Respondendo à Ingrid):</strong> Uma campanha curta e de alto impacto ("Sprint"). A combinação de mensagem direta seguida de ligação ativa é a melhor abordagem para base fria.</p>
 
-                <table>
-                    <tr>
-                        <th style="width: 30%;">Gatilho / Situação</th>
-                        <th>Ação no CRM</th>
-                        <th>Objetivo</th>
-                    </tr>
-                    <tr>
-                        <td>Lead classificada como HOT</td>
-                        <td><span class="tag-task">Tarefa de Follow-up (3 dias)</span><br>+ Mensagem via WhatsApp</td>
-                        <td>Fechamento rápido (projeto ativo).</td>
-                    </tr>
-                    <tr>
-                        <td>Lead classificada como WARM</td>
-                        <td><span class="tag-task">Tarefa de Qualificação (7 dias)</span><br>+ Sequência de educação (materiais)</td>
-                        <td>Avancar para diagnóstico técnico.</td>
-                    </tr>
-                    <tr>
-                        <td>Lead classificada como COLD</td>
-                        <td><span class="tag-task">Tarefa de Reaquecimento (10 dias)</span><br>+ Campanha de reengajamento</td>
-                        <td>Recuperar lead antiga ou sem resposta.</td>
-                    </tr>
-                    <tr>
-                        <td>Lead > 30 dias sem movimento</td>
-                        <td><span class="tag-task">Tag #RevisãoUrgente</span><br>+ Reclassificação obrigatória</td>
-                        <td>Evitar estoque de leads paradas.</td>
-                    </tr>
-                </table>
-
-                <div class="subsection" style="margin-top: 20px;">
-                    <h4>Taxonomia de Tags (Dicionário)</h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
-                        <div><span class="tag-info">campanha_agendamento</span> <small>Origem</small></div>
-                        <div><span class="tag-info">indicacao_organica</span> <small>Origem</small></div>
-                        <div><span class="tag-info">fabricante</span> <small>Perfil</small></div>
-                        <div><span class="tag-info">designer</span> <small>Perfil</small></div>
-                        <div><span class="tag-info">contratista</span> <small>Perfil</small></div>
-                        <div><span class="tag-info">qualificado_b2b</span> <small>Status</small></div>
-                        <div><span class="tag-info">visita_agendada</span> <small>Status</small></div>
-                        <div><span class="tag-info">luxo_top</span> <small>Material</small></div>
-                        <div><span class="tag-info">basico</span> <small>Material</small></div>
-                        <div><span class="tag-info">super_jumbo</span> <small>Material</small></div>
-                        <div><span class="tag-info">urgente_30d</span> <small>Timeline</small></div>
-                        <div><span class="tag-info">futuro_180d</span> <small>Timeline</small></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECÇÃO 5: ESTRATÉGIA DE CONVERSÃO -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <h3>5. Estratégia de Conversão Warm/Cold</h3>
-                <span class="toggle">▼</span>
-            </div>
-            <div class="section-content">
-                <div class="highlight-box">
-                    <strong>Necessidade da Ingrid:</strong> "Precisamos de ajuda para estruturar a parte estratégica de conversão de leads mornas e frias. Criar estratégias, sequência de mensagens, tanto e-mail como SMS."
-                </div>
-
-                <div class="subsection">
-                    <h4>Régua de Relacionamento Warm (7 dias)</h4>
                     <table>
                         <tr>
-                            <th style="width: 15%;">Dia</th>
-                            <th style="width: 35%;">Canal / Ação</th>
-                            <th style="width: 50%;">Conteúdo / Objetivo</th>
+                            <th style="width: 15%;">Passo</th>
+                            <th style="width: 25%;">Ação / Canal</th>
+                            <th style="width: 60%;">Conteúdo / Objetivo</th>
                         </tr>
                         <tr>
-                            <td><strong>D0</strong></td>
-                            <td>Classificação WARM</td>
-                            <td>Tag automática + tarefa para vendedor em 7 dias.</td>
+                            <td><strong>1. Filtro</strong></td>
+                            <td>CRM (Preparação)</td>
+                            <td>Filtrar todos os leads sem interação nos últimos 60+ dias e marcados como B2B (fabricante/designer).</td>
                         </tr>
                         <tr>
-                            <td><strong>D1</strong></td>
-                            <td>WhatsApp (Automático)</td>
-                            <td>"Olá [Nome], vimos seu interesse em nossos full slabs. Para te ajudar melhor, qual o tipo de projeto você tem em mente?"</td>
+                            <td><strong>2. Disparo</strong></td>
+                            <td>WhatsApp em Massa / SMS</td>
+                            <td><strong>Mensagem "9-Word Email" (Curta e direta):</strong><br> "[Nome], você ainda está procurando parceiros fornecedores de full slabs para os seus projetos deste semestre?"<br><em>(Gera alta taxa de resposta de 'sim/não').</em></td>
                         </tr>
                         <tr>
-                            <td><strong>D4</strong></td>
-                            <td>Email (Automático)</td>
-                            <td>Catálogo dos materiais mais vendidos + cases de sucesso com designers.</td>
+                            <td><strong>3. Ativação</strong></td>
+                            <td>Ligação Ativa (GoTo Connect)</td>
+                            <td><strong>Reaquecimento Direto (em até 48h após disparo):</strong> Para todos que não responderam a mensagem. Utilizar o <strong>GoTo Connect</strong> para centralizar a ligação no histórico do CRM.<br><em>"Oi [Nome], te mandei um whats ontem. Só te liguei para atualizar nosso cadastro: você ainda atua com [tipo de projeto]? Posso te enviar as fotos do nosso estoque?"</em></td>
                         </tr>
                         <tr>
-                            <td><strong>D7</strong></td>
-                            <td>Tarefa Vendedor</td>
-                            <td>Ligação para qualificação: confirmar perfil, projeto, timeline.</td>
+                            <td><strong>4. Limpeza</strong></td>
+                            <td>CRM (Descarte)</td>
+                            <td>Se não responder WhatsApp e não atender a ligação, mover para estágio "Lost/Desqualificado" (Limpeza de base).</td>
                         </tr>
                     </table>
                 </div>
 
-                <div class="subsection" style="margin-top: 20px;">
-                    <h4>Régua de Reaquecimento Cold (10 dias +)</h4>
-                    <table>
-                        <tr>
-                            <th style="width: 15%;">Dia</th>
-                            <th style="width: 35%;">Canal / Ação</th>
-                            <th style="width: 50%;">Conteúdo / Objetivo</th>
-                        </tr>
-                        <tr>
-                            <td><strong>D0</strong></td>
-                            <td>Classificação COLD</td>
-                            <td>Tag automática + tarefa para vendedor em 10 dias.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>D1</strong></td>
-                            <td>WhatsApp (Automático)</td>
-                            <td>"[Nome], tudo bem? Estamos com novidades em estoque! Temos novos mármores e granitos. Gostaria de ver fotos?"</td>
-                        </tr>
-                        <tr>
-                            <td><strong>D5</strong></td>
-                            <td>SMS (GoTo)</td>
-                            <td>"Oferta especial para clientes Stone Mall! Esta semana, frete grátis para pedidos acima de 2 slabs. Saiba mais: [link]"</td>
-                        </tr>
-                        <tr>
-                            <td><strong>D10</strong></td>
-                            <td>Tarefa Vendedor</td>
-                            <td>Tentativa de ligação final. Se sem resposta, mover para "Inativo" com tag #Reativar_90dias.</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="change-note">Estratégia deve ser ajustada com base nos 5 melhores clientes atuais (lookalike). Foco em WhatsApp para brasileiros, SMS/Email como backup.</div>
             </div>
         </div>
 
@@ -445,19 +460,49 @@
 
     <button class="download-btn" onclick="downloadPDF()">Baixar Documento</button>
 
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'pt', 
+                includedLanguages: 'en,pt', 
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <script>
+        // Função customizada para os botões acionarem o tradutor do Google
+        function changeLanguage(lang, btnElement) {
+            // Remove a classe 'active' de todos os botões e adiciona no botão clicado
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // Encontra o select escondido do widget do Google e dispara a mudança
+            var selectField = document.querySelector(".goog-te-combo");
+            if(selectField) {
+                selectField.value = lang;
+                selectField.dispatchEvent(new Event('change'));
+            } else {
+                // Fallback: se o widget demorar a carregar, tenta de novo em meio segundo
+                setTimeout(function() {
+                    var retrySelect = document.querySelector(".goog-te-combo");
+                    if(retrySelect) {
+                        retrySelect.value = lang;
+                        retrySelect.dispatchEvent(new Event('change'));
+                    }
+                }, 500);
+            }
+        }
+
+        // Suas funções originais mantidas
         function toggleSection(header) {
             const section = header.parentElement;
             section.classList.toggle('collapsed');
         }
 
         function downloadPDF() {
-            // Esta função seria implementada com uma biblioteca como jsPDF ou html2pdf
-            // Por enquanto, é um placeholder que alerta o usuário
-            alert("Funcionalidade de download PDF será implementada. Por enquanto, você pode usar a função de imprimir do navegador (Ctrl+P) e salvar como PDF.");
-            // Em produção, substituir por:
-            // const element = document.querySelector('.container');
-            // html2pdf().from(element).save('Planejamento-CRM-Stone-Mall.pdf');
+            alert("Para salvar o planejamento atualizado: Pressione Ctrl+P (Windows) ou Cmd+P (Mac) e escolha a opção 'Salvar como PDF'.");
         }
     </script>
 </body>
