@@ -1,494 +1,1757 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planejamento CRM - Stone Mall (V5 - Alinhamento Final)</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; font-size: clamp(0.875rem, 2vw, 1rem); }
-        .container { max-width: min(1000px, 95%); margin: 0 auto; padding: 20px; }
-        header { background: linear-gradient(135deg, #dc2626, #991b1b); color: white; padding: clamp(30px, 5vw, 40px); border-radius: 12px; margin-bottom: 30px; text-align: center; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3); position: relative; }
-        .logo-container { background-color: #991b1b; padding: 10px; border-radius: 8px; margin-bottom: 20px; display: inline-block; }
-        .logo-container img { height: 40px; width: auto; }
-        header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin-bottom: 10px; }
-        header h2 { font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 400; opacity: 0.9; }
-        .header-meta { margin-top: 15px; font-size: clamp(0.75rem, 1.5vw, 0.9rem); opacity: 0.85; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
-        .meta-box { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 6px; }
-        .version-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; margin-top: 10px; }
-        .section { background: white; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); overflow: hidden; }
-        .section-header { background: #dc2626; color: white; padding: 15px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
-        .section-header:hover { background: #b91c1c; }
-        .section-header h3 { font-size: clamp(1rem, 2vw, 1.1rem); }
-        .section-header .toggle { font-size: 1.5rem; transition: transform 0.3s; }
-        .section.collapsed .toggle { transform: rotate(-90deg); }
-        .section-content { padding: clamp(15px, 3vw, 25px); display: block; }
-        .section.collapsed .section-content { display: none; }
-        .subsection { margin-bottom: 25px; }
-        .subsection h4 { color: #991b1b; font-size: clamp(1rem, 2vw, 1.1rem); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #fecaca; }
-        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: clamp(0.8rem, 1.5vw, 0.9rem); overflow-x: auto; display: block; }
-        th { background: #991b1b; color: white; padding: 12px 15px; text-align: left; font-weight: 600; }
-        td { padding: 12px 15px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
-        tr:hover { background: #fef2f2; }
-        .quote { background: #fef2f2; border-left: 4px solid #dc2626; padding: 20px; margin: 15px 0; font-style: italic; color: #991b1b; border-radius: 0 8px 8px 0; }
-        .highlight-box { background: #fffbeb; border: 1px solid #f59e0b; border-radius: 8px; padding: 15px; margin: 15px 0; }
-        .highlight-box strong { color: #b45309; }
-        .ingrid-note { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0;}
-        .ingrid-note h5 { color: #1d4ed8; margin-bottom: 8px; font-size: 0.95rem; }
-        
-        /* Estilos do Funil */
-        .funnel-container { display: flex; flex-direction: column; align-items: center; padding: 20px; background: #f9fafb; border-radius: 8px; margin: 15px 0; }
-        .funnel-step { padding: 12px; text-align: center; color: white; font-weight: 500; margin: 3px 0; border-radius: 4px; transition: transform 0.2s; width: 100%; max-width: 100%; }
-        .funnel-sales { background: #dc2626; }
-        .funnel-post { background: #b45309; max-width: 45%; border: 2px dashed #92400e; margin-top: 10px; }
-        .funnel-win { background: #16a34a; color: white; padding: 12px; text-align: center; font-weight: 600; border-radius: 4px; max-width: 50%; margin: 3px 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stone Mall — Estratégia de Follow-Up & Nutrição de Leads</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #141414;
+    --dark-card: #1a1a1a;
+    --dark-border: #2a2a2a;
+    --red: #c41e2a;
+    --red-dark: #9e1822;
+    --red-light: #e8323e;
+    --white: #f5f5f5;
+    --gray: #888;
+    --gray-light: #bbb;
+    --gray-dark: #444;
+  }
 
-        /* Estilos do Fluxograma */
-        .flow-wrapper { display: flex; flex-direction: column; align-items: center; padding: 20px; background: #fafafa; border-radius: 10px; border: 1px solid #eee; margin: 20px 0; }
-        .flow-node { background: white; border: 2px solid #dc2626; border-radius: 6px; padding: 12px; width: min(220px, 90%); text-align: center; font-size: clamp(0.75rem, 1.5vw, 0.85rem); font-weight: 600; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .flow-node.decision { border-color: #991b1b; background: #fff5f5; border-radius: 12px; }
-        .flow-node.action { border-color: #10b981; background: #f0fdf4; color: #065f46; }
-        .flow-arrow { height: 30px; width: 2px; background: #dc2626; position: relative; }
-        .flow-arrow::after { content: ''; position: absolute; bottom: 0; left: -4px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid #dc2626; }
-        .flow-split { display: flex; gap: clamp(20px, 4vw, 40px); margin-top: 10px; flex-wrap: wrap; justify-content: center; }
-        .flow-path { display: flex; flex-direction: column; align-items: center; }
-        .path-label { font-size: 0.7rem; font-weight: bold; color: #666; margin-bottom: 5px; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .tag-mql { background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; border: 1px solid #166534; }
-        .tag-discard { color: #dc2626; font-weight: bold; font-size: 0.8rem; display: block; margin-top: 5px; }
-        .tag-advance { color: #10b981; font-weight: bold; font-size: 0.8rem; display: block; margin-top: 5px; }
-        .tag-task { color: #f59e0b; font-weight: bold; font-size: 0.8rem; display: block; margin-top: 5px; }
-        .tag-info { background: #f3f4f6; color: #374151; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; border: 1px solid #9ca3af; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
 
-        .change-note { background: #ecfdf5; border-left: 3px solid #10b981; padding: 8px 12px; margin: 10px 0; font-size: 0.85rem; color: #065f46; }
-        .change-note::before { content: "✓ Atualizado: "; font-weight: bold; }
-        .change-note.attention { background: #fffbeb; border-left: 3px solid #f59e0b; color: #b45309; }
-        .change-note.attention::before { content: "⚠️ Atenção: "; }
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 60px 20px;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(196,30,42,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 50%, rgba(196,30,42,0.05) 0%, transparent 60%),
+      var(--black);
+  }
 
-        /* Botão de Download */
-        .download-btn { position: fixed; bottom: 20px; right: 20px; background: #dc2626; color: white; border: none; padding: 12px 20px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); z-index: 100; transition: all 0.3s; }
-        .download-btn:hover { background: #b91c1c; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4); }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.01) 2px,
+      rgba(255,255,255,0.01) 4px
+    );
+    pointer-events: none;
+  }
 
-        .points-badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-left: 8px; }
+  .hero-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 8px 24px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
 
-        @media (max-width: 768px) { 
-            .flow-split { flex-direction: column; gap: 20px; }
-            .flow-node { width: 180px; }
-            .header-meta { grid-template-columns: 1fr; }
-            .download-btn { bottom: 10px; right: 10px; padding: 10px 16px; font-size: 0.9rem; }
-        }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
 
-        /* Ocultar durante a impressão */
-        @media print {
-            .download-btn, .lang-switcher { display: none !important; }
-            .section-content { display: block !important; }
-            .section.collapsed .toggle { transform: none; }
-            body { background: white; }
-            .container { max-width: 100%; padding: 0; }
-            .section { box-shadow: none; border: 1px solid #e5e7eb; page-break-inside: avoid; }
-        }
+  .hero h1 span { color: var(--red); }
 
-        /* --- Estilos do Botão de Tradução --- */
-        .lang-switcher {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 100;
-        }
-        .lang-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-        .lang-btn:hover, .lang-btn.active {
-            background: white;
-            color: #dc2626;
-        }
-        
-        /* Ocultar elementos originais do Google Translate */
-        #google_translate_element { display: none; }
-        .goog-te-banner-frame.skiptranslate { display: none !important; }
-        body { top: 0px !important; }
-        .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
-    </style>
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--gray);
+    max-width: 600px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 60px;
+    margin-top: 60px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .hero-stat h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--red);
+  }
+
+  .hero-stat p {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gray);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s, float 2s ease-in-out infinite 1.8s;
+  }
+
+  .scroll-indicator span {
+    display: block;
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--red), transparent);
+    margin: 0 auto;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--dark-border);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .nav a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 18px 24px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .nav a:hover, .nav a.active {
+    color: var(--white);
+    border-bottom-color: var(--red);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 100px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    color: var(--gray);
+    max-width: 700px;
+    margin-bottom: 60px;
+    font-size: 0.95rem;
+  }
+
+  /* FUNNEL VISUAL */
+  .funnel-container {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    margin-bottom: 60px;
+  }
+
+  .funnel-stage {
+    min-width: 160px;
+    flex: 1;
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 8px;
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .funnel-stage:hover {
+    border-color: var(--red);
+    transform: translateY(-4px);
+  }
+
+  .funnel-stage .stage-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--red);
+    opacity: 0.4;
+  }
+
+  .funnel-stage h4 {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .funnel-stage p {
+    font-size: 0.78rem;
+    color: var(--gray);
+  }
+
+  .funnel-stage .leads-count {
+    margin-top: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--red-light);
+  }
+
+  .funnel-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--gray-dark);
+    font-size: 1.2rem;
+    min-width: 20px;
+  }
+
+  /* STRATEGY CARDS */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .strategy-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .strategy-card:hover {
+    border-color: var(--red);
+    box-shadow: 0 0 40px rgba(196,30,42,0.08);
+  }
+
+  .strategy-card-header {
+    padding: 28px 28px 20px;
+    border-bottom: 1px solid var(--dark-border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .strategy-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .strategy-icon.hot { background: rgba(196,30,42,0.2); color: var(--red-light); }
+  .strategy-icon.warm { background: rgba(255,165,0,0.15); color: #ffa500; }
+  .strategy-icon.cold { background: rgba(100,149,237,0.15); color: #6495ED; }
+  .strategy-icon.followup { background: rgba(196,30,42,0.15); color: var(--red); }
+
+  .strategy-card-header h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .strategy-card-header .tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-left: auto;
+  }
+
+  .tag.hot-tag { background: rgba(196,30,42,0.2); color: var(--red-light); }
+  .tag.warm-tag { background: rgba(255,165,0,0.15); color: #ffa500; }
+  .tag.cold-tag { background: rgba(100,149,237,0.15); color: #6495ED; }
+
+  .strategy-card-body { padding: 28px; }
+
+  .strategy-card-body p {
+    color: var(--gray-light);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--dark-border);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 24px;
+  }
+
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid var(--red);
+    background: var(--dark-card);
+  }
+
+  .timeline-item .time-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+
+  .timeline-item h5 {
+    font-size: 0.88rem;
+    margin-bottom: 4px;
+  }
+
+  .timeline-item p {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-bottom: 0;
+  }
+
+  .channel-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .channel-tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .ch-email { background: rgba(196,30,42,0.15); color: var(--red-light); }
+  .ch-sms { background: rgba(255,255,255,0.08); color: var(--gray-light); }
+  .ch-whatsapp { background: rgba(37,211,102,0.12); color: #25d366; }
+  .ch-call { background: rgba(255,165,0,0.12); color: #ffa500; }
+  .ch-auto { background: rgba(138,43,226,0.12); color: #ba8ef7; }
+
+  /* AUTOMATION FLOW */
+  .automation-section {
+    background: var(--dark);
+    border: 1px solid var(--dark-border);
+    border-radius: 16px;
+    padding: 48px;
+    margin: 60px 0;
+  }
+
+  .flow-steps {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 20px 0;
+  }
+
+  .flow-step {
+    min-width: 200px;
+    flex: 1;
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .flow-step::after {
+    content: '→';
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--red);
+    font-size: 1.1rem;
+    z-index: 2;
+  }
+
+  .flow-step:last-child::after { display: none; }
+
+  .flow-step .step-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--red);
+    opacity: 0.5;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .flow-step h5 {
+    font-size: 0.82rem;
+    margin-bottom: 6px;
+  }
+
+  .flow-step p {
+    font-size: 0.75rem;
+    color: var(--gray);
+  }
+
+  /* COPY / SCRIPTS TABLE */
+  .scripts-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+  }
+
+  .scripts-table th {
+    text-align: left;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--dark-border);
+    background: var(--dark);
+  }
+
+  .scripts-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--dark-border);
+    font-size: 0.85rem;
+    vertical-align: top;
+  }
+
+  .scripts-table tr:hover td {
+    background: rgba(196,30,42,0.03);
+  }
+
+  .scripts-table .script-text {
+    color: var(--gray-light);
+    font-style: italic;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .scripts-table .gatilho {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .gatilho.escassez { background: rgba(196,30,42,0.15); color: var(--red-light); }
+  .gatilho.social { background: rgba(37,211,102,0.12); color: #25d366; }
+  .gatilho.autoridade { background: rgba(255,165,0,0.12); color: #ffa500; }
+  .gatilho.reciprocidade { background: rgba(138,43,226,0.12); color: #ba8ef7; }
+  .gatilho.desejo { background: rgba(255,215,0,0.12); color: #ffd700; }
+
+  /* KPI Section */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 40px 0;
+  }
+
+  .kpi-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .kpi-card:hover {
+    border-color: var(--red);
+    transform: translateY(-2px);
+  }
+
+  .kpi-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--red);
+  }
+
+  .kpi-card p {
+    font-size: 0.75rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+    background: var(--dark);
+    border-radius: 8px;
+    padding: 4px;
+    width: fit-content;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--gray);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .tab-btn:hover { color: var(--white); }
+  .tab-btn.active {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* RULES BOX */
+  .rules-box {
+    background: linear-gradient(135deg, rgba(196,30,42,0.08), transparent);
+    border: 1px solid rgba(196,30,42,0.2);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 30px 0;
+  }
+
+  .rules-box h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    color: var(--red-light);
+  }
+
+  .rules-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .rules-box li {
+    padding: 8px 0;
+    padding-left: 20px;
+    position: relative;
+    font-size: 0.88rem;
+    color: var(--gray-light);
+  }
+
+  .rules-box li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    padding: 0;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--dark-border);
+    font-size: 0.88rem;
+    color: var(--gray-light);
+  }
+
+  .checklist li .check {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--red);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .checklist li .check.checked {
+    background: var(--red);
+  }
+
+  .checklist li .check.checked::after {
+    content: '✓';
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 60px 40px;
+    border-top: 1px solid var(--dark-border);
+    color: var(--gray);
+    font-size: 0.8rem;
+  }
+
+  footer .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* PRINT */
+  @media print {
+    .nav { display: none; }
+    body { background: white; color: black; }
+    section { padding: 30px 20px; }
+  }
+
+  @media (max-width: 768px) {
+    section { padding: 60px 20px; }
+    .hero-stats { flex-direction: column; gap: 24px; }
+    .strategy-grid { grid-template-columns: 1fr; }
+    .automation-section { padding: 24px; }
+    .flow-steps { flex-direction: column; }
+    .flow-step::after { display: none; }
+    .nav { padding: 0 16px; }
+    .scripts-table { font-size: 0.8rem; }
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--dark-border), transparent);
+    margin: 0 40px;
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-       <header>
-            <div id="google_translate_element"></div>
-            
-            <div class="lang-switcher">
-                <button class="lang-btn active" onclick="changeLanguage('pt', this)">PT</button>
-                <button class="lang-btn" onclick="changeLanguage('en', this)">EN</button>
-            </div>
 
-            <div class="logo-container">
-                <div style="color: white; font-weight: bold; font-size: 1.5rem; letter-spacing: 2px;">V4 COMPANY</div>
-            </div>
-            <h1>Planejamento de Implementação CRM</h1>
-            <h2>Cliente: Stone Mall</h2>
-            <div class="header-meta">
-                <div class="meta-box"><strong>Configuração:</strong> Vendas B2B & Qualificação</div>
-                <div class="meta-box"><strong>Foco:</strong> Organização de Funil e Nutrição</div>
-                <div class="meta-box"><strong>Prazo:</strong> 30 dias (Base de 800 leads)</div>
-            </div>
-            <div class="version-badge">V5 - Alinhamento Final (Centralização Kommo + GoTo Connect)</div>
-        </header>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Planejamento Estratégico 2026</div>
+  <h1>ESTRATÉGIA DE <span>FOLLOW-UP</span><br>& NUTRIÇÃO DE LEADS</h1>
+  <p class="hero-sub">Régua de comunicação personalizada para conversão de leads Hot, Warm e Cold — Stone Mall · Kommo CRM</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <h3>900+</h3>
+      <p>Leads em Follow-Up</p>
+    </div>
+    <div class="hero-stat">
+      <h3>3</h3>
+      <p>Cadências Estratégicas</p>
+    </div>
+    <div class="hero-stat">
+      <h3>4</h3>
+      <p>Canais de Contato</p>
+    </div>
+  </div>
+  <div class="scroll-indicator"><span></span></div>
+</div>
 
-        <!-- SECÇÃO 1: CONTEXTO E VALIDAÇÃO -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <h3>1. Contexto Estratégico e Validação</h3>
-                <span class="toggle">▼</span>
-            </div>
-            <div class="section-content">
-                <p>Com base na análise da call, validamos o cenário atual do funil de vendas da Stone Mall (negócio de full slabs de pedra):</p>
-                
-                <div class="subsection" style="margin-top: 15px;">
-                    <h4>Diagnóstico do Gargalo</h4>
-                    <ul>
-                        <li><strong>Base Estagnada:</strong> 800 leads no follow-up sem critérios objetivos de qualificação. A temperatura passará a ser medida por <strong>urgência de compra</strong>.</li>
-                        <li><strong>Modelo B2B (95%):</strong> Negócio é predominantemente com fabricantes, designers e contratistas, não com cliente final.</li>
-                        <li><strong>Falta de MQL:</strong> Não há entrada de leads "frios" qualificados pelo marketing. Leads já entram quentes via agendamento.</li>
-                        <li><strong>Timing Variável:</strong> Clientes com projetos futuros (casa pronta em agosto/novembro) ficam no funil sem ação específica.</li>
-                    </ul>
-                </div>
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#overview" class="active">Visão Geral</a>
+  <a href="#funnel">Funil Atual</a>
+  <a href="#hot">🔴 Hot</a>
+  <a href="#warm">🟠 Warm</a>
+  <a href="#cold">🔵 Cold</a>
+  <a href="#automations">Automações</a>
+  <a href="#scripts">Scripts & Copy</a>
+  <a href="#kpis">KPIs</a>
+</nav>
 
-                <div class="subsection" style="margin-top: 15px;">
-                    <h4>Regras de Negócio Validadas</h4>
-                    <ul>
-                        <li><strong>Foco B2B Exclusivo:</strong> Cliente final (5%) não é comprador direto. O avatar é fabricante/designer/contratista.</li>
-                        <li><strong>Venda Apenas Full Slab:</strong> Não há corte ou fabricação. Venda é da pedra inteira (~70 sq ft em média).</li>
-                        <li><strong>Comissão para Fabricador:</strong> Cliente final é faturado através do fabricador, que recebe comissão.</li>
-                        <li><strong>Comunicação por WhatsApp:</strong> 75-80% dos clientes B2B são brasileiros e preferem WhatsApp.</li>
-                    </ul>
-                    <div class="change-note">Mudança de estratégia: foco total em B2B, excluindo campanhas para cliente final.</div>
-                </div>
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="fade-in">
+    <div class="section-label">01 — Contexto</div>
+    <div class="section-title">VISÃO GERAL DA ESTRATÉGIA</div>
+    <p class="section-desc">Com base no diagnóstico do funil no Kommo CRM e nos alinhamentos com o time comercial da Stone Mall, desenvolvemos uma estratégia de follow-up segmentada por temperatura do lead — cada perfil recebe cadências, gatilhos e canais específicos para maximizar conversão.</p>
+  </div>
 
-                <div class="ingrid-note">
-                    <h5>Direcionamento da Ingrid (Foco Estratégico)</h5>
-                    <p><strong>Foco em Leads Específicos:</strong> Necessidade de criar estratégias de conversão voltadas especificamente para a base estagnada, limpando o funil de vendas.</p>
-                </div>
-            </div>
-        </div>
+  <div class="rules-box fade-in">
+    <h4>⚡ Premissas do Negócio (Stone Mall)</h4>
+    <ul>
+      <li>Todos os leads que visitam o showroom têm algum nível de interesse real — nenhum é "frio zero"</li>
+      <li>As peças são exclusivas: se o cliente não fechar, outro cliente pode comprar a mesma peça</li>
+      <li>A venda é emocional — o encantamento com o material e os reviews 5 estrelas são diferenciais</li>
+      <li>Clientes vêm de até 2h de distância atraídos por reviews no Google e Instagram</li>
+      <li>Público misto: B2B (designers, arquitetos, fabricadores) e B2C (cliente final com projeto)</li>
+      <li>Classificação HOT/WARM/COLD já implementada no Kommo com tags e automação de tarefas</li>
+      <li>Pipeline "Follow-up Reactivation" já criado com 4 fases — leads WARM/COLD são movidos para lá (sem duplicidade)</li>
+      <li>Disparos de SMS devem seguir legislação 2026 de compliance (cadastro + campanha obrigatória)</li>
+    </ul>
+  </div>
 
-        <!-- SECÇÃO 2: DEFINIÇÕES DE LEAD (MQL x SQL) -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <h3>2. Definições de Qualificação (MQL vs SQL)</h3>
-                <span class="toggle">▼</span>
-            </div>
-            <div class="section-content">
-                <p>Para garantir que marketing e vendas falem a mesma língua e os leads certos sejam trabalhados, definimos os seguintes critérios de passagem de bastão:</p>
-                
-                <div class="subsection" style="margin-top: 20px;">
-                    <h4>MQL (Marketing Qualified Lead)</h4>
-                    <p>O MQL é o lead que demonstra interesse inicial e é pré-qualificado pelo marketing para garantir que ele possui o perfil ideal de cliente.</p>
-                    
-                    <table>
-                        <tr>
-                            <th style="width: 25%;">Critério MQL</th>
-                            <th>Descrição</th>
-                            <th style="width: 15%;">Pontuação</th>
-                        </tr>
-                        <tr>
-                            <td><strong>Perfil Ideal</strong></td>
-                            <td>Focado em profissionais como designers, arquitetos, contratistas e fabricadores.</td>
-                            <td><span class="points-badge">+4 pontos</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Filtro B2B</strong></td>
-                            <td>O lead deve ser uma empresa ou profissional com sua própria carteira de clientes, excluindo o "consumidor final" que não possui um fabricador.</td>
-                            <td><span class="points-badge">+1 ponto</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Objetivo de Compra</strong></td>
-                            <td>Validar se o lead entende que a empresa vende apenas a pedra inteira (full slab) e não realiza a fabricação/corte.</td>
-                            <td><span class="points-badge">+2 pontos</span></td>
-                        </tr>
-                    </table>
-                </div>
+  <div class="kpi-grid fade-in">
+    <div class="kpi-card">
+      <h4>22</h4>
+      <p>Leads em MQL (Quote)</p>
+    </div>
+    <div class="kpi-card">
+      <h4>970</h4>
+      <p>Leads a migrar p/ Reactivation</p>
+    </div>
+    <div class="kpi-card">
+      <h4>19</h4>
+      <p>Leads em Hold</p>
+    </div>
+    <div class="kpi-card">
+      <h4>16</h4>
+      <p>Sales Order (SQL)</p>
+    </div>
+    <div class="kpi-card">
+      <h4>62</h4>
+      <p>Em Negociação</p>
+    </div>
+    <div class="kpi-card">
+      <h4>64</h4>
+      <p>Won / Paid in Full</p>
+    </div>
+  </div>
+</section>
 
-                <div class="subsection" style="margin-top: 30px;">
-                    <h4>SQL (Sales Qualified Lead)</h4>
-                    <p>O SQL é o lead que avançou no funil e já está pronto para uma abordagem direta de vendas.</p>
-                    
-                    <ul>
-                        <li style="margin-bottom: 10px;"><strong>Critério de Conversão:</strong> É um MQL que solicitou um orçamento ou agendou uma visita ao showroom.</li>
-                        <li style="margin-bottom: 10px;"><strong>Status de Temperatura (Urgência de Compra):</strong> No CRM, a temperatura do lead será classificada estritamente baseada no timing do projeto do cliente:
-                            <table style="margin-top: 10px;">
-                                <tr>
-                                    <th style="width: 20%; background: #dc2626;">Status</th>
-                                    <th style="width: 80%;">Critério de Urgência</th>
-                                </tr>
-                                <tr>
-                                    <td><strong>🔥 HOT (Quente)</strong></td>
-                                    <td><strong>Alta Urgência:</strong> O cliente possui um projeto ativo ou obra em fase de acabamento e precisa fechar a compra do full slab imediatamente ou nos próximos 15 a 30 dias.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>☀️ WARM (Morno)</strong></td>
-                                    <td><strong>Média Urgência:</strong> O projeto está em andamento (ex: casa ficará pronta em alguns meses). A compra está prevista para o médio prazo (30 a 90 dias). Requer acompanhamento consultivo.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>❄️ COLD (Frio)</strong></td>
-                                    <td><strong>Baixa Urgência:</strong> Leads antigos, estagnados, sem projeto ativo no momento, ou que buscam parcerias para longo prazo (> 90 dias). Necessitam de reaquecimento periódico.</td>
-                                </tr>
-                            </table>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+<div class="divider"></div>
 
-        <!-- SECÇÃO 3: QUALIFICAÇÃO E DISTRIBUIÇÃO -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <h3>3. Fluxo de Automação e Follow-up</h3>
-                <span class="toggle">▼</span>
-            </div>
-            <div class="section-content">
-                <div class="subsection">
-                    <h4>Automações Implementadas (Kommo CRM)</h4>
-                    <p>A Stone Mall já implementou automações básicas no Kommo para evitar estagnação de leads:</p>
-                    
-                    <div class="change-note" style="margin-top: 15px;">
-                        <strong>GATILHO DE FOLLOW-UP ATIVO:</strong> Automação de segurança criada - se o lead ficar <strong>'X' dias estagnado</strong> em qualquer etapa do funil (sem movimentação), ele <strong>avança automaticamente para a etapa de 'Follow Up'</strong> e gera uma notificação.
-                    </div>
-                    
-                    <div class="flow-wrapper">
-                        <div class="flow-node">Lead Entra (Agendamento StoneProfit)</div>
-                        <div class="flow-arrow"></div>
-                        <div class="flow-node decision"><strong>VENDEDOR (24h):</strong><br>Qualifica e Define a Urgência</div>
-                        <div class="flow-split">
-                            <div class="flow-path">
-                                <span class="path-label">HOT</span>
-                                <div class="flow-arrow"></div>
-                                <div class="flow-node action">Tempo de Etapa: max 3 dias<br><span class="tag-task">Foco: Fechamento</span></div>
-                            </div>
-                            <div class="flow-path">
-                                <span class="path-label">WARM</span>
-                                <div class="flow-arrow"></div>
-                                <div class="flow-node action">Tempo de Etapa: max 7 dias<br><span class="tag-task">Foco: Qualificação</span></div>
-                            </div>
-                            <div class="flow-path">
-                                <span class="path-label">COLD</span>
-                                <div class="flow-arrow"></div>
-                                <div class="flow-node action">Tempo de Etapa: max 10 dias<br><span class="tag-task">Foco: Reaquecimento</span></div>
-                            </div>
-                        </div>
-                    </div>
+<!-- FUNNEL -->
+<section id="funnel">
+  <div class="fade-in">
+    <div class="section-label">02 — Funil Kommo CRM</div>
+    <div class="section-title">MAPEAMENTO DO FUNIL ATUAL</div>
+    <p class="section-desc">Representação visual das etapas do Sales Funnel General com os fluxos de automação já existentes e os pontos de intervenção estratégica propostos.</p>
+  </div>
 
-                    <div class="highlight-box" style="margin-top: 20px;">
-                        <h4>🛠 Como o Vendedor Qualifica e Avança o Lead?</h4>
-                        <p>Para tirar o lead da etapa de entrada e movê-lo pelo funil, o vendedor <strong>não pode agir por intuição</strong>. Ele deve obrigatoriamente realizar o contato inicial e preencher os seguintes dados no card do CRM:</p>
-                        <ol style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                            <li><strong>Perfil do Cliente:</strong> Preencher campo (Ex: Designer, Fabricador, Contratista, ou Cliente Final com Fabricador).</li>
-                            <li><strong>Ciência da Venda:</strong> Confirmar se o cliente entende que a venda é apenas do <em>Full Slab</em>.</li>
-                            <li><strong>Prazo da Obra:</strong> Preencher a data ou estimativa de quando a pedra será instalada.</li>
-                        </ol>
-                        <p style="margin-top: 10px;">Após preencher essas informações, o vendedor altera a <strong>Temperatura da Lead (Hot, Warm, Cold)</strong>. O sistema reconhecerá o preenchimento e liberará o gatilho para mover o lead automaticamente para a próxima etapa (Visita ou Proposta).</p>
-                    </div>
-                </div>
+  <div class="funnel-container fade-in">
+    <div class="funnel-stage">
+      <div class="stage-num">01</div>
+      <h4>Quote (MQL)</h4>
+      <p>Lead entra via campanha, SDR qualifica</p>
+      <div class="leads-count">22 leads</div>
+    </div>
+    <div class="funnel-arrow">→</div>
+    <div class="funnel-stage">
+      <div class="stage-num">02</div>
+      <h4>Follow-up / Nurturing</h4>
+      <p>Leads WARM/COLD são movidos para pipeline dedicado</p>
+      <div class="leads-count">970 leads → migrar</div>
+    </div>
+    <div class="funnel-arrow">→</div>
+    <div class="funnel-stage">
+      <div class="stage-num">03</div>
+      <h4>Hold</h4>
+      <p>Tags removidas, aguarda decisão</p>
+      <div class="leads-count">19 leads</div>
+    </div>
+    <div class="funnel-arrow">→</div>
+    <div class="funnel-stage">
+      <div class="stage-num">04</div>
+      <h4>Sales Order (SQL)</h4>
+      <p>Orçamento solicitado / visita agendada</p>
+      <div class="leads-count">16 leads</div>
+    </div>
+    <div class="funnel-arrow">→</div>
+    <div class="funnel-stage">
+      <div class="stage-num">05</div>
+      <h4>In Negotiation</h4>
+      <p>Depósito parcial ou negociação</p>
+      <div class="leads-count">62 leads</div>
+    </div>
+    <div class="funnel-arrow">→</div>
+    <div class="funnel-stage">
+      <div class="stage-num">06</div>
+      <h4>Won / Paid</h4>
+      <p>Venda confirmada e paga</p>
+      <div class="leads-count">64 leads</div>
+    </div>
+    <div class="funnel-arrow">→</div>
+    <div class="funnel-stage">
+      <div class="stage-num">07</div>
+      <h4>Closed</h4>
+      <p>Won: 653 · Lost: 574</p>
+      <div class="leads-count">1.227</div>
+    </div>
+  </div>
 
-                <div class="subsection" style="margin-top: 35px;">
-                    <h4>Stack de Comunicação: Centralização (Kommo + GoTo Connect)</h4>
-                    <div class="change-note" style="margin-bottom: 15px; border-left-color: #ef4444; background: #fef2f2; color: #b91c1c;">
-                        <strong>✓ Pivotagem de Ferramenta (Saída do Twilio):</strong> Conforme direcionamento da Ingrid, a operação <strong>não</strong> utilizará o Twilio. Toda a comunicação (Voz, SMS e E-mails) será 100% centralizada na integração nativa entre o GoTo Connect e o Kommo CRM.
-                    </div>
-                    <p>Abaixo estão as configurações técnicas e estratégicas necessárias para o funcionamento adequado deste stack unificado:</p>
-                    
-                    <table style="margin-top: 15px;">
-                        <tr>
-                            <th style="width: 30%;">Configuração / Ação</th>
-                            <th style="width: 70%;">Objetivo Técnico no CRM</th>
-                        </tr>
-                        <tr>
-                            <td><strong>1. Configuração do Widget</strong></td>
-                            <td>Garantir que a integração do GoTo Connect esteja espelhando corretamente as chamadas dentro do Kommo.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2. Digital Pipeline</strong></td>
-                            <td>Configurar gatilhos para que, quando um lead mude de etapa, o GoTo dispare o SMS de forma automática.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>3. Saneamento de Dados</strong></td>
-                            <td>Implementar máscaras de entrada para garantir que todos os contatos utilizem o prefixo <strong>+1</strong>.<br><span style="color: #dc2626; font-weight: bold;">Importante: Sem isso, a integração de SMS falha.</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>4. Registro de Histórico (Logging)</strong></td>
-                            <td>Garantir que toda ligação feita pelo GoTo gere uma nota automática no "card" do lead.</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
+  <div class="rules-box fade-in">
+    <h4>🔄 Pipeline Dedicado: Follow-up Reactivation (Ingrid)</h4>
+    <ul>
+      <li><strong style="color:var(--red-light);">⚠️ MUDANÇA IMPORTANTE:</strong> Leads WARM e COLD agora são <strong>MOVIDOS</strong> do Sales Funnel General para esta pipeline — sem cópia, sem duplicidade</li>
+      <li><strong>Trigger:</strong> Quando vendedor aplica tag WARM ou COLD → automação move o card inteiro para esta pipeline</li>
+      <li><strong>Benefício:</strong> O funil de vendas fica limpo, apenas com leads em atendimento ativo (HOT e acima)</li>
+      <li><strong>Fase 1:</strong> Primeiro contato de reaquecimento (automação + gatilho)</li>
+      <li><strong>Fase 2:</strong> Segundo contato — aguarda resposta do cliente</li>
+      <li><strong>Fase 3:</strong> Terceiro contato — última tentativa ativa</li>
+      <li><strong>Fase 4:</strong> Arquivo / Reciclagem — nutrir com conteúdo educativo mensal</li>
+      <li>Se lead responde positivamente → <strong>MOVIDO DE VOLTA</strong> para o Sales Funnel General com tag HOT</li>
+      <li><strong style="color:var(--red-light);">Regra de Ouro:</strong> O lead existe em apenas UM funil por vez — nunca duplicado</li>
+    </ul>
+  </div>
 
-        <!-- SECÇÃO 4: DETALHAMENTO DO FUNIL -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <h3>4. Funil de Vendas B2B</h3>
-                <span class="toggle">▼</span>
-            </div>
-            <div class="section-content">
-                <div class="subsection">
-                    <h4>Estrutura Atualizada do Funil (MQL -> SQL -> Fechamento)</h4>
-                    <div class="funnel-container">
-                        <div class="funnel-step funnel-sales" style="max-width: 100%; background: #9ca3af; color: #111;">0. Leads (Incoming Leads)</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 90%;">1. Captação MQL (Prospecção Qualificada / Filtro)</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 80%;">2. Diagnóstico Técnico (Visita Showroom)</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 70%;">3. Proposta Estratégica (Envio e Negociação)</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 60%;">4. Follow Up (Organização de leads sem contato)</div>
-                        <div class="funnel-step funnel-sales" style="max-width: 50%; background: #991b1b;">5. Fechamento e Logística</div>
-                        <div class="funnel-win">✓ Pedido Confirmado (Full Slab)</div>
-                    </div>
-                </div>
-
-                <div class="subsection" style="margin-top: 30px;">
-                    <h4>Detalhamento das Etapas e Critérios de Transição</h4>
-                    <p>O funil foi simplificado (unificando a negociação à proposta) para dar mais agilidade. Abaixo, as regras de quando o lead avança ou é retido/descartado:</p>
-                    
-                    <table>
-                        <tr>
-                            <th style="width: 20%;">Etapa</th>
-                            <th style="width: 30%;">Objetivo / O que acontece?</th>
-                            <th style="width: 25%;">Quando AVANÇAR o lead?</th>
-                            <th style="width: 25%;">Se NÃO avançar, o que fazer?</th>
-                        </tr>
-                        <tr>
-                            <td><strong>0. Leads</strong></td>
-                            <td>Caixa de entrada para todos os novos agendamentos ou contatos recebidos via site/WhatsApp.</td>
-                            <td>Avançar assim que o vendedor iniciar o primeiro contato para qualificação.</td>
-                            <td>Se não responder, o sistema o enviará automaticamente para a régua de nutrição ou para Follow-Up.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>1. Captação MQL</strong></td>
-                            <td>Etapa onde o vendedor preenche o formulário obrigatório (confirmando se é B2B e perfil full slab).</td>
-                            <td>Avançar quando o lead confirmar o perfil ideal e demonstrar interesse em visitar ou ver pedras.</td>
-                            <td><strong>Descartar (Lost):</strong> Se for cliente final procurando apenas cortes/pequenos reparos e sem fabricador.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2. Diagnóstico Técnico</strong></td>
-                            <td>Apresentação do material. Geralmente ocorre com a visita presencial ao showroom ou envio de vídeos detalhados das chapas.</td>
-                            <td>Avançar quando o lead escolher a pedra e solicitar o orçamento (cotação oficial).</td>
-                            <td>Se a obra for para o futuro e ele não decidir agora, classificar como WARM ou COLD e manter sob cadência de nutrição.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>3. Proposta Estratégica</strong></td>
-                            <td>Envio dos valores e trâmites da negociação B2B (faturamento para o parceiro, ajuste de comissão, etc).</td>
-                            <td>Avançar para <em>Fechamento</em> quando o lead der o "De Acordo" verbal ou digital.</td>
-                            <td>Se ficar caro ou estagnar, mover para a etapa <strong>4. Follow-Up</strong> para tentativa de resgate posterior. Se recusar de vez, <strong>Lost</strong>.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>4. Follow Up</strong></td>
-                            <td>A "sala de espera". Leads que travaram nas etapas anteriores vêm para cá para não poluir o pipeline ativo dos vendedores.</td>
-                            <td>Avançar de volta para a Proposta caso o lead retome o interesse e aceite negociar.</td>
-                            <td>Manter recebendo e-mails/SMS institucionais em cadência longa. Se passar 90 dias sem resposta, <strong>Lost</strong>.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>5. Fechamento</strong></td>
-                            <td>Acerto financeiro, validação do contrato e preparação para a liberação da pedra inteira para a logística do fabricador.</td>
-                            <td>Avançar para o "✓ Pedido Confirmado" assim que a pedra sair do showroom.</td>
-                            <td>-</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECÇÃO 5: ESTRATÉGIA DE CONVERSÃO -->
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">
-                <h3>5. Estratégia de Conversão e Nutrição</h3>
-                <span class="toggle">▼</span>
-            </div>
-            <div class="section-content">
-                <div class="subsection" style="margin-top: 10px;">
-                    <h4>Régua de Nutrição Geral (Cadência Sprint)</h4>
-                    <p><strong>Objetivo:</strong> Manter a Stone Mall no radar da base de leads B2B (designers, fabricadores, contratistas) que já visitaram o showroom ou demonstraram interesse. Essa régua tem a finalidade de "forçar" uma resposta da base estagnada em pouco tempo, limpando o funil rapidamente.</p>
-                    
-                    <ul style="margin-left: 20px; margin-top: 10px;">
-                        <li><strong>Cadência Recomendada:</strong> Ciclo rápido de alto impacto ("Sprint"). Totalizando 3 toques distribuídos em uma semana (7 a 10 dias). Se o lead não responder após isso, deve ser descartado ou enviado para arquivo frio.</li>
-                        <li><strong>Canais:</strong> Centralizados via integração GoTo Connect (WhatsApp/SMS e Ligação).</li>
-                    </ul>
-
-                    <table>
-                        <tr>
-                            <th style="width: 15%;">Timing</th>
-                            <th style="width: 25%;">Canal</th>
-                            <th style="width: 60%;">Conteúdo / Ação Sugerida</th>
-                        </tr>
-                        <tr>
-                            <td><strong>Toque 1 (D+0)</strong></td>
-                            <td>WhatsApp/SMS (GoTo)</td>
-                            <td><strong>"Check-in" do Projeto:</strong> "Olá [Nome], vimos seu interesse em nossos full slabs recentemente. Como está o andamento da sua obra/projeto? Se precisar de ajuda para estimar as pedras, estamos à disposição."</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Toque 2 (D+3)</strong></td>
-                            <td>Email / WhatsApp</td>
-                            <td><strong>Prova Social / Autoridade:</strong> Envio de um catálogo atualizado, apresentação de um lote exclusivo de materiais premium ou compartilhamento de um case rápido de sucesso de um parceiro da região.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Toque 3 (D+7)</strong></td>
-                            <td>Ligação Ativa (GoTo)</td>
-                            <td><strong>Reativação Direta:</strong> Tarefa para o vendedor realizar uma ligação ativa (registrada no Kommo) para atualização de cadastro e entendimento do timing real do cliente. O objetivo é avançar para uma visita ou manter no fluxo de nutrição longa.</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-
+  <!-- MIGRATION ALERT -->
+  <div class="fade-in" style="margin-top:40px; background: linear-gradient(135deg, rgba(196,30,42,0.12), rgba(196,30,42,0.03)); border: 2px solid var(--red); border-radius: 16px; padding: 40px; position: relative; overflow: hidden;">
+    <div style="position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(196,30,42,0.1),transparent);pointer-events:none;"></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <span style="font-size:1.5rem;">🚨</span>
+      <h4 style="font-family:'Bebas Neue';font-size:1.8rem;letter-spacing:1px;color:var(--red-light);">MUDANÇA CRÍTICA: FIM DA DUPLICIDADE DE LEADS</h4>
+    </div>
+    <p style="color:var(--gray-light);margin-bottom:24px;font-size:0.95rem;">O fluxo anterior criava <strong style="color:var(--white);">cópias dos leads</strong> no Follow-up Reactivation, mantendo o original no Sales Funnel General. Isso gera duplicidade, dificulta o controle e suja o funil de vendas. A partir de agora, o processo muda:</p>
+    
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;margin-bottom:30px;">
+      <div style="background:rgba(255,255,255,0.03);border:1px solid var(--dark-border);border-radius:10px;padding:20px;text-align:center;">
+        <p style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">❌ Antes (Problema)</p>
+        <p style="font-size:0.85rem;color:var(--gray-light);">Vendedor tagueava WARM/COLD → <strong style="color:var(--white);">cópia</strong> ia para Reactivation → lead ficava em <strong style="color:var(--red-light);">DOIS funis ao mesmo tempo</strong></p>
+        <p style="font-size:0.75rem;color:var(--gray);margin-top:8px;">970 leads acumulados no Follow-up/Nurturing + cópias duplicadas</p>
+      </div>
+      <div style="font-family:'Bebas Neue';font-size:2rem;color:var(--red);">→</div>
+      <div style="background:rgba(37,211,102,0.05);border:1px solid rgba(37,211,102,0.2);border-radius:10px;padding:20px;text-align:center;">
+        <p style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:#25d366;margin-bottom:8px;">✅ Agora (Solução)</p>
+        <p style="font-size:0.85rem;color:var(--gray-light);">Vendedor tagueava WARM/COLD → lead é <strong style="color:var(--white);">MOVIDO</strong> para Reactivation → <strong style="color:#25d366;">existe em apenas UM funil</strong></p>
+        <p style="font-size:0.75rem;color:var(--gray);margin-top:8px;">Funil de vendas limpo, controle total, sem duplicidade</p>
+      </div>
     </div>
 
-    <!-- Modificado para acionar a janela de impressão diretamente -->
-    <button class="download-btn" onclick="window.print()">Baixar PDF / Imprimir</button>
+    <h5 style="font-family:'Bebas Neue';font-size:1.2rem;letter-spacing:1px;margin-bottom:16px;color:var(--white);">📋 Plano de Migração dos 970 Leads Existentes</h5>
+    <ul style="list-style:none;padding:0;">
+      <li style="padding:10px 0;padding-left:20px;position:relative;font-size:0.88rem;color:var(--gray-light);border-bottom:1px solid rgba(255,255,255,0.05);">
+        <span style="position:absolute;left:0;color:var(--red);font-weight:bold;">1.</span>
+        <strong style="color:var(--white);">Auditoria:</strong> Identificar todos os leads que existem duplicados (no General + no Reactivation) e consolidar — manter apenas 1 card por lead
+      </li>
+      <li style="padding:10px 0;padding-left:20px;position:relative;font-size:0.88rem;color:var(--gray-light);border-bottom:1px solid rgba(255,255,255,0.05);">
+        <span style="position:absolute;left:0;color:var(--red);font-weight:bold;">2.</span>
+        <strong style="color:var(--white);">Classificação:</strong> Dos 970 leads em Follow-up/Nurturing, classificar quais são WARM e COLD (se ainda não estiverem tagueados)
+      </li>
+      <li style="padding:10px 0;padding-left:20px;position:relative;font-size:0.88rem;color:var(--gray-light);border-bottom:1px solid rgba(255,255,255,0.05);">
+        <span style="position:absolute;left:0;color:var(--red);font-weight:bold;">3.</span>
+        <strong style="color:var(--white);">Movimentação em lote:</strong> Mover todos os leads WARM e COLD do Follow-up/Nurturing para o Follow-up Reactivation (deletar do General)
+      </li>
+      <li style="padding:10px 0;padding-left:20px;position:relative;font-size:0.88rem;color:var(--gray-light);border-bottom:1px solid rgba(255,255,255,0.05);">
+        <span style="position:absolute;left:0;color:var(--red);font-weight:bold;">4.</span>
+        <strong style="color:var(--white);">Leads HOT:</strong> Leads HOT permanecem no Sales Funnel General — eles estão em atendimento ativo e não vão para o Reactivation
+      </li>
+      <li style="padding:10px 0;padding-left:20px;position:relative;font-size:0.88rem;color:var(--gray-light);border-bottom:1px solid rgba(255,255,255,0.05);">
+        <span style="position:absolute;left:0;color:var(--red);font-weight:bold;">5.</span>
+        <strong style="color:var(--white);">Automação atualizada:</strong> Alterar automação no Kommo de "criar cópia" para "mover card" quando tag WARM/COLD for aplicada
+      </li>
+      <li style="padding:10px 0;padding-left:20px;position:relative;font-size:0.88rem;color:var(--gray-light);">
+        <span style="position:absolute;left:0;color:var(--red);font-weight:bold;">6.</span>
+        <strong style="color:var(--white);">Retorno:</strong> Quando lead responde positivamente no Reactivation → automação move de volta para o General com tag HOT (não cria cópia)
+      </li>
+    </ul>
+  </div>
 
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'pt', 
-                includedLanguages: 'en,pt', 
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <!-- NEW FUNNEL FLOW DIAGRAM -->
+  <div class="fade-in" style="margin-top:40px;">
+    <h4 style="font-family:'Bebas Neue';font-size:1.5rem;letter-spacing:1px;margin-bottom:20px;">🔄 Novo Fluxo: Onde Cada Lead Vive</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div style="background:var(--dark-card);border:1px solid var(--dark-border);border-radius:12px;padding:28px;">
+        <h5 style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:16px;">Sales Funnel General — Funil Limpo</h5>
+        <p style="font-size:0.85rem;color:var(--gray-light);margin-bottom:16px;">Apenas leads em atendimento ativo. Vendedores trabalham aqui.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:rgba(196,30,42,0.1);border:1px solid rgba(196,30,42,0.2);border-radius:6px;padding:10px 14px;font-size:0.8rem;display:flex;justify-content:space-between;">
+            <span>Quote (MQL)</span><span style="color:var(--red);">Leads novos entrando</span>
+          </div>
+          <div style="background:rgba(196,30,42,0.1);border:1px solid rgba(196,30,42,0.2);border-radius:6px;padding:10px 14px;font-size:0.8rem;display:flex;justify-content:space-between;">
+            <span>🔴 HOT — Atendimento ativo</span><span style="color:var(--red);">Permanece aqui</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--dark-border);border-radius:6px;padding:10px 14px;font-size:0.8rem;display:flex;justify-content:space-between;">
+            <span>Hold → Sales Order → Negotiation</span><span style="color:var(--gray);">Fluxo normal</span>
+          </div>
+          <div style="background:rgba(37,211,102,0.05);border:1px solid rgba(37,211,102,0.15);border-radius:6px;padding:10px 14px;font-size:0.8rem;display:flex;justify-content:space-between;">
+            <span>Won / Paid in Full</span><span style="color:#25d366;">✓ Fechado</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--dark-card);border:1px solid var(--dark-border);border-radius:12px;padding:28px;">
+        <h5 style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:#ffa500;margin-bottom:16px;">Follow-up Reactivation — Pipeline Dedicado (Ingrid)</h5>
+        <p style="font-size:0.85rem;color:var(--gray-light);margin-bottom:16px;">Todos os leads em nutrição/reaquecimento. Automações rodam aqui.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:rgba(255,165,0,0.08);border:1px solid rgba(255,165,0,0.2);border-radius:6px;padding:10px 14px;font-size:0.8rem;display:flex;justify-content:space-between;">
+            <span>🟠 WARM — Fase 1 a 4</span><span style="color:#ffa500;">Cadência 30 dias</span>
+          </div>
+          <div style="background:rgba(100,149,237,0.08);border:1px solid rgba(100,149,237,0.2);border-radius:6px;padding:10px 14px;font-size:0.8rem;display:flex;justify-content:space-between;">
+            <span>🔵 COLD — Fase 1 a 4</span><span style="color:#6495ED;">Cadência 90 dias</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--dark-border);border-radius:6px;padding:10px 14px;font-size:0.8rem;display:flex;justify-content:space-between;">
+            <span>📁 Arquivo — Newsletter mensal</span><span style="color:var(--gray);">Longo prazo</span>
+          </div>
+          <div style="background:rgba(196,30,42,0.08);border:1px solid rgba(196,30,42,0.15);border-radius:6px;padding:10px 14px;font-size:0.8rem;display:flex;justify-content:space-between;">
+            <span>↩️ Respondeu? → Volta para General</span><span style="color:var(--red);">Move p/ HOT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        function changeLanguage(lang, btnElement) {
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
+<div class="divider"></div>
 
-            var selectField = document.querySelector(".goog-te-combo");
-            if(selectField) {
-                selectField.value = lang;
-                selectField.dispatchEvent(new Event('change'));
-            } else {
-                setTimeout(function() {
-                    var retrySelect = document.querySelector(".goog-te-combo");
-                    if(retrySelect) {
-                        retrySelect.value = lang;
-                        retrySelect.dispatchEvent(new Event('change'));
-                    }
-                }, 500);
-            }
-        }
+<!-- HOT -->
+<section id="hot">
+  <div class="fade-in">
+    <div class="section-label">03 — Estratégia HOT 🔴</div>
+    <div class="section-title">CONVERSÃO IMEDIATA — LEADS QUENTES</div>
+    <p class="section-desc">Lead visitou o showroom, gostou do material e sinalizou intenção de compra. Está 80-90% decidido. O foco é fechar rápido usando escassez e emoção, pois as peças são exclusivas.</p>
+  </div>
 
-        function toggleSection(header) {
-            const section = header.parentElement;
-            section.classList.toggle('collapsed');
-        }
-    </script>
+  <div class="strategy-grid fade-in">
+    <div class="strategy-card">
+      <div class="strategy-card-header">
+        <div class="strategy-icon hot">🔥</div>
+        <div>
+          <h3>CADÊNCIA HOT — 7 DIAS</h3>
+          <p style="font-size:0.78rem;color:var(--gray);">Máxima urgência e personalização</p>
+        </div>
+        <span class="tag hot-tag">Hot</span>
+      </div>
+      <div class="strategy-card-body">
+        <p>O objetivo é converter dentro de 7 dias. Cada ponto de contato reforça a exclusividade da peça vista e cria urgência real baseada na natureza do produto.</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time-label">Dia 0 — Mesmo dia da visita</div>
+            <h5>E-mail automático de agradecimento + SMS personalizado</h5>
+            <p>Dispara automaticamente ao taguear HOT no Kommo. E-mail com fotos da peça que o cliente viu + cotação. SMS pessoal do vendedor agradecendo a visita.</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-email">E-mail Auto</span>
+              <span class="channel-tag ch-sms">SMS</span>
+              <span class="channel-tag ch-auto">Automação</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 1 — 24h depois</div>
+            <h5>WhatsApp do vendedor — Follow-up pessoal</h5>
+            <p>Mensagem direta do vendedor: "Oi [Nome], estou enviando as fotos da [peça] que você amou ontem. Essa peça é única — temos apenas essa no showroom."</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-whatsapp">WhatsApp</span>
+              <span class="channel-tag ch-call">Se não responder → Ligar</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 3 — Gatilho de escassez</div>
+            <h5>SMS/WhatsApp — "Outro cliente demonstrou interesse"</h5>
+            <p>Ativar gatilho de escassez real: "Queria te avisar que tivemos outro cliente interessado naquela [peça]. Como você visitou primeiro, gostaria de lhe dar prioridade."</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-sms">SMS</span>
+              <span class="channel-tag ch-whatsapp">WhatsApp</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 5 — Ligação estratégica</div>
+            <h5>Ligação do vendedor — Oferta de reserva temporária</h5>
+            <p>Ligação para oferecer "segurar a peça" por 48h com um depósito parcial. Script focado em ajudar, não pressionar.</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-call">Ligação</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 7 — Última tentativa</div>
+            <h5>E-mail final + WhatsApp — Gatilho de perda</h5>
+            <p>"Entendemos que o timing pode não ser agora. Mas como trabalhamos com peças exclusivas, não conseguimos garantir a disponibilidade. Estamos aqui quando precisar." Se não responder → mover para Follow-up Reactivation como WARM.</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-email">E-mail</span>
+              <span class="channel-tag ch-whatsapp">WhatsApp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-card-header">
+        <div class="strategy-icon hot">🎯</div>
+        <div>
+          <h3>GATILHOS PARA HOT</h3>
+          <p style="font-size:0.78rem;color:var(--gray);">Copywriting e persuasão</p>
+        </div>
+      </div>
+      <div class="strategy-card-body">
+        <div class="rules-box" style="margin:0;">
+          <h4>Gatilhos Prioritários</h4>
+          <ul>
+            <li><strong>Escassez Real:</strong> "Peças únicas, estoque limitado, outra pessoa interessada" — funciona porque é verdade</li>
+            <li><strong>Exclusividade:</strong> "Nenhuma empresa tem esse estilo — nosso material é único" (reviews confirmam)</li>
+            <li><strong>Prova Social:</strong> "Clientes vêm de 2h de distância por nossos reviews 5 estrelas"</li>
+            <li><strong>Urgência Temporal:</strong> "Depósito parcial garante a peça por 48h"</li>
+            <li><strong>Emoção Pós-Visita:</strong> Resgatar o momento de encantamento que o cliente teve no showroom</li>
+            <li><strong>Autoridade:</strong> "Trabalhamos com designers e arquitetos de toda a região sul da Flórida"</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:24px;">
+          <h5 style="color:var(--red);font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Automações no Kommo</h5>
+          <ul class="checklist">
+            <li><span class="check checked"></span>Tag HOT aplicada → E-mail automático dispara</li>
+            <li><span class="check checked"></span>Tarefa criada para vendedor → ligar em 3 dias</li>
+            <li><span class="check"></span><strong>Implementar:</strong> SMS automático no Dia 0</li>
+            <li><span class="check"></span><strong>Implementar:</strong> E-mail de escassez Dia 3 (automação)</li>
+            <li><span class="check"></span><strong>Implementar:</strong> Lembrete automático Dia 5 (tarefa ligação)</li>
+            <li><span class="check"></span><strong>Implementar:</strong> E-mail final Dia 7 + mover para Reactivation como WARM se sem resposta</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WARM -->
+<section id="warm">
+  <div class="fade-in">
+    <div class="section-label">04 — Estratégia WARM 🟠</div>
+    <div class="section-title">REAQUECIMENTO — LEADS MORNOS</div>
+    <p class="section-desc">Lead visitou, gostou, mas não decidiu. Pode estar comparando preços, esperando aprovação do cônjuge, ou com a obra atrasada. O processo de decisão é mais lento. Foco: manter desejo vivo e criar motivos para retornar.</p>
+  </div>
+
+  <div class="strategy-grid fade-in">
+    <div class="strategy-card">
+      <div class="strategy-card-header">
+        <div class="strategy-icon warm">🌡️</div>
+        <div>
+          <h3>CADÊNCIA WARM — 30 DIAS</h3>
+          <p style="font-size:0.78rem;color:var(--gray);">Nutrição + gatilhos de desejo</p>
+        </div>
+        <span class="tag warm-tag">Warm</span>
+      </div>
+      <div class="strategy-card-body">
+        <p>O ciclo warm dura até 30 dias. O lead precisa de reforço de valor, conteúdo educativo e lembretes sutis de que a Stone Mall é a melhor escolha.</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time-label">Dia 0 — Ao taguear WARM</div>
+            <h5>E-mail automático — Conteúdo educativo</h5>
+            <p>E-mail com conteúdo de valor: "Como escolher o marble ideal para sua cozinha" ou "Quartzito vs. Granito: qual é melhor para você?" — posiciona a Stone Mall como autoridade.</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-email">E-mail Auto</span>
+              <span class="channel-tag ch-auto">Automação</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 5</div>
+            <h5>SMS — Novidade no showroom</h5>
+            <p>"[Nome], chegaram peças novas esta semana! Se quiser, posso te enviar fotos do que tem de novo. 📸"</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-sms">SMS</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 10 — Tarefa automática</div>
+            <h5>Ligação do vendedor — Check-in amigável</h5>
+            <p>Tarefa criada automaticamente. Vendedor liga para fazer check-in: "Como está o projeto? Posso ajudar com alguma dúvida sobre medidas ou material?"</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-call">Ligação</span>
+              <span class="channel-tag ch-auto">Tarefa Auto</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 15</div>
+            <h5>E-mail — Case de sucesso / Testimonial</h5>
+            <p>Enviar projeto finalizado com fotos before/after + depoimento de cliente satisfeito. Gatilho de prova social.</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-email">E-mail</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 20</div>
+            <h5>WhatsApp — Convite para revisita</h5>
+            <p>"Chegou um material incrível que combina com o que você estava buscando. Quer que eu reserve um horário para você dar uma olhada?"</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-whatsapp">WhatsApp</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 25</div>
+            <h5>E-mail — Gatilho de desejo com exclusividade</h5>
+            <p>Galeria de projetos premium finalizados. "Esses projetos foram feitos com materiais que você pode encontrar no nosso showroom. Peças como essas são limitadas."</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-email">E-mail</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 30</div>
+            <h5>Ligação final + Decisão de status</h5>
+            <p>Vendedor faz última tentativa ativa. Se responder positivo → mover de volta para Sales Funnel General como HOT. Se não → alterar tag para COLD (permanece no Reactivation).</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-call">Ligação</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-card-header">
+        <div class="strategy-icon warm">💡</div>
+        <div>
+          <h3>GATILHOS PARA WARM</h3>
+          <p style="font-size:0.78rem;color:var(--gray);">Nutrição e desejo</p>
+        </div>
+      </div>
+      <div class="strategy-card-body">
+        <div class="rules-box" style="margin:0;">
+          <h4>Gatilhos Prioritários</h4>
+          <ul>
+            <li><strong>Desejo Visual:</strong> Fotos de projetos finalizados, before/after, ambientes de luxo</li>
+            <li><strong>Prova Social:</strong> Depoimentos, reviews 5 estrelas, cases de sucesso reais</li>
+            <li><strong>Novidade:</strong> Chegada de novos materiais — criar senso de "descoberta"</li>
+            <li><strong>Educação:</strong> Conteúdo que ajuda na decisão (quartzito vs granito, cuidados, tendências)</li>
+            <li><strong>Autoridade:</strong> Mostrar projetos de designers/arquitetos parceiros</li>
+            <li><strong>Reciprocidade:</strong> Oferecer consultoria gratuita de medição ou designer</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:24px;">
+          <h5 style="color:#ffa500;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Automações no Kommo</h5>
+          <ul class="checklist">
+            <li><span class="check checked"></span>Tag WARM → lead movido para Follow-up Reactivation (sem cópia)</li>
+            <li><span class="check checked"></span>Tarefa automática para vendedor ligar em 10 dias</li>
+            <li><span class="check"></span><strong>Implementar:</strong> E-mail educativo Dia 0 (automação)</li>
+            <li><span class="check"></span><strong>Implementar:</strong> SMS novidade Dia 5</li>
+            <li><span class="check"></span><strong>Implementar:</strong> E-mail case de sucesso Dia 15</li>
+            <li><span class="check"></span><strong>Implementar:</strong> Transição automática para COLD se sem interação em 30 dias</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COLD -->
+<section id="cold">
+  <div class="fade-in">
+    <div class="section-label">05 — Estratégia COLD 🔵</div>
+    <div class="section-title">REATIVAÇÃO — LEADS FRIOS</div>
+    <p class="section-desc">Lead sem projeto ativo, fazendo "shopping around", indeciso entre concorrentes ou sem timeline definida. Ainda assim é potencial — visitou o showroom. Foco: manter no radar com conteúdo leve e campanhas sazonais até o momento certo.</p>
+  </div>
+
+  <div class="strategy-grid fade-in">
+    <div class="strategy-card">
+      <div class="strategy-card-header">
+        <div class="strategy-icon cold">❄️</div>
+        <div>
+          <h3>CADÊNCIA COLD — 90 DIAS</h3>
+          <p style="font-size:0.78rem;color:var(--gray);">Nutrição de longo prazo</p>
+        </div>
+        <span class="tag cold-tag">Cold</span>
+      </div>
+      <div class="strategy-card-body">
+        <p>O lead frio recebe comunicação quinzenal/mensal leve, sem pressão. O objetivo é que, quando ele estiver pronto, a Stone Mall seja a primeira opção.</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time-label">Dia 0 — Ao taguear COLD</div>
+            <h5>E-mail automático — "Estamos aqui quando precisar"</h5>
+            <p>Tom leve: "Sabemos que cada projeto tem seu tempo. Enquanto isso, separamos conteúdos que podem te inspirar."</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-email">E-mail Auto</span>
+              <span class="channel-tag ch-auto">Automação</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 15</div>
+            <h5>E-mail — Tendências e inspiração</h5>
+            <p>Newsletter com tendências de design, projetos inspiradores, dicas de decoração. Sem call-to-action de venda direta.</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-email">E-mail</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 30</div>
+            <h5>SMS — Campanha sazonal (se houver)</h5>
+            <p>Aproveitar datas especiais: Dia da Mulher, Dia do Designer, feriados americanos. "Estamos com um evento especial no showroom — venha conferir!"</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-sms">SMS</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 45</div>
+            <h5>E-mail — Novos materiais / catálogo</h5>
+            <p>Envio de catálogo digital com as novidades do mês. Manter a marca presente sem ser invasivo.</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-email">E-mail</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 60</div>
+            <h5>WhatsApp — "Como vai o projeto?"</h5>
+            <p>Mensagem gentil do vendedor original: "Oi [Nome], tudo bem? Queria saber como está o andamento do seu projeto. Se precisar, estou à disposição."</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-whatsapp">WhatsApp</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-label">Dia 90</div>
+            <h5>Avaliação final — Reciclar ou arquivar</h5>
+            <p>Se houve qualquer interação → volta para WARM. Se zero interação → mover para "Arquivo" e incluir em newsletter mensal genérica.</p>
+            <div class="channel-tags">
+              <span class="channel-tag ch-call">Ligação (opcional)</span>
+              <span class="channel-tag ch-auto">Automação</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-card-header">
+        <div class="strategy-icon cold">🧊</div>
+        <div>
+          <h3>GATILHOS PARA COLD</h3>
+          <p style="font-size:0.78rem;color:var(--gray);">Longo prazo e marca</p>
+        </div>
+      </div>
+      <div class="strategy-card-body">
+        <div class="rules-box" style="margin:0;">
+          <h4>Gatilhos Prioritários</h4>
+          <ul>
+            <li><strong>Inspiração:</strong> Conteúdo visual bonito, tendências, mood boards de projetos</li>
+            <li><strong>Sazonalidade:</strong> Datas comemorativas (Dia da Mulher, Memorial Day, Thanksgiving, etc.)</li>
+            <li><strong>Novidade:</strong> Chegada de materiais raros ou coleções especiais</li>
+            <li><strong>Comunidade:</strong> Convites para eventos no showroom (open house, workshop)</li>
+            <li><strong>Prova Social Suave:</strong> "Veja como ficou o projeto da [designer parceira]"</li>
+            <li><strong>Oportunidade:</strong> "Material com condição especial este mês" — somente se real</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:24px;">
+          <h5 style="color:#6495ED;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Automações no Kommo</h5>
+          <ul class="checklist">
+            <li><span class="check checked"></span>Tag COLD → lead movido para Follow-up Reactivation (sem cópia)</li>
+            <li><span class="check"></span><strong>Implementar:</strong> E-mail automático "estamos aqui" no Dia 0</li>
+            <li><span class="check"></span><strong>Implementar:</strong> E-mail de tendências Dia 15</li>
+            <li><span class="check"></span><strong>Implementar:</strong> Newsletter mensal (integração com calendário editorial)</li>
+            <li><span class="check"></span><strong>Implementar:</strong> Auto-transição para Arquivo após 90 dias sem interação</li>
+            <li><span class="check"></span><strong>Implementar:</strong> Detector de reengajamento → se abrir e-mail ou clicar, alterar tag para WARM (permanece no Reactivation)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AUTOMATIONS -->
+<section id="automations">
+  <div class="fade-in">
+    <div class="section-label">06 — Automações Kommo</div>
+    <div class="section-title">FLUXO DE AUTOMAÇÃO RECOMENDADO</div>
+    <p class="section-desc">Mapa visual de como as automações devem funcionar dentro do Kommo CRM, integrando o Sales Funnel General com o Follow-up Reactivation.</p>
+  </div>
+
+  <div class="automation-section fade-in">
+    <h4 style="font-family:'Bebas Neue';font-size:1.5rem;letter-spacing:1px;margin-bottom:24px;">Fluxo Principal: Lead entra no Follow-up</h4>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="step-number">01</div>
+        <h5>Vendedor aplica tag</h5>
+        <p>HOT, WARM ou COLD no Sales Funnel General após visita ao showroom</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-number">02</div>
+        <h5>Automação dispara</h5>
+        <p>E-mail automático Dia 0 + SMS (se HOT). WARM/COLD → lead movido para Follow-up Reactivation</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-number">03</div>
+        <h5>Cadência inicia</h5>
+        <p>Cada fase do Reactivation executa a próxima ação da régua (e-mail, SMS, tarefa de ligação)</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-number">04</div>
+        <h5>Lead responde?</h5>
+        <p>SIM → Movido de volta para Sales Funnel General com tag HOT. NÃO → Avança fase</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-number">05</div>
+        <h5>Ciclo completo</h5>
+        <p>HOT sem resposta → move para Reactivation como WARM. WARM sem resposta → COLD. COLD → Arquivo + newsletter</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="automation-section fade-in">
+    <h4 style="font-family:'Bebas Neue';font-size:1.5rem;letter-spacing:1px;margin-bottom:24px;">Regras de Transição de Status</h4>
+    <table class="scripts-table">
+      <thead>
+        <tr>
+          <th>Status Atual</th>
+          <th>Condição</th>
+          <th>Ação</th>
+          <th>Novo Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="gatilho escassez">HOT</span></td>
+          <td>Sem resposta em 7 dias após cadência completa</td>
+          <td>Automação altera tag + move lead do General para Follow-up Reactivation</td>
+          <td><span class="gatilho" style="background:rgba(255,165,0,0.12);color:#ffa500;">WARM</span></td>
+        </tr>
+        <tr>
+          <td><span class="gatilho" style="background:rgba(255,165,0,0.12);color:#ffa500;">WARM</span></td>
+          <td>Resposta positiva (abre e-mail, clica, responde)</td>
+          <td>Alerta vendedor + move lead de volta para Sales Funnel General</td>
+          <td><span class="gatilho escassez">HOT</span></td>
+        </tr>
+        <tr>
+          <td><span class="gatilho" style="background:rgba(255,165,0,0.12);color:#ffa500;">WARM</span></td>
+          <td>Sem interação em 30 dias</td>
+          <td>Automação altera tag para COLD (permanece no Reactivation)</td>
+          <td><span class="gatilho" style="background:rgba(100,149,237,0.12);color:#6495ED;">COLD</span></td>
+        </tr>
+        <tr>
+          <td><span class="gatilho" style="background:rgba(100,149,237,0.12);color:#6495ED;">COLD</span></td>
+          <td>Interage com conteúdo (abre e-mail, clica, responde)</td>
+          <td>Alerta vendedor + altera tag para WARM (permanece no Reactivation)</td>
+          <td><span class="gatilho" style="background:rgba(255,165,0,0.12);color:#ffa500;">WARM</span></td>
+        </tr>
+        <tr>
+          <td><span class="gatilho" style="background:rgba(100,149,237,0.12);color:#6495ED;">COLD</span></td>
+          <td>90 dias sem interação alguma</td>
+          <td>Mover para Fase 4 (Arquivo) no Reactivation, incluir em newsletter mensal</td>
+          <td><span class="gatilho" style="background:rgba(255,255,255,0.08);color:var(--gray);">ARQUIVO</span></td>
+        </tr>
+        <tr>
+          <td><span class="gatilho" style="background:rgba(255,255,255,0.08);color:var(--gray);">QUALQUER</span></td>
+          <td>Lead solicita orçamento ou agenda visita</td>
+          <td>Mover imediatamente para Sales Funnel General → Sales Order (SQL)</td>
+          <td><span class="gatilho desejo">SQL</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SCRIPTS -->
+<section id="scripts">
+  <div class="fade-in">
+    <div class="section-label">07 — Scripts & Copy</div>
+    <div class="section-title">MODELOS DE MENSAGENS POR CANAL</div>
+    <p class="section-desc">Templates de copywriting para cada canal e status, com gatilhos de persuasão aplicados ao perfil do cliente Stone Mall.</p>
+  </div>
+
+  <div class="tabs fade-in">
+    <button class="tab-btn active" onclick="switchTab('hot-scripts')">🔴 Hot</button>
+    <button class="tab-btn" onclick="switchTab('warm-scripts')">🟠 Warm</button>
+    <button class="tab-btn" onclick="switchTab('cold-scripts')">🔵 Cold</button>
+  </div>
+
+  <!-- HOT SCRIPTS -->
+  <div class="tab-content active" id="hot-scripts">
+    <table class="scripts-table fade-in">
+      <thead>
+        <tr>
+          <th style="width:80px;">Dia</th>
+          <th style="width:100px;">Canal</th>
+          <th style="width:100px;">Gatilho</th>
+          <th>Modelo de Mensagem</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dia 0</strong></td>
+          <td><span class="channel-tag ch-email">E-mail</span></td>
+          <td><span class="gatilho escassez">Escassez</span></td>
+          <td>
+            <strong>Subject: Your visit to Stone Mall — [Peça] details inside</strong><br><br>
+            <span class="script-text">Hi [Name],<br><br>Thank you for visiting Stone Mall today! It was a pleasure showing you our [material/peça]. As we discussed, this is a one-of-a-kind piece — we carry exclusive slabs that you won't find anywhere else in South Florida.<br><br>I've attached the quote and photos of the [peça] you selected. Since we work with unique pieces, availability can change quickly.<br><br>Feel free to reach out with any questions.<br><br>Best,<br>[Vendedor]</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 0</strong></td>
+          <td><span class="channel-tag ch-sms">SMS</span></td>
+          <td><span class="gatilho autoridade">Pessoal</span></td>
+          <td>
+            <span class="script-text">Hi [Name]! This is [Vendedor] from Stone Mall. It was great meeting you today! I just sent you an email with the details and photos of the [peça]. Let me know if you have any questions! 😊</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 1</strong></td>
+          <td><span class="channel-tag ch-whatsapp">WhatsApp</span></td>
+          <td><span class="gatilho escassez">Escassez</span></td>
+          <td>
+            <span class="script-text">Hey [Name]! 👋 I wanted to follow up on your visit yesterday. The [peça] you loved is still available. Just wanted to let you know — these exclusive pieces tend to move fast. Would you like me to hold it for you?</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 3</strong></td>
+          <td><span class="channel-tag ch-sms">SMS</span></td>
+          <td><span class="gatilho escassez">Escassez</span></td>
+          <td>
+            <span class="script-text">Hi [Name], just a heads up — we've had another client express interest in the [peça] you saw. Since you visited first, I'd love to give you priority. Let me know if you'd like to move forward! — [Vendedor], Stone Mall</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 5</strong></td>
+          <td><span class="channel-tag ch-call">Ligação</span></td>
+          <td><span class="gatilho autoridade">Reserva</span></td>
+          <td>
+            <span class="script-text"><strong>Script:</strong> "Hi [Name], it's [Vendedor] from Stone Mall. I'm calling because the [peça] you visited us for is getting a lot of attention. I wanted to offer you the option to reserve it with a partial deposit — that way you don't risk losing it while you finalize your project details. Would that work for you?"</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 7</strong></td>
+          <td><span class="channel-tag ch-email">E-mail</span></td>
+          <td><span class="gatilho reciprocidade">Perda</span></td>
+          <td>
+            <strong>Subject: Your [peça] at Stone Mall</strong><br><br>
+            <span class="script-text">Hi [Name],<br><br>I understand that every project has its own timeline. I just wanted to let you know that because we work with exclusive, one-of-a-kind pieces, we're unable to guarantee availability for long periods.<br><br>Whenever you're ready, we're here for you. And if you'd like to explore other options in our showroom, you're always welcome.<br><br>Warm regards,<br>[Vendedor]</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WARM SCRIPTS -->
+  <div class="tab-content" id="warm-scripts">
+    <table class="scripts-table fade-in">
+      <thead>
+        <tr>
+          <th style="width:80px;">Dia</th>
+          <th style="width:100px;">Canal</th>
+          <th style="width:100px;">Gatilho</th>
+          <th>Modelo de Mensagem</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dia 0</strong></td>
+          <td><span class="channel-tag ch-email">E-mail</span></td>
+          <td><span class="gatilho autoridade">Educação</span></td>
+          <td>
+            <strong>Subject: How to choose the perfect stone for your project</strong><br><br>
+            <span class="script-text">Hi [Name],<br><br>Thank you for visiting Stone Mall! While you're making your decision, we've put together a quick guide to help you choose the right material for your project.<br><br>🔹 Quartzite vs. Granite — what's the difference?<br>🔹 Maintenance tips for natural stone countertops<br>🔹 2026 design trends in kitchen & bath<br><br>We're here whenever you're ready to take the next step!<br><br>Best,<br>The Stone Mall Team</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 5</strong></td>
+          <td><span class="channel-tag ch-sms">SMS</span></td>
+          <td><span class="gatilho desejo">Novidade</span></td>
+          <td>
+            <span class="script-text">Hi [Name]! New exclusive pieces just arrived at Stone Mall this week. Would you like me to send you some photos? 📸 — [Vendedor]</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 10</strong></td>
+          <td><span class="channel-tag ch-call">Ligação</span></td>
+          <td><span class="gatilho reciprocidade">Check-in</span></td>
+          <td>
+            <span class="script-text"><strong>Script:</strong> "Hi [Name], it's [Vendedor] from Stone Mall. I'm just checking in to see how your project is going. Do you have any questions about measurements, materials, or timeline? I'd love to help you move forward whenever you're ready."</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 15</strong></td>
+          <td><span class="channel-tag ch-email">E-mail</span></td>
+          <td><span class="gatilho social">Prova Social</span></td>
+          <td>
+            <strong>Subject: See how [Designer]'s latest project turned out ✨</strong><br><br>
+            <span class="script-text">Hi [Name],<br><br>We love sharing the incredible projects our clients create with Stone Mall materials. Check out this stunning kitchen by [Designer] featuring our exclusive [material].<br><br>[Before/After Photos]<br><br>"Stone Mall's selection is unmatched. The quality and uniqueness of their pieces make every project special." — [Client Testimonial]<br><br>Ready to start your project?<br>Schedule a visit →</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 20</strong></td>
+          <td><span class="channel-tag ch-whatsapp">WhatsApp</span></td>
+          <td><span class="gatilho desejo">Convite</span></td>
+          <td>
+            <span class="script-text">Hi [Name]! 👋 We just got a material that I think would be perfect for what you were looking for. Want me to set aside some time for you to come check it out this week?</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 30</strong></td>
+          <td><span class="channel-tag ch-call">Ligação</span></td>
+          <td><span class="gatilho autoridade">Requalificação</span></td>
+          <td>
+            <span class="script-text"><strong>Script:</strong> "Hi [Name], it's [Vendedor]. I wanted to reach out one more time to see if there's anything I can help with regarding your project. We have some new materials and I'd love for you to come see them. No pressure at all — just want to make sure you know we're here for you."</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COLD SCRIPTS -->
+  <div class="tab-content" id="cold-scripts">
+    <table class="scripts-table fade-in">
+      <thead>
+        <tr>
+          <th style="width:80px;">Dia</th>
+          <th style="width:100px;">Canal</th>
+          <th style="width:100px;">Gatilho</th>
+          <th>Modelo de Mensagem</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dia 0</strong></td>
+          <td><span class="channel-tag ch-email">E-mail</span></td>
+          <td><span class="gatilho reciprocidade">Empatia</span></td>
+          <td>
+            <strong>Subject: We're here when you're ready 🏠</strong><br><br>
+            <span class="script-text">Hi [Name],<br><br>We know every project has its own rhythm. There's no rush — great things take time.<br><br>In the meantime, we'll keep you updated with our latest arrivals, design inspiration, and exclusive offers.<br><br>Whenever the time is right, Stone Mall will be here for you.<br><br>Warm regards,<br>The Stone Mall Team</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 15</strong></td>
+          <td><span class="channel-tag ch-email">E-mail</span></td>
+          <td><span class="gatilho desejo">Inspiração</span></td>
+          <td>
+            <strong>Subject: 2026 Stone & Design Trends You'll Love</strong><br><br>
+            <span class="script-text">Hi [Name],<br><br>Looking for inspiration? Here are the top 3 natural stone trends for 2026:<br><br>🪨 Bold vein patterns in quartzite<br>🎨 Warm-toned marbles for cozy kitchens<br>✨ Backlit onyx features as statement pieces<br><br>Visit our showroom to see these trends in person!<br><br>— Stone Mall Team</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 30</strong></td>
+          <td><span class="channel-tag ch-sms">SMS</span></td>
+          <td><span class="gatilho social">Sazonal</span></td>
+          <td>
+            <span class="script-text">Happy [Holiday]! 🎉 Stone Mall has something special this [month] — visit us and discover exclusive pieces for your home. Book your visit → [link]</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 45</strong></td>
+          <td><span class="channel-tag ch-email">E-mail</span></td>
+          <td><span class="gatilho desejo">Catálogo</span></td>
+          <td>
+            <strong>Subject: New Arrivals — Stone Mall Monthly Catalog 📋</strong><br><br>
+            <span class="script-text">Hi [Name],<br><br>Check out what's new this month at Stone Mall! We've curated our latest exclusive pieces just for you.<br><br>[Digital Catalog Link]<br><br>Remember: every slab is unique. Once it's gone, it's gone.<br><br>— Stone Mall Team</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 60</strong></td>
+          <td><span class="channel-tag ch-whatsapp">WhatsApp</span></td>
+          <td><span class="gatilho reciprocidade">Gentileza</span></td>
+          <td>
+            <span class="script-text">Hi [Name]! It's [Vendedor] from Stone Mall. Just checking in — how's everything going with your project? If you have any questions or need help, I'm always here. Hope to see you again soon! 😊</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dia 90</strong></td>
+          <td><span class="channel-tag ch-email">E-mail</span></td>
+          <td><span class="gatilho autoridade">Reativação</span></td>
+          <td>
+            <strong>Subject: Still thinking about your project? We have something new for you</strong><br><br>
+            <span class="script-text">Hi [Name],<br><br>It's been a while since your visit to Stone Mall, and we've had a lot of exciting new arrivals since then.<br><br>If your project is back on the table (or even if you're just dreaming about it), we'd love to have you back. Our team is ready to help you find the perfect piece.<br><br>Schedule a visit today →<br><br>— Stone Mall Team</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KPIs -->
+<section id="kpis">
+  <div class="fade-in">
+    <div class="section-label">08 — Métricas</div>
+    <div class="section-title">KPIs DE ACOMPANHAMENTO</div>
+    <p class="section-desc">Indicadores-chave para mensurar o sucesso da estratégia de follow-up e nutrição dentro do Kommo CRM.</p>
+  </div>
+
+  <div class="strategy-grid fade-in">
+    <div class="strategy-card">
+      <div class="strategy-card-header">
+        <div class="strategy-icon hot">📊</div>
+        <h3>MÉTRICAS DE CONVERSÃO</h3>
+      </div>
+      <div class="strategy-card-body">
+        <table class="scripts-table" style="margin:0;">
+          <thead>
+            <tr><th>Métrica</th><th>Meta</th><th>Frequência</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Taxa de conversão HOT → SQL</td><td>40-50%</td><td>Semanal</td></tr>
+            <tr><td>Taxa de conversão WARM → HOT</td><td>20-25%</td><td>Mensal</td></tr>
+            <tr><td>Taxa de reativação COLD → WARM</td><td>8-12%</td><td>Mensal</td></tr>
+            <tr><td>Tempo médio HOT até fechamento</td><td>≤ 7 dias</td><td>Semanal</td></tr>
+            <tr><td>Volume de leads em Follow-up</td><td>Reduzir 20%/mês</td><td>Mensal</td></tr>
+            <tr><td>Taxa de resposta SMS</td><td>15-25%</td><td>Por campanha</td></tr>
+            <tr><td>Taxa de abertura E-mail</td><td>25-35%</td><td>Por envio</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="strategy-card">
+      <div class="strategy-card-header">
+        <div class="strategy-icon followup">⚙️</div>
+        <h3>MÉTRICAS OPERACIONAIS</h3>
+      </div>
+      <div class="strategy-card-body">
+        <table class="scripts-table" style="margin:0;">
+          <thead>
+            <tr><th>Métrica</th><th>Meta</th><th>Frequência</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Leads tagueados em 24h</td><td>100%</td><td>Diário</td></tr>
+            <tr><td>Tarefas de follow-up completadas</td><td>≥ 90%</td><td>Semanal</td></tr>
+            <tr><td>E-mails automáticos enviados</td><td>100% triggers</td><td>Diário</td></tr>
+            <tr><td>SMS disparados com sucesso</td><td>≥ 95%</td><td>Por campanha</td></tr>
+            <tr><td>Leads sem contato > 14 dias</td><td>≤ 5%</td><td>Semanal</td></tr>
+            <tr><td>Lookalike audience criada</td><td>1 por mês</td><td>Mensal</td></tr>
+            <tr><td>Compliance SMS atualizado</td><td>100%</td><td>Trimestral</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">STONE MALL × ESTRATÉGIA DE FOLLOW-UP 2026</div>
+  <p>Documento de planejamento estratégico · Kommo CRM · Março 2026</p>
+  <p style="margin-top:8px;opacity:0.5;">Atualizado em 09/03/2026</p>
+</footer>
+
+<script>
+// Tab switching
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Scroll fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Nav active state
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    if (scrollY >= sectionTop) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
+
+// Checklist interactivity
+document.querySelectorAll('.checklist .check').forEach(check => {
+  check.addEventListener('click', () => {
+    check.classList.toggle('checked');
+  });
+});
+</script>
+
 </body>
 </html>
