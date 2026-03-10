@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planeamento CRM - Instituto Calmont (V4 - Alinhamento Final)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; font-size: clamp(0.9rem, 2vw, 1rem); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; display: grid; gap: 25px; }
+        header { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 40px; border-radius: 16px; margin-bottom: 10px; text-align: center; box-shadow: 0 6px 20px rgba(30, 58, 138, 0.25); position: relative; overflow: hidden; }
+        header::before { content: ''; position: absolute; top: 20px; right: 20px; width: 180px; height: 50px; background: url('https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png') no-repeat center; background-size: contain; opacity: 0.9; }
+        header h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 10px; font-weight: 700; }
+        header h2 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 400; opacity: 0.95; margin-bottom: 20px; }
+        .header-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px; font-size: clamp(0.8rem, 1.5vw, 0.9rem); }
+        .meta-box { background: rgba(255,255,255,0.15); padding: 12px 20px; border-radius: 10px; min-width: 200px; }
+        .meta-box strong { display: block; font-size: 0.9em; opacity: 0.9; margin-bottom: 5px; }
+        .meta-box span { font-weight: 600; font-size: 1.1em; }
+        .version-badge { display: inline-block; background: rgba(255,255,255,0.25); padding: 6px 18px; border-radius: 30px; font-size: 0.85rem; margin-top: 15px; font-weight: 500; }
+
+        .section { background: white; border-radius: 16px; margin-bottom: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #e5e7eb; }
+        .section-header { background: #1e3a8a; color: white; padding: 18px 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+        .section-header:hover { background: #1e40af; }
+        .section-header h3 { font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 600; }
+        .section-header .toggle { font-size: 1.3rem; transition: transform 0.3s; }
+        .section.collapsed .toggle { transform: rotate(-90deg); }
+        .section-content { padding: 30px; display: block; }
+        .section.collapsed .section-content { display: none; }
+        .subsection { margin-bottom: 30px; }
+        .subsection h4 { color: #1e3a8a; font-size: clamp(1rem, 2vw, 1.15rem); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #dbeafe; font-weight: 600; }
+        ul, ol { padding-left: 20px; margin: 10px 0; }
+        li { margin-bottom: 8px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: clamp(0.85rem, 1.5vw, 0.95rem); }
+        th { background: #1e3a8a; color: white; padding: 15px; text-align: left; font-weight: 600; }
+        td { padding: 15px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+        tr:hover { background: #f0f9ff; }
+        .quote { background: #eff6ff; border-left: 5px solid #3b82f6; padding: 22px; margin: 20px 0; font-style: italic; color: #1e3a8a; border-radius: 0 10px 10px 0; font-weight: 500; }
+        .highlight-box { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 10px; padding: 20px; margin: 20px 0; }
+        .highlight-box strong { color: #b45309; }
+
+        /* Estilos do Funil */
+        .funnel-container { display: flex; flex-direction: column; align-items: center; padding: 25px; background: #f8fafc; border-radius: 12px; margin: 20px 0; border: 1px dashed #cbd5e1; }
+        .funnel-step { padding: 15px; text-align: center; color: white; font-weight: 600; margin: 4px 0; border-radius: 8px; transition: transform 0.2s; width: 100%; font-size: clamp(0.85rem, 1.5vw, 1rem); }
+        .funnel-sales { background: linear-gradient(to right, #3b82f6, #1d4ed8); }
+        .funnel-post { background: linear-gradient(to right, #10b981, #059669); max-width: 45%; border: 2px dashed #047857; margin-top: 15px; }
+        .funnel-win { background: #059669; color: white; padding: 15px; text-align: center; font-weight: 700; border-radius: 8px; max-width: 50%; margin: 5px 0; box-shadow: 0 4px 6px rgba(5, 150, 105, 0.2); }
+
+        /* Estilos do Fluxograma */
+        .flow-wrapper { display: flex; flex-direction: column; align-items: center; padding: 25px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; margin: 25px 0; }
+        .flow-node { background: white; border: 2px solid #3b82f6; border-radius: 10px; padding: 15px; width: 260px; text-align: center; font-size: clamp(0.8rem, 1.5vw, 0.9rem); font-weight: 600; position: relative; box-shadow: 0 3px 6px rgba(0,0,0,0.08); }
+        .flow-node.decision { border-color: #1e3a8a; background: #eff6ff; border-radius: 15px; }
+        .flow-node.action { border-color: #10b981; background: #d1fae5; color: #065f46; }
+        .flow-arrow { height: 35px; width: 3px; background: #3b82f6; position: relative; }
+        .flow-arrow::after { content: ''; position: absolute; bottom: 0; left: -6px; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 10px solid #3b82f6; }
+        .flow-split { display: flex; gap: 50px; margin-top: 15px; }
+        .flow-path { display: flex; flex-direction: column; align-items: center; }
+        .path-label { font-size: clamp(0.7rem, 1.2vw, 0.8rem); font-weight: bold; color: #4b5563; margin-bottom: 8px; background: #f3f4f6; padding: 4px 10px; border-radius: 20px; }
+
+        .tag-mql { background: #d1fae5; color: #065f46; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 0.8rem; border: 1px solid #10b981; }
+        .tag-discard { color: #ef4444; font-weight: bold; font-size: 0.85rem; display: block; margin-top: 8px; }
+        .tag-advance { color: #10b981; font-weight: bold; font-size: 0.85rem; display: block; margin-top: 8px; }
+        .tag-task { color: #f59e0b; font-weight: bold; font-size: 0.85rem; display: block; margin-top: 8px; }
+        .tag-info { background: #f3f4f6; color: #374151; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 0.8rem; border: 1px solid #9ca3af; }
+
+        .change-note { background: #d1fae5; border-left: 4px solid #10b981; padding: 12px 16px; margin: 15px 0; font-size: 0.9rem; color: #065f46; border-radius: 0 8px 8px 0; }
+        .change-note::before { content: "✓ Atualizado: "; font-weight: bold; }
+
+        /* Botão de Download */
+        .download-btn { position: fixed; bottom: 25px; right: 25px; background: #dc2626; color: white; border: none; padding: 15px 25px; border-radius: 50px; font-weight: 600; font-size: 1rem; cursor: pointer; box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4); z-index: 100; transition: all 0.3s; }
+        .download-btn:hover { background: #b91c1c; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(220, 38, 38, 0.5); }
+
+        @media (max-width: 768px) {
+            .container { padding: 15px; gap: 15px; }
+            header { padding: 30px 20px; }
+            header::before { width: 140px; height: 40px; top: 15px; right: 15px; }
+            .header-meta { flex-direction: column; align-items: center; gap: 10px; }
+            .meta-box { min-width: 100%; }
+            .flow-split { flex-direction: column; gap: 25px; }
+            .flow-node { width: 220px; }
+            .section-header { padding: 15px 20px; }
+            .section-content { padding: 20px; }
+            .download-btn { bottom: 15px; right: 15px; padding: 12px 20px; font-size: 0.9rem; }
+        }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.5rem; }
+            header h2 { font-size: 1.1rem; }
+            .flow-node { width: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Planeamento de Implementação CRM</h1>
+            <h2>Cliente: Instituto Calmont</h2>
+            <div class="header-meta">
+                <div class="meta-box">
+                    <strong>Configuração:</strong>
+                    <span>Vendas & Pós-Venda (Saúde)</span>
+                </div>
+                <div class="meta-box">
+                    <strong>Foco:</strong>
+                    <span>Qualificação via IA + Follow-up Agressivo</span>
+                </div>
+                <div class="meta-box">
+                    <strong>Prazo de Implementação:</strong>
+                    <span>16 dias (após aprovação)</span>
+                </div>
+            </div>
+            <div class="version-badge">V4 - Alinhamento Final (10/03/2026)</div>
+        </header>
+
+        <!-- SECÇÃO 1: CONTEXTO ESTRATÉGICO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>1. Contexto Estratégico e Validação</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Com base na call de discovery de 10/03/2026, validamos o fluxo de atendimento e vendas do Instituto Calmont, clínica especializada em ortopedia, endocrinologia e procedimentos como visco suplementação com ácido hialurônico.</p>
+                
+                <div class="subsection">
+                    <h4>Objetivos Principais</h4>
+                    <ul>
+                        <li><strong>Centralização do Atendimento:</strong> Unificar comunicação (WhatsApp API, telefone) em uma plataforma única para SDR e Closer.</li>
+                        <li><strong>Automatização de Qualificação:</strong> Utilizar IA/Bot para triagem inicial, identificação de especialidade e encaminhamento correto.</li>
+                        <strong>Resgate e Retenção:</strong> Implementar sistema de lembretes automáticos para procedimentos recorrentes (ex: reaplicação a cada 6 meses) e resgatar base histórica de 5.000 pacientes.</li>
+                        <li><strong>Expansão de Público:</strong> Atrair não apenas pacientes 40+, mas também seus filhos (20-30 anos) que buscam tratamento para os pais.</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h4>Regras de Negócio Validadas</h4>
+                    <ul>
+                        <li><strong>Modelo de Negócio Particular + Convênio:</strong> Clínica particular que também atende via convênio em hospitais credenciados. O foco comercial é no "convencimento" para o particular.</li>
+                        <li><strong>Processo Comercial Definido:</strong> SDR (Eduardo) → Closer (Isabela) com script estruturado que inclui conexão emocional, explicação do procedimento com vídeo e resposta a objeções.</li>
+                        <li><strong>Follow-up Agressivo:</strong> Sequência de 3 follow-ups (30min, 3h, 24h) para leads que param de responder. Principal motivo de perda: "parou de responder" e "valor".</li>
+                        <li><strong>Volume de Leads:</strong> 40-50 leads/dia (1000-1174/mês) via tráfego pago (Google/Redes Sociais) + indicações.</li>
+                    </ul>
+                    <div class="change-note">WhatsApp API oficial já aprovada e será utilizada, evitando riscos de banimento e permitindo automações robustas.</div>
+                </div>
+
+                <div class="quote">
+                    "Nosso modelo de negócio é o convencimento. Temos uma clínica particular... alguém entra para falar das opções particulares, da qualidade dos nossos médicos."
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 2: QUALIFICAÇÃO E DISTRIBUIÇÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>2. Fluxo de Triagem e Distribuição</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Jornada do Lead (IA + Humano)</h4>
+                    <p>Abordagem mista: pré-atendimento por IA para triagem rápida e direcionamento, seguido de atendimento humanizado para convencimento e fechamento.</p>
+                    
+                    <div class="highlight-box">
+                        <strong>Decisão Estratégica:</strong> A IA faz a triagem inicial, mas NÃO descarta leads com base em formulários. Todo lead é encaminhado para o SDR para "convencimento" sobre as opções particulares e qualidade dos médicos.
+                    </div>
+                    
+                    <div class="flow-wrapper">
+                        <div class="flow-node">Lead via WhatsApp/Landing Page</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node decision"><strong>IA/BOT:</strong><br>"Olá! Para te atender melhor: você busca tratamento para qual especialidade? (Ortopedia/Endocrinologia)"</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node action">Encaminha para<br><strong>SDR (Eduardo)</strong></div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node"><strong>SDR (Eduardo):</strong><br>Confirma dados, explica opções (particular/convênio), agenda consulta.</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node action">Após Consulta Médica<br>Encaminha para <strong>Closer (Isabela)</strong></div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node"><strong>CLOSER (Isabela):</strong><br>Script de vendas: conexão, vídeo do procedimento, responde objeções ("dói?", "dura quanto tempo?"), apresenta valores.</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node action"><span class="tag-mql">Venda Fechada</span><br>Agendamento do Procedimento</div>
+                    </div>
+                    <div class="change-note">O lead NÃO é qualificado por bot para descarte. A qualificação é comercial, feita pelo SDR e Closer, focada em convencimento.</div>
+                </div>
+
+                <div class="subsection">
+                    <h4>Segmentação e Tags Críticas</h4>
+                    <table>
+                        <tr>
+                            <th style="width: 25%;">Gatilho/Comportamento</th>
+                            <th>Tag Aplicada</th>
+                            <th>Ação no CRM</th>
+                        </tr>
+                        <tr>
+                            <td>Lead para de responder após receber valores</td>
+                            <td><span class="tag-info">parou_responder_valor</span></td>
+                            <td>Disparar mensagem personalizada do Closer em 24h com opções de parcelamento.</td>
+                        </tr>
+                        <tr>
+                            <td>Lead agenda consulta</td>
+                            <td><span class="tag-info">agendou_consulta</span></td>
+                            <td>Criar tarefa para SDR confirmar consulta 1 dia antes.</td>
+                        </tr>
+                        <tr>
+                            <td>Paciente faz procedimento de visco suplementação</td>
+                            <td><span class="tag-info">fez_procedimento_visco</span></td>
+                            <td>Acionar automação de lembrete para reavaliação em 5 meses.</td>
+                        </tr>
+                        <tr>
+                            <td>Lead é filho(a) buscando tratamento para os pais</td>
+                            <td><span class="tag-info">lead_indicacao_familiar</span></td>
+                            <td>Oferecer "Consulta de Avaliação Familiar" gratuita para o filho(a).</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 3: DETALHAMENTO DO FUNIL -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>3. Detalhamento das Etapas do Funil</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Funil de Vendas (Conversão)</h4>
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-sales" style="max-width: 100%;">1. Lead Novo (Triagem IA)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 90%;">2. Em Qualificação (SDR)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 80%;">3. Consulta Agendada</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 70%;">4. Pós-Consulta (Closer)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 60%; background: #1e3a8a;">5. Negociação/Valores</div>
+                        <div class="funnel-win">✓ Procedimento Agendado (Venda Ganha)</div>
+                    </div>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 20%;">Etapa</th>
+                            <th style="width: 40%;">Ação da Etapa</th>
+                            <th style="width: 40%;">Automações/SLAs</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Lead Novo</strong></td>
+                            <td>Lead chega via WhatsApp (API) ou formulário de LP. IA faz primeira pergunta para identificar especialidade.</td>
+                            <td>Resposta automática em < 1 minuto. Encaminhamento imediato para SDR responsável.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Em Qualificação</strong></td>
+                            <td>SDR (Eduardo) assume. Confirma dados, explica modelo (particular/convênio), tenta agendar consulta.</td>
+                            <td><strong>SLA: 30min.</strong> Se lead não responder: follow-up automático em 30min, 3h, 24h.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Consulta Agendada</strong></td>
+                            <td>Consulta marcada com médico (Dr. Ricardo - Ortopedia, Dra. Jennifer - Nutrição, etc.).</td>
+                            <td>Tarefa de confirmação 1 dia antes. Lembrete automático para paciente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Pós-Consulta</strong></td>
+                            <td>Closer (Isabela) recebe lead após consulta. Aplica script: conexão, vídeo, responde objeções.</td>
+                            <td>Disparo automático de material educativo sobre o procedimento prescrito.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Negociação</strong></td>
+                            <td>Apresentação de valores e condições. Tratativa de objeções financeiras.</td>
+                            <td>Se lead para de responder (<span class="tag-info">parou_responder_valor</span>), Closer entra em 24h com mensagem personalizada sobre parcelamento.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Perdido</strong></td>
+                            <td>Motivos: Parou de responder (principal), Valor, Clicou por engano, Sem interesse.</td>
+                            <td>Registro obrigatório do motivo. Segmentação para campanhas de remarketing futuras.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h4>Funil de Pós-Venda e Retenção</h4>
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-post" style="max-width: 100%;">1. Pós-Procedimento (Acompanhamento)</div>
+                        <div class="funnel-step funnel-post" style="max-width: 90%;">2. Satisfação / NPS (7 dias após)</div>
+                        <div class="funnel-step funnel-post" style="max-width: 80%;">3. Lembrete de Reaplicação (5 meses após)</div>
+                    </div>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 20%;">Etapa</th>
+                            <th style="width: 40%;">Ação da Etapa</th>
+                            <th style="width: 40%;">Automações</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Pós-Procedimento</strong></td>
+                            <td>Acompanhamento do paciente após procedimento. Verificação de recuperação e satisfação inicial.</td>
+                            <td>Mensagem automática 24h após: "Como está se sentindo após o procedimento?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Satisfação / NPS</strong></td>
+                            <td>Coleta de feedback formal sobre atendimento e resultados.</td>
+                            <td>Pesquisa NPS automática 7 dias após procedimento. Nota registrada no perfil do paciente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Reaplicação/Retenção</strong></td>
+                            <td>Lembrete para procedimentos recorrentes (ex: ácido hialurônico dura 6 meses - 1 ano).</td>
+                            <td><strong>Automação CRÍTICA:</strong> Lembrete automático 5 meses após procedimento para agendar reavaliação. Base histórica de 5.000 pacientes será importada para ativação.</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="highlight-box">
+                        <strong>Elemento de Diferenciação (UAU):</strong> Implementar "Programa de Acompanhamento Familiar". Quando um filho(a) agenda para os pais, oferecer CONSULTA GRATUITA DE AVALIAÇÃO para o filho(a) também. Gera fidelização dupla e aumenta ticket médio.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECÇÃO 4: GESTÃO DE SLAs E TAREFAS -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>4. Gestão de SLAs e Follow-up</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Estrutura de prazos agressiva para converter a dor imediata do paciente em ação rápida:</p>
+                
+                <div class="highlight-box">
+                    <strong>Régua de Follow-up (Validada pelo Eduardo):</strong> 3 tentativas: 30 MINUTOS → 3 HORAS → 24 HORAS após última mensagem do lead. Após 24h, usar mensagens templates. Usar WhatsApp API para evitar banimentos.
+                </div>
+
+                <table>
+                    <tr>
+                        <th style="width: 25%;">Gatilho / Situação</th>
+                        <th>Ação no CRM</th>
+                        <th>Objetivo</th>
+                    </tr>
+                    <tr>
+                        <td>Lead não responde em 30min</td>
+                        <td><span class="tag-task">Follow-up 1 (Automático)</span><br>"Ainda estou por aqui! Tem alguma dúvida?"</td>
+                        <td>Reengajar lead quente que pode estar comparando ou distraído.</td>
+                    </tr>
+                    <tr>
+                        <td>Lead não responde em 3h</td>
+                        <td><span class="tag-task">Follow-up 2 (Automático)</span><br>"Vi que você buscou tratamento para [dor]. O Dr. Ricardo tem agenda esta semana. Posso verificar?"</td>
+                        <td>Oferecer solução concreta (agenda) e reforçar urgência.</td>
+                    </tr>
+                    <tr>
+                        <td>Lead não responde em 24h</td>
+                        <td><span class="tag-task">Follow-up 3 (Template)</span><br>"Última tentativa: ofereço consulta de avaliação com 20% de desconto se agendar nas próximas 48h."</td>
+                        <td>Último gatilho de urgência e oferta de valor para conversão.</td>
+                    </tr>
+                    <tr>
+                        <td>Lead com tag <span class="tag-info">parou_responder_valor</span></td>
+                        <td><span class="tag-task">Tarefa para CLOSER</span><br>"Entendo que o valor pode ser uma preocupação. Oferecemos planos de parcelamento em até 12x..."</td>
+                        <td>Intervenção humana personalizada para tratar a principal objeção.</td>
+                    </tr>
+                    <tr>
+                        <td>Paciente com procedimento há 5 meses</td>
+                        <td><span class="tag-task">Lembrete Automático</span><br>"Olá! Seu procedimento completa 6 meses mês que vem. Gostaria de agendar sua reavaliação?"</td>
+                        <td>Retenção e geração de receita recorrente.</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 5: USUÁRIOS E SEGURANÇA -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>5. Matriz de Utilizadores e Segurança</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="highlight-box">
+                    <strong>Total de Usuários:</strong> 3 licenças no Kommo (1 contratada + 2 da parceria via Dr. Ricardo)
+                </div>
+
+                <table>
+                    <tr>
+                        <th style="width: 25%;">Perfil</th>
+                        <th>Usuário(s)</th>
+                        <th>Permissões / Responsabilidades</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Administrador</strong></td>
+                        <td>Eduardo (compartilha acesso)<br><small>Acesso de configuração e relatórios</small></td>
+                        <td>Visão total de todos os funis, relatórios analíticos, configuração de etiquetas, métricas e automações.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SDR (Sales Development Rep)</strong></td>
+                        <td>Eduardo</td>
+                        <td>"Carteira" com seus leads. Responsável pela qualificação inicial, agendamento de consultas e primeiro follow-up.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Closer (Account Executive)</strong></td>
+                        <td>Isabela (substituta da Lara)</td>
+                        <td>"Carteira" com leads pós-consulta. Responsável pelo script de vendas, apresentação de valores, fechamento e tratamento de objeções.</td>
+                    </tr>
+                </table>
+
+                <div class="subsection">
+                    <h4>Regras de Segurança e Acesso</h4>
+                    <ul>
+                        <li><strong>Separação de Carteiras:</strong> SDR e Closer veem apenas seus próprios leads e conversas.</li>
+                        <li><strong>Integração Segura:</strong> WhatsApp conectado via API oficial (número 9240), não via QR Code, para permitir automações sem risco de banimento.</li>
+                        <li><strong>Base Histórica:</strong> Importação da base de 5.000 pacientes do sistema médico atual (via Excel) para campanhas de resgate.</li>
+                        <li><strong>Supervisão:</strong> Bruna (outra colaboradora) fará acompanhamento inicial da adoção do CRM pela equipe comercial.</li>
+                    </ul>
+                </div>
+                <div class="change-note">Estrutura enxuta com 3 usuários: 1 Admin (Eduardo) + 2 comerciais com funções bem definidas (SDR e Closer).</div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 6: PRÓXIMOS PASSOS E CRONOGRAMA -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>6. Próximos Passos e Cronograma</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Cronograma de Implementação</h4>
+                    <table>
+                        <tr>
+                            <th style="width: 30%;">Fase</th>
+                            <th style="width: 20%;">Prazo</th>
+                            <th>Entregáveis</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Planejamento (Esta fase)</strong></td>
+                            <td>10 dias</td>
+                            <td>Este documento de alinhamento. Aprovação do cliente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Implementação Técnica</strong></td>
+                            <td>16 dias</td>
+                            <td>Configuração do Kommo: funis, etapas, tags, automações, integração WhatsApp API, importação de base histórica.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Treinamento da
