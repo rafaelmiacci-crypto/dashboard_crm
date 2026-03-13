@@ -44,6 +44,7 @@
   .strategy-icon.warm{background:rgba(255,165,0,.15);color:#ffa500}
   .strategy-icon.cold{background:rgba(100,149,237,.15);color:#6495ED}
   .strategy-icon.followup{background:rgba(196,30,42,.15);color:var(--red)}
+  .strategy-icon.sdr{background:rgba(138,43,226,.15);color:#ba8ef7}
   .strategy-card-header h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:1px}
   .strategy-card-header .tag{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-left:auto}
   .tag.hot-tag{background:rgba(196,30,42,.2);color:var(--red-light)}
@@ -59,6 +60,7 @@
   .timeline-item .time-label{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:3px}
   .timeline-item h5{font-size:.85rem;margin-bottom:3px}
   .timeline-item p{font-size:.78rem;color:var(--gray);margin-bottom:0}
+  .timeline-item.manual-step::before{border-color:#ffa500;background:rgba(255,165,0,.2)}
   .channel-tags{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
   .channel-tag{font-size:.62rem;font-weight:600;padding:2px 7px;border-radius:3px;letter-spacing:1px;text-transform:uppercase}
   .ch-email{background:rgba(196,30,42,.15);color:var(--red-light)}
@@ -66,6 +68,8 @@
   .ch-whatsapp{background:rgba(37,211,102,.12);color:#25d366}
   .ch-call{background:rgba(255,165,0,.12);color:#ffa500}
   .ch-auto{background:rgba(138,43,226,.12);color:#ba8ef7}
+  .ch-manual{background:rgba(255,165,0,.12);color:#ffa500}
+  .ch-sdr{background:rgba(138,43,226,.12);color:#ba8ef7}
   .automation-section{background:var(--dark);border:1px solid var(--dark-border);border-radius:16px;padding:40px;margin:48px 0}
   .flow-steps{display:flex;gap:14px;overflow-x:auto;padding:16px 0}
   .flow-step{min-width:180px;flex:1;background:var(--dark-card);border:1px solid var(--dark-border);border-radius:10px;padding:16px;position:relative}
@@ -112,6 +116,13 @@
   .panel{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:10px;padding:24px}
   .panel h5{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
   .panel-row{border-radius:6px;padding:9px 12px;font-size:.78rem;display:flex;justify-content:space-between;margin-bottom:6px}
+  .approach-badge{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:5px;margin-bottom:12px}
+  .approach-badge.auto{background:rgba(138,43,226,.12);color:#ba8ef7}
+  .approach-badge.manual{background:rgba(255,165,0,.12);color:#ffa500}
+  .approach-badge.hybrid{background:rgba(37,211,102,.08);color:#25d366}
+  .warm-phase-divider{margin:24px 0;padding:16px 0;border-top:1px dashed rgba(255,165,0,.25)}
+  .warm-phase-divider h4{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1px;color:#ffa500;margin-bottom:4px}
+  .warm-phase-divider p{font-size:.76rem;color:var(--gray)}
   @media print{.nav,.lang-toggle{display:none}body{background:#fff;color:#000}section{padding:24px 20px}}
   @media(max-width:768px){section{padding:48px 20px}.strategy-grid{grid-template-columns:1fr}.automation-section{padding:20px}.flow-steps{flex-direction:column}.flow-step::after{display:none}.nav{padding:0 12px}.dual-panel{grid-template-columns:1fr}.lang-toggle{top:10px;right:10px}.lang-btn{padding:6px 12px;font-size:.62rem}}
 </style>
@@ -124,7 +135,7 @@
   <button class="lang-btn" id="btnEN" onclick="setLang('en')">🇺🇸 EN</button>
 </div>
 
-<!-- HERO — compact -->
+<!-- HERO -->
 <div class="hero">
   <div class="hero-badge" data-pt="Stone Mall · Kommo CRM · 2026" data-en="Stone Mall · Kommo CRM · 2026">Stone Mall · Kommo CRM · 2026</div>
   <h1 data-pt="ESTRATÉGIA DE <span>FOLLOW-UP</span><br>& NUTRIÇÃO DE LEADS" data-en="<span>FOLLOW-UP</span> STRATEGY<br>& LEAD NURTURING">ESTRATÉGIA DE <span>FOLLOW-UP</span><br>& NUTRIÇÃO DE LEADS</h1>
@@ -140,7 +151,7 @@
 </nav>
 
 <!-- ============================================================ -->
-<!-- SECTION 1+2 MERGED: FUNNEL + RULES (direto, sem repetição) -->
+<!-- SECTION 1: FUNNEL & STRUCTURE -->
 <!-- ============================================================ -->
 <section id="funnel">
   <div class="fade-in">
@@ -148,7 +159,7 @@
     <div class="section-title" data-pt="COMO O CRM ESTÁ ORGANIZADO" data-en="HOW THE CRM IS ORGANIZED">COMO O CRM ESTÁ ORGANIZADO</div>
   </div>
 
-  <!-- Funnel visual — compact -->
+  <!-- Funnel visual -->
   <div class="funnel-container fade-in">
     <div class="funnel-stage"><div class="stage-num">01</div><h4>Quote (MQL)</h4><div class="leads-count">22</div></div>
     <div class="funnel-arrow">→</div>
@@ -165,28 +176,27 @@
     <div class="funnel-stage"><div class="stage-num">07</div><h4>Closed</h4><div class="leads-count">1.227</div></div>
   </div>
 
-  <!-- TWO PANELS: direct, no repetition -->
+  <!-- TWO PANELS -->
   <div class="dual-panel fade-in">
-    <!-- LEFT: Sales Funnel General -->
     <div class="panel">
       <h5 style="color:var(--red)" data-pt="Sales Funnel General — Funil de Vendas" data-en="Sales Funnel General — Sales Funnel">Sales Funnel General — Funil de Vendas</h5>
       <p style="font-size:.82rem;color:var(--gray);margin-bottom:14px" data-pt="Apenas leads em atendimento ativo. Vendedores trabalham aqui." data-en="Only active leads. Salespeople work here.">Apenas leads em atendimento ativo. Vendedores trabalham aqui.</p>
       <div class="panel-row" style="background:rgba(196,30,42,.08);border:1px solid rgba(196,30,42,.15)"><span>Quote (MQL)</span><span style="color:var(--red)" data-pt="Leads novos" data-en="New leads">Leads novos</span></div>
-      <div class="panel-row" style="background:rgba(196,30,42,.08);border:1px solid rgba(196,30,42,.15)"><span data-pt="🔴 HOT — Atendimento ativo" data-en="🔴 HOT — Active service">🔴 HOT — Atendimento ativo</span><span style="color:var(--red)" data-pt="Fica aqui" data-en="Stays here">Fica aqui</span></div>
+      <div class="panel-row" style="background:rgba(196,30,42,.08);border:1px solid rgba(196,30,42,.15)"><span data-pt="🔴 HOT — Vendedor manual + 1 auto" data-en="🔴 HOT — Manual seller + 1 auto">🔴 HOT — Vendedor manual + 1 auto</span><span style="color:var(--red)" data-pt="Fica aqui" data-en="Stays here">Fica aqui</span></div>
       <div class="panel-row" style="background:rgba(255,255,255,.02);border:1px solid var(--dark-border)"><span>Hold → Sales Order → Negotiation → Won</span></div>
     </div>
-    <!-- RIGHT: Follow-up Reactivation -->
     <div class="panel">
       <h5 style="color:#ffa500" data-pt="Follow-up Reactivation — Pipeline Dedicado" data-en="Follow-up Reactivation — Dedicated Pipeline">Follow-up Reactivation — Pipeline Dedicado</h5>
-      <p style="font-size:.82rem;color:var(--gray);margin-bottom:14px" data-pt="Leads em nutrição. Automações rodam aqui. Ingrid gerencia." data-en="Leads in nurturing. Automations run here. Ingrid manages.">Leads em nutrição. Automações rodam aqui. Ingrid gerencia.</p>
-      <div class="panel-row" style="background:rgba(255,165,0,.06);border:1px solid rgba(255,165,0,.15)"><span data-pt="🟠 WARM — Cadência 30 dias" data-en="🟠 WARM — 30-day cadence">🟠 WARM — Cadência 30 dias</span></div>
+      <p style="font-size:.82rem;color:var(--gray);margin-bottom:14px" data-pt="Leads em nutrição. Automações + contato direto. Ingrid gerencia." data-en="Leads in nurturing. Automations + direct contact. Ingrid manages.">Leads em nutrição. Automações + contato direto. Ingrid gerencia.</p>
+      <div class="panel-row" style="background:rgba(255,165,0,.06);border:1px solid rgba(255,165,0,.15)"><span data-pt="🟠 WARM ≤90d — Mix automação + vendedor" data-en="🟠 WARM ≤90d — Mix automation + seller">🟠 WARM ≤90d — Mix automação + vendedor</span></div>
+      <div class="panel-row" style="background:rgba(255,165,0,.04);border:1px solid rgba(255,165,0,.1)"><span data-pt="🟠 WARM &gt;90d — Nutrição periódica" data-en="🟠 WARM &gt;90d — Periodic nurturing">🟠 WARM &gt;90d — Nutrição periódica</span></div>
       <div class="panel-row" style="background:rgba(100,149,237,.06);border:1px solid rgba(100,149,237,.15)"><span data-pt="🔵 COLD — Cadência 90 dias" data-en="🔵 COLD — 90-day cadence">🔵 COLD — Cadência 90 dias</span></div>
       <div class="panel-row" style="background:rgba(255,255,255,.02);border:1px solid var(--dark-border)"><span data-pt="📁 Arquivo — Newsletter mensal" data-en="📁 Archive — Monthly newsletter">📁 Arquivo — Newsletter mensal</span></div>
-      <div class="panel-row" style="background:rgba(196,30,42,.06);border:1px solid rgba(196,30,42,.12)"><span data-pt="↩️ Respondeu → Volta p/ General como HOT" data-en="↩️ Responded → Back to General as HOT">↩️ Respondeu → Volta p/ General como HOT</span></div>
+      <div class="panel-row" style="background:rgba(138,43,226,.06);border:1px solid rgba(138,43,226,.12)"><span data-pt="↩️ Respondeu → Pré-Vendas (SDR) qualifica → HOT" data-en="↩️ Responded → Pre-Sales (SDR) qualifies → HOT">↩️ Respondeu → Pré-Vendas (SDR) qualifica → HOT</span></div>
     </div>
   </div>
 
-  <!-- KEY RULE: one single clear box -->
+  <!-- KEY RULE -->
   <div class="fade-in" style="margin-top:28px;background:linear-gradient(135deg,rgba(196,30,42,.1),rgba(196,30,42,.02));border:2px solid var(--red);border-radius:12px;padding:28px;display:flex;gap:20px;align-items:flex-start">
     <span style="font-size:1.4rem;flex-shrink:0">🚨</span>
     <div>
@@ -195,29 +205,89 @@
       <div style="display:flex;gap:24px;flex-wrap:wrap;font-size:.8rem;color:var(--gray)">
         <span data-pt="✅ HOT → permanece no General" data-en="✅ HOT → stays in General">✅ HOT → permanece no General</span>
         <span data-pt="✅ WARM/COLD → move para Reactivation" data-en="✅ WARM/COLD → moves to Reactivation">✅ WARM/COLD → move para Reactivation</span>
-        <span data-pt="✅ Respondeu → volta para General como HOT" data-en="✅ Responded → back to General as HOT">✅ Respondeu → volta para General como HOT</span>
+        <span data-pt="✅ Respondeu → Pré-Vendas (SDR) qualifica e redistribui" data-en="✅ Responded → Pre-Sales (SDR) qualifies and redistributes">✅ Respondeu → Pré-Vendas (SDR) qualifica e redistribui</span>
       </div>
       <p style="font-size:.8rem;color:var(--gray);margin-top:12px;border-top:1px solid rgba(255,255,255,.06);padding-top:12px" data-pt="<strong style='color:var(--white)'>Migração:</strong> Os 970 leads atuais no Follow-up/Nurturing devem ser classificados (WARM/COLD) e movidos em lote para o Reactivation. Duplicatas devem ser consolidadas." data-en="<strong style='color:var(--white)'>Migration:</strong> The current 970 leads in Follow-up/Nurturing must be classified (WARM/COLD) and batch-moved to Reactivation. Duplicates must be consolidated."><strong style="color:var(--white)">Migração:</strong> Os 970 leads atuais no Follow-up/Nurturing devem ser classificados (WARM/COLD) e movidos em lote para o Reactivation. Duplicatas devem ser consolidadas.</p>
     </div>
   </div>
 
-  <!-- WHATSAPP API REQUIREMENT -->
-  <div class="fade-in" style="margin-top:20px;background:linear-gradient(135deg,rgba(37,211,102,.08),rgba(37,211,102,.02));border:2px solid #25d366;border-radius:12px;padding:28px;display:flex;gap:20px;align-items:flex-start">
-    <span style="font-size:1.4rem;flex-shrink:0">📱</span>
+  <!-- REACTIVATION SDR RULE — NEW -->
+  <div class="fade-in" style="margin-top:20px;background:linear-gradient(135deg,rgba(138,43,226,.08),rgba(138,43,226,.02));border:2px solid rgba(138,43,226,.4);border-radius:12px;padding:28px;display:flex;gap:20px;align-items:flex-start">
+    <span style="font-size:1.4rem;flex-shrink:0">🔄</span>
     <div>
-      <h4 style="font-family:'Bebas Neue';font-size:1.3rem;letter-spacing:1px;color:#25d366;margin-bottom:8px" data-pt="OBRIGATÓRIO: API OFICIAL DO WHATSAPP BUSINESS" data-en="REQUIRED: OFFICIAL WHATSAPP BUSINESS API">OBRIGATÓRIO: API OFICIAL DO WHATSAPP BUSINESS</h4>
-      <p style="font-size:.88rem;color:var(--gray-light);margin-bottom:12px" data-pt="Para executar disparos de WhatsApp dentro das cadências de follow-up, é <strong style='color:var(--white)'>obrigatório</strong> contratar a API oficial do WhatsApp Business. Usar o WhatsApp comum ou apps de terceiros para envios em massa <strong style='color:var(--red-light)'>resulta em banimento permanente do número</strong>." data-en="To execute WhatsApp messages within follow-up cadences, it is <strong style='color:var(--white)'>mandatory</strong> to use the official WhatsApp Business API. Using regular WhatsApp or third-party apps for mass sending <strong style='color:var(--red-light)'>results in permanent number ban</strong>.">Para executar disparos de WhatsApp dentro das cadências de follow-up, é <strong style="color:var(--white)">obrigatório</strong> contratar a API oficial do WhatsApp Business. Usar o WhatsApp comum ou apps de terceiros para envios em massa <strong style="color:var(--red-light)">resulta em banimento permanente do número</strong>.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.8rem">
-        <div style="background:rgba(255,255,255,.03);border:1px solid var(--dark-border);border-radius:8px;padding:14px">
-          <p style="font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:#25d366;margin-bottom:6px" data-pt="O QUE A API PERMITE" data-en="WHAT THE API ENABLES">O QUE A API PERMITE</p>
-          <p style="color:var(--gray-light);line-height:1.6" data-pt="▸ Disparos automáticos via Kommo CRM<br>▸ Templates de mensagem aprovados pelo Meta<br>▸ Integração nativa com automações do funil<br>▸ Múltiplos atendentes no mesmo número<br>▸ Métricas de entrega e leitura" data-en="▸ Automatic sends via Kommo CRM<br>▸ Message templates approved by Meta<br>▸ Native integration with funnel automations<br>▸ Multiple agents on the same number<br>▸ Delivery and read metrics">▸ Disparos automáticos via Kommo CRM<br>▸ Templates de mensagem aprovados pelo Meta<br>▸ Integração nativa com automações do funil<br>▸ Múltiplos atendentes no mesmo número<br>▸ Métricas de entrega e leitura</p>
+      <h4 style="font-family:'Bebas Neue';font-size:1.3rem;letter-spacing:1px;color:#ba8ef7;margin-bottom:8px" data-pt="REATIVAÇÃO: LEAD RESPONDE → PRÉ-VENDAS (SDR)" data-en="REACTIVATION: LEAD RESPONDS → PRE-SALES (SDR)">REATIVAÇÃO: LEAD RESPONDE → PRÉ-VENDAS (SDR)</h4>
+      <p style="font-size:.88rem;color:var(--gray-light);margin-bottom:12px" data-pt="Quando um lead antigo (WARM ou COLD) responde a qualquer mensagem da cadência, ele <strong style='color:var(--white)'>NÃO volta direto para o vendedor</strong>. Primeiro passa pelo Pré-Vendas (SDR) para requalificação." data-en="When an old lead (WARM or COLD) responds to any cadence message, they <strong style='color:var(--white)'>DON'T go straight back to a salesperson</strong>. First they go through Pre-Sales (SDR) for requalification.">Quando um lead antigo (WARM ou COLD) responde a qualquer mensagem da cadência, ele <strong style="color:var(--white)">NÃO volta direto para o vendedor</strong>. Primeiro passa pelo Pré-Vendas (SDR) para requalificação.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:.76rem;text-align:center">
+        <div style="background:rgba(255,255,255,.03);border:1px solid var(--dark-border);border-radius:8px;padding:12px">
+          <div style="font-size:1rem;margin-bottom:4px">💬</div>
+          <strong style="color:var(--white)" data-pt="1. Responde" data-en="1. Responds">1. Responde</strong>
+          <p style="color:var(--gray);margin-top:4px" data-pt="Lead interage com conteúdo ou mensagem" data-en="Lead interacts with content or message">Lead interage com conteúdo ou mensagem</p>
         </div>
-        <div style="background:rgba(196,30,42,.04);border:1px solid rgba(196,30,42,.15);border-radius:8px;padding:14px">
-          <p style="font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px" data-pt="RISCO SEM API" data-en="RISK WITHOUT API">RISCO SEM API</p>
-          <p style="color:var(--gray-light);line-height:1.6" data-pt="▸ Banimento permanente do número<br>▸ Perda de todo o histórico de conversas<br>▸ Impossível recuperar o número banido<br>▸ Sem automação possível no CRM<br>▸ Viola termos de uso do WhatsApp" data-en="▸ Permanent number ban<br>▸ Loss of all conversation history<br>▸ Impossible to recover banned number<br>▸ No CRM automation possible<br>▸ Violates WhatsApp terms of use">▸ Banimento permanente do número<br>▸ Perda de todo o histórico de conversas<br>▸ Impossível recuperar o número banido<br>▸ Sem automação possível no CRM<br>▸ Viola termos de uso do WhatsApp</p>
+        <div style="background:rgba(138,43,226,.06);border:1px solid rgba(138,43,226,.2);border-radius:8px;padding:12px">
+          <div style="font-size:1rem;margin-bottom:4px">🎯</div>
+          <strong style="color:#ba8ef7" data-pt="2. SDR Qualifica" data-en="2. SDR Qualifies">2. SDR Qualifica</strong>
+          <p style="color:var(--gray);margin-top:4px" data-pt="Pré-Vendas valida interesse e momento" data-en="Pre-Sales validates interest and timing">Pré-Vendas valida interesse e momento</p>
+        </div>
+        <div style="background:rgba(255,165,0,.06);border:1px solid rgba(255,165,0,.15);border-radius:8px;padding:12px">
+          <div style="font-size:1rem;margin-bottom:4px">📅</div>
+          <strong style="color:#ffa500" data-pt="3. Agenda Visita" data-en="3. Schedules Visit">3. Agenda Visita</strong>
+          <p style="color:var(--gray);margin-top:4px" data-pt="Pode gerar novo agendamento" data-en="May generate new appointment">Pode gerar novo agendamento</p>
+        </div>
+        <div style="background:rgba(196,30,42,.06);border:1px solid rgba(196,30,42,.15);border-radius:8px;padding:12px">
+          <div style="font-size:1rem;margin-bottom:4px">🔥</div>
+          <strong style="color:var(--red-light)" data-pt="4. Volta HOT" data-en="4. Back to HOT">4. Volta HOT</strong>
+          <p style="color:var(--gray);margin-top:4px" data-pt="Redistribuído para vendedor no General" data-en="Redistributed to salesperson in General">Redistribuído para vendedor no General</p>
         </div>
       </div>
-      <p style="font-size:.78rem;color:var(--gray);margin-top:12px;border-top:1px solid rgba(255,255,255,.06);padding-top:10px" data-pt="<strong style='color:var(--white)'>Ação necessária:</strong> Contratar provedor de API do WhatsApp Business (ex: Kommo integrado, 360dialog, Twilio) antes de iniciar qualquer cadência com disparos via WhatsApp. O Kommo já possui integração nativa com a API." data-en="<strong style='color:var(--white)'>Action needed:</strong> Hire a WhatsApp Business API provider (e.g.: Kommo integrated, 360dialog, Twilio) before starting any cadence with WhatsApp sends. Kommo already has native API integration."><strong style="color:var(--white)">Ação necessária:</strong> Contratar provedor de API do WhatsApp Business (ex: Kommo integrado, 360dialog, Twilio) antes de iniciar qualquer cadência com disparos via WhatsApp. O Kommo já possui integração nativa com a API.</p>
+    </div>
+  </div>
+
+  <!-- WHATSAPP: TWO OPTIONS -->
+  <div class="fade-in" style="margin-top:20px;background:linear-gradient(135deg,rgba(37,211,102,.08),rgba(37,211,102,.02));border:2px solid #25d366;border-radius:12px;padding:28px;display:flex;gap:20px;align-items:flex-start">
+    <span style="font-size:1.4rem;flex-shrink:0">📱</span>
+    <div style="width:100%">
+      <h4 style="font-family:'Bebas Neue';font-size:1.3rem;letter-spacing:1px;color:#25d366;margin-bottom:8px" data-pt="WHATSAPP NAS CADÊNCIAS — DUAS OPÇÕES" data-en="WHATSAPP IN CADENCES — TWO OPTIONS">WHATSAPP NAS CADÊNCIAS — DUAS OPÇÕES</h4>
+      <p style="font-size:.88rem;color:var(--gray-light);margin-bottom:16px" data-pt="Existem duas formas de usar o WhatsApp nos follow-ups. Cada uma tem vantagens e riscos diferentes. A escolha depende do volume de disparos e do nível de automação desejado." data-en="There are two ways to use WhatsApp in follow-ups. Each has different advantages and risks. The choice depends on send volume and desired automation level.">Existem duas formas de usar o WhatsApp nos follow-ups. Cada uma tem vantagens e riscos diferentes. A escolha depende do volume de disparos e do nível de automação desejado.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:.8rem">
+
+        <!-- OPTION A: WITH API -->
+        <div style="background:rgba(37,211,102,.04);border:2px solid rgba(37,211,102,.25);border-radius:10px;padding:18px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+            <span style="font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:rgba(37,211,102,.15);color:#25d366">A</span>
+            <p style="font-size:.78rem;font-weight:700;color:#25d366;letter-spacing:1px;text-transform:uppercase" data-pt="COM API OFICIAL DO WHATSAPP" data-en="WITH OFFICIAL WHATSAPP API">COM API OFICIAL DO WHATSAPP</p>
+          </div>
+          <p style="font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:#25d366;margin-bottom:6px" data-pt="VANTAGENS" data-en="ADVANTAGES">VANTAGENS</p>
+          <p style="color:var(--gray-light);line-height:1.7;margin-bottom:14px" data-pt="▸ Disparos automáticos integrados ao Kommo CRM<br>▸ Templates de mensagem aprovados pelo Meta<br>▸ Automações de funil disparam WhatsApp sem ação manual<br>▸ Múltiplos atendentes no mesmo número<br>▸ Métricas de entrega, leitura e resposta<br>▸ Histórico centralizado no CRM" data-en="▸ Automatic sends integrated with Kommo CRM<br>▸ Message templates approved by Meta<br>▸ Funnel automations trigger WhatsApp without manual action<br>▸ Multiple agents on the same number<br>▸ Delivery, read and response metrics<br>▸ Centralized history in CRM">▸ Disparos automáticos integrados ao Kommo CRM<br>▸ Templates de mensagem aprovados pelo Meta<br>▸ Automações de funil disparam WhatsApp sem ação manual<br>▸ Múltiplos atendentes no mesmo número<br>▸ Métricas de entrega, leitura e resposta<br>▸ Histórico centralizado no CRM</p>
+          <p style="font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px" data-pt="RISCOS / CONSIDERAÇÕES" data-en="RISKS / CONSIDERATIONS">RISCOS / CONSIDERAÇÕES</p>
+          <p style="color:var(--gray-light);line-height:1.7" data-pt="▸ Custo adicional mensal (provedor da API)<br>▸ Processo de aprovação de templates pelo Meta (pode levar dias)<br>▸ Templates rígidos — menos flexibilidade no texto das mensagens<br>▸ Necessário configuração técnica inicial<br>▸ Mensagens fora do template exigem janela de 24h de resposta do lead" data-en="▸ Additional monthly cost (API provider)<br>▸ Template approval process by Meta (can take days)<br>▸ Rigid templates — less flexibility in message text<br>▸ Initial technical setup required<br>▸ Messages outside templates require 24h lead response window">▸ Custo adicional mensal (provedor da API)<br>▸ Processo de aprovação de templates pelo Meta (pode levar dias)<br>▸ Templates rígidos — menos flexibilidade no texto das mensagens<br>▸ Necessário configuração técnica inicial<br>▸ Mensagens fora do template exigem janela de 24h de resposta do lead</p>
+        </div>
+
+        <!-- OPTION B: WITHOUT API -->
+        <div style="background:rgba(255,255,255,.02);border:2px solid var(--dark-border);border-radius:10px;padding:18px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+            <span style="font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:rgba(255,165,0,.12);color:#ffa500">B</span>
+            <p style="font-size:.78rem;font-weight:700;color:#ffa500;letter-spacing:1px;text-transform:uppercase" data-pt="SEM API — WHATSAPP MANUAL" data-en="WITHOUT API — MANUAL WHATSAPP">SEM API — WHATSAPP MANUAL</p>
+          </div>
+          <p style="font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:#ffa500;margin-bottom:6px" data-pt="VANTAGENS" data-en="ADVANTAGES">VANTAGENS</p>
+          <p style="color:var(--gray-light);line-height:1.7;margin-bottom:14px" data-pt="▸ Sem custo adicional de provedor<br>▸ Mensagens 100% personalizadas e flexíveis<br>▸ Vendedor controla tom e timing de cada envio<br>▸ Sem processo de aprovação de templates<br>▸ Mais natural e consultivo para o lead<br>▸ Funciona imediatamente, sem setup técnico" data-en="▸ No additional provider cost<br>▸ 100% personalized and flexible messages<br>▸ Seller controls tone and timing of each send<br>▸ No template approval process<br>▸ More natural and consultative for the lead<br>▸ Works immediately, no technical setup">▸ Sem custo adicional de provedor<br>▸ Mensagens 100% personalizadas e flexíveis<br>▸ Vendedor controla tom e timing de cada envio<br>▸ Sem processo de aprovação de templates<br>▸ Mais natural e consultivo para o lead<br>▸ Funciona imediatamente, sem setup técnico</p>
+          <p style="font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px" data-pt="RISCOS / CONSIDERAÇÕES" data-en="RISKS / CONSIDERATIONS">RISCOS / CONSIDERAÇÕES</p>
+          <p style="color:var(--gray-light);line-height:1.7" data-pt="▸ <strong style='color:var(--red-light)'>Envios em massa podem causar banimento</strong> do número pelo WhatsApp<br>▸ Perda de histórico de conversas se o número for banido<br>▸ Sem automação — cada mensagem precisa ser enviada manualmente<br>▸ Sem métricas de entrega/leitura dentro do CRM<br>▸ Difícil escalar para alto volume de leads<br>▸ Histórico de conversas fica no celular, não no CRM" data-en="▸ <strong style='color:var(--red-light)'>Mass sends can cause number ban</strong> by WhatsApp<br>▸ Loss of conversation history if number is banned<br>▸ No automation — each message must be sent manually<br>▸ No delivery/read metrics inside CRM<br>▸ Hard to scale for high lead volume<br>▸ Conversation history stays on phone, not in CRM">▸ <strong style="color:var(--red-light)">Envios em massa podem causar banimento</strong> do número pelo WhatsApp<br>▸ Perda de histórico de conversas se o número for banido<br>▸ Sem automação — cada mensagem precisa ser enviada manualmente<br>▸ Sem métricas de entrega/leitura dentro do CRM<br>▸ Difícil escalar para alto volume de leads<br>▸ Histórico de conversas fica no celular, não no CRM</p>
+        </div>
+
+      </div>
+
+      <!-- WHEN EACH OPTION WORKS BEST -->
+      <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:.78rem">
+        <div style="background:rgba(37,211,102,.04);border:1px solid rgba(37,211,102,.12);border-radius:8px;padding:14px">
+          <p style="font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:#25d366;margin-bottom:6px" data-pt="IDEAL QUANDO" data-en="IDEAL WHEN">IDEAL QUANDO</p>
+          <p style="color:var(--gray-light);line-height:1.6" data-pt="▸ Volume alto de leads (WARM/COLD)<br>▸ Necessidade de automações no funil<br>▸ Equipe grande com múltiplos atendentes<br>▸ Precisa de relatórios e métricas" data-en="▸ High lead volume (WARM/COLD)<br>▸ Need for funnel automations<br>▸ Large team with multiple agents<br>▸ Need reports and metrics">▸ Volume alto de leads (WARM/COLD)<br>▸ Necessidade de automações no funil<br>▸ Equipe grande com múltiplos atendentes<br>▸ Precisa de relatórios e métricas</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid var(--dark-border);border-radius:8px;padding:14px">
+          <p style="font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:#ffa500;margin-bottom:6px" data-pt="IDEAL QUANDO" data-en="IDEAL WHEN">IDEAL QUANDO</p>
+          <p style="color:var(--gray-light);line-height:1.6" data-pt="▸ Volume baixo/médio de leads<br>▸ Vendas consultivas de alto valor (HOT)<br>▸ Preferência por contato pessoal<br>▸ Orçamento enxuto para ferramentas" data-en="▸ Low/medium lead volume<br>▸ High-value consultative sales (HOT)<br>▸ Preference for personal contact<br>▸ Lean budget for tools">▸ Volume baixo/médio de leads<br>▸ Vendas consultivas de alto valor (HOT)<br>▸ Preferência por contato pessoal<br>▸ Orçamento enxuto para ferramentas</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -225,74 +295,138 @@
 <div class="divider"></div>
 
 <!-- ============================================================ -->
-<!-- HOT -->
+<!-- HOT — UPDATED: Minimal automation, seller-driven -->
 <!-- ============================================================ -->
 <section id="hot">
   <div class="fade-in">
     <div class="section-label" data-pt="02 — Estratégia HOT 🔴" data-en="02 — HOT Strategy 🔴">02 — Estratégia HOT 🔴</div>
-    <div class="section-title" data-pt="CONVERSÃO IMEDIATA — 7 DIAS" data-en="IMMEDIATE CONVERSION — 7 DAYS">CONVERSÃO IMEDIATA — 7 DIAS</div>
-    <p class="section-desc" data-pt="Lead visitou o showroom e sinalizou intenção de compra (80-90% decidido). Fechar rápido com escassez e emoção." data-en="Lead visited showroom and signaled purchase intent (80-90% decided). Close fast with scarcity and emotion.">Lead visitou o showroom e sinalizou intenção de compra (80-90% decidido). Fechar rápido com escassez e emoção.</p>
+    <div class="section-title" data-pt="CONVERSÃO IMEDIATA — VENDEDOR CONDUZ" data-en="IMMEDIATE CONVERSION — SELLER LEADS">CONVERSÃO IMEDIATA — VENDEDOR CONDUZ</div>
+    <p class="section-desc" data-pt="Venda consultiva de alto valor. Apenas <strong style='color:var(--white)'>uma mensagem automática</strong> após a visita. Todo o restante do follow-up é conduzido <strong style='color:var(--white)'>pessoalmente pelo vendedor</strong> para preservar o relacionamento." data-en="High-value consultative sale. Only <strong style='color:var(--white)'>one automated message</strong> after the visit. All remaining follow-up is conducted <strong style='color:var(--white)'>personally by the salesperson</strong> to preserve the relationship.">Venda consultiva de alto valor. Apenas <strong style="color:var(--white)">uma mensagem automática</strong> após a visita. Todo o restante do follow-up é conduzido <strong style="color:var(--white)">pessoalmente pelo vendedor</strong> para preservar o relacionamento.</p>
   </div>
   <div class="strategy-grid fade-in">
     <div class="strategy-card">
-      <div class="strategy-card-header"><div class="strategy-icon hot">🔥</div><div><h3 data-pt="CADÊNCIA HOT" data-en="HOT CADENCE">CADÊNCIA HOT</h3></div><span class="tag hot-tag">7 dias</span></div>
+      <div class="strategy-card-header"><div class="strategy-icon hot">🔥</div><div><h3 data-pt="CADÊNCIA HOT" data-en="HOT CADENCE">CADÊNCIA HOT</h3></div><span class="tag hot-tag" data-pt="Vendedor" data-en="Seller">Vendedor</span></div>
       <div class="strategy-card-body">
+        <div class="approach-badge auto" data-pt="🤖 AUTOMÁTICO — APENAS D0" data-en="🤖 AUTOMATIC — DAY 0 ONLY">🤖 AUTOMÁTICO — APENAS D0</div>
         <div class="timeline">
-          <div class="timeline-item"><div class="time-label" data-pt="Dia 0 — Visita" data-en="Day 0 — Visit">Dia 0 — Visita</div><h5 data-pt="E-mail auto (fotos + cotação) + SMS agradecimento" data-en="Auto email (photos + quote) + thank-you SMS">E-mail auto (fotos + cotação) + SMS agradecimento</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail Auto</span><span class="channel-tag ch-sms">SMS</span><span class="channel-tag ch-auto" data-pt="Automação" data-en="Automation">Automação</span></div></div>
-          <div class="timeline-item"><div class="time-label" data-pt="Dia 3 — Escassez" data-en="Day 3 — Scarcity">Dia 3 — Escassez</div><h5 data-pt="WhatsApp — 'Outro cliente demonstrou interesse, prioridade para você'" data-en="WhatsApp — 'Another client showed interest, priority for you'">WhatsApp — "Outro cliente demonstrou interesse, prioridade para você"</h5><div class="channel-tags"><span class="channel-tag ch-whatsapp">WhatsApp</span></div></div>
-          <div class="timeline-item"><div class="time-label" data-pt="Dia 7 — Última tentativa" data-en="Day 7 — Last attempt">Dia 7 — Última tentativa</div><h5 data-pt="Ligação + e-mail final. Sem resposta → move para Reactivation como WARM" data-en="Call + final email. No reply → move to Reactivation as WARM">Ligação + e-mail final. Sem resposta → move para Reactivation como WARM</h5><div class="channel-tags"><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span><span class="channel-tag ch-email">E-mail</span></div></div>
+          <div class="timeline-item"><div class="time-label" data-pt="Dia 0 — Pós-Visita (Automático)" data-en="Day 0 — Post-Visit (Automatic)">Dia 0 — Pós-Visita (Automático)</div><h5 data-pt="E-mail automático: agradecimento + fotos/cotação + aviso de estoque único + disponibilidade do vendedor" data-en="Auto email: thank you + photos/quote + unique stock notice + seller availability">E-mail automático: agradecimento + fotos/cotação + aviso de estoque único + disponibilidade do vendedor</h5><p data-pt="Única automação do funil HOT. Disparado imediatamente após a visita." data-en="Only automation in the HOT funnel. Triggered immediately after the visit.">Única automação do funil HOT. Disparado imediatamente após a visita.</p><div class="channel-tags"><span class="channel-tag ch-email">E-mail Auto</span><span class="channel-tag ch-auto" data-pt="Automação" data-en="Automation">Automação</span></div></div>
+        </div>
+
+        <div style="margin:24px 0;border-top:1px dashed rgba(255,165,0,.3);padding-top:20px">
+          <div class="approach-badge manual" data-pt="👤 MANUAL — VENDEDOR CONDUZ" data-en="👤 MANUAL — SELLER LEADS">👤 MANUAL — VENDEDOR CONDUZ</div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item manual-step"><div class="time-label" data-pt="Dia 2-3 — Follow-up Pessoal" data-en="Day 2-3 — Personal Follow-up">Dia 2-3 — Follow-up Pessoal</div><h5 data-pt="Vendedor envia WhatsApp ou liga — toque pessoal, relembrar a peça, responder dúvidas" data-en="Seller sends WhatsApp or calls — personal touch, recall the piece, answer questions">Vendedor envia WhatsApp ou liga — toque pessoal, relembrar a peça, responder dúvidas</h5><p data-pt="Mensagem personalizada pelo vendedor. Sem script engessado." data-en="Personalized message by the seller. No rigid script.">Mensagem personalizada pelo vendedor. Sem script engessado.</p><div class="channel-tags"><span class="channel-tag ch-whatsapp">WhatsApp</span><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span><span class="channel-tag ch-manual" data-pt="Manual" data-en="Manual">Manual</span></div></div>
+          <div class="timeline-item manual-step"><div class="time-label" data-pt="Dia 5-7 — Escassez / Depósito" data-en="Day 5-7 — Scarcity / Deposit">Dia 5-7 — Escassez / Depósito</div><h5 data-pt="Vendedor aplica gatilho de escassez, oferece reserva com depósito parcial" data-en="Seller applies scarcity trigger, offers reserve with partial deposit">Vendedor aplica gatilho de escassez, oferece reserva com depósito parcial</h5><p data-pt="Adaptado ao perfil do lead. Urgência real, não forçada." data-en="Adapted to lead profile. Real urgency, not forced.">Adaptado ao perfil do lead. Urgência real, não forçada.</p><div class="channel-tags"><span class="channel-tag ch-whatsapp">WhatsApp</span><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span><span class="channel-tag ch-manual" data-pt="Manual" data-en="Manual">Manual</span></div></div>
+          <div class="timeline-item manual-step"><div class="time-label" data-pt="Dia 10-14 — Última Tentativa" data-en="Day 10-14 — Last Attempt">Dia 10-14 — Última Tentativa</div><h5 data-pt="Vendedor faz contato final. Sem resposta → aplica tag WARM → move para Reactivation" data-en="Seller makes final contact. No response → applies WARM tag → moves to Reactivation">Vendedor faz contato final. Sem resposta → aplica tag WARM → move para Reactivation</h5><div class="channel-tags"><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span><span class="channel-tag ch-email">E-mail</span><span class="channel-tag ch-manual" data-pt="Manual" data-en="Manual">Manual</span></div></div>
         </div>
       </div>
     </div>
     <div class="strategy-card">
       <div class="strategy-card-header"><div class="strategy-icon hot">🎯</div><div><h3 data-pt="GATILHOS HOT" data-en="HOT TRIGGERS">GATILHOS HOT</h3></div></div>
-      <div class="strategy-card-body"><div class="rules-box" style="margin:0"><ul>
-        <li data-pt="<strong>Escassez Real:</strong> Peças únicas, outro cliente interessado" data-en="<strong>Real Scarcity:</strong> Unique pieces, another client interested"><strong>Escassez Real:</strong> Peças únicas, outro cliente interessado</li>
-        <li data-pt="<strong>Exclusividade:</strong> Material que não existe em nenhum concorrente" data-en="<strong>Exclusivity:</strong> Material no competitor has"><strong>Exclusividade:</strong> Material que não existe em nenhum concorrente</li>
-        <li data-pt="<strong>Prova Social:</strong> Reviews 5 estrelas, clientes de 2h de distância" data-en="<strong>Social Proof:</strong> 5-star reviews, clients from 2h away"><strong>Prova Social:</strong> Reviews 5 estrelas, clientes de 2h de distância</li>
-        <li data-pt="<strong>Urgência:</strong> Depósito parcial garante a peça por 48h" data-en="<strong>Urgency:</strong> Partial deposit holds piece for 48h"><strong>Urgência:</strong> Depósito parcial garante a peça por 48h</li>
-        <li data-pt="<strong>Emoção:</strong> Resgatar o encantamento da visita" data-en="<strong>Emotion:</strong> Recapture the visit enchantment"><strong>Emoção:</strong> Resgatar o encantamento da visita</li>
-        <li data-pt="<strong>Autoridade:</strong> Designers e arquitetos de toda a região" data-en="<strong>Authority:</strong> Designers and architects across the region"><strong>Autoridade:</strong> Designers e arquitetos de toda a região</li>
-      </ul></div></div>
+      <div class="strategy-card-body">
+        <div class="rules-box" style="margin:0"><ul>
+          <li data-pt="<strong>Escassez Real:</strong> Peças únicas, outro cliente interessado" data-en="<strong>Real Scarcity:</strong> Unique pieces, another client interested"><strong>Escassez Real:</strong> Peças únicas, outro cliente interessado</li>
+          <li data-pt="<strong>Exclusividade:</strong> Material que não existe em nenhum concorrente" data-en="<strong>Exclusivity:</strong> Material no competitor has"><strong>Exclusividade:</strong> Material que não existe em nenhum concorrente</li>
+          <li data-pt="<strong>Prova Social:</strong> Reviews 5 estrelas, clientes de 2h de distância" data-en="<strong>Social Proof:</strong> 5-star reviews, clients from 2h away"><strong>Prova Social:</strong> Reviews 5 estrelas, clientes de 2h de distância</li>
+          <li data-pt="<strong>Urgência:</strong> Depósito parcial garante a peça por 48h" data-en="<strong>Urgency:</strong> Partial deposit holds piece for 48h"><strong>Urgência:</strong> Depósito parcial garante a peça por 48h</li>
+          <li data-pt="<strong>Emoção:</strong> Resgatar o encantamento da visita" data-en="<strong>Emotion:</strong> Recapture the visit enchantment"><strong>Emoção:</strong> Resgatar o encantamento da visita</li>
+          <li data-pt="<strong>Autoridade:</strong> Designers e arquitetos de toda a região" data-en="<strong>Authority:</strong> Designers and architects across the region"><strong>Autoridade:</strong> Designers e arquitetos de toda a região</li>
+        </ul></div>
+
+        <!-- NEW: Why manual -->
+        <div style="margin-top:20px;background:rgba(255,165,0,.06);border:1px solid rgba(255,165,0,.15);border-radius:10px;padding:18px">
+          <h4 style="font-family:'Bebas Neue';font-size:1rem;letter-spacing:1px;color:#ffa500;margin-bottom:8px" data-pt="POR QUE MANUAL?" data-en="WHY MANUAL?">POR QUE MANUAL?</h4>
+          <p style="font-size:.82rem;color:var(--gray-light);line-height:1.6" data-pt="▸ Venda consultiva de alto ticket — bot soa impessoal<br>▸ O vendedor conhece o lead da visita presencial<br>▸ Adaptar tom e gatilho ao perfil do cliente<br>▸ Construir confiança para decisões de milhares de dólares<br>▸ CRM cria <strong style='color:var(--white)'>tarefas automáticas</strong> para lembrar o vendedor" data-en="▸ High-ticket consultative sale — bot sounds impersonal<br>▸ Seller knows the lead from the in-person visit<br>▸ Adapt tone and triggers to client profile<br>▸ Build trust for thousand-dollar decisions<br>▸ CRM creates <strong style='color:var(--white)'>automatic tasks</strong> to remind the seller">▸ Venda consultiva de alto ticket — bot soa impessoal<br>▸ O vendedor conhece o lead da visita presencial<br>▸ Adaptar tom e gatilho ao perfil do cliente<br>▸ Construir confiança para decisões de milhares de dólares<br>▸ CRM cria <strong style="color:var(--white)">tarefas automáticas</strong> para lembrar o vendedor</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 <div class="divider"></div>
 
-<!-- WARM -->
+<!-- ============================================================ -->
+<!-- WARM — UPDATED: Split ≤90d and >90d -->
+<!-- ============================================================ -->
 <section id="warm">
   <div class="fade-in">
     <div class="section-label" data-pt="03 — Estratégia WARM 🟠" data-en="03 — WARM Strategy 🟠">03 — Estratégia WARM 🟠</div>
-    <div class="section-title" data-pt="REAQUECIMENTO — 30 DIAS" data-en="REWARMING — 30 DAYS">REAQUECIMENTO — 30 DIAS</div>
-    <p class="section-desc" data-pt="Lead gostou mas não decidiu. Manter desejo vivo com conteúdo educativo e motivos para retornar." data-en="Lead liked it but hasn't decided. Keep desire alive with educational content and reasons to return.">Lead gostou mas não decidiu. Manter desejo vivo com conteúdo educativo e motivos para retornar.</p>
+    <div class="section-title" data-pt="REAQUECIMENTO — DUAS FASES" data-en="REWARMING — TWO PHASES">REAQUECIMENTO — DUAS FASES</div>
+    <p class="section-desc" data-pt="Leads divididos por tempo de inatividade. Até 90 dias: mix de automação e contato direto. Acima de 90 dias: nutrição periódica com conteúdo de inspiração." data-en="Leads split by inactivity time. Up to 90 days: mix of automation and direct contact. Over 90 days: periodic nurturing with inspirational content.">Leads divididos por tempo de inatividade. Até 90 dias: mix de automação e contato direto. Acima de 90 dias: nutrição periódica com conteúdo de inspiração.</p>
   </div>
+
+  <!-- PHASE 1: WARM ≤90 DAYS -->
   <div class="strategy-grid fade-in">
     <div class="strategy-card">
-      <div class="strategy-card-header"><div class="strategy-icon warm">🌡️</div><div><h3 data-pt="CADÊNCIA WARM" data-en="WARM CADENCE">CADÊNCIA WARM</h3></div><span class="tag warm-tag">30 dias</span></div>
+      <div class="strategy-card-header"><div class="strategy-icon warm">🌡️</div><div><h3 data-pt="WARM ≤ 90 DIAS" data-en="WARM ≤ 90 DAYS">WARM ≤ 90 DIAS</h3></div><span class="tag warm-tag" data-pt="Fase 1" data-en="Phase 1">Fase 1</span></div>
       <div class="strategy-card-body">
+        <div class="approach-badge hybrid" data-pt="🔄 MIX — AUTOMAÇÃO + CONTATO DIRETO" data-en="🔄 MIX — AUTOMATION + DIRECT CONTACT">🔄 MIX — AUTOMAÇÃO + CONTATO DIRETO</div>
+        <p data-pt="Lead gostou mas não decidiu. Manter desejo vivo com conteúdo educativo, provas sociais e contato direto do vendedor." data-en="Lead liked it but hasn't decided. Keep desire alive with educational content, social proof and direct seller contact.">Lead gostou mas não decidiu. Manter desejo vivo com conteúdo educativo, provas sociais e contato direto do vendedor.</p>
         <div class="timeline">
-          <div class="timeline-item"><div class="time-label" data-pt="Dia 0" data-en="Day 0">Dia 0</div><h5 data-pt="E-mail educativo auto (Quartzito vs Granito, tendências)" data-en="Auto educational email (Quartzite vs Granite, trends)">E-mail educativo auto (Quartzito vs Granito, tendências)</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail Auto</span><span class="channel-tag ch-auto" data-pt="Automação" data-en="Automation">Automação</span></div></div>
-          <div class="timeline-item"><div class="time-label" data-pt="Dia 10" data-en="Day 10">Dia 10</div><h5 data-pt="Ligação — check-in amigável (tarefa automática)" data-en="Call — friendly check-in (automatic task)">Ligação — check-in amigável (tarefa automática)</h5><div class="channel-tags"><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span><span class="channel-tag ch-auto" data-pt="Tarefa Auto" data-en="Auto Task">Tarefa Auto</span></div></div>
-          <div class="timeline-item"><div class="time-label" data-pt="Dia 20" data-en="Day 20">Dia 20</div><h5 data-pt="E-mail — case de sucesso com before/after" data-en="Email — success case with before/after">E-mail — case de sucesso com before/after</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail</span></div></div>
-          <div class="timeline-item"><div class="time-label" data-pt="Dia 30" data-en="Day 30">Dia 30</div><h5 data-pt="Ligação final. Respondeu → HOT (volta p/ General). Não → COLD" data-en="Final call. Responded → HOT (back to General). No → COLD">Ligação final. Respondeu → HOT (volta p/ General). Não → COLD</h5><div class="channel-tags"><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span></div></div>
+          <div class="timeline-item"><div class="time-label" data-pt="Dia 0 — Entrada no WARM" data-en="Day 0 — Enters WARM">Dia 0 — Entrada no WARM</div><h5 data-pt="E-mail automático educativo (Quartzito vs Granito, tendências 2026)" data-en="Auto educational email (Quartzite vs Granite, 2026 trends)">E-mail automático educativo (Quartzito vs Granito, tendências 2026)</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail Auto</span><span class="channel-tag ch-auto" data-pt="Automação" data-en="Automation">Automação</span></div></div>
+          <div class="timeline-item manual-step"><div class="time-label" data-pt="Dia 10 — Contato Direto" data-en="Day 10 — Direct Contact">Dia 10 — Contato Direto</div><h5 data-pt="Vendedor liga — check-in amigável, enviar fotos de projetos recentes (tarefa automática no CRM)" data-en="Seller calls — friendly check-in, send photos of recent projects (auto task in CRM)">Vendedor liga — check-in amigável, enviar fotos de projetos recentes (tarefa automática no CRM)</h5><div class="channel-tags"><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span><span class="channel-tag ch-whatsapp">WhatsApp</span><span class="channel-tag ch-manual" data-pt="Manual" data-en="Manual">Manual</span></div></div>
+          <div class="timeline-item"><div class="time-label" data-pt="Dia 20 — Prova Social" data-en="Day 20 — Social Proof">Dia 20 — Prova Social</div><h5 data-pt="E-mail — case de sucesso com before/after, fotos de projetos premium" data-en="Email — success case with before/after, premium project photos">E-mail — case de sucesso com before/after, fotos de projetos premium</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail</span></div></div>
+          <div class="timeline-item manual-step"><div class="time-label" data-pt="Dia 30 — Novos Materiais" data-en="Day 30 — New Materials">Dia 30 — Novos Materiais</div><h5 data-pt="WhatsApp do vendedor — fotos de novos materiais que chegaram, convite para visita" data-en="Seller WhatsApp — photos of new materials arrived, visit invitation">WhatsApp do vendedor — fotos de novos materiais que chegaram, convite para visita</h5><div class="channel-tags"><span class="channel-tag ch-whatsapp">WhatsApp</span><span class="channel-tag ch-manual" data-pt="Manual" data-en="Manual">Manual</span></div></div>
+          <div class="timeline-item"><div class="time-label" data-pt="Dia 45 — Inspiração" data-en="Day 45 — Inspiration">Dia 45 — Inspiração</div><h5 data-pt="E-mail — tendências de design, mood boards, inspiração visual" data-en="Email — design trends, mood boards, visual inspiration">E-mail — tendências de design, mood boards, inspiração visual</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail Auto</span></div></div>
+          <div class="timeline-item manual-step"><div class="time-label" data-pt="Dia 60 — Requalificação" data-en="Day 60 — Requalification">Dia 60 — Requalificação</div><h5 data-pt="Ligação do vendedor — requalificar interesse, oferecer consultoria de medição gratuita" data-en="Seller call — requalify interest, offer free measurement consultation">Ligação do vendedor — requalificar interesse, oferecer consultoria de medição gratuita</h5><div class="channel-tags"><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span><span class="channel-tag ch-manual" data-pt="Manual" data-en="Manual">Manual</span></div></div>
+          <div class="timeline-item"><div class="time-label" data-pt="Dia 90 — Avaliação" data-en="Day 90 — Evaluation">Dia 90 — Avaliação</div><h5 data-pt="Respondeu → SDR qualifica → HOT. Não respondeu → move para WARM >90d" data-en="Responded → SDR qualifies → HOT. No response → moves to WARM >90d">Respondeu → SDR qualifica → HOT. Não respondeu → move para WARM >90d</h5><div class="channel-tags"><span class="channel-tag ch-auto" data-pt="Automação" data-en="Automation">Automação</span></div></div>
         </div>
       </div>
     </div>
     <div class="strategy-card">
-      <div class="strategy-card-header"><div class="strategy-icon warm">💡</div><div><h3 data-pt="GATILHOS WARM" data-en="WARM TRIGGERS">GATILHOS WARM</h3></div></div>
+      <div class="strategy-card-header"><div class="strategy-icon warm">💡</div><div><h3 data-pt="GATILHOS WARM ≤90d" data-en="WARM ≤90d TRIGGERS">GATILHOS WARM ≤90d</h3></div></div>
       <div class="strategy-card-body"><div class="rules-box" style="margin:0"><ul>
-        <li data-pt="<strong>Desejo Visual:</strong> Before/after, projetos premium" data-en="<strong>Visual Desire:</strong> Before/after, premium projects"><strong>Desejo Visual:</strong> Before/after, projetos premium</li>
-        <li data-pt="<strong>Prova Social:</strong> Reviews 5 estrelas, depoimentos" data-en="<strong>Social Proof:</strong> 5-star reviews, testimonials"><strong>Prova Social:</strong> Reviews 5 estrelas, depoimentos</li>
-        <li data-pt="<strong>Novidade:</strong> Chegada de materiais novos" data-en="<strong>Novelty:</strong> New materials arrival"><strong>Novidade:</strong> Chegada de materiais novos</li>
-        <li data-pt="<strong>Educação:</strong> Conteúdo comparativo e tendências" data-en="<strong>Education:</strong> Comparative content and trends"><strong>Educação:</strong> Conteúdo comparativo e tendências</li>
+        <li data-pt="<strong>Desejo Visual:</strong> Before/after, projetos premium, fotos de obra" data-en="<strong>Visual Desire:</strong> Before/after, premium projects, construction photos"><strong>Desejo Visual:</strong> Before/after, projetos premium, fotos de obra</li>
+        <li data-pt="<strong>Prova Social:</strong> Reviews 5 estrelas, depoimentos de clientes" data-en="<strong>Social Proof:</strong> 5-star reviews, client testimonials"><strong>Prova Social:</strong> Reviews 5 estrelas, depoimentos de clientes</li>
+        <li data-pt="<strong>Novidade:</strong> Chegada de materiais novos — enviar fotos via WhatsApp" data-en="<strong>Novelty:</strong> New materials arrival — send photos via WhatsApp"><strong>Novidade:</strong> Chegada de materiais novos — enviar fotos via WhatsApp</li>
+        <li data-pt="<strong>Educação:</strong> Conteúdo comparativo e tendências 2026" data-en="<strong>Education:</strong> Comparative content and 2026 trends"><strong>Educação:</strong> Conteúdo comparativo e tendências 2026</li>
         <li data-pt="<strong>Reciprocidade:</strong> Consultoria gratuita de medição" data-en="<strong>Reciprocity:</strong> Free measurement consultation"><strong>Reciprocidade:</strong> Consultoria gratuita de medição</li>
+        <li data-pt="<strong>Contato Direto:</strong> Vendedor personaliza abordagem ao perfil" data-en="<strong>Direct Contact:</strong> Seller personalizes approach to profile"><strong>Contato Direto:</strong> Vendedor personaliza abordagem ao perfil</li>
       </ul></div></div>
+    </div>
+  </div>
+
+  <!-- PHASE 2: WARM >90 DAYS -->
+  <div class="warm-phase-divider fade-in">
+    <h4 data-pt="FASE 2 — WARM ACIMA DE 90 DIAS" data-en="PHASE 2 — WARM OVER 90 DAYS">FASE 2 — WARM ACIMA DE 90 DIAS</h4>
+    <p data-pt="Lista de nutrição periódica. Conteúdo de inspiração e novidades para manter no radar." data-en="Periodic nurturing list. Inspirational content and news to stay on radar.">Lista de nutrição periódica. Conteúdo de inspiração e novidades para manter no radar.</p>
+  </div>
+
+  <div class="strategy-grid fade-in">
+    <div class="strategy-card">
+      <div class="strategy-card-header"><div class="strategy-icon warm" style="background:rgba(255,165,0,.08)">📬</div><div><h3 data-pt="WARM &gt;90 DIAS — NUTRIÇÃO" data-en="WARM &gt;90 DAYS — NURTURING">WARM &gt;90 DIAS — NUTRIÇÃO</h3></div><span class="tag warm-tag" data-pt="Fase 2" data-en="Phase 2">Fase 2</span></div>
+      <div class="strategy-card-body">
+        <div class="approach-badge auto" data-pt="🤖 AUTOMÁTICO — NUTRIÇÃO PERIÓDICA" data-en="🤖 AUTOMATIC — PERIODIC NURTURING">🤖 AUTOMÁTICO — NUTRIÇÃO PERIÓDICA</div>
+        <p data-pt="Lead passou 90 dias no WARM sem converter. Mover para lista de nutrição com conteúdo periódico de inspiração e novidades." data-en="Lead spent 90 days in WARM without converting. Move to nurturing list with periodic inspirational and news content.">Lead passou 90 dias no WARM sem converter. Mover para lista de nutrição com conteúdo periódico de inspiração e novidades.</p>
+        <div class="timeline">
+          <div class="timeline-item"><div class="time-label" data-pt="A cada 30 dias" data-en="Every 30 days">A cada 30 dias</div><h5 data-pt="E-mail de inspiração — tendências, mood boards, projetos novos" data-en="Inspiration email — trends, mood boards, new projects">E-mail de inspiração — tendências, mood boards, projetos novos</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail Auto</span><span class="channel-tag ch-auto" data-pt="Automação" data-en="Automation">Automação</span></div></div>
+          <div class="timeline-item"><div class="time-label" data-pt="Sazonais" data-en="Seasonal">Sazonais</div><h5 data-pt="Campanhas especiais — datas comemorativas, promoções reais, eventos no showroom" data-en="Special campaigns — commemorative dates, real promotions, showroom events">Campanhas especiais — datas comemorativas, promoções reais, eventos no showroom</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail</span></div></div>
+          <div class="timeline-item"><div class="time-label" data-pt="Novos materiais" data-en="New materials">Novos materiais</div><h5 data-pt="E-mail de alerta — chegaram materiais raros ou coleções especiais" data-en="Alert email — rare materials or special collections arrived">E-mail de alerta — chegaram materiais raros ou coleções especiais</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail Auto</span></div></div>
+          <div class="timeline-item"><div class="time-label" data-pt="Se interagir" data-en="If interacts">Se interagir</div><h5 data-pt="Respondeu → Pré-Vendas (SDR) qualifica → pode gerar novo agendamento → HOT" data-en="Responded → Pre-Sales (SDR) qualifies → may generate new appointment → HOT">Respondeu → Pré-Vendas (SDR) qualifica → pode gerar novo agendamento → HOT</h5><div class="channel-tags"><span class="channel-tag ch-sdr">SDR</span><span class="channel-tag ch-auto" data-pt="Automação" data-en="Automation">Automação</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-card-header"><div class="strategy-icon warm" style="background:rgba(255,165,0,.08)">🔄</div><div><h3 data-pt="REGRAS WARM &gt;90d" data-en="WARM &gt;90d RULES">REGRAS WARM &gt;90d</h3></div></div>
+      <div class="strategy-card-body">
+        <div class="rules-box" style="margin:0"><ul>
+          <li data-pt="<strong>Frequência:</strong> Máximo 1 e-mail a cada 30 dias" data-en="<strong>Frequency:</strong> Maximum 1 email every 30 days"><strong>Frequência:</strong> Máximo 1 e-mail a cada 30 dias</li>
+          <li data-pt="<strong>Conteúdo:</strong> Inspiração, tendências, novidades — nunca pressão de venda" data-en="<strong>Content:</strong> Inspiration, trends, news — never sales pressure"><strong>Conteúdo:</strong> Inspiração, tendências, novidades — nunca pressão de venda</li>
+          <li data-pt="<strong>Reativação:</strong> Resposta vai para SDR, não direto para vendedor" data-en="<strong>Reactivation:</strong> Response goes to SDR, not directly to seller"><strong>Reativação:</strong> Resposta vai para SDR, não direto para vendedor</li>
+          <li data-pt="<strong>SDR qualifica:</strong> Valida interesse, agenda visita se pertinente" data-en="<strong>SDR qualifies:</strong> Validates interest, schedules visit if relevant"><strong>SDR qualifica:</strong> Valida interesse, agenda visita se pertinente</li>
+          <li data-pt="<strong>Sem interação 180d total:</strong> Move para COLD" data-en="<strong>No interaction 180d total:</strong> Moves to COLD"><strong>Sem interação 180d total:</strong> Move para COLD</li>
+          <li data-pt="<strong>Opt-out:</strong> Respeitar descadastro imediato" data-en="<strong>Opt-out:</strong> Honor immediate unsubscribe"><strong>Opt-out:</strong> Respeitar descadastro imediato</li>
+        </ul></div>
+      </div>
     </div>
   </div>
 </section>
 <div class="divider"></div>
 
-<!-- COLD -->
+<!-- ============================================================ -->
+<!-- COLD — NO CHANGES -->
+<!-- ============================================================ -->
 <section id="cold">
   <div class="fade-in">
     <div class="section-label" data-pt="04 — Estratégia COLD 🔵" data-en="04 — COLD Strategy 🔵">04 — Estratégia COLD 🔵</div>
@@ -306,7 +440,7 @@
         <div class="timeline">
           <div class="timeline-item"><div class="time-label" data-pt="Dia 0" data-en="Day 0">Dia 0</div><h5 data-pt="E-mail auto — 'Estamos aqui quando precisar' + inspiração" data-en="Auto email — 'We're here when you're ready' + inspiration">E-mail auto — "Estamos aqui quando precisar" + inspiração</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail Auto</span><span class="channel-tag ch-auto" data-pt="Automação" data-en="Automation">Automação</span></div></div>
           <div class="timeline-item"><div class="time-label" data-pt="Dia 30" data-en="Day 30">Dia 30</div><h5 data-pt="E-mail — tendências de design ou campanha sazonal" data-en="Email — design trends or seasonal campaign">E-mail — tendências de design ou campanha sazonal</h5><div class="channel-tags"><span class="channel-tag ch-email">E-mail</span></div></div>
-          <div class="timeline-item"><div class="time-label" data-pt="Dia 90" data-en="Day 90">Dia 90</div><h5 data-pt="Interagiu → volta para WARM. Sem interação → Arquivo + newsletter mensal" data-en="Interacted → back to WARM. No interaction → Archive + monthly newsletter">Interagiu → volta para WARM. Sem interação → Arquivo + newsletter mensal</h5><div class="channel-tags"><span class="channel-tag ch-auto" data-pt="Automação" data-en="Automation">Automação</span></div></div>
+          <div class="timeline-item"><div class="time-label" data-pt="Dia 90" data-en="Day 90">Dia 90</div><h5 data-pt="Interagiu → SDR qualifica → HOT. Sem interação → Arquivo + newsletter mensal" data-en="Interacted → SDR qualifies → HOT. No interaction → Archive + monthly newsletter">Interagiu → SDR qualifica → HOT. Sem interação → Arquivo + newsletter mensal</h5><div class="channel-tags"><span class="channel-tag ch-auto" data-pt="Automação" data-en="Automation">Automação</span></div></div>
         </div>
       </div>
     </div>
@@ -324,7 +458,9 @@
 </section>
 <div class="divider"></div>
 
-<!-- AUTOMATIONS -->
+<!-- ============================================================ -->
+<!-- AUTOMATIONS — UPDATED -->
+<!-- ============================================================ -->
 <section id="automations">
   <div class="fade-in">
     <div class="section-label" data-pt="05 — Automações" data-en="05 — Automations">05 — Automações</div>
@@ -333,53 +469,72 @@
   <div class="automation-section fade-in">
     <div class="flow-steps">
       <div class="flow-step"><div class="step-number">01</div><h5 data-pt="Tag aplicada" data-en="Tag applied">Tag aplicada</h5><p data-pt="Vendedor aplica HOT, WARM ou COLD" data-en="Salesperson applies HOT, WARM or COLD">Vendedor aplica HOT, WARM ou COLD</p></div>
-      <div class="flow-step"><div class="step-number">02</div><h5 data-pt="Automação" data-en="Automation">Automação</h5><p data-pt="E-mail Dia 0. WARM/COLD → move para Reactivation" data-en="Email Day 0. WARM/COLD → move to Reactivation">E-mail Dia 0. WARM/COLD → move para Reactivation</p></div>
-      <div class="flow-step"><div class="step-number">03</div><h5 data-pt="Cadência" data-en="Cadence">Cadência</h5><p data-pt="Cada fase executa ação da régua" data-en="Each phase executes cadence action">Cada fase executa ação da régua</p></div>
-      <div class="flow-step"><div class="step-number">04</div><h5 data-pt="Resposta?" data-en="Response?">Resposta?</h5><p data-pt="SIM → volta p/ General como HOT. NÃO → avança" data-en="YES → back to General as HOT. NO → advances">SIM → volta p/ General como HOT. NÃO → avança</p></div>
-      <div class="flow-step"><div class="step-number">05</div><h5 data-pt="Ciclo" data-en="Cycle">Ciclo</h5><p>HOT → WARM → COLD → Arquivo</p></div>
+      <div class="flow-step"><div class="step-number">02</div><h5 data-pt="E-mail D0 Auto" data-en="Auto D0 Email">E-mail D0 Auto</h5><p data-pt="HOT: agradecimento + estoque único. WARM/COLD: conteúdo educativo" data-en="HOT: thank you + unique stock. WARM/COLD: educational content">HOT: agradecimento + estoque único. WARM/COLD: conteúdo educativo</p></div>
+      <div class="flow-step"><div class="step-number">03</div><h5 data-pt="Cadência" data-en="Cadence">Cadência</h5><p data-pt="HOT: vendedor manual. WARM/COLD: mix auto + direto" data-en="HOT: manual seller. WARM/COLD: mix auto + direct">HOT: vendedor manual. WARM/COLD: mix auto + direto</p></div>
+      <div class="flow-step"><div class="step-number">04</div><h5 data-pt="Resposta?" data-en="Response?">Resposta?</h5><p data-pt="SIM → SDR qualifica → HOT. NÃO → avança fase" data-en="YES → SDR qualifies → HOT. NO → advances phase">SIM → SDR qualifica → HOT. NÃO → avança fase</p></div>
+      <div class="flow-step"><div class="step-number">05</div><h5 data-pt="Ciclo" data-en="Cycle">Ciclo</h5><p>HOT → WARM ≤90d → WARM >90d → COLD → Arquivo</p></div>
     </div>
   </div>
   <div class="fade-in">
     <table class="scripts-table">
       <thead><tr><th data-pt="De" data-en="From">De</th><th data-pt="Condição" data-en="Condition">Condição</th><th data-pt="Ação" data-en="Action">Ação</th><th data-pt="Para" data-en="To">Para</th></tr></thead>
       <tbody>
-        <tr><td><span class="gatilho escassez">HOT</span></td><td data-pt="Sem resposta em 7 dias" data-en="No response in 7 days">Sem resposta em 7 dias</td><td data-pt="Move do General → Reactivation" data-en="Move from General → Reactivation">Move do General → Reactivation</td><td><span class="gatilho" style="background:rgba(255,165,0,.12);color:#ffa500">WARM</span></td></tr>
-        <tr><td><span class="gatilho" style="background:rgba(255,165,0,.12);color:#ffa500">WARM</span></td><td data-pt="Resposta positiva" data-en="Positive response">Resposta positiva</td><td data-pt="Move de volta → General" data-en="Move back → General">Move de volta → General</td><td><span class="gatilho escassez">HOT</span></td></tr>
-        <tr><td><span class="gatilho" style="background:rgba(255,165,0,.12);color:#ffa500">WARM</span></td><td data-pt="30 dias sem interação" data-en="30 days no interaction">30 dias sem interação</td><td data-pt="Altera tag (fica no Reactivation)" data-en="Changes tag (stays in Reactivation)">Altera tag (fica no Reactivation)</td><td><span class="gatilho" style="background:rgba(100,149,237,.12);color:#6495ED">COLD</span></td></tr>
-        <tr><td><span class="gatilho" style="background:rgba(100,149,237,.12);color:#6495ED">COLD</span></td><td data-pt="Interage com conteúdo" data-en="Interacts with content">Interage com conteúdo</td><td data-pt="Altera tag (fica no Reactivation)" data-en="Changes tag (stays in Reactivation)">Altera tag (fica no Reactivation)</td><td><span class="gatilho" style="background:rgba(255,165,0,.12);color:#ffa500">WARM</span></td></tr>
-        <tr><td><span class="gatilho" style="background:rgba(100,149,237,.12);color:#6495ED">COLD</span></td><td data-pt="90 dias sem interação" data-en="90 days no interaction">90 dias sem interação</td><td data-pt="Move para Fase 4" data-en="Move to Phase 4">Move para Fase 4</td><td><span class="gatilho" style="background:rgba(255,255,255,.08);color:var(--gray)">ARQUIVO</span></td></tr>
-        <tr><td><span class="gatilho" style="background:rgba(255,255,255,.08);color:var(--gray)" data-pt="QUALQUER" data-en="ANY">QUALQUER</span></td><td data-pt="Pede orçamento / agenda visita" data-en="Requests quote / schedules visit">Pede orçamento / agenda visita</td><td data-pt="Move → General → Sales Order" data-en="Move → General → Sales Order">Move → General → Sales Order</td><td><span class="gatilho desejo">SQL</span></td></tr>
+        <tr><td><span class="gatilho escassez">HOT</span></td><td data-pt="Vendedor encerra sem resposta (~14d)" data-en="Seller closes without response (~14d)">Vendedor encerra sem resposta (~14d)</td><td data-pt="Move do General → Reactivation" data-en="Move from General → Reactivation">Move do General → Reactivation</td><td><span class="gatilho" style="background:rgba(255,165,0,.12);color:#ffa500">WARM ≤90d</span></td></tr>
+        <tr><td><span class="gatilho" style="background:rgba(255,165,0,.12);color:#ffa500">WARM ≤90d</span></td><td data-pt="Resposta positiva" data-en="Positive response">Resposta positiva</td><td data-pt="SDR qualifica → Move → General" data-en="SDR qualifies → Move → General">SDR qualifica → Move → General</td><td><span class="gatilho escassez">HOT</span></td></tr>
+        <tr><td><span class="gatilho" style="background:rgba(255,165,0,.12);color:#ffa500">WARM ≤90d</span></td><td data-pt="90 dias sem interação" data-en="90 days no interaction">90 dias sem interação</td><td data-pt="Move para lista de nutrição periódica" data-en="Moves to periodic nurturing list">Move para lista de nutrição periódica</td><td><span class="gatilho" style="background:rgba(255,165,0,.08);color:#cc8400">WARM >90d</span></td></tr>
+        <tr><td><span class="gatilho" style="background:rgba(255,165,0,.08);color:#cc8400">WARM >90d</span></td><td data-pt="Resposta positiva" data-en="Positive response">Resposta positiva</td><td data-pt="SDR qualifica → agenda visita → General" data-en="SDR qualifies → schedules visit → General">SDR qualifica → agenda visita → General</td><td><span class="gatilho escassez">HOT</span></td></tr>
+        <tr><td><span class="gatilho" style="background:rgba(255,165,0,.08);color:#cc8400">WARM >90d</span></td><td data-pt="180 dias sem interação total" data-en="180 days total no interaction">180 dias sem interação total</td><td data-pt="Altera tag (fica no Reactivation)" data-en="Changes tag (stays in Reactivation)">Altera tag (fica no Reactivation)</td><td><span class="gatilho" style="background:rgba(100,149,237,.12);color:#6495ED">COLD</span></td></tr>
+        <tr><td><span class="gatilho" style="background:rgba(100,149,237,.12);color:#6495ED">COLD</span></td><td data-pt="Interage com conteúdo" data-en="Interacts with content">Interage com conteúdo</td><td data-pt="SDR qualifica → pode voltar como HOT" data-en="SDR qualifies → may return as HOT">SDR qualifica → pode voltar como HOT</td><td><span class="gatilho escassez">HOT</span></td></tr>
+        <tr><td><span class="gatilho" style="background:rgba(100,149,237,.12);color:#6495ED">COLD</span></td><td data-pt="90 dias sem interação" data-en="90 days no interaction">90 dias sem interação</td><td data-pt="Move para Fase Arquivo" data-en="Move to Archive Phase">Move para Fase Arquivo</td><td><span class="gatilho" style="background:rgba(255,255,255,.08);color:var(--gray)">ARQUIVO</span></td></tr>
+        <tr><td><span class="gatilho" style="background:rgba(255,255,255,.08);color:var(--gray)" data-pt="QUALQUER" data-en="ANY">QUALQUER</span></td><td data-pt="Pede orçamento / agenda visita" data-en="Requests quote / schedules visit">Pede orçamento / agenda visita</td><td data-pt="SDR qualifica → Move → General → Sales Order" data-en="SDR qualifies → Move → General → Sales Order">SDR qualifica → Move → General → Sales Order</td><td><span class="gatilho desejo">SQL</span></td></tr>
       </tbody>
     </table>
   </div>
 </section>
 <div class="divider"></div>
 
-<!-- SCRIPTS -->
+<!-- ============================================================ -->
+<!-- SCRIPTS — UPDATED -->
+<!-- ============================================================ -->
 <section id="scripts">
   <div class="fade-in">
     <div class="section-label">06 — Scripts & Copy</div>
     <div class="section-title" data-pt="TEMPLATES DE MENSAGEM" data-en="MESSAGE TEMPLATES">TEMPLATES DE MENSAGEM</div>
-    <p class="section-desc" data-pt="Scripts em inglês (clientes americanos). Gatilhos de persuasão aplicados por status." data-en="Scripts in English (American clients). Persuasion triggers applied by status.">Scripts em inglês (clientes americanos). Gatilhos de persuasão aplicados por status.</p>
+    <p class="section-desc" data-pt="Scripts em inglês (clientes americanos). HOT: apenas o e-mail D0 é automático — demais são referências para o vendedor." data-en="Scripts in English (American clients). HOT: only D0 email is automated — the rest are references for the salesperson.">Scripts em inglês (clientes americanos). HOT: apenas o e-mail D0 é automático — demais são referências para o vendedor.</p>
   </div>
   <div class="tabs fade-in">
     <button class="tab-btn active" onclick="switchTab('hot-scripts')">🔴 Hot</button>
-    <button class="tab-btn" onclick="switchTab('warm-scripts')">🟠 Warm</button>
+    <button class="tab-btn" onclick="switchTab('warm-scripts')">🟠 Warm ≤90d</button>
+    <button class="tab-btn" onclick="switchTab('warm90-scripts')">🟠 Warm >90d</button>
     <button class="tab-btn" onclick="switchTab('cold-scripts')">🔵 Cold</button>
   </div>
+
+  <!-- HOT SCRIPTS — UPDATED -->
   <div class="tab-content active" id="hot-scripts"><table class="scripts-table fade-in"><thead><tr><th style="width:70px" data-pt="Dia" data-en="Day">Dia</th><th style="width:90px" data-pt="Canal" data-en="Channel">Canal</th><th style="width:90px" data-pt="Gatilho" data-en="Trigger">Gatilho</th><th>Template</th></tr></thead><tbody>
-    <tr><td><strong>D0</strong></td><td><span class="channel-tag ch-email">E-mail</span></td><td><span class="gatilho escassez" data-pt="Escassez" data-en="Scarcity">Escassez</span></td><td><strong>Subject: Your visit to Stone Mall — [Piece] details inside</strong><br><span class="script-text">Hi [Name], thank you for visiting! This is a one-of-a-kind piece — exclusive slabs you won't find elsewhere in South Florida. Attached: quote and photos. Availability can change quickly. — [Salesperson]</span></td></tr>
-    <tr><td><strong>D0</strong></td><td><span class="channel-tag ch-sms">SMS</span></td><td><span class="gatilho autoridade" data-pt="Pessoal" data-en="Personal">Pessoal</span></td><td><span class="script-text">Hi [Name]! This is [Salesperson] from Stone Mall. Great meeting you! Just sent you an email with details and photos. Let me know if you have any questions! 😊</span></td></tr>
-    <tr><td><strong>D3</strong></td><td><span class="channel-tag ch-whatsapp">WhatsApp</span></td><td><span class="gatilho escassez" data-pt="Escassez" data-en="Scarcity">Escassez</span></td><td><span class="script-text">Hi [Name], heads up — another client expressed interest in the [piece] you saw. Since you visited first, I'd love to give you priority. Would you like to move forward? — [Salesperson]</span></td></tr>
-    <tr><td><strong>D7</strong></td><td><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span></td><td><span class="gatilho autoridade" data-pt="Reserva" data-en="Reserve">Reserva</span></td><td><span class="script-text"><strong>Script:</strong> "Hi [Name], the [piece] is getting attention. I can reserve it with a partial deposit for 48h. If not, no worries — whenever you're ready, we're here."</span></td></tr>
-    <tr><td><strong>D7</strong></td><td><span class="channel-tag ch-email">E-mail</span></td><td><span class="gatilho reciprocidade" data-pt="Perda" data-en="Loss">Perda</span></td><td><strong>Subject: Your [piece] at Stone Mall</strong><br><span class="script-text">Every project has its timeline. Because we work with one-of-a-kind pieces, we can't guarantee long-term availability. Whenever you're ready, we're here. — [Salesperson]</span></td></tr>
+    <tr><td><strong>D0</strong></td><td><span class="channel-tag ch-email">E-mail</span><br><span style="font-size:.58rem;color:#ba8ef7;font-weight:600;letter-spacing:1px" data-pt="AUTOMÁTICO" data-en="AUTOMATIC">AUTOMÁTICO</span></td><td><span class="gatilho escassez" data-pt="Escassez" data-en="Scarcity">Escassez</span></td><td><strong>Subject: Your visit to Stone Mall — [Piece] details inside</strong><br><span class="script-text">Hi [Name], thank you for visiting Stone Mall! Attached you'll find photos and your quote for the [piece] you loved. This is a one-of-a-kind slab — unique pieces like this are exclusive and availability changes fast. Your salesperson [Salesperson] is here for any questions. — Stone Mall</span></td></tr>
+    <tr style="background:rgba(255,165,0,.03)"><td><strong>D2-3</strong></td><td><span class="channel-tag ch-whatsapp">WhatsApp</span><br><span style="font-size:.58rem;color:#ffa500;font-weight:600;letter-spacing:1px" data-pt="MANUAL" data-en="MANUAL">MANUAL</span></td><td><span class="gatilho autoridade" data-pt="Pessoal" data-en="Personal">Pessoal</span></td><td><span class="script-text" data-pt="<em>Referência para o vendedor:</em><br>" data-en="<em>Reference for seller:</em><br>"><em>Referência para o vendedor:</em><br></span><span class="script-text">Hi [Name]! [Salesperson] here from Stone Mall. Wanted to check if you had any questions about the [piece]. Happy to help with measurements or design ideas whenever you're ready!</span></td></tr>
+    <tr style="background:rgba(255,165,0,.03)"><td><strong>D5-7</strong></td><td><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span><br><span style="font-size:.58rem;color:#ffa500;font-weight:600;letter-spacing:1px" data-pt="MANUAL" data-en="MANUAL">MANUAL</span></td><td><span class="gatilho escassez" data-pt="Reserva" data-en="Reserve">Reserva</span></td><td><span class="script-text" data-pt="<em>Referência para o vendedor:</em><br>" data-en="<em>Reference for seller:</em><br>"><em>Referência para o vendedor:</em><br></span><span class="script-text">"Hi [Name], the [piece] is getting attention from other clients. I can hold it with a partial deposit for 48h if you'd like priority. No pressure — just want to make sure you don't miss it."</span></td></tr>
+    <tr style="background:rgba(255,165,0,.03)"><td><strong>D10-14</strong></td><td><span class="channel-tag ch-email">E-mail</span><br><span style="font-size:.58rem;color:#ffa500;font-weight:600;letter-spacing:1px" data-pt="MANUAL" data-en="MANUAL">MANUAL</span></td><td><span class="gatilho reciprocidade" data-pt="Porta Aberta" data-en="Open Door">Porta Aberta</span></td><td><span class="script-text" data-pt="<em>Referência para o vendedor:</em><br>" data-en="<em>Reference for seller:</em><br>"><em>Referência para o vendedor:</em><br></span><strong>Subject: Your [piece] at Stone Mall</strong><br><span class="script-text">Every project has its timeline. Because we work with one-of-a-kind pieces, we can't guarantee long-term availability. Whenever you're ready, we're here. — [Salesperson]</span></td></tr>
   </tbody></table></div>
+
+  <!-- WARM ≤90d SCRIPTS -->
   <div class="tab-content" id="warm-scripts"><table class="scripts-table fade-in"><thead><tr><th style="width:70px" data-pt="Dia" data-en="Day">Dia</th><th style="width:90px" data-pt="Canal" data-en="Channel">Canal</th><th style="width:90px" data-pt="Gatilho" data-en="Trigger">Gatilho</th><th>Template</th></tr></thead><tbody>
-    <tr><td><strong>D0</strong></td><td><span class="channel-tag ch-email">E-mail</span></td><td><span class="gatilho autoridade" data-pt="Educação" data-en="Education">Educação</span></td><td><strong>Subject: How to choose the perfect stone</strong><br><span class="script-text">Quick guide while you decide: Quartzite vs Granite, maintenance tips, 2026 kitchen trends. We're here when you're ready! — Stone Mall</span></td></tr>
-    <tr><td><strong>D10</strong></td><td><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span></td><td><span class="gatilho reciprocidade">Check-in</span></td><td><span class="script-text">"Hi [Name], checking in on your project. Questions about measurements or materials? I'd love to help whenever you're ready."</span></td></tr>
+    <tr><td><strong>D0</strong></td><td><span class="channel-tag ch-email">E-mail</span><br><span style="font-size:.58rem;color:#ba8ef7;font-weight:600;letter-spacing:1px" data-pt="AUTOMÁTICO" data-en="AUTOMATIC">AUTOMÁTICO</span></td><td><span class="gatilho autoridade" data-pt="Educação" data-en="Education">Educação</span></td><td><strong>Subject: How to choose the perfect stone</strong><br><span class="script-text">Quick guide while you decide: Quartzite vs Granite, maintenance tips, 2026 kitchen trends. We're here when you're ready! — Stone Mall</span></td></tr>
+    <tr style="background:rgba(255,165,0,.03)"><td><strong>D10</strong></td><td><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span><br><span style="font-size:.58rem;color:#ffa500;font-weight:600;letter-spacing:1px" data-pt="MANUAL" data-en="MANUAL">MANUAL</span></td><td><span class="gatilho reciprocidade">Check-in</span></td><td><span class="script-text">"Hi [Name], checking in on your project. Questions about measurements or materials? I'd love to help whenever you're ready. We also just got some amazing new slabs in."</span></td></tr>
     <tr><td><strong>D20</strong></td><td><span class="channel-tag ch-email">E-mail</span></td><td><span class="gatilho social" data-pt="Prova Social" data-en="Social Proof">Prova Social</span></td><td><strong>Subject: See [Designer]'s project ✨</strong><br><span class="script-text">Stunning kitchen by [Designer] with our exclusive [material]. "Stone Mall's selection is unmatched." — [Client]. Schedule a visit →</span></td></tr>
-    <tr><td><strong>D30</strong></td><td><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span></td><td><span class="gatilho autoridade" data-pt="Requalificação" data-en="Requalification">Requalificação</span></td><td><span class="script-text">"We have new materials. I'd love for you to come see them. No pressure — just want you to know we're here."</span></td></tr>
+    <tr style="background:rgba(255,165,0,.03)"><td><strong>D30</strong></td><td><span class="channel-tag ch-whatsapp">WhatsApp</span><br><span style="font-size:.58rem;color:#ffa500;font-weight:600;letter-spacing:1px" data-pt="MANUAL" data-en="MANUAL">MANUAL</span></td><td><span class="gatilho desejo" data-pt="Novidade" data-en="Novelty">Novidade</span></td><td><span class="script-text">"Hi [Name]! We just got some incredible new [material type] slabs. Thought of you — here are some photos! Would love for you to come see them in person."</span></td></tr>
+    <tr><td><strong>D45</strong></td><td><span class="channel-tag ch-email">E-mail</span><br><span style="font-size:.58rem;color:#ba8ef7;font-weight:600;letter-spacing:1px" data-pt="AUTOMÁTICO" data-en="AUTOMATIC">AUTOMÁTICO</span></td><td><span class="gatilho desejo" data-pt="Inspiração" data-en="Inspiration">Inspiração</span></td><td><strong>Subject: Design trends you'll love</strong><br><span class="script-text">Bold quartzite veins, warm marbles, backlit onyx — here's what's trending in 2026. Visit our showroom to see these in person! — Stone Mall</span></td></tr>
+    <tr style="background:rgba(255,165,0,.03)"><td><strong>D60</strong></td><td><span class="channel-tag ch-call" data-pt="Ligação" data-en="Call">Ligação</span><br><span style="font-size:.58rem;color:#ffa500;font-weight:600;letter-spacing:1px" data-pt="MANUAL" data-en="MANUAL">MANUAL</span></td><td><span class="gatilho reciprocidade" data-pt="Requalificação" data-en="Requalification">Requalificação</span></td><td><span class="script-text">"Hi [Name], wanted to check in — has your project timeline changed? We'd love to offer you a free measurement consultation. No pressure at all."</span></td></tr>
   </tbody></table></div>
+
+  <!-- WARM >90d SCRIPTS — NEW -->
+  <div class="tab-content" id="warm90-scripts"><table class="scripts-table fade-in"><thead><tr><th style="width:70px" data-pt="Tipo" data-en="Type">Tipo</th><th style="width:90px" data-pt="Canal" data-en="Channel">Canal</th><th style="width:90px" data-pt="Gatilho" data-en="Trigger">Gatilho</th><th>Template</th></tr></thead><tbody>
+    <tr><td><strong data-pt="Mensal" data-en="Monthly">Mensal</strong></td><td><span class="channel-tag ch-email">E-mail</span><br><span style="font-size:.58rem;color:#ba8ef7;font-weight:600;letter-spacing:1px" data-pt="AUTOMÁTICO" data-en="AUTOMATIC">AUTOMÁTICO</span></td><td><span class="gatilho desejo" data-pt="Inspiração" data-en="Inspiration">Inspiração</span></td><td><strong>Subject: Fresh inspiration from Stone Mall 🏠</strong><br><span class="script-text">New projects, new materials, new possibilities. Here's what's happening at Stone Mall this month. When the time is right, we're here! — Stone Mall</span></td></tr>
+    <tr><td><strong data-pt="Sazonal" data-en="Seasonal">Sazonal</strong></td><td><span class="channel-tag ch-email">E-mail</span></td><td><span class="gatilho social" data-pt="Campanha" data-en="Campaign">Campanha</span></td><td><strong>Subject: [Holiday/Season] — Special event at Stone Mall</strong><br><span class="script-text">Celebrate [occasion] with us! Special conditions this [month] for select materials. Visit our showroom → — Stone Mall</span></td></tr>
+    <tr><td><strong data-pt="Novidade" data-en="News">Novidade</strong></td><td><span class="channel-tag ch-email">E-mail</span></td><td><span class="gatilho autoridade" data-pt="Novidade" data-en="Novelty">Novidade</span></td><td><strong>Subject: Just arrived — rare [material] collection</strong><br><span class="script-text">We've received a limited collection of [material] from [origin]. These unique pieces won't last long. Schedule a private viewing → — Stone Mall</span></td></tr>
+  </tbody></table></div>
+
+  <!-- COLD SCRIPTS — NO CHANGES -->
   <div class="tab-content" id="cold-scripts"><table class="scripts-table fade-in"><thead><tr><th style="width:70px" data-pt="Dia" data-en="Day">Dia</th><th style="width:90px" data-pt="Canal" data-en="Channel">Canal</th><th style="width:90px" data-pt="Gatilho" data-en="Trigger">Gatilho</th><th>Template</th></tr></thead><tbody>
     <tr><td><strong>D0</strong></td><td><span class="channel-tag ch-email">E-mail</span></td><td><span class="gatilho reciprocidade" data-pt="Empatia" data-en="Empathy">Empatia</span></td><td><strong>Subject: We're here when you're ready 🏠</strong><br><span class="script-text">Every project has its rhythm. No rush. We'll keep you updated with arrivals and inspiration. — Stone Mall</span></td></tr>
     <tr><td><strong>D30</strong></td><td><span class="channel-tag ch-email">E-mail</span></td><td><span class="gatilho desejo" data-pt="Inspiração" data-en="Inspiration">Inspiração</span></td><td><strong>Subject: 2026 Stone & Design Trends</strong><br><span class="script-text">Bold quartzite veins, warm marbles, backlit onyx. Visit our showroom to see these trends in person! — Stone Mall</span></td></tr>
@@ -388,40 +543,9 @@
 </section>
 <div class="divider"></div>
 
-<!-- KPIs -->
-<section id="kpis">
-  <div class="fade-in">
-    <div class="section-label" data-pt="07 — Métricas" data-en="07 — Metrics">07 — Métricas</div>
-    <div class="section-title" data-pt="KPIs DE ACOMPANHAMENTO" data-en="TRACKING KPIs">KPIs DE ACOMPANHAMENTO</div>
-  </div>
-  <div class="strategy-grid fade-in">
-    <div class="strategy-card">
-      <div class="strategy-card-header"><div class="strategy-icon hot">📊</div><h3 data-pt="CONVERSÃO" data-en="CONVERSION">CONVERSÃO</h3></div>
-      <div class="strategy-card-body"><table class="scripts-table" style="margin:0"><thead><tr><th data-pt="Métrica" data-en="Metric">Métrica</th><th data-pt="Meta" data-en="Target">Meta</th></tr></thead><tbody>
-        <tr><td>HOT → SQL</td><td>40-50%</td></tr>
-        <tr><td>WARM → HOT</td><td>20-25%</td></tr>
-        <tr><td>COLD → WARM</td><td>8-12%</td></tr>
-        <tr><td data-pt="Tempo HOT → fechamento" data-en="HOT → close time">Tempo HOT → fechamento</td><td>≤ 7 dias</td></tr>
-        <tr><td data-pt="Taxa abertura e-mail" data-en="Email open rate">Taxa abertura e-mail</td><td>25-35%</td></tr>
-        <tr><td data-pt="Taxa resposta SMS" data-en="SMS response rate">Taxa resposta SMS</td><td>15-25%</td></tr>
-      </tbody></table></div>
-    </div>
-    <div class="strategy-card">
-      <div class="strategy-card-header"><div class="strategy-icon followup">⚙️</div><h3 data-pt="OPERACIONAL" data-en="OPERATIONAL">OPERACIONAL</h3></div>
-      <div class="strategy-card-body"><table class="scripts-table" style="margin:0"><thead><tr><th data-pt="Métrica" data-en="Metric">Métrica</th><th data-pt="Meta" data-en="Target">Meta</th></tr></thead><tbody>
-        <tr><td data-pt="Leads tagueados em 24h" data-en="Leads tagged in 24h">Leads tagueados em 24h</td><td>100%</td></tr>
-        <tr><td data-pt="Tarefas completadas" data-en="Tasks completed">Tarefas completadas</td><td>≥ 90%</td></tr>
-        <tr><td data-pt="E-mails automáticos" data-en="Automatic emails">E-mails automáticos</td><td>100%</td></tr>
-        <tr><td data-pt="Leads sem contato >14d" data-en="Leads without contact >14d">Leads sem contato >14d</td><td>≤ 5%</td></tr>
-        <tr><td>Compliance SMS</td><td>100%</td></tr>
-      </tbody></table></div>
-    </div>
-  </div>
-</section>
-
 <footer>
   <div class="footer-brand">STONE MALL × <span data-pt="FOLLOW-UP 2026" data-en="FOLLOW-UP 2026">FOLLOW-UP 2026</span></div>
-  <p data-pt="Kommo CRM · Março 2026" data-en="Kommo CRM · March 2026">Kommo CRM · Março 2026</p>
+  <p data-pt="Kommo CRM · Março 2026 · v2" data-en="Kommo CRM · March 2026 · v2">Kommo CRM · Março 2026 · v2</p>
 </footer>
 
 <script>
