@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planejamento CRM - IPOS Aldeia (V4 - Alinhamento Final)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary-red: #dc2626;
+            --dark-red: #991b1b;
+            --light-red: #fecaca;
+            --bg-red: #fef2f2;
+            --success-green: #16a34a;
+            --warning-orange: #f59e0b;
+            --dark-orange: #b45309;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --border-color: #e5e7eb;
+            --shadow: 0 2px 10px rgba(0,0,0,0.08);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+
+        .container {
+            max-width: min(1200px, 95%);
+            margin: 0 auto;
+            padding: clamp(1rem, 3vw, 2rem);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: var(--white);
+            padding: clamp(2rem, 5vw, 3rem);
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v4-logo {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: clamp(120px, 15vw, 180px);
+            height: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .v4-logo {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 1rem auto;
+                display: block;
+            }
+        }
+
+        header h1 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header h2 {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .header-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .meta-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .meta-box strong {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-box span {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        /* Section Styles */
+        .section {
+            background: var(--white);
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--primary-red);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .section-header:hover {
+            background: var(--dark-red);
+        }
+
+        .section-header h3 {
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            font-weight: 600;
+        }
+
+        .section-header .toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .section.collapsed .toggle {
+            transform: rotate(-90deg);
+        }
+
+        .section-content {
+            padding: clamp(1.5rem, 3vw, 2rem);
+            display: block;
+        }
+
+        .section.collapsed .section-content {
+            display: none;
+        }
+
+        .subsection {
+            margin-bottom: 2rem;
+        }
+
+        .subsection h4 {
+            color: var(--dark-red);
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-red);
+            font-weight: 600;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+        }
+
+        th {
+            background: var(--dark-red);
+            color: var(--white);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: var(--bg-red);
+        }
+
+        /* Quote and Highlight Boxes */
+        .quote {
+            background: var(--bg-red);
+            border-left: 4px solid var(--primary-red);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--dark-red);
+            border-radius: 0 8px 8px 0;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .highlight-box {
+            background: #fffbeb;
+            border: 1px solid var(--warning-orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box strong {
+            color: var(--dark-orange);
+        }
+
+        /* Funnel Styles */
+        .funnel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .funnel-step {
+            padding: 1rem;
+            text-align: center;
+            color: var(--white);
+            font-weight: 500;
+            margin: 0.25rem 0;
+            border-radius: 4px;
+            transition: transform 0.2s;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .funnel-sales {
+            background: var(--primary-red);
+        }
+
+        .funnel-post {
+            background: var(--dark-orange);
+            max-width: 45%;
+            border: 2px dashed #92400e;
+            margin-top: 0.5rem;
+        }
+
+        .funnel-win {
+            background: var(--success-green);
+            color: var(--white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            border-radius: 4px;
+            max-width: 50%;
+            margin: 0.25rem 0;
+        }
+
+        /* Flowchart Styles */
+        .flow-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            background: #fafafa;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            margin: 1.5rem 0;
+        }
+
+        .flow-node {
+            background: var(--white);
+            border: 2px solid var(--primary-red);
+            border-radius: 6px;
+            padding: 1rem;
+            width: min(220px, 90%);
+            text-align: center;
+            font-size: clamp(0.8rem, 1.5vw, 0.85rem);
+            font-weight: 600;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .flow-node.decision {
+            border-color: var(--dark-red);
+            background: #fff5f5;
+            border-radius: 12px;
+        }
+
+        .flow-node.action {
+            border-color: #10b981;
+            background: #f0fdf4;
+            color: #065f46;
+        }
+
+        .flow-arrow {
+            height: 30px;
+            width: 2px;
+            background: var(--primary-red);
+            position: relative;
+        }
+
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -4px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 8px solid var(--primary-red);
+        }
+
+        .flow-split {
+            display: flex;
+            gap: clamp(1rem, 3vw, 2.5rem);
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flow-path {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .path-label {
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tag Styles */
+        .tag-mql {
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            border: 1px solid #166534;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .tag-discard {
+            color: var(--primary-red);
+            font-weight: bold;
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .tag-advance {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .tag-task {
+            color: var(--warning-orange);
+            font-weight: bold;
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .tag-info {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            border: 1px solid #9ca3af;
+            display: inline-block;
+        }
+
+        /* Change Note */
+        .change-note {
+            background: #ecfdf5;
+            border-left: 3px solid #10b981;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+            color: #065f46;
+        }
+
+        .change-note::before {
+            content: "✓ Atualizado: ";
+            font-weight: bold;
+        }
+
+        /* Download Button */
+        .download-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .download-btn:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .download-btn {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* List Styles */
+        ul {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .flow-split {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .flow-path {
+                min-width: 100%;
+            }
+            
+            .header-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .section-header {
+                padding: 1rem;
+            }
+            
+            .section-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company Logo" class="v4-logo">
+            <h1>Planejamento de Implementação CRM</h1>
+            <h2>Cliente: IPOS Aldeia (Hippus CRM)</h2>
+            
+            <div class="header-meta">
+                <div class="meta-box">
+                    <strong>Configuração:</strong>
+                    <span>Clínica de Terapias Especializadas</span>
+                </div>
+                <div class="meta-box">
+                    <strong>Foco:</strong>
+                    <span>Qualificação MQL & Jornada do Paciente</span>
+                </div>
+                <div class="meta-box">
+                    <strong>Prazo de Implementação:</strong>
+                    <span>1 mês e meio</span>
+                </div>
+            </div>
+            
+            <div class="version-badge">V4 - Alinhamento Final (12/03/2026)</div>
+        </header>
+
+        <!-- SECÇÃO 1: CONTEXTO E VALIDAÇÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>1. Contexto Estratégico e Validação</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Com base na reunião de alinhamento de 12/03/2026, validamos o fluxo lógico do CRM para a IPOS Aldeia - clínica especializada em terapias para autismo, síndrome de Down e paralisia cerebral:</p>
+                
+                <div class="subsection">
+                    <h4>Objetivos Principais</h4>
+                    <ul>
+                        <li><strong>Centralização do Atendimento:</strong> Migrar todas as conversas do WhatsApp, Instagram e Messenger para dentro do CRM, eliminando o uso de celulares pessoais.</li>
+                        <li><strong>Qualificação Automatizada de MQLs:</strong> Implementar bot de triagem inicial para coletar informações críticas (CEP, diagnóstico) e qualificar leads.</li>
+                        <li><strong>Segregação de Informações Financeiras:</strong> Garantir que a consultora técnica (Kate) não visualize valores, mantendo foco no acolhimento terapêutico.</li>
+                        <li><strong>Organização da Jornada Dupla:</strong> Estruturar fluxos distintos para pacientes particulares e via liminar judicial.</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h4>Regras de Negócio Validadas</h4>
+                    <ul>
+                        <li><strong>Perímetro Geográfico (Liminar):</strong> Pacientes via liminar devem residir a até 20-30 minutos da clínica. Leads fora do perímetro serão desqualificados para esta via.</li>
+                        <li><strong>Papel da Kate como Maestro:</strong> A consultora técnica intermediará TODAS as etapas, garantindo acolhimento contínuo e evitando que o paciente se sinta perdido.</li>
+                        <li><strong>Blindagem Financeira:</strong> Kate terá acesso a todo o card (documentos, laudos, histórico), exceto ao campo específico de valores, que será bloqueado em seu perfil.</li>
+                        <li><strong>Filtro de Ruído:</strong> Implementar sistema de tags para identificar e separar contatos não-comerciais (fornecedores, currículos, entregadores).</li>
+                    </ul>
+                    <div class="change-note">Fluxo redesenhado com Kate como ponto central de intermediação em todas as etapas.</div>
+                </div>
+
+                <div class="quote">
+                    "A Kate sempre valida a etapa anterior com paciente, com lead e entrega esse paciente para o step seguinte. Ela vai intermediar todas as etapas: do financeiro pro advogado, do jurídico de volta pro financeiro."
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 2: QUALIFICAÇÃO E DISTRIBUIÇÃO -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>2. Fluxo de Triagem e Qualificação</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Triagem Híbrida (Bot + Humano)</h4>
+                    <p>Abordagem em duas camadas: bot inicial para coleta de dados essenciais e rápida resposta, seguido por atendimento humano qualificado.</p>
+                    
+                    <div class="highlight-box">
+                        <strong>Decisão Alinhada:</strong> O bot terá perguntas curtas e diretas para não sobrecarregar o lead no primeiro contato. A qualificação profunda (plano de saúde, fase do diagnóstico) ficará com a Raquel.
+                    </div>
+                    
+                    <div class="flow-wrapper">
+                        <div class="flow-node">Lead via WhatsApp/Instagram</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node decision"><strong>BOT (3min):</strong><br>"Qual seu nome, telefone e CEP?"</div>
+                        <div class="flow-split">
+                            <div class="flow-path">
+                                <span class="path-label">DENTRO DO PERÍMETRO</span>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node decision"><strong>BOT:</strong><br>"O paciente tem diagnóstico? (Autismo, SD, PC, Outro, Não)"</div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action">Encaminha para Raquel<br>com informações pré-preenchidas</div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node"><strong>RAQUEL:</strong><br>Qualificação profunda<br>(plano de saúde, urgência)</div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action"><span class="tag-mql">MQL Qualificado</span><br>Agenda reunião com Kate</div>
+                            </div>
+                            <div class="flow-path">
+                                <span class="path-label">FORA DO PERÍMETRO</span>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node action" style="border-color:#6b7280; background: #f3f4f6;">Mensagem Educativa<br>"Atendemos sua região apenas via particular"</div>
+                                <div class="flow-arrow"></div>
+                                <div class="flow-node" style="border-color:#6b7280; background: #f3f4f6;">Encaminha para Raquel<br><span class="tag-info">Tag: Fora_Perimetro</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="change-note">Bot otimizado para perguntas essenciais: CEP (para perímetro) e diagnóstico básico. Perguntas complexas ficam com a Raquel.</div>
+                </div>
+
+                <div class="subsection">
+                    <h4>Checklist de Qualificação (Raquel)</h4>
+                    <table>
+                        <tr>
+                            <th style="width: 30%;">Critério</th>
+                            <th>Pergunta/Validação</th>
+                            <th>Classificação</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Perímetro</strong></td>
+                            <td>CEP do paciente. Dentro de 30min da clínica?</td>
+                            <td><span class="tag-info">Tag: Dentro_Perimetro</span> ou <span class="tag-info">Fora_Perimetro</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Diagnóstico</strong></td>
+                            <td>Diagnóstico confirmado? Qual? (Autismo, SD, PC, Outro)</td>
+                            <td><span class="tag-info">Tag: Diagnostico_[TIPO]</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Plano de Saúde</strong></td>
+                            <td>Tem plano? Qual? Se não, via particular.</td>
+                            <td><span class="tag-info">Tag: Particular</span> ou <span class="tag-info">Plano_[NOME]</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Urgência</strong></td>
+                            <td>Quando precisa iniciar? Próximo mês? Semestre?</td>
+                            <td><span class="tag-info">Tag: Urgencia_[ALTA/MEDIA/BAIXA]</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Autoridade</strong></td>
+                            <td>É pai/mãe/responsável direto?</td>
+                            <td><span class="tag-info">Tag: Decisor</span> ou <span class="tag-info">Intermediario</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 3: DETALHAMENTO DO FUNIL -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>3. Detalhamento das Etapas do Funil</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h4>Funil de Vendas (Jornada do Paciente)</h4>
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-sales" style="max-width: 100%;">1. Triagem & Qualificação (Raquel/Bot)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 90%;">2. Diagnóstico Técnico (Kate)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 80%;">3. Proposta Financeira (Alan)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 70%;">4. Formalização (Advogado)</div>
+                        <div class="funnel-step funnel-sales" style="max-width: 60%; background: var(--dark-red);">5. Fechamento & Onboarding (Kate)</div>
+                        <div class="funnel-win">✓ Paciente Inicia Tratamento</div>
+                    </div>
+                    
+                    <table>
+                        <tr>
+                            <th style="width: 20%;">Etapa</th>
+                            <th style="width: 40%;">Ação da Etapa</th>
+                            <th style="width: 40%;">Regras & Automações</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Triagem</strong></td>
+                            <td>Raquel recebe lead do bot. Aplica checklist completo. Agenda reunião com Kate.</td>
+                            <td>Bot coleta CEP e diagnóstico básico.<br>Raquel completa qualificação.<br>SLA: Primeiro contato humano em até 30min.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Diagnóstico Técnico</strong></td>
+                            <td>Kate faz reunião de acolhimento. Avalia laudos, necessidade clínica, alinha expectativas. <strong>NÃO discute valores.</strong></td>
+                            <td>Kate tem acesso a todo histórico, exceto campo financeiro.<br>Se lead apto, encaminha para Alan (Financeiro).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Proposta Financeira</strong></td>
+                            <td>Alan (Financeiro) elabora proposta (particular) ou analisa viabilidade (liminar). Insere valor no campo restrito.</td>
+                            <td>Campo de valores BLOQUEADO para Kate.<br>Alan devolve card para Kate com valores definidos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Formalização</strong></td>
+                            <td><strong>VIA PARTICULAR:</strong> Advogado envia contrato.<br><strong>VIA LIMINAR:</strong> Advogado distribui para parceiro e acompanha processo jurídico.</td>
+                            <td>Kate encaminha para advogado.<br>Advogado devolve para Kate após conclusão.<br>Para liminar: card fica "pausado" até autorização.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Fechamento</strong></td>
+                            <td>Kate recebe lead de volta. Confirma aceite do paciente. Realiza onboarding para início das terapias.</td>
+                            <td>Kate tem visão completa (exceto valores).<br>Inicia processo de pós-venda.<br>Marca venda como "Ganha".</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Perdido</strong></td>
+                            <td>Motivos: Fora do perímetro (liminar), Sem diagnóstico, Valores incompatíveis, Sem resposta (+7 dias), Desistência.</td>
+                            <td>Registro obrigatório do motivo.<br>Tag específica para cada motivo.<br>Futuro: fluxo de reativação.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h4>Funil de Pós-Venda (Fidelização)</h4>
+                    <div class="funnel-container">
+                        <div class="funnel-step funnel-post" style="max-width: 100%;">1. Adoção (Primeiros 90 dias)</div>
+                        <div class="funnel-step funnel-post" style="max-width: 90%;">2. Expansão (Aumento de LTV)</div>
+                        <div class="funnel-step funnel-post" style="max-width: 80%;">3. Advocacia (Indicações)</div>
+                    </div>
+                    
+                    <table style="margin-top: 1.5rem;">
+                        <tr>
+                            <th style="width: 20%;">Etapa</th>
+                            <th style="width: 40%;">Ação da Etapa</th>
+                            <th style="width: 40%;">Automações Planejadas</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Adoção</strong></td>
+                            <td>Acompanhamento semanal inicial. Garantir adaptação e satisfação.</td>
+                            <td>Check-ins automáticos via WhatsApp.<br>Pesquisa de NPS após 30 dias.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Expansão</strong></td>
+                            <td>Oferta de terapias adicionais ou aumento de frequência.</td>
+                            <td>Alertas baseados em tempo de tratamento.<br>Ofertas personalizadas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Advocacia</strong></td>
+                            <td>Transformar cliente em promotor. Solicitar depoimentos e indicações.</td>
+                            <td>Programa de indicação com benefícios.<br>Solicitação automática de depoimento após 6 meses.</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="highlight-box" style="margin-top: 1.5rem;">
+                        <strong>Importante:</strong> Todo o histórico do paciente (laudos, conversas, documentos) fica centralizado no CRM, facilitando o acompanhamento contínuo pela Kate e equipe terapêutica.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECÇÃO 4: GESTÃO DE SLAs E TAREFAS -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>4. Gestão de SLAs e Tarefas Automatizadas</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <p>Sistema de prazos e alertas para manter o funil limpo e garantir atendimento ágil:</p>
+                
+                <div class="highlight-box">
+                    <strong>SLA Principal:</strong> Primeiro contato humano em até 30 minutos após entrada do lead.<br>
+                    <strong>Tempo Total do Funil:</strong> Máximo de 15 dias para conclusão (exceto liminares judiciais).
+                </div>
+
+                <table>
+                    <tr>
+                        <th style="width: 30%;">Gatilho / Situação</th>
+                        <th>Ação no CRM</th>
+                        <th>Objetivo</th>
+                    </tr>
+                    <tr>
+                        <td>Lead entra no WhatsApp</td>
+                        <td><strong>+3min:</strong> Bot envia mensagem de boas-vindas e pergunta CEP.</td>
+                        <td>Primeiro contato imediato. Coleta informação crítica.</td>
+                    </tr>
+                    <tr>
+                        <td>Sem resposta humana em 30min</td>
+                        <td><span class="tag-task">Tag: #AtrasoResposta</span><br>Notificação PUSH para Raquel</td>
+                        <td>Alerta de lead "esquecido". Priorizar atendimento.</td>
+                    </tr>
+                    <tr>
+                        <td>Lead em qualquer etapa por 3 dias sem movimento</td>
+                        <td><span class="tag-task">Tarefa de Follow-up</span><br>Atribuída ao responsável da etapa</td>
+                        <td>Evitar estagnação. Manter momentum.</td>
+                    </tr>
+                    <tr>
+                        <td>Lead qualificado para Kate</td>
+                        <td><span class="tag-task">Tarefa: "Agendar reunião técnica"</span><br>Prazo: 24h</td>
+                        <td>Acelerar transição para etapa de diagnóstico.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>7 Dias sem resposta do lead</strong></td>
+                        <td><span class="tag-task">Tag: #LeadEsfriando</span><br>Tarefa crítica para responsável</td>
+                        <td>Última tentativa antes de arquivar como "Perdido - Sem Resposta".</td>
+                    </tr>
+                    <tr>
+                        <td>Contato não-comercial (fornecedor, currículo)</td>
+                        <td><span class="tag-info">Tag: #NaoLead</span><br>Mover para etapa "Arquivado"</td>
+                        <td>Manter base limpa. Não poluir funil comercial.</td>
+                    </tr>
+                </table>
+                
+                <div class="change-note">Sistema de tags implementado para gerenciar ruído (fornecedores, currículos) que hoje representa ~30% dos contatos.</div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 5: MATRIZ DE USUÁRIOS E SEGURANÇA -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h3>5. Matriz de Usuários, Permissões e Segurança</h3>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="highlight-box">
+                    <strong>Estrutura de Acesso:</strong> 4 usuários principais com perfis e permissões específicas.
+                </div>
+
+                <table>
+                    <tr>
+                        <th style="width: 25%;">Perfil / Usuário</th>
+                        <th>Responsabilidades</th>
+                        <th>Permissões & Restrições</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Administ
