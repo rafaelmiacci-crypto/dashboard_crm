@@ -3,70 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stone Mall — Automação SMS · Kommo CRM</title>
+<title>Stone Mall — Plano SMS + Surveys · Kommo CRM</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  :root{--black:#0a0a0a;--dark:#141414;--dark-card:#1a1a1a;--dark-border:#2a2a2a;--red:#c41e2a;--red-dark:#9e1822;--red-light:#e8323e;--white:#f5f5f5;--gray:#888;--gray-light:#bbb;--gray-dark:#444}
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);line-height:1.7}
-  .lang-toggle{position:fixed;top:20px;right:24px;z-index:999;display:flex;background:rgba(10,10,10,.92);backdrop-filter:blur(16px);border:1px solid var(--dark-border);border-radius:40px;padding:4px;box-shadow:0 4px 24px rgba(0,0,0,.5);transition:border-color .3s}
-  .lang-toggle:hover{border-color:var(--red)}
-  .lang-btn{border:none;background:none;color:var(--gray);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;border-radius:36px;cursor:pointer;transition:all .3s}
-  .lang-btn:hover{color:var(--white)}
-  .lang-btn.active{background:var(--red);color:var(--white);box-shadow:0 0 16px rgba(196,30,42,.3)}
-  .hero{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:50px 20px;background:radial-gradient(ellipse at 50% 50%,rgba(196,30,42,.06) 0%,transparent 60%),var(--black)}
-  .hero-badge{font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--red);border:1px solid var(--red);padding:8px 24px;margin-bottom:24px;opacity:0;animation:fadeUp .8s ease forwards .2s}
-  .hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5.5vw,4rem);letter-spacing:3px;line-height:1.05;margin-bottom:12px;opacity:0;animation:fadeUp .8s ease forwards .4s}
-  .hero h1 span{color:var(--red)}
-  .hero-sub{font-size:.92rem;color:var(--gray);max-width:550px;opacity:0;animation:fadeUp .8s ease forwards .6s}
-  section{padding:56px 40px;max-width:1200px;margin:0 auto}
-  .section-label{font-size:.68rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:8px}
-  .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,2.8vw,2.4rem);letter-spacing:2px;margin-bottom:10px}
-  .section-desc{color:var(--gray);max-width:650px;margin-bottom:36px;font-size:.88rem}
-  .divider{height:1px;background:linear-gradient(to right,transparent,var(--dark-border),transparent);margin:0 40px}
-  .kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0}
-  .kpi{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:10px;padding:20px;text-align:center;transition:all .3s}
-  .kpi:hover{border-color:var(--red);transform:translateY(-2px)}
-  .kpi .num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--red);line-height:1}
-  .kpi .lbl{font-size:.66rem;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
-  .alert{border-radius:12px;padding:22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start}
-  .alert.red{background:linear-gradient(135deg,rgba(196,30,42,.08),transparent);border:2px solid var(--red)}
-  .alert.subtle{background:rgba(255,255,255,.015);border:1px solid var(--dark-border);border-radius:10px}
-  .alert h4{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:1px;margin-bottom:5px;color:var(--red-light)}
-  .alert p,.alert li{font-size:.82rem;color:var(--gray-light);line-height:1.7}
-  .alert ul{list-style:none;padding:0}
-  .alert li{padding:2px 0 2px 14px;position:relative}
-  .alert li::before{content:'▸';position:absolute;left:0;color:var(--red)}
-  .alert .ic{font-size:1.1rem;flex-shrink:0}
-  .sms-list{display:grid;gap:16px;margin:24px 0}
-  .sms-item{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:12px;padding:22px;transition:all .3s}
-  .sms-item:hover{border-color:var(--red)}
-  .sms-item-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-  .sms-item-head .dot{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
-  .dot.hot{background:rgba(196,30,42,.2);color:var(--red-light)}
-  .dot.react{background:rgba(255,165,0,.15);color:#ffa500}
-  .dot.sdr{background:rgba(138,43,226,.15);color:#ba8ef7}
-  .sms-item-head h3{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1px}
-  .sms-item-head .pill{font-size:.56rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:3px;margin-left:auto;background:rgba(196,30,42,.1);color:var(--red-light)}
-  .bubble{background:rgba(196,30,42,.04);border:1px solid rgba(196,30,42,.1);border-radius:10px 10px 10px 2px;padding:12px 16px;margin:8px 0;font-size:.8rem;color:var(--gray-light);font-style:italic;line-height:1.6;position:relative}
-  .bubble::before{content:'📱 SMS';position:absolute;top:-8px;left:10px;font-size:.54rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);background:var(--dark-card);padding:0 5px;font-style:normal}
-  .why{font-size:.74rem;color:var(--gray);margin-top:8px;padding:7px 11px;background:rgba(196,30,42,.03);border-left:2px solid rgba(196,30,42,.2);border-radius:0 6px 6px 0}
-  .why strong{color:var(--red)}
-  .trigger-info{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
-  .trigger-info span{font-size:.62rem;font-weight:600;padding:3px 8px;border-radius:3px;letter-spacing:1px;text-transform:uppercase}
-  .t-pipeline{background:rgba(255,255,255,.05);color:var(--gray-light)}
-  .t-trigger{background:rgba(196,30,42,.1);color:var(--red-light)}
-  .t-condition{background:rgba(255,165,0,.1);color:#ffa500}
-  .setup-table{width:100%;border-collapse:collapse;margin:20px 0}
-  .setup-table th{text-align:left;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);padding:9px 10px;border-bottom:1px solid var(--dark-border);background:var(--dark)}
-  .setup-table td{padding:10px;border-bottom:1px solid var(--dark-border);font-size:.78rem;vertical-align:top}
-  .setup-table tr:hover td{background:rgba(196,30,42,.02)}
-  footer{text-align:center;padding:40px;border-top:1px solid var(--dark-border);color:var(--gray);font-size:.74rem}
-  footer .brand{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:var(--white);margin-bottom:4px}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  .fade-in{opacity:0;transform:translateY(20px);transition:all .6s ease}
-  .fade-in.visible{opacity:1;transform:translateY(0)}
-  @media(max-width:768px){section{padding:40px 20px}.kpi-row{grid-template-columns:1fr}.lang-toggle{top:10px;right:10px}.lang-btn{padding:6px 12px;font-size:.62rem}}
+:root{--black:#0a0a0a;--dark:#141414;--dark-card:#1a1a1a;--dark-border:#2a2a2a;--red:#c41e2a;--red-dark:#9e1822;--red-light:#e8323e;--white:#f5f5f5;--gray:#888;--gray-light:#bbb;--gray-dark:#444}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);line-height:1.7}
+.lang-toggle{position:fixed;top:20px;right:24px;z-index:999;display:flex;background:rgba(10,10,10,.92);backdrop-filter:blur(16px);border:1px solid var(--dark-border);border-radius:40px;padding:4px;box-shadow:0 4px 24px rgba(0,0,0,.5);transition:border-color .3s}
+.lang-toggle:hover{border-color:var(--red)}
+.lang-btn{border:none;background:none;color:var(--gray);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;border-radius:36px;cursor:pointer;transition:all .3s}
+.lang-btn:hover{color:var(--white)}
+.lang-btn.active{background:var(--red);color:var(--white);box-shadow:0 0 16px rgba(196,30,42,.3)}
+.hero{min-height:32vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:radial-gradient(ellipse at 50% 50%,rgba(196,30,42,.06) 0%,transparent 60%),var(--black)}
+.hero-badge{font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--red);border:1px solid var(--red);padding:8px 24px;margin-bottom:18px;opacity:0;animation:fadeUp .8s ease forwards .2s}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4.5vw,3rem);letter-spacing:3px;line-height:1.05;margin-bottom:10px;opacity:0;animation:fadeUp .8s ease forwards .4s}
+.hero h1 span{color:var(--red)}
+.hero-sub{font-size:.84rem;color:var(--gray);max-width:580px;opacity:0;animation:fadeUp .8s ease forwards .6s}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--dark-border);padding:0 40px;display:flex;overflow-x:auto}
+.nav a{color:var(--gray);text-decoration:none;font-size:.66rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:12px 12px;white-space:nowrap;border-bottom:2px solid transparent;transition:all .3s}
+.nav a:hover,.nav a.active{color:var(--white);border-bottom-color:var(--red)}
+section{padding:44px 40px;max-width:1200px;margin:0 auto}
+.section-label{font-size:.62rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,2.2vw,1.8rem);letter-spacing:2px;margin-bottom:6px}
+.section-desc{color:var(--gray);max-width:700px;margin-bottom:24px;font-size:.82rem}
+.divider{height:1px;background:linear-gradient(to right,transparent,var(--dark-border),transparent);margin:0 40px}
+
+/* FLOW */
+.flow{display:flex;gap:3px;overflow-x:auto;padding:10px 0;margin:12px 0}
+.flow-box{min-width:90px;flex:1;background:var(--dark-card);border:1px solid var(--dark-border);border-radius:7px;padding:8px 6px;text-align:center;font-size:.62rem;position:relative}
+.flow-box::after{content:'→';position:absolute;right:-5px;top:50%;transform:translateY(-50%);color:var(--red);font-size:.7rem;z-index:2}
+.flow-box:last-child::after{display:none}
+.flow-box.hl{border-color:var(--red);background:rgba(196,30,42,.06)}
+.flow-box .ft{font-weight:700;color:var(--white);margin-bottom:1px;font-size:.6rem}
+.flow-box .fs{color:var(--gray);font-size:.52rem}
+
+/* CARDS */
+.card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:10px;padding:18px;margin-bottom:12px;transition:all .3s}
+.card:hover{border-color:var(--red)}
+.card h3{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;margin-bottom:6px}
+
+/* JOURNEY */
+.journey{position:relative;padding-left:28px;margin:14px 0}
+.journey::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--red),rgba(196,30,42,.15))}
+.j-step{position:relative;padding-bottom:22px}
+.j-step:last-child{padding-bottom:0}
+.j-step::before{content:'';position:absolute;left:-23px;top:4px;width:10px;height:10px;border-radius:50%;border:2px solid var(--red);background:var(--dark-card)}
+.j-step.active::before{background:var(--red);box-shadow:0 0 10px rgba(196,30,42,.4)}
+.j-label{font-size:.56rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);margin-bottom:3px}
+.j-step h4{font-size:.84rem;margin-bottom:4px}
+.j-step>p{font-size:.76rem;color:var(--gray-light);margin-bottom:6px}
+
+.detail{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:8px;padding:14px;margin:8px 0}
+.detail:hover{border-color:var(--red)}
+.detail h5{font-size:.66rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.detail p{font-size:.74rem;color:var(--gray-light);line-height:1.7}
+
+.bubble{background:rgba(196,30,42,.04);border:1px solid rgba(196,30,42,.1);border-radius:8px 8px 8px 2px;padding:10px 14px;margin:8px 0;font-size:.74rem;color:var(--gray-light);font-style:italic;line-height:1.6;position:relative}
+.bubble::before{content:'📱 SMS';position:absolute;top:-7px;left:8px;font-size:.5rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);background:var(--dark-card);padding:0 4px;font-style:normal}
+
+.why{font-size:.7rem;color:var(--gray);padding:7px 10px;background:rgba(196,30,42,.03);border-left:2px solid rgba(196,30,42,.2);border-radius:0 6px 6px 0;margin:6px 0}
+.why strong{color:var(--red)}
+
+.q-box{background:rgba(196,30,42,.03);border:1px solid rgba(196,30,42,.08);border-radius:6px;padding:8px 12px;margin:3px 0;font-size:.72rem;color:var(--gray-light);display:flex;gap:8px;align-items:baseline}
+.q-box .q-num{font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:var(--red);flex-shrink:0;min-width:20px}
+.q-box .q-type{font-size:.52rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-left:auto;flex-shrink:0}
+
+.tag-list{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0}
+.tag-chip{font-size:.52rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;border-radius:3px}
+.tag-chip.red{background:rgba(196,30,42,.12);color:var(--red-light)}
+.tag-chip.orange{background:rgba(255,165,0,.12);color:#ffa500}
+.tag-chip.purple{background:rgba(138,43,226,.12);color:#ba8ef7}
+.tag-chip.green{background:rgba(37,211,102,.12);color:#25d366}
+.tag-chip.gray{background:rgba(255,255,255,.06);color:var(--gray-light)}
+
+.tbl{width:100%;border-collapse:collapse;margin:12px 0}
+.tbl th{text-align:left;font-size:.54rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);padding:7px 8px;border-bottom:1px solid var(--dark-border);background:var(--dark)}
+.tbl td{padding:8px;border-bottom:1px solid var(--dark-border);font-size:.72rem;vertical-align:top}
+.tbl tr:hover td{background:rgba(196,30,42,.02)}
+
+.alert{border-radius:10px;padding:18px;margin:12px 0;display:flex;gap:10px;align-items:flex-start}
+.alert.red{background:linear-gradient(135deg,rgba(196,30,42,.08),transparent);border:2px solid var(--red)}
+.alert.subtle{background:rgba(255,255,255,.015);border:1px solid var(--dark-border)}
+.alert h4{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:1px;margin-bottom:3px;color:var(--red-light)}
+.alert p,.alert li{font-size:.74rem;color:var(--gray-light);line-height:1.7}
+.alert ul{list-style:none;padding:0}
+.alert li{padding:2px 0 2px 12px;position:relative}
+.alert li::before{content:'▸';position:absolute;left:0;color:var(--red)}
+.alert .ic{font-size:.9rem;flex-shrink:0}
+
+.cost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:14px 0}
+.cost-card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:8px;padding:14px;text-align:center;transition:all .3s}
+.cost-card:hover{border-color:var(--red);transform:translateY(-2px)}
+.cost-card .num{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--red);line-height:1}
+.cost-card .lbl{font-size:.56rem;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+.cost-card.total{border-color:var(--red);background:rgba(196,30,42,.05)}
+
+footer{text-align:center;padding:32px 40px;border-top:1px solid var(--dark-border);color:var(--gray);font-size:.68rem}
+footer .brand{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:3px;color:var(--white);margin-bottom:3px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{opacity:0;transform:translateY(16px);transition:all .5s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){section{padding:32px 16px}.cost-grid{grid-template-columns:1fr 1fr}.flow{flex-direction:column}.flow-box::after{display:none}.nav{padding:0 8px}.lang-toggle{top:10px;right:10px}.lang-btn{padding:6px 10px;font-size:.58rem}}
 </style>
 </head>
 <body>
@@ -74,176 +111,347 @@
 
 <div class="hero">
   <div class="hero-badge">Stone Mall · Twilio × Kommo CRM</div>
-  <h1 data-pt="ESTRATÉGIA DE <span>AUTOMAÇÃO SMS</span><br>3 DISPAROS. CUSTO MÍNIMO." data-en="SMS <span>AUTOMATION</span> STRATEGY<br>3 DISPATCHES. MINIMUM COST.">ESTRATÉGIA DE <span>AUTOMAÇÃO SMS</span><br>3 DISPAROS. CUSTO MÍNIMO.</h1>
-  <p class="hero-sub" data-pt="Apenas 3 SMS automatizados em todo o funil de vendas. E-mail faz o trabalho pesado. SMS entra apenas nos momentos críticos onde a velocidade de leitura faz diferença." data-en="Only 3 automated SMS across the entire sales funnel. Email does the heavy lifting. SMS enters only at critical moments where read speed makes a difference.">Apenas 3 SMS automatizados em todo o funil de vendas. E-mail faz o trabalho pesado. SMS entra apenas nos momentos críticos onde a velocidade de leitura faz diferença.</p>
+  <h1 data-pt="PLANO DE <span>DISPAROS SMS</span><br>+ PESQUISAS DE SATISFAÇÃO" data-en="<span>SMS DISPATCH</span> PLAN<br>+ SATISFACTION SURVEYS">PLANO DE <span>DISPAROS SMS</span><br>+ PESQUISAS DE SATISFAÇÃO</h1>
+  <p class="hero-sub" data-pt="5 disparos automatizados via Twilio. Perguntas definidas pelo Sebastian. Cronograma: 3h pós-orçamento / 24h pós-entrega. Fluxo baseado na explicação da Ingrid sobre o funcionamento do CRM." data-en="5 automated dispatches via Twilio. Questions defined by Sebastian. Timeline: 3h post-quote / 24h post-delivery. Flow based on Ingrid's explanation of CRM operations.">5 disparos automatizados via Twilio. Perguntas definidas pelo Sebastian. Cronograma: 3h pós-orçamento / 24h pós-entrega. Fluxo baseado na explicação da Ingrid sobre o funcionamento do CRM.</p>
 </div>
 
+<nav class="nav">
+  <a href="#flow-crm" class="active" data-pt="Fluxo do CRM" data-en="CRM Flow">Fluxo do CRM</a>
+  <a href="#sms1">SMS 1 · Pós-Visita</a>
+  <a href="#sms2">SMS 2 · Reativação</a>
+  <a href="#sms3">SMS 3 · Auto-Reply</a>
+  <a href="#sms4">SMS 4 · Survey Quote</a>
+  <a href="#sms5">SMS 5 · Survey Delivery</a>
+  <a href="#costs" data-pt="Custos" data-en="Costs">Custos</a>
+  <a href="#tags-fields" data-pt="Tags & Campos" data-en="Tags & Fields">Tags & Campos</a>
+</nav>
+
 <!-- ═══════════════════════════════════════ -->
-<!-- VISÃO GERAL -->
+<!-- FLUXO DO CRM — EXPLICAÇÃO DA INGRID -->
 <!-- ═══════════════════════════════════════ -->
-<section id="overview">
+<section id="flow-crm">
   <div class="fade-in">
-    <div class="section-label" data-pt="Visão Geral" data-en="Overview">Visão Geral</div>
-    <div class="section-title" data-pt="3 SMS POR LEAD · ~$1,20/MÊS TOTAL" data-en="3 SMS PER LEAD · ~$1.20/MONTH TOTAL">3 SMS POR LEAD · ~$1,20/MÊS TOTAL</div>
-    <p class="section-desc" data-pt="Cada lead recebe no máximo 3 SMS ao longo de todo o ciclo de vida no CRM. O e-mail continua cuidando da nutrição, inspiração e conteúdo. O SMS existe apenas para os momentos onde ele é insubstituível." data-en="Each lead receives a maximum of 3 SMS across their entire CRM lifecycle. Email continues handling nurturing, inspiration and content. SMS exists only for moments where it's irreplaceable.">Cada lead recebe no máximo 3 SMS ao longo de todo o ciclo de vida no CRM. O e-mail continua cuidando da nutrição, inspiração e conteúdo. O SMS existe apenas para os momentos onde ele é insubstituível.</p>
+    <div class="section-label" data-pt="Fluxo do CRM — Como a Ingrid explicou" data-en="CRM Flow — As Ingrid explained">Fluxo do CRM — Como a Ingrid explicou</div>
+    <div class="section-title" data-pt="COMO O LEAD CAMINHA PELOS FUNIS E ONDE CADA SMS DISPARA" data-en="HOW THE LEAD MOVES THROUGH FUNNELS AND WHERE EACH SMS FIRES">COMO O LEAD CAMINHA PELOS FUNIS E ONDE CADA SMS DISPARA</div>
+    <p class="section-desc" data-pt="Baseado na explicação da Ingrid na reunião de 13/março. Os nomes das etapas são exatamente como aparecem no Kommo CRM da Stone Mall." data-en="Based on Ingrid's explanation in the March 13 meeting. Stage names are exactly as they appear in Stone Mall's Kommo CRM.">Baseado na explicação da Ingrid na reunião de 13/março. Os nomes das etapas são exatamente como aparecem no Kommo CRM da Stone Mall.</p>
   </div>
 
-  <div class="kpi-row fade-in">
-    <div class="kpi"><div class="num">3</div><div class="lbl" data-pt="SMS por lead (máximo)" data-en="SMS per lead (maximum)">SMS por lead (máximo)</div></div>
-    <div class="kpi"><div class="num">~$1.20</div><div class="lbl" data-pt="Custo mensal estimado" data-en="Estimated monthly cost">Custo mensal estimado</div></div>
-    <div class="kpi"><div class="num">98%</div><div class="lbl" data-pt="Taxa de abertura do SMS" data-en="SMS open rate">Taxa de abertura do SMS</div></div>
+  <!-- PRE-SALES FUNNEL -->
+  <div class="card fade-in">
+    <h3 data-pt="FUNIL 1: PRE-SALES FUNNEL — Onde a Ingrid qualifica" data-en="FUNNEL 1: PRE-SALES FUNNEL — Where Ingrid qualifies">FUNIL 1: PRE-SALES FUNNEL — Onde a Ingrid qualifica</h3>
+    <p style="font-size:.76rem;color:var(--gray-light);margin-bottom:10px" data-pt="Lead chega por formulário (Meta/Google) → cai aqui. A Ingrid olha todos os dias, classifica e distribui para os vendedores. Quando qualificado, ela adiciona etiqueta 'Social Media', atribui um vendedor responsável e cria uma tarefa. O lead é movido automaticamente para o Sales Funnel General." data-en="Lead arrives via form (Meta/Google) → lands here. Ingrid checks daily, classifies and distributes to sellers. When qualified, she adds 'Social Media' tag, assigns a seller and creates a task. Lead auto-moves to Sales Funnel General.">Lead chega por formulário (Meta/Google) → cai aqui. A Ingrid olha todos os dias, classifica e distribui para os vendedores. Quando qualificado, ela adiciona etiqueta "Social Media", atribui um vendedor responsável e cria uma tarefa. O lead é movido automaticamente para o Sales Funnel General.</p>
+    <div class="flow">
+      <div class="flow-box"><div class="ft">In Qualification SDR</div><div class="fs" data-pt="Ingrid qualifica" data-en="Ingrid qualifies">Ingrid qualifica</div></div>
+      <div class="flow-box"><div class="ft">Follow-up/Nurturing</div><div class="fs" data-pt="Dúvidas / recontato" data-en="Doubts / recontact">Dúvidas / recontato</div></div>
+      <div class="flow-box"><div class="ft">Closed - Won</div><div class="fs" data-pt="Qualificado → vai pro Sales" data-en="Qualified → goes to Sales">Qualificado → vai pro Sales</div></div>
+      <div class="flow-box"><div class="ft">Closed - Lost</div><div class="fs" data-pt="Desqualificado / procurando emprego" data-en="Disqualified / job seekers">Desqualificado</div></div>
+    </div>
+    <div class="why"><strong data-pt="SMS aqui:" data-en="SMS here:">SMS aqui:</strong> <span data-pt="Nenhum disparo automático. A Ingrid opera manualmente neste funil." data-en="No automatic dispatches. Ingrid operates manually in this funnel.">Nenhum disparo automático. A Ingrid opera manualmente neste funil.</span></div>
   </div>
 
+  <!-- SALES FUNNEL GENERAL -->
+  <div class="card fade-in">
+    <h3 data-pt="FUNIL 2: SALES FUNNEL GENERAL — Onde os vendedores trabalham" data-en="FUNNEL 2: SALES FUNNEL GENERAL — Where sellers work">FUNIL 2: SALES FUNNEL GENERAL — Onde os vendedores trabalham</h3>
+    <p style="font-size:.76rem;color:var(--gray-light);margin-bottom:10px" data-pt="Após a Ingrid qualificar, o lead entra aqui em 'New Lead' com etiqueta 'Awaiting Assistance'. O vendedor contacta, agenda visita, gera orçamento. A Ingrid explicou: 'O nosso Coach aqui é o New Lead. Quando o vendedor contacta, primeiro contato, ele já entra para Follow-up. 90-95% dos leads com valor visitaram o showroom.'" data-en="After Ingrid qualifies, lead enters 'New Lead' with 'Awaiting Assistance' tag. Seller contacts, schedules visit, generates quote. Ingrid explained: 'Our Coach here is the New Lead. When seller contacts, first contact, it already goes to Follow-up. 90-95% of leads with values visited the showroom.'">Após a Ingrid qualificar, o lead entra aqui em "New Lead" com etiqueta "Awaiting Assistance". O vendedor contacta, agenda visita, gera orçamento. A Ingrid explicou: "O nosso Coach aqui é o New Lead. Quando o vendedor contacta, primeiro contato, ele já entra para Follow-up. 90-95% dos leads com valor visitaram o showroom."</p>
+    <div class="flow">
+      <div class="flow-box"><div class="ft">New Lead</div><div class="fs" data-pt="Vendedor recebe" data-en="Seller receives">Vendedor recebe</div></div>
+      <div class="flow-box hl"><div class="ft">Quote - Follow-up/Nurturing</div><div class="fs">📱 SMS 1</div></div>
+      <div class="flow-box hl"><div class="ft">Hold</div><div class="fs">📋 SMS 4</div></div>
+      <div class="flow-box"><div class="ft">Sales Order (SQL)</div><div class="fs" data-pt="Pedido" data-en="Order">Pedido</div></div>
+      <div class="flow-box"><div class="ft">In Negotiation with Deposit</div><div class="fs" data-pt="Depósito" data-en="Deposit">Depósito</div></div>
+      <div class="flow-box hl"><div class="ft">Sales Won/Paid in Full</div><div class="fs">📦 SMS 5</div></div>
+      <div class="flow-box"><div class="ft">Closed - Won</div><div class="fs" data-pt="Concluído" data-en="Completed">Concluído</div></div>
+      <div class="flow-box"><div class="ft">Closed - Lost</div><div class="fs" data-pt="Perdido" data-en="Lost">Perdido</div></div>
+    </div>
+    <div class="why"><strong data-pt="SMS aqui:" data-en="SMS here:">SMS aqui:</strong> <span data-pt="SMS 1 dispara em Quote - Follow-up/Nurturing (tag HOT). SMS 4 dispara 3h após entrar em Hold. SMS 5 dispara 24h após entrar em Sales Won/Paid in Full." data-en="SMS 1 fires at Quote - Follow-up/Nurturing (HOT tag). SMS 4 fires 3h after entering Hold. SMS 5 fires 24h after entering Sales Won/Paid in Full.">SMS 1 dispara em Quote - Follow-up/Nurturing (tag HOT). SMS 4 dispara 3h após entrar em Hold. SMS 5 dispara 24h após entrar em Sales Won/Paid in Full.</span></div>
+  </div>
+
+  <!-- FOLLOW-UP REACTIVATION -->
+  <div class="card fade-in">
+    <h3 data-pt="FUNIL 3: FOLLOW-UP REACTIVATION — Leads inativos" data-en="FUNNEL 3: FOLLOW-UP REACTIVATION — Inactive leads">FUNIL 3: FOLLOW-UP REACTIVATION — Leads inativos</h3>
+    <p style="font-size:.76rem;color:var(--gray-light);margin-bottom:10px" data-pt="A Ingrid explicou: 'HOT fica no Sales Funnel General. WARM até 90 dias fica com os vendedores. Depois disso, COLD vai para a pipeline de Reactivation, onde a gente vai trabalhar em forma paralela. Nessa pipeline tem que ter uma pessoa ligando o dia inteiro.'" data-en="Ingrid explained: 'HOT stays in Sales Funnel General. WARM up to 90 days stays with sellers. After that, COLD goes to the Reactivation pipeline, where we work in parallel. This pipeline needs someone calling all day.'">A Ingrid explicou: "HOT fica no Sales Funnel General. WARM até 90 dias fica com os vendedores. Depois disso, COLD vai para a pipeline de Reactivation, onde a gente vai trabalhar em forma paralela. Nessa pipeline tem que ter uma pessoa ligando o dia inteiro."</p>
+    <div class="flow">
+      <div class="flow-box"><div class="ft">Warm ≤90d</div><div class="fs" data-pt="Com vendedor" data-en="With seller">Com vendedor</div></div>
+      <div class="flow-box"><div class="ft">Warm >90d</div><div class="fs" data-pt="Nutrição" data-en="Nurturing">Nutrição</div></div>
+      <div class="flow-box hl"><div class="ft">Cold</div><div class="fs">📱 SMS 2</div></div>
+      <div class="flow-box"><div class="ft" data-pt="Arquivo" data-en="Archive">Arquivo</div><div class="fs" data-pt="Newsletter" data-en="Newsletter">Newsletter</div></div>
+    </div>
+    <div class="why"><strong data-pt="SMS aqui:" data-en="SMS here:">SMS aqui:</strong> <span data-pt="SMS 2 dispara 60 dias após entrar na etapa Cold. Único disparo, nunca repete." data-en="SMS 2 fires 60 days after entering Cold stage. Single dispatch, never repeats.">SMS 2 dispara 60 dias após entrar na etapa Cold. Único disparo, nunca repete.</span></div>
+  </div>
+
+  <!-- SMS 3 UNIVERSAL -->
   <div class="alert subtle fade-in">
-    <div class="ic">💡</div>
+    <div class="ic">🎯</div>
     <div>
-      <h4 data-pt="POR QUE APENAS 3 SMS?" data-en="WHY ONLY 3 SMS?">POR QUE APENAS 3 SMS?</h4>
-      <p data-pt="SMS é caro em volume e invasivo se usado em excesso. Para um negócio de alto ticket como o Stone Mall, cada mensagem precisa ter um propósito claro. Esses 3 momentos foram escolhidos porque é onde o e-mail sozinho não resolve — e onde a velocidade do SMS (lido em até 3 minutos) gera impacto real na conversão." data-en="SMS is expensive at volume and invasive if overused. For a high-ticket business like Stone Mall, every message needs a clear purpose. These 3 moments were chosen because email alone doesn't work there — and SMS speed (read within 3 minutes) creates real conversion impact.">SMS é caro em volume e invasivo se usado em excesso. Para um negócio de alto ticket como o Stone Mall, cada mensagem precisa ter um propósito claro. Esses 3 momentos foram escolhidos porque é onde o e-mail sozinho não resolve — e onde a velocidade do SMS (lido em até 3 minutos) gera impacto real na conversão.</p>
+      <h4 data-pt="SMS 3 (AUTO-REPLY) = QUALQUER FUNIL" data-en="SMS 3 (AUTO-REPLY) = ANY FUNNEL">SMS 3 (AUTO-REPLY) = QUALQUER FUNIL</h4>
+      <p data-pt="Quando qualquer lead responde a qualquer SMS, o auto-reply dispara instantaneamente + cria tarefa para a Ingrid requalificar. Opera em todos os pipelines." data-en="When any lead replies to any SMS, auto-reply fires instantly + creates task for Ingrid to requalify. Operates across all pipelines.">Quando qualquer lead responde a qualquer SMS, o auto-reply dispara instantaneamente + cria tarefa para a Ingrid requalificar. Opera em todos os pipelines.</p>
     </div>
   </div>
 </section>
-
 <div class="divider"></div>
 
 <!-- ═══════════════════════════════════════ -->
-<!-- OS 3 SMS -->
+<!-- SMS 1 -->
 <!-- ═══════════════════════════════════════ -->
-<section id="sms">
+<section id="sms1">
   <div class="fade-in">
-    <div class="section-label" data-pt="Os 3 SMS Automatizados" data-en="The 3 Automated SMS">Os 3 SMS Automatizados</div>
-    <div class="section-title" data-pt="CADA UM COM UM PROPÓSITO CLARO" data-en="EACH ONE WITH A CLEAR PURPOSE">CADA UM COM UM PROPÓSITO CLARO</div>
+    <div class="section-label">SMS 1 de 5</div>
+    <div class="section-title" data-pt="🔥 CONFIRMAÇÃO PÓS-VISITA" data-en="🔥 POST-VISIT CONFIRMATION">🔥 CONFIRMAÇÃO PÓS-VISITA</div>
   </div>
-
-  <div class="sms-list fade-in">
-
-    <!-- SMS 1 -->
-    <div class="sms-item">
-      <div class="sms-item-head">
-        <div class="dot hot">🔥</div>
-        <div>
-          <h3 data-pt="SMS 1 — CONFIRMAÇÃO PÓS-VISITA" data-en="SMS 1 — POST-VISIT CONFIRMATION">SMS 1 — CONFIRMAÇÃO PÓS-VISITA</h3>
-          <p style="font-size:.72rem;color:var(--gray);margin:0" data-pt="Lead HOT · Pipeline General · Etapa Follow-up" data-en="HOT Lead · General Pipeline · Follow-up Stage">Lead HOT · Pipeline General · Etapa Follow-up</p>
-        </div>
-        <span class="pill" data-pt="Automático" data-en="Automatic">Automático</span>
+  <div class="journey fade-in">
+    <div class="j-step">
+      <div class="j-label" data-pt="JORNADA DO LEAD ANTES DO DISPARO" data-en="LEAD JOURNEY BEFORE DISPATCH">JORNADA DO LEAD ANTES DO DISPARO</div>
+      <p data-pt="Lead chega por formulário → Ingrid qualifica no Pre-Sales → distribui para vendedor → vendedor contacta → lead visita o showroom → vê os materiais → recebe orçamento → vendedor aplica a tag HOT → lead está na etapa <strong style='color:var(--white)'>Quote - Follow-up/Nurturing</strong> do <strong style='color:var(--white)'>Sales Funnel General</strong>." data-en="Lead arrives via form → Ingrid qualifies in Pre-Sales → distributes to seller → seller contacts → lead visits showroom → sees materials → receives quote → seller applies HOT tag → lead is in <strong style='color:var(--white)'>Quote - Follow-up/Nurturing</strong> stage of <strong style='color:var(--white)'>Sales Funnel General</strong>.">Lead chega por formulário → Ingrid qualifica no Pre-Sales → distribui para vendedor → vendedor contacta → lead visita o showroom → vê os materiais → recebe orçamento → vendedor aplica a tag HOT → lead está na etapa <strong style="color:var(--white)">Quote - Follow-up/Nurturing</strong> do <strong style="color:var(--white)">Sales Funnel General</strong>.</p>
+    </div>
+    <div class="j-step active">
+      <div class="j-label" data-pt="MOMENTO EXATO DO DISPARO" data-en="EXACT DISPATCH MOMENT">MOMENTO EXATO DO DISPARO</div>
+      <h4 data-pt="Vendedor aplica tag HOT no card do lead → Salesbot detecta → verifica condições → dispara imediatamente" data-en="Seller applies HOT tag on lead card → Salesbot detects → checks conditions → fires immediately">Vendedor aplica tag HOT no card do lead → Salesbot detecta → verifica condições → dispara imediatamente</h4>
+      <div class="detail">
+        <h5 data-pt="CONDIÇÕES VERIFICADAS ANTES DO ENVIO" data-en="CONDITIONS CHECKED BEFORE SENDING">CONDIÇÕES VERIFICADAS ANTES DO ENVIO</h5>
+        <p data-pt="<strong style='color:var(--white)'>1.</strong> Tag ≠ SMS-SENT-POSTVISIT <em>(evitar duplicidade se vendedor reaplicar HOT)</em><br><strong style='color:var(--white)'>2.</strong> Tag ≠ SMS-OPT-OUT <em>(lead não pediu para sair — TCPA)</em><br><strong style='color:var(--white)'>3.</strong> Campo SMS Consent = Yes <em>(lead consentiu receber SMS no formulário)</em>" data-en="<strong style='color:var(--white)'>1.</strong> Tag ≠ SMS-SENT-POSTVISIT <em>(prevent duplicate if seller reapplies HOT)</em><br><strong style='color:var(--white)'>2.</strong> Tag ≠ SMS-OPT-OUT <em>(lead didn't opt out — TCPA)</em><br><strong style='color:var(--white)'>3.</strong> SMS Consent = Yes <em>(lead consented to SMS in form)</em>"><strong style="color:var(--white)">1.</strong> Tag ≠ SMS-SENT-POSTVISIT <em>(evitar duplicidade se vendedor reaplicar HOT)</em><br><strong style="color:var(--white)">2.</strong> Tag ≠ SMS-OPT-OUT <em>(lead não pediu para sair — TCPA)</em><br><strong style="color:var(--white)">3.</strong> Campo SMS Consent = Yes <em>(lead consentiu receber SMS no formulário)</em></p>
       </div>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="MENSAGEM ENVIADA" data-en="MESSAGE SENT">MENSAGEM ENVIADA</div>
       <div class="bubble">Hi [Name], great meeting you at Stone Mall! Your quote is on its way to your email. Questions? Text us anytime. — Stone Mall</div>
-      <div class="why"><strong data-pt="QUANDO:" data-en="WHEN:">QUANDO:</strong> <span data-pt="Imediatamente quando o vendedor aplica a tag HOT — logo após a visita ao showroom." data-en="Immediately when seller applies HOT tag — right after the showroom visit.">Imediatamente quando o vendedor aplica a tag HOT — logo após a visita ao showroom.</span></div>
-      <div class="why"><strong data-pt="POR QUÊ:" data-en="WHY:">POR QUÊ:</strong> <span data-pt="É o momento de maior atenção do lead — acabou de sair da loja. O SMS chega em 3 segundos enquanto o e-mail pode levar horas para ser aberto. Ancora a experiência da visita e abre um canal de texto direto com o Stone Mall." data-en="Peak attention — they just left the store. SMS arrives in 3 seconds while email can take hours. Anchors the visit experience and opens a direct text channel.">É o momento de maior atenção do lead — acabou de sair da loja. O SMS chega em 3 segundos enquanto o e-mail pode levar horas para ser aberto. Ancora a experiência da visita e abre um canal de texto direto com o Stone Mall.</span></div>
-      <div class="trigger-info">
-        <span class="t-pipeline">General → Follow-up</span>
-        <span class="t-trigger" data-pt="Trigger: Tag HOT aplicada" data-en="Trigger: HOT tag applied">Trigger: Tag HOT aplicada</span>
-        <span class="t-condition" data-pt="Imediato" data-en="Immediate">Imediato</span>
-      </div>
+      <p style="font-size:.68rem;color:var(--gray)">139 chars · 1 segmento · $0.0079</p>
     </div>
-
-    <!-- SMS 2 -->
-    <div class="sms-item">
-      <div class="sms-item-head">
-        <div class="dot react">🔄</div>
-        <div>
-          <h3 data-pt="SMS 2 — REATIVAÇÃO DE LEAD FRIO" data-en="SMS 2 — COLD LEAD REACTIVATION">SMS 2 — REATIVAÇÃO DE LEAD FRIO</h3>
-          <p style="font-size:.72rem;color:var(--gray);margin:0" data-pt="Lead COLD · Pipeline Reactivation · Etapa Cold" data-en="COLD Lead · Reactivation Pipeline · Cold Stage">Lead COLD · Pipeline Reactivation · Etapa Cold</p>
-        </div>
-        <span class="pill" data-pt="Automático" data-en="Automatic">Automático</span>
-      </div>
-      <div class="bubble">[Name], it's been a while! Stone Mall has new collections and exclusive pieces. If your project is back on track, we'd love to help. Reply INFO or visit anytime. — Stone Mall</div>
-      <div class="why"><strong data-pt="QUANDO:" data-en="WHEN:">QUANDO:</strong> <span data-pt="60 dias após o lead entrar na etapa COLD. Uma única vez — nunca repete." data-en="60 days after lead enters COLD stage. One time only — never repeats.">60 dias após o lead entrar na etapa COLD. Uma única vez — nunca repete.</span></div>
-      <div class="why"><strong data-pt="POR QUÊ:" data-en="WHY:">POR QUÊ:</strong> <span data-pt="Leads inativos há 180+ dias já ignoraram todos os e-mails. Um único SMS com 98% de taxa de abertura pode reativar leads que campanhas pagas não conseguiram. Se apenas 1 lead de 500 reativar e comprar um pedido de $5.000+, já pagou o custo de SMS de um ano inteiro." data-en="Leads inactive 180+ days already ignored all emails. One SMS with 98% open rate can reactivate leads that paid campaigns couldn't. If just 1 of 500 reactivates and buys a $5,000+ order, it pays for an entire year of SMS costs.">Leads inativos há 180+ dias já ignoraram todos os e-mails. Um único SMS com 98% de taxa de abertura pode reativar leads que campanhas pagas não conseguiram. Se apenas 1 lead de 500 reativar e comprar um pedido de $5.000+, já pagou o custo de SMS de um ano inteiro.</span></div>
-      <div class="trigger-info">
-        <span class="t-pipeline">Reactivation → Cold</span>
-        <span class="t-trigger" data-pt="Trigger: 60 dias na etapa" data-en="Trigger: 60 days in stage">Trigger: 60 dias na etapa</span>
-        <span class="t-condition" data-pt="Única vez" data-en="One-time">Única vez</span>
-      </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="AÇÕES APÓS O ENVIO" data-en="ACTIONS AFTER SENDING">AÇÕES APÓS O ENVIO</div>
+      <p data-pt="Tag <strong style='color:var(--red)'>SMS-SENT-POSTVISIT</strong> adicionada · Campo <strong style='color:var(--red)'>SMS Post-Visit Date</strong> preenchido · Nota interna no card do lead" data-en="Tag <strong style='color:var(--red)'>SMS-SENT-POSTVISIT</strong> added · Field <strong style='color:var(--red)'>SMS Post-Visit Date</strong> filled · Internal note on lead card">Tag <strong style="color:var(--red)">SMS-SENT-POSTVISIT</strong> adicionada · Campo <strong style="color:var(--red)">SMS Post-Visit Date</strong> preenchido · Nota interna no card do lead</p>
     </div>
-
-    <!-- SMS 3 -->
-    <div class="sms-item">
-      <div class="sms-item-head">
-        <div class="dot sdr">🎯</div>
-        <div>
-          <h3 data-pt="SMS 3 — AUTO-RESPOSTA QUANDO LEAD RESPONDE" data-en="SMS 3 — AUTO-REPLY WHEN LEAD RESPONDS">SMS 3 — AUTO-RESPOSTA QUANDO LEAD RESPONDE</h3>
-          <p style="font-size:.72rem;color:var(--gray);margin:0" data-pt="Qualquer lead · Qualquer pipeline" data-en="Any lead · Any pipeline">Qualquer lead · Qualquer pipeline</p>
-        </div>
-        <span class="pill" data-pt="Automático" data-en="Automatic">Automático</span>
-      </div>
-      <div class="bubble">Thanks [Name]! One of our team members will reach out shortly. — Stone Mall</div>
-      <div class="why"><strong data-pt="QUANDO:" data-en="WHEN:">QUANDO:</strong> <span data-pt="Toda vez que qualquer lead responde a qualquer SMS. Disparo instantâneo." data-en="Every time any lead replies to any SMS. Instant dispatch.">Toda vez que qualquer lead responde a qualquer SMS. Disparo instantâneo.</span></div>
-      <div class="why"><strong data-pt="POR QUÊ:" data-en="WHY:">POR QUÊ:</strong> <span data-pt="A Ingrid faz distribuição manual dos leads. Sem essa auto-resposta, o lead esperaria horas sem feedback. Este SMS custa centavos, evita perda de interesse e o Salesbot cria automaticamente uma tarefa para a Ingrid requalificar o lead." data-en="Ingrid does manual lead distribution. Without this auto-reply, the lead would wait hours with no feedback. This SMS costs pennies, prevents interest loss and Salesbot auto-creates a task for Ingrid to requalify.">A Ingrid faz distribuição manual dos leads. Sem essa auto-resposta, o lead esperaria horas sem feedback. Este SMS custa centavos, evita perda de interesse e o Salesbot cria automaticamente uma tarefa para a Ingrid requalificar o lead.</span></div>
-      <div class="trigger-info">
-        <span class="t-pipeline" data-pt="Qualquer pipeline" data-en="Any pipeline">Qualquer pipeline</span>
-        <span class="t-trigger" data-pt="Trigger: SMS recebido" data-en="Trigger: Incoming SMS">Trigger: SMS recebido</span>
-        <span class="t-condition" data-pt="+ Tarefa para Ingrid" data-en="+ Task for Ingrid">+ Tarefa para Ingrid</span>
-      </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="POR QUE EXISTE" data-en="WHY IT EXISTS">POR QUE EXISTE</div>
+      <div class="why"><strong data-pt="Ingrid:" data-en="Ingrid:">Ingrid:</strong> <span data-pt="'90-95% dos leads com valor visitaram o showroom.' O lead acabou de sair da loja. SMS chega em 3 segundos, ancora a experiência, direciona pro e-mail com orçamento e abre canal de texto direto." data-en="'90-95% of leads with values visited the showroom.' Lead just left the store. SMS arrives in 3 seconds, anchors the experience, drives to email with quote and opens direct text channel.">"90-95% dos leads com valor visitaram o showroom." O lead acabou de sair da loja. SMS chega em 3 segundos, ancora a experiência, direciona pro e-mail com orçamento e abre canal de texto direto.</span></div>
     </div>
-
   </div>
 </section>
-
 <div class="divider"></div>
 
 <!-- ═══════════════════════════════════════ -->
-<!-- SETUP -->
+<!-- SMS 2 -->
 <!-- ═══════════════════════════════════════ -->
-<section id="setup">
+<section id="sms2">
   <div class="fade-in">
-    <div class="section-label" data-pt="Configuração no Kommo" data-en="Kommo Setup">Configuração no Kommo</div>
-    <div class="section-title" data-pt="3 SALESBOTS — CONFIGURAÇÃO RÁPIDA" data-en="3 SALESBOTS — QUICK SETUP">3 SALESBOTS — CONFIGURAÇÃO RÁPIDA</div>
+    <div class="section-label">SMS 2 de 5</div>
+    <div class="section-title" data-pt="🔄 REATIVAÇÃO DE LEAD COLD" data-en="🔄 COLD LEAD REACTIVATION">🔄 REATIVAÇÃO DE LEAD COLD</div>
   </div>
+  <div class="journey fade-in">
+    <div class="j-step">
+      <div class="j-label" data-pt="JORNADA DO LEAD" data-en="LEAD JOURNEY">JORNADA DO LEAD</div>
+      <p data-pt="Lead era HOT → não fechou em ~14 dias → vendedor aplica tag WARM → movido para Follow-up Reactivation → passa por WARM ≤90d → WARM >90d → sem interação em 180 dias → movido para etapa <strong style='color:var(--white)'>Cold</strong> → <strong style='color:var(--white)'>60 dias depois</strong>, o SMS dispara." data-en="Lead was HOT → didn't close in ~14 days → seller applies WARM tag → moved to Follow-up Reactivation → goes through WARM ≤90d → WARM >90d → no interaction in 180 days → moved to <strong style='color:var(--white)'>Cold</strong> stage → <strong style='color:var(--white)'>60 days later</strong>, SMS fires.">Lead era HOT → não fechou em ~14 dias → vendedor aplica tag WARM → movido para Follow-up Reactivation → passa por WARM ≤90d → WARM >90d → sem interação em 180 dias → movido para etapa <strong style="color:var(--white)">Cold</strong> → <strong style="color:var(--white)">60 dias depois</strong>, o SMS dispara.</p>
+    </div>
+    <div class="j-step active">
+      <div class="j-label" data-pt="MOMENTO EXATO" data-en="EXACT MOMENT">MOMENTO EXATO</div>
+      <h4 data-pt="Lead na etapa Cold do pipeline Follow-up Reactivation há 60 dias → Salesbot dispara automaticamente" data-en="Lead in Cold stage of Follow-up Reactivation pipeline for 60 days → Salesbot fires automatically">Lead na etapa Cold do pipeline Follow-up Reactivation há 60 dias → Salesbot dispara automaticamente</h4>
+      <div class="detail">
+        <h5 data-pt="CONDIÇÕES" data-en="CONDITIONS">CONDIÇÕES</h5>
+        <p data-pt="Tag ≠ SMS-SENT-REACTIVATION <em>(só dispara UMA VEZ na vida do lead)</em> · Tag ≠ SMS-OPT-OUT" data-en="Tag ≠ SMS-SENT-REACTIVATION <em>(fires only ONCE in lead's lifetime)</em> · Tag ≠ SMS-OPT-OUT">Tag ≠ SMS-SENT-REACTIVATION <em>(só dispara UMA VEZ na vida do lead)</em> · Tag ≠ SMS-OPT-OUT</p>
+      </div>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="MENSAGEM" data-en="MESSAGE">MENSAGEM</div>
+      <div class="bubble">[Name], it's been a while! Stone Mall has new collections and exclusive pieces. If your project is back on track, we'd love to help. Reply INFO or visit anytime. — Stone Mall</div>
+      <p style="font-size:.68rem;color:var(--gray)">155 chars · 1 segmento · $0.0079</p>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="APÓS O ENVIO" data-en="AFTER SENDING">APÓS O ENVIO</div>
+      <p data-pt="Tag SMS-SENT-REACTIVATION · Campo SMS Reactivation Date · <strong style='color:var(--white)'>Resposta →</strong> SMS 3 (auto-reply) + tarefa para Ingrid · <strong style='color:var(--gray)'>Sem resposta 30 dias →</strong> Arquivo (apenas newsletter mensal)" data-en="Tag SMS-SENT-REACTIVATION · SMS Reactivation Date field · <strong style='color:var(--white)'>Reply →</strong> SMS 3 (auto-reply) + task for Ingrid · <strong style='color:var(--gray)'>No reply 30 days →</strong> Archive (monthly newsletter only)">Tag SMS-SENT-REACTIVATION · Campo SMS Reactivation Date · <strong style="color:var(--white)">Resposta →</strong> SMS 3 (auto-reply) + tarefa para Ingrid · <strong style="color:var(--gray)">Sem resposta 30 dias →</strong> Arquivo (apenas newsletter mensal)</p>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="POR QUE EXISTE" data-en="WHY IT EXISTS">POR QUE EXISTE</div>
+      <div class="why"><strong>Wilmar:</strong> <span data-pt="'Leads são sempre importantes. Pode não comprar agora, mas pode comprar em 3 meses. Pode falar com o vizinho.' São 970+ leads acumulados. 500 SMS = $3.95. Se UM reativar e comprar $5.000, ROI é 1.266×." data-en="'Leads are always important. May not buy now but may buy in 3 months. May tell neighbors.' 970+ accumulated leads. 500 SMS = $3.95. If ONE reactivates and buys $5,000, ROI is 1,266×.">"Leads são sempre importantes. Pode não comprar agora, mas pode comprar em 3 meses. Pode falar com o vizinho." São 970+ leads acumulados. 500 SMS = $3.95. Se UM reativar e comprar $5.000, ROI é 1.266×.</span></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
 
+<!-- ═══════════════════════════════════════ -->
+<!-- SMS 3 -->
+<!-- ═══════════════════════════════════════ -->
+<section id="sms3">
   <div class="fade-in">
-    <table class="setup-table">
-      <thead><tr><th>SMS</th><th data-pt="Pipeline → Etapa" data-en="Pipeline → Stage">Pipeline → Etapa</th><th>Trigger</th><th data-pt="Condição" data-en="Condition">Condição</th><th data-pt="Ação" data-en="Action">Ação</th></tr></thead>
+    <div class="section-label">SMS 3 de 5</div>
+    <div class="section-title" data-pt="🎯 AUTO-RESPOSTA — LEAD RESPONDEU" data-en="🎯 AUTO-REPLY — LEAD RESPONDED">🎯 AUTO-RESPOSTA — LEAD RESPONDEU</div>
+  </div>
+  <div class="journey fade-in">
+    <div class="j-step active">
+      <div class="j-label" data-pt="MOMENTO EXATO" data-en="EXACT MOMENT">MOMENTO EXATO</div>
+      <h4 data-pt="Qualquer lead, em qualquer funil, responde a qualquer SMS → disparo instantâneo" data-en="Any lead, in any funnel, replies to any SMS → instant dispatch">Qualquer lead, em qualquer funil, responde a qualquer SMS → disparo instantâneo</h4>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="SE A RESPOSTA FOR 'STOP'" data-en="IF THE REPLY IS 'STOP'">SE A RESPOSTA FOR "STOP"</div>
+      <p data-pt="Tag <strong style='color:var(--red)'>SMS-OPT-OUT</strong> aplicada. Nenhum dos 5 Salesbots dispara SMS para esse lead novamente. Exigência TCPA." data-en="<strong style='color:var(--red)'>SMS-OPT-OUT</strong> tag applied. None of the 5 Salesbots fire SMS for this lead again. TCPA requirement.">Tag <strong style="color:var(--red)">SMS-OPT-OUT</strong> aplicada. Nenhum dos 5 Salesbots dispara SMS para esse lead novamente. Exigência TCPA.</p>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="SE FOR QUALQUER OUTRA RESPOSTA" data-en="IF ANY OTHER REPLY">SE FOR QUALQUER OUTRA RESPOSTA</div>
+      <div class="bubble">Thanks [Name]! One of our team members will reach out shortly. — Stone Mall</div>
+      <p data-pt="+ Tag <strong style='color:var(--red)'>SMS-REPLY-RECEIVED</strong> · Campo <strong style='color:var(--red)'>SMS Reply Date</strong> preenchido · <strong style='color:var(--red)'>Tarefa criada para a Ingrid</strong> com prioridade alta: 'Lead respondeu SMS — requalificar'" data-en="+ Tag <strong style='color:var(--red)'>SMS-REPLY-RECEIVED</strong> · <strong style='color:var(--red)'>SMS Reply Date</strong> field filled · <strong style='color:var(--red)'>Task created for Ingrid</strong> with high priority: 'Lead replied to SMS — requalify'">+ Tag <strong style="color:var(--red)">SMS-REPLY-RECEIVED</strong> · Campo <strong style="color:var(--red)">SMS Reply Date</strong> preenchido · <strong style="color:var(--red)">Tarefa criada para a Ingrid</strong> com prioridade alta: "Lead respondeu SMS — requalificar"</p>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="POR QUE EXISTE" data-en="WHY IT EXISTS">POR QUE EXISTE</div>
+      <div class="why"><strong>Ingrid:</strong> <span data-pt="'Eu olho todos os dias se tem lead nova.' Mas entre a resposta do lead e o momento que ela vê, podem passar horas. O auto-reply chega em 3 segundos — o lead sabe que foi ouvido. A Ingrid então liga, valida o projeto e redistribui." data-en="'I check every day for new leads.' But hours can pass between reply and when she sees it. Auto-reply arrives in 3 seconds — lead knows they were heard. Ingrid then calls, validates project and redistributes.">"Eu olho todos os dias se tem lead nova." Mas entre a resposta do lead e o momento que ela vê, podem passar horas. O auto-reply chega em 3 segundos — o lead sabe que foi ouvido. A Ingrid então liga, valida o projeto e redistribui.</span></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SMS 4 -->
+<!-- ═══════════════════════════════════════ -->
+<section id="sms4">
+  <div class="fade-in">
+    <div class="section-label">SMS 4 de 5</div>
+    <div class="section-title" data-pt="📋 PESQUISA PÓS-ORÇAMENTO — PERGUNTAS DO SEBASTIAN" data-en="📋 POST-QUOTE SURVEY — SEBASTIAN'S QUESTIONS">📋 PESQUISA PÓS-ORÇAMENTO — PERGUNTAS DO SEBASTIAN</div>
+  </div>
+  <div class="journey fade-in">
+    <div class="j-step">
+      <div class="j-label" data-pt="JORNADA DO LEAD" data-en="LEAD JOURNEY">JORNADA DO LEAD</div>
+      <p data-pt="Lead visitou showroom → escolheu a pedra com o vendedor → recebeu orçamento → vendedor move o lead para a etapa <strong style='color:var(--white)'>Hold</strong> no <strong style='color:var(--white)'>Sales Funnel General</strong>. A Ingrid explicou: 'Quando move para Hold, a gente entende que é quente. Ele vai comprar.'" data-en="Lead visited showroom → chose stone with seller → received quote → seller moves lead to <strong style='color:var(--white)'>Hold</strong> stage in <strong style='color:var(--white)'>Sales Funnel General</strong>. Ingrid explained: 'When it moves to Hold, we understand it's hot. They're going to buy.'">Lead visitou showroom → escolheu a pedra com o vendedor → recebeu orçamento → vendedor move o lead para a etapa <strong style="color:var(--white)">Hold</strong> no <strong style="color:var(--white)">Sales Funnel General</strong>. A Ingrid explicou: "Quando move para Hold, a gente entende que é quente. Ele vai comprar."</p>
+    </div>
+    <div class="j-step active">
+      <div class="j-label" data-pt="MOMENTO EXATO" data-en="EXACT MOMENT">MOMENTO EXATO</div>
+      <h4 data-pt="Lead entra na etapa Hold → Salesbot aguarda 3 horas → dispara SMS com link para pesquisa" data-en="Lead enters Hold stage → Salesbot waits 3 hours → fires SMS with survey link">Lead entra na etapa Hold → Salesbot aguarda 3 horas → dispara SMS com link para pesquisa</h4>
+      <p data-pt="Sebastian definiu: 'I think we can send it to them around 3 hours after having received that quote.' O timer de 3h dá tempo para o lead processar o orçamento." data-en="Sebastian defined: 'I think we can send it to them around 3 hours after having received that quote.' The 3h timer gives time to process the quote.">Sebastian definiu: "I think we can send it to them around 3 hours after having received that quote." O timer de 3h dá tempo para o lead processar o orçamento.</p>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="MENSAGEM" data-en="MESSAGE">MENSAGEM</div>
+      <div class="bubble">Hi [Name], thank you for visiting Stone Mall! We'd love to hear about your experience — takes 30 seconds: [survey link]. — Stone Mall</div>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="PERGUNTAS — EXATAS DO SEBASTIAN" data-en="QUESTIONS — EXACT FROM SEBASTIAN">PERGUNTAS — EXATAS DO SEBASTIAN</div>
+      <p style="font-size:.68rem;color:var(--gray);margin-bottom:6px"><em>"These are the questions we used to ask after they received a quote. Rated from a scale of 1-10, they could also submit comments."</em></p>
+      <div class="q-box"><span class="q-num">Q1</span><span>How would you rate the variety of stone options available?</span><span class="q-type">1-10</span></div>
+      <div class="q-box"><span class="q-num">Q2</span><span>How satisfied were you with the overall quality of service provided?</span><span class="q-type">1-10</span></div>
+      <div class="q-box"><span class="q-num">Q3</span><span>How satisfied are you with the pricing of our products?</span><span class="q-type">1-10</span></div>
+      <div class="q-box"><span class="q-num">Q4</span><span>Additional comments (optional)</span><span class="q-type" data-pt="Texto" data-en="Text">Texto</span></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SMS 5 -->
+<!-- ═══════════════════════════════════════ -->
+<section id="sms5">
+  <div class="fade-in">
+    <div class="section-label">SMS 5 de 5</div>
+    <div class="section-title" data-pt="📦 PESQUISA PÓS-ENTREGA — PERGUNTAS DO SEBASTIAN" data-en="📦 POST-DELIVERY SURVEY — SEBASTIAN'S QUESTIONS">📦 PESQUISA PÓS-ENTREGA — PERGUNTAS DO SEBASTIAN</div>
+  </div>
+  <div class="journey fade-in">
+    <div class="j-step">
+      <div class="j-label" data-pt="JORNADA DO LEAD" data-en="LEAD JOURNEY">JORNADA DO LEAD</div>
+      <p data-pt="Lead comprou → passou por Sales Order → In Negotiation with Deposit → material entregue → vendedor move para <strong style='color:var(--white)'>Sales Won/Paid in Full</strong> no <strong style='color:var(--white)'>Sales Funnel General</strong>." data-en="Lead bought → went through Sales Order → In Negotiation with Deposit → material delivered → seller moves to <strong style='color:var(--white)'>Sales Won/Paid in Full</strong> in <strong style='color:var(--white)'>Sales Funnel General</strong>.">Lead comprou → passou por Sales Order → In Negotiation with Deposit → material entregue → vendedor move para <strong style="color:var(--white)">Sales Won/Paid in Full</strong> no <strong style="color:var(--white)">Sales Funnel General</strong>.</p>
+    </div>
+    <div class="j-step active">
+      <div class="j-label" data-pt="MOMENTO EXATO" data-en="EXACT MOMENT">MOMENTO EXATO</div>
+      <h4 data-pt="Lead entra em Sales Won/Paid in Full → Salesbot aguarda 24 horas → dispara SMS com link para pesquisa" data-en="Lead enters Sales Won/Paid in Full → Salesbot waits 24 hours → fires SMS with survey link">Lead entra em Sales Won/Paid in Full → Salesbot aguarda 24 horas → dispara SMS com link para pesquisa</h4>
+      <p data-pt="Sebastian: 'After a delivery we used to ask these questions and it was sent out a day after the delivery.'" data-en="Sebastian: 'After a delivery we used to ask these questions and it was sent out a day after the delivery.'">Sebastian: "After a delivery we used to ask these questions and it was sent out a day after the delivery."</p>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="MENSAGEM" data-en="MESSAGE">MENSAGEM</div>
+      <div class="bubble">Hi [Name], we hope you're loving your new stone! Quick feedback on your experience? Takes 30 seconds: [survey link]. — Stone Mall</div>
+    </div>
+    <div class="j-step">
+      <div class="j-label" data-pt="PERGUNTAS — EXATAS DO SEBASTIAN" data-en="QUESTIONS — EXACT FROM SEBASTIAN">PERGUNTAS — EXATAS DO SEBASTIAN</div>
+      <p style="font-size:.68rem;color:var(--gray);margin-bottom:6px"><em>"After a delivery we used to ask these questions. I am thinking about adding another optional question about sharing pictures of the finished project."</em></p>
+      <div class="q-box"><span class="q-num">Q1</span><span>How satisfied are you with your overall experience working with our company?</span><span class="q-type">1-10</span></div>
+      <div class="q-box"><span class="q-num">Q2</span><span>How would you rate the responsiveness of our team to your inquiries?</span><span class="q-type">1-10</span></div>
+      <div class="q-box"><span class="q-num">Q3</span><span>How likely are you to recommend our company to others based on your experience?</span><span class="q-type">1-10 (NPS)</span></div>
+      <div class="q-box"><span class="q-num">Q4</span><span>How would you rate the efficiency of the delivery process?</span><span class="q-type">1-10</span></div>
+      <div class="q-box"><span class="q-num">Q5</span><span>Would you like to share pictures of the finished project?</span><span class="q-type" data-pt="Upload foto" data-en="Photo upload">Upload foto</span></div>
+      <div class="q-box"><span class="q-num">Q6</span><span>Additional comments (optional)</span><span class="q-type" data-pt="Texto" data-en="Text">Texto</span></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CUSTOS -->
+<!-- ═══════════════════════════════════════ -->
+<section id="costs">
+  <div class="fade-in">
+    <div class="section-label" data-pt="Custos" data-en="Costs">Custos</div>
+    <div class="section-title" data-pt="$0.0079 POR SMS · RECEBER = GRÁTIS · FORMULÁRIO = GRÁTIS" data-en="$0.0079 PER SMS · RECEIVING = FREE · FORM = FREE">$0.0079 POR SMS · RECEBER = GRÁTIS · FORMULÁRIO = GRÁTIS</div>
+  </div>
+  <div class="fade-in">
+    <table class="tbl">
+      <thead><tr><th>SMS</th><th data-pt="Momento no CRM" data-en="CRM Moment">Momento no CRM</th><th>$/SMS</th><th data-pt="SMS/mês" data-en="SMS/mo">SMS/mês</th><th data-pt="$/mês" data-en="$/mo">$/mês</th></tr></thead>
       <tbody>
-        <tr>
-          <td><strong data-pt="1. Pós-Visita" data-en="1. Post-Visit">1. Pós-Visita</strong></td>
-          <td>General → Follow-up</td>
-          <td data-pt="Tag HOT aplicada" data-en="HOT tag applied">Tag HOT aplicada</td>
-          <td data-pt="Nenhuma" data-en="None">Nenhuma</td>
-          <td data-pt="Enviar SMS via Twilio" data-en="Send SMS via Twilio">Enviar SMS via Twilio</td>
-        </tr>
-        <tr>
-          <td><strong data-pt="2. Reativação" data-en="2. Reactivation">2. Reativação</strong></td>
-          <td>Reactivation → Cold</td>
-          <td data-pt="60 dias na etapa" data-en="60 days in stage">60 dias na etapa</td>
-          <td data-pt="Única vez" data-en="One-time">Única vez</td>
-          <td data-pt="Enviar SMS via Twilio" data-en="Send SMS via Twilio">Enviar SMS via Twilio</td>
-        </tr>
-        <tr>
-          <td><strong>3. Auto-Reply</strong></td>
-          <td data-pt="Qualquer" data-en="Any">Qualquer</td>
-          <td data-pt="SMS recebido" data-en="Incoming SMS">SMS recebido</td>
-          <td data-pt="Sempre" data-en="Always">Sempre</td>
-          <td data-pt="SMS + Tarefa para Ingrid" data-en="SMS + Task for Ingrid">SMS + Tarefa para Ingrid</td>
-        </tr>
+        <tr><td><strong>1. Pós-Visita</strong></td><td>Tag HOT → Quote - Follow-up/Nurturing</td><td>$0.0079</td><td>~160</td><td><strong>$1.26</strong></td></tr>
+        <tr><td><strong>2. Reativação</strong></td><td>60 dias em Cold (Follow-up Reactivation)</td><td>$0.0079</td><td>~50</td><td><strong>$0.40</strong></td></tr>
+        <tr><td><strong>3. Auto-Reply</strong></td><td data-pt="Lead responde" data-en="Lead replies">Lead responde</td><td>$0.0079</td><td>~20</td><td><strong>$0.16</strong></td></tr>
+        <tr><td><strong>4. Survey Quote</strong></td><td>3h após Hold (Sales Funnel General)</td><td>$0.0079</td><td>~160</td><td><strong>$1.26</strong></td></tr>
+        <tr><td><strong>5. Survey Delivery</strong></td><td>24h após Sales Won/Paid in Full</td><td>$0.0079</td><td>~30</td><td><strong>$0.24</strong></td></tr>
+        <tr style="background:rgba(196,30,42,.04)"><td colspan="3" style="text-align:right"><strong>TOTAL</strong></td><td><strong>~420</strong></td><td><strong style="color:var(--red)">$3.32</strong></td></tr>
       </tbody>
     </table>
   </div>
+  <div class="cost-grid fade-in">
+    <div class="cost-card"><div class="num">$49.39</div><div class="lbl" data-pt="Saldo Twilio" data-en="Twilio Balance">Saldo Twilio</div></div>
+    <div class="cost-card"><div class="num">~14</div><div class="lbl" data-pt="Meses sem recarregar" data-en="Months without recharge">Meses sem recarregar</div></div>
+    <div class="cost-card total"><div class="num">$3.32</div><div class="lbl" data-pt="Custo mensal" data-en="Monthly cost">Custo mensal</div></div>
+  </div>
+</section>
+<div class="divider"></div>
 
+<!-- ═══════════════════════════════════════ -->
+<!-- TAGS & CAMPOS -->
+<!-- ═══════════════════════════════════════ -->
+<section id="tags-fields">
+  <div class="fade-in">
+    <div class="section-label" data-pt="Tags & Campos" data-en="Tags & Fields">Tags & Campos</div>
+    <div class="section-title" data-pt="CRIAR NO KOMMO ANTES DE ATIVAR" data-en="CREATE IN KOMMO BEFORE ACTIVATING">CRIAR NO KOMMO ANTES DE ATIVAR</div>
+  </div>
+  <div class="card fade-in">
+    <h3 data-pt="9 TAGS" data-en="9 TAGS">9 TAGS</h3>
+    <table class="tbl">
+      <thead><tr><th>Tag</th><th data-pt="Quem aplica" data-en="Applied by">Quem aplica</th><th data-pt="Função" data-en="Purpose">Função</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag-chip red">HOT</span></td><td data-pt="Vendedor" data-en="Seller">Vendedor</td><td>Trigger do SMS 1</td></tr>
+        <tr><td><span class="tag-chip orange">WARM</span></td><td data-pt="Vendedor" data-en="Seller">Vendedor</td><td data-pt="Move para Follow-up Reactivation" data-en="Moves to Follow-up Reactivation">Move para Follow-up Reactivation</td></tr>
+        <tr><td><span class="tag-chip gray">COLD</span></td><td data-pt="Automação / Vendedor" data-en="Auto / Seller">Automação / Vendedor</td><td data-pt="Etapa onde SMS 2 opera" data-en="Stage where SMS 2 operates">Etapa onde SMS 2 opera</td></tr>
+        <tr><td><span class="tag-chip green">SMS-SENT-POSTVISIT</span></td><td>Salesbot</td><td data-pt="Anti-duplicidade SMS 1" data-en="Anti-duplicate SMS 1">Anti-duplicidade SMS 1</td></tr>
+        <tr><td><span class="tag-chip green">SMS-SENT-REACTIVATION</span></td><td>Salesbot</td><td data-pt="Disparo único SMS 2" data-en="Single dispatch SMS 2">Disparo único SMS 2</td></tr>
+        <tr><td><span class="tag-chip green">SURVEY-SENT-QUOTE</span></td><td>Salesbot</td><td data-pt="Controle survey pós-quote" data-en="Post-quote survey control">Controle survey pós-quote</td></tr>
+        <tr><td><span class="tag-chip green">SURVEY-SENT-DELIVERY</span></td><td>Salesbot</td><td data-pt="Controle survey pós-delivery" data-en="Post-delivery survey control">Controle survey pós-delivery</td></tr>
+        <tr><td><span class="tag-chip purple">SMS-REPLY-RECEIVED</span></td><td>Salesbot</td><td data-pt="Lead engajou via SMS" data-en="Lead engaged via SMS">Lead engajou via SMS</td></tr>
+        <tr><td><span class="tag-chip red">SMS-OPT-OUT</span></td><td>Salesbot</td><td data-pt="STOP — bloqueia todos SMS futuros" data-en="STOP — blocks all future SMS">STOP — bloqueia todos SMS futuros</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card fade-in">
+    <h3 data-pt="6 CAMPOS PERSONALIZADOS" data-en="6 CUSTOM FIELDS">6 CAMPOS PERSONALIZADOS</h3>
+    <table class="tbl">
+      <thead><tr><th data-pt="Campo" data-en="Field">Campo</th><th data-pt="Tipo" data-en="Type">Tipo</th><th data-pt="Preenchido por" data-en="Filled by">Preenchido por</th><th data-pt="Para quê" data-en="Purpose">Para quê</th></tr></thead>
+      <tbody>
+        <tr><td><strong>SMS Consent</strong></td><td>List (Yes/No)</td><td data-pt="Formulário / Ingrid" data-en="Form / Ingrid">Formulário / Ingrid</td><td>TCPA</td></tr>
+        <tr><td><strong>SMS Post-Visit Date</strong></td><td data-pt="Data/hora" data-en="Date/time">Data/hora</td><td>Salesbot</td><td data-pt="Registro SMS 1" data-en="SMS 1 log">Registro SMS 1</td></tr>
+        <tr><td><strong>SMS Reactivation Date</strong></td><td data-pt="Data/hora" data-en="Date/time">Data/hora</td><td>Salesbot</td><td data-pt="Registro SMS 2" data-en="SMS 2 log">Registro SMS 2</td></tr>
+        <tr><td><strong>SMS Reply Date</strong></td><td data-pt="Data/hora" data-en="Date/time">Data/hora</td><td>Salesbot</td><td data-pt="Registro de resposta" data-en="Reply log">Registro de resposta</td></tr>
+        <tr><td><strong>Survey Quote Sent</strong></td><td data-pt="Data/hora" data-en="Date/time">Data/hora</td><td>Salesbot</td><td data-pt="Registro SMS 4" data-en="SMS 4 log">Registro SMS 4</td></tr>
+        <tr><td><strong>Survey Delivery Sent</strong></td><td data-pt="Data/hora" data-en="Date/time">Data/hora</td><td>Salesbot</td><td data-pt="Registro SMS 5" data-en="SMS 5 log">Registro SMS 5</td></tr>
+      </tbody>
+    </table>
+  </div>
   <div class="alert red fade-in">
     <div class="ic">⚠️</div>
     <div>
-      <h4>COMPLIANCE</h4>
+      <h4>COMPLIANCE (TCPA)</h4>
       <ul>
-        <li data-pt="<strong style='color:var(--white)'>'Reply STOP to opt out'</strong> no primeiro SMS para cada lead (exigência TCPA)" data-en="<strong style='color:var(--white)'>'Reply STOP to opt out'</strong> in first SMS to each lead (TCPA requirement)"><strong style="color:var(--white)">"Reply STOP to opt out"</strong> no primeiro SMS para cada lead (exigência TCPA)</li>
-        <li data-pt="<strong style='color:var(--white)'>Horário:</strong> 9h–18h EST (Flórida)" data-en="<strong style='color:var(--white)'>Hours:</strong> 9AM–6PM EST (Florida)"><strong style="color:var(--white)">Horário:</strong> 9h–18h EST (Flórida)</li>
-        <li data-pt="<strong style='color:var(--white)'>Identificar:</strong> '— Stone Mall' no final de toda mensagem" data-en="<strong style='color:var(--white)'>Identify:</strong> '— Stone Mall' at end of every message"><strong style="color:var(--white)">Identificar:</strong> "— Stone Mall" no final de toda mensagem</li>
+        <li><strong style="color:var(--white)">Opt-in:</strong> SMS Consent = Yes <span data-pt="antes de todo disparo" data-en="before every dispatch">antes de todo disparo</span></li>
+        <li><strong style="color:var(--white)">Opt-out:</strong> STOP → SMS-OPT-OUT → <span data-pt="zero SMS futuros" data-en="zero future SMS">zero SMS futuros</span></li>
+        <li><strong style="color:var(--white)" data-pt="Horário:" data-en="Hours:">Horário:</strong> 9h–18h EST (Florida)</li>
+        <li><strong style="color:var(--white)" data-pt="ID:" data-en="ID:">ID:</strong> "— Stone Mall" <span data-pt="em toda mensagem" data-en="in every message">em toda mensagem</span></li>
+        <li><strong style="color:var(--white)" data-pt="Anti-duplicidade:" data-en="Anti-duplicate:">Anti-duplicidade:</strong> <span data-pt="Cada Salesbot verifica tag antes de disparar" data-en="Each Salesbot checks tag before firing">Cada Salesbot verifica tag antes de disparar</span></li>
       </ul>
     </div>
   </div>
-
-  <div class="alert subtle fade-in">
-    <div class="ic">💰</div>
-    <div>
-      <h4 data-pt="CUSTO MENSAL ESTIMADO" data-en="ESTIMATED MONTHLY COST">CUSTO MENSAL ESTIMADO</h4>
-      <p data-pt="Com ~40 leads/semana, cada lead recebe no máximo 3 SMS em todo o ciclo. Estimativa: <strong style='color:var(--white)'>~150 SMS/mês = ~$1,20/mês</strong>. O custo por SMS doméstico nos EUA é $0,0079." data-en="With ~40 leads/week, each lead receives max 3 SMS across the entire lifecycle. Estimate: <strong style='color:var(--white)'>~150 SMS/month = ~$1.20/month</strong>. US domestic SMS cost is $0.0079.">Com ~40 leads/semana, cada lead recebe no máximo 3 SMS em todo o ciclo. Estimativa: <strong style="color:var(--white)">~150 SMS/mês = ~$1,20/mês</strong>. O custo por SMS doméstico nos EUA é $0,0079.</p>
-    </div>
-  </div>
 </section>
-
 <div class="divider"></div>
 
 <footer>
-  <div class="brand" data-pt="STONE MALL × AUTOMAÇÃO SMS 2026" data-en="STONE MALL × SMS AUTOMATION 2026">STONE MALL × AUTOMAÇÃO SMS 2026</div>
+  <div class="brand" data-pt="STONE MALL × SMS + SURVEYS 2026" data-en="STONE MALL × SMS + SURVEYS 2026">STONE MALL × SMS + SURVEYS 2026</div>
   <p data-pt="Twilio × Kommo CRM · Março 2026 · Desenvolvido por V4 Ferraz Piai & Co." data-en="Twilio × Kommo CRM · March 2026 · Developed by V4 Ferraz Piai & Co.">Twilio × Kommo CRM · Março 2026 · Desenvolvido por V4 Ferraz Piai & Co.</p>
 </footer>
 
@@ -252,6 +460,8 @@ let currentLang='pt';
 function setLang(l){currentLang=l;document.getElementById('btnPT').classList.toggle('active',l==='pt');document.getElementById('btnEN').classList.toggle('active',l==='en');document.documentElement.lang=l==='pt'?'pt-BR':'en';document.querySelectorAll('[data-pt][data-en]').forEach(e=>{const t=e.getAttribute('data-'+l);if(t!==null)e.innerHTML=t})}
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
 document.querySelectorAll('.fade-in').forEach(e=>obs.observe(e));
+const secs=document.querySelectorAll('section'),navs=document.querySelectorAll('.nav a');
+window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(scrollY>=s.offsetTop-80)c=s.id});navs.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+c)l.classList.add('active')})});
 </script>
 </body>
 </html>
