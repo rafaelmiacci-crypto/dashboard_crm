@@ -151,6 +151,44 @@
             background: var(--success);
         }
 
+        /* Changelog */
+        .changelog {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 48px;
+        }
+
+        .changelog h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--warning);
+            margin-bottom: 16px;
+        }
+
+        .changelog-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .changelog-item:last-child {
+            border-bottom: none;
+        }
+
+        .changelog-icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
         /* Sections */
         .section {
             margin-bottom: 48px;
@@ -313,6 +351,12 @@
             color: var(--warning);
             background: var(--warning-bg);
             border: 1px solid rgba(253, 203, 110, 0.2);
+        }
+
+        .change-v3 {
+            color: #e056fd;
+            background: rgba(224, 86, 253, 0.08);
+            border: 1px solid rgba(224, 86, 253, 0.2);
         }
 
         /* Tables */
@@ -549,6 +593,7 @@
             display: flex;
             gap: 4px;
             margin-bottom: 16px;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
@@ -724,6 +769,47 @@
             margin: 32px 0;
         }
 
+        /* Esteira jurídica */
+        .esteira-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-accent);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .esteira-step:hover {
+            border-color: var(--advogado);
+            transform: translateX(4px);
+        }
+
+        .esteira-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--advogado);
+            background: var(--advogado-bg);
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .esteira-desc {
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container { padding: 32px 16px 80px; }
@@ -749,8 +835,49 @@
             <span><span class="dot"></span> Operação: Raquel, Kate, Financeiro &amp; Advogado</span>
             <span><span class="dot"></span> Foco: Humanização e Conversão de Performance</span>
         </div>
-        <div class="version-badge">v2.0 — Atualizado pós-reunião de alinhamento</div>
+        <div class="version-badge">v3.0 — Atualizado pós-reunião de alinhamento (20/03/2026)</div>
     </header>
+
+    <!-- CHANGELOG v3 -->
+    <div class="changelog">
+        <h3>📋 Changelog v3.0 — Alterações da Reunião 20/03</h3>
+        <div class="changelog-item">
+            <span class="changelog-icon">🔄</span>
+            <span><strong>MQL unificado:</strong> Lead Particular agora também é classificado como #MQL (não mais #Lead_Comum). Ambos os caminhos (Liminar e Particular) são MQL.</span>
+        </div>
+        <div class="changelog-item">
+            <span class="changelog-icon">🔄</span>
+            <span><strong>Reestruturação do funil pós-Financeiro:</strong> Etapa 7 agora já se divide em 7A (Kate Particular) e 7B (Kate Liminar). O Financeiro (etapa 6) determina o caminho. Kate já recebe sabendo qual jornada o paciente segue.</span>
+        </div>
+        <div class="changelog-item">
+            <span class="changelog-icon">🔄</span>
+            <span><strong>Etapas separadas por ação:</strong> Removidas etapas combinadas "Kate → Advogado". Cada etapa agora representa uma ação de um responsável específico (7=Kate, 8=Advogado, 9=Kate).</span>
+        </div>
+        <div class="changelog-item">
+            <span class="changelog-icon">🆕</span>
+            <span><strong>Pipeline separada para Esteira Jurídica (Liminar):</strong> Novo funil dedicado com 6 subfases: Acolhimento Advogado Parceiro → Coleta de Documentos → Negativa do Plano → Protocolar Inicial → Deferimento → Autorização de Tratamento.</span>
+        </div>
+        <div class="changelog-item">
+            <span class="changelog-icon">🆕</span>
+            <span><strong>Advogado interno como monitor:</strong> O advogado interno da clínica monitora os processos dos advogados parceiros dentro do CRM. Checkbox para selecionar qual advogado parceiro foi indicado.</span>
+        </div>
+        <div class="changelog-item">
+            <span class="changelog-icon">🆕</span>
+            <span><strong>SLAs por advogado e por plano de saúde:</strong> Métricas de tempo por fase, por advogado parceiro e por operadora (Bradesco, Amil, Unimed, etc.) para gerar inteligência de conversão.</span>
+        </div>
+        <div class="changelog-item">
+            <span class="changelog-icon">🆕</span>
+            <span><strong>Reativação de leads antigos:</strong> Quando um lead frio retorna (ex: 8 meses depois), o sistema puxa o histórico do card anterior para o novo card.</span>
+        </div>
+        <div class="changelog-item">
+            <span class="changelog-icon">🔄</span>
+            <span><strong>Recomendação WhatsApp:</strong> API Oficial agora é a recomendação principal (custo baixo para o volume da clínica e automações avançadas com botões).</span>
+        </div>
+        <div class="changelog-item">
+            <span class="changelog-icon">🆕</span>
+            <span><strong>Kate: anotações de conversa:</strong> Kate precisa de campo para registrar resumo de conversas telefônicas/WhatsApp com o paciente.</span>
+        </div>
+    </div>
 
     <!-- SECTION 1: Contexto -->
     <div class="section">
@@ -767,11 +894,15 @@
                 </div>
             </div>
             <div class="card">
-                <div class="card-label">Novo — Papel expandido da Kate <span class="change-marker change-new">novo</span></div>
-                <p>A <strong>Kate</strong> agora atua como <strong>"maestro" de toda a jornada do paciente</strong>. Ela intermedia todas as etapas do funil — o paciente sempre sai e volta para a Kate entre cada transição (financeiro, advogado, etc.). Sua função é o <strong>acolhimento técnico e terapêutico</strong>, garantindo que nenhuma família se sinta perdida ou desinformada durante o processo.</p>
+                <div class="card-label">Papel expandido da Kate</div>
+                <p>A <strong>Kate</strong> atua como <strong>"maestro" de toda a jornada do paciente</strong>. Ela intermedia todas as etapas do funil — o paciente sempre sai e volta para a Kate entre cada transição (financeiro, advogado, etc.). Sua função é o <strong>acolhimento técnico e terapêutico</strong>, garantindo que nenhuma família se sinta perdida ou desinformada durante o processo.</p>
                 <div class="kate-box">
                     <strong>Restrição importante:</strong> A Kate NÃO deve ter acesso a informações financeiras (valores de contrato, orçamentos, recorrência). No Kommo CRM, o campo de valor deve ser ocultado para o perfil dela. Ela pode visualizar todas as demais informações: e-mails, contato, prontuário, anotações, documentos, laudos, decisões liminares.
                 </div>
+            </div>
+            <div class="card">
+                <div class="card-label">Comunicação da Kate <span class="change-marker change-v3">v3</span></div>
+                <p>A Kate se comunica com o paciente por <strong>ligação telefônica</strong> ou <strong>WhatsApp</strong>. Após cada contato, ela deve registrar um resumo da conversa em um campo de anotações dentro do card do paciente no CRM. Isso garante que todo o histórico de comunicação fique acessível para consulta posterior.</p>
             </div>
         </div>
     </div>
@@ -780,7 +911,7 @@
     <div class="section">
         <div class="section-header" onclick="toggleSection(this)">
             <span class="section-number">2</span>
-            <span class="section-title">Bot / Formulário de Pré-Qualificação <span class="change-marker change-updated">atualizado</span></span>
+            <span class="section-title">Bot / Formulário de Pré-Qualificação</span>
             <span class="section-toggle open">▼</span>
         </div>
         <div class="section-content">
@@ -790,7 +921,7 @@
             </div>
 
             <div class="card">
-                <div class="card-label">Integração com Landing Page <span class="change-marker change-new">novo</span></div>
+                <div class="card-label">Integração com Landing Page</div>
                 <p>Os leads que vêm da LP já chegam com um formulário preenchido. Essas informações entram automaticamente no Kommo CRM, evitando que o lead precise digitar duas vezes. A primeira mensagem automática pode ser personalizada com os dados coletados.</p>
                 <div class="info-box">
                     <strong>Campos do formulário da LP:</strong> Nome Completo · E-mail · Telefone · Cidade · Diagnóstico do paciente (Autismo, Síndrome de Down, Paralisia Cerebral, Outro, Sem Diagnóstico)
@@ -806,7 +937,7 @@
             <!-- Tab: Resumido -->
             <div id="tab-resumido" class="tab-content active">
                 <div class="card">
-                    <h4>Script de Pré-Atendimento Resumido <span class="change-marker change-updated">atualizado</span></h4>
+                    <h4>Script de Pré-Atendimento Resumido</h4>
                     <p>O bot faz apenas a saudação inicial e coleta dados mínimos. O objetivo é dar uma resposta rápida ao lead. A Raquel assume a conversa para o atendimento humanizado.</p>
 
                     <div class="card-label" style="margin-top:20px">1. Saudação + Dados Básicos</div>
@@ -818,7 +949,7 @@
                         • Idade do paciente:"
                     </div>
 
-                    <div class="card-label">2. Verificação de cliente existente <span class="change-marker change-new">novo</span></div>
+                    <div class="card-label">2. Verificação de cliente existente</div>
                     <div class="script-msg bot-msg">
                         "Você já é cliente/paciente da Clínica Hippus ou esse é o seu primeiro contato?"
                     </div>
@@ -842,7 +973,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-label">Mensagem personalizada para leads da LP <span class="change-marker change-new">novo</span></div>
+                    <div class="card-label">Mensagem personalizada para leads da LP</div>
                     <p>Quando o lead vem da Landing Page, o bot pode enviar uma mensagem mais direcionada usando os dados do formulário:</p>
                     <div class="script-msg bot-msg">
                         "Olá, [Nome]! Vimos que você é de [Cidade] e tem interesse em nossos serviços para [diagnóstico informado]. É um prazer ter você conosco! A Raquel, do nosso time de acolhimento, vai entrar em contato em breve. 😊"
@@ -873,7 +1004,7 @@
                         "Muito bom! Agora me diz o CEP da sua residência, assim a gente pode entender melhor onde você está."
                     </div>
 
-                    <div class="card-label">4. Verificação de cliente existente <span class="change-marker change-new">novo</span></div>
+                    <div class="card-label">4. Verificação de cliente existente</div>
                     <div class="script-msg bot-msg">
                         "Esse é o seu primeiro contato com a gente ou você já é cliente/paciente da nossa clínica?"
                     </div>
@@ -901,7 +1032,7 @@
     <div class="section">
         <div class="section-header" onclick="toggleSection(this)">
             <span class="section-number">3</span>
-            <span class="section-title">Operação Raquel: Qualificação por Tags</span>
+            <span class="section-title">Operação Raquel: Qualificação por Tags <span class="change-marker change-v3">v3</span></span>
             <span class="section-toggle open">▼</span>
         </div>
         <div class="section-content">
@@ -911,8 +1042,8 @@
             </div>
 
             <div class="card">
-                <h4>Identificação de Perfil (MQL vs Lead_Comum)</h4>
-                <p>A Raquel deve aplicar uma das etiquetas abaixo logo na primeira interação para definir a prioridade e o caminho do atendimento:</p>
+                <h4>Identificação de Perfil — Ambos são MQL <span class="change-marker change-v3">v3</span></h4>
+                <p>Conforme alinhado na reunião, <strong>tanto o caminho Liminar quanto o caminho Particular representam leads qualificados pelo marketing (#MQL)</strong>. A classificação anterior de "Lead Comum" para o caminho Particular foi removida. A Raquel deve aplicar a tag #MQL e o sub-caminho correto na primeira interação:</p>
 
                 <div class="table-wrap">
                     <table>
@@ -922,37 +1053,41 @@
                         <tbody>
                             <tr>
                                 <td><span class="tag tag-mql">#MQL</span><br><small>Caminho: Liminar</small></td>
-                                <td><strong>Requisitos para LIMINAR:</strong><br>✓ Possui Plano de Saúde (qualquer plano, com OU sem reembolso)<br>✓ Reside até <strong>30 minutos</strong> da clínica</td>
+                                <td><strong>Requisitos para LIMINAR:</strong><br>✓ Possui Plano de Saúde (qualquer plano, com OU sem reembolso)<br>✓ Reside até <strong>30–40 minutos</strong> da clínica</td>
                                 <td><strong>Alta:</strong> Focar no agendamento imediato da triagem clínica.</td>
                             </tr>
                             <tr>
-                                <td><span class="tag tag-common">#Lead_Comum</span><br><small>Caminho: Particular</small></td>
+                                <td><span class="tag tag-mql">#MQL</span><br><small>Caminho: Particular</small></td>
                                 <td><strong>Requisitos para PARTICULAR:</strong><br>✓ Possui Plano de Saúde <strong>COM reembolso</strong><br>✓ Reside até <strong>~45 minutos</strong> da clínica</td>
-                                <td><strong>Média:</strong> Acolher e explicar a viabilidade do investimento particular com reembolso.</td>
+                                <td><strong>Média-Alta:</strong> Acolher e explicar a viabilidade do investimento particular com reembolso.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <div class="info-box">
+                    <strong>MQL vs SQL:</strong> MQL = Lead Qualificado pelo Marketing (V4 analisa e valida). SQL = Lead Qualificado pelo Time de Vendas (ex: já agendou visita). Ambos os caminhos começam como MQL e viram SQL quando o paciente avança para reunião presencial.
+                </div>
             </div>
 
             <div class="card">
-                <h4>Resumo Visual: Critérios de Qualificação</h4>
+                <h4>Resumo Visual: Critérios de Qualificação <span class="change-marker change-v3">v3</span></h4>
                 <div class="table-wrap">
                     <table>
                         <thead>
-                            <tr><th>Critério</th><th>Liminar</th><th>Particular</th></tr>
+                            <tr><th>Critério</th><th>Liminar (#MQL)</th><th>Particular (#MQL)</th></tr>
                         </thead>
                         <tbody>
                             <tr><td><strong>Plano de Saúde</strong></td><td>Qualquer plano (com ou sem reembolso)</td><td>Plano COM reembolso</td></tr>
-                            <tr><td><strong>Raio Máximo</strong></td><td>Até 30 min da clínica</td><td>Até ~45 min da clínica</td></tr>
-                            <tr><td><strong>Justificativa do Raio</strong></td><td>Regra jurídica exige proximidade para liminar</td><td>Não entra na regra jurídica</td></tr>
+                            <tr><td><strong>Raio Máximo</strong></td><td>Até 30–40 min da clínica</td><td>Até ~45 min da clínica (mais flexibilidade)</td></tr>
+                            <tr><td><strong>Justificativa do Raio</strong></td><td>Regra jurídica exige proximidade para liminar</td><td>Não entra na regra jurídica — mais flexível</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
             <div class="card">
-                <h4>Tratativa de Contatos Não-Lead <span class="change-marker change-new">novo</span></h4>
+                <h4>Tratativa de Contatos Não-Lead</h4>
                 <p>Contatos que não são leads comerciais (entregadores, currículos, fornecedores, etc.) representam volume relevante. Para não poluir a base, a Raquel deve aplicar a tratativa abaixo:</p>
                 <div class="table-wrap">
                     <table>
@@ -988,11 +1123,11 @@
                 <p>O descarte deve ocorrer na fase de Qualificação caso o lead apresente bloqueios inegociáveis:</p>
                 <ul class="styled-list">
                     <li><strong>Sem Plano de Saúde:</strong> Não se qualifica nem para Liminar nem para Particular.</li>
-                    <li><strong>Fora do Raio Geográfico:</strong> Mora além de 30 min (Liminar) ou ~45 min (Particular).</li>
-                    <li><strong>Plano sem Reembolso + Fora de 30 min:</strong> Não se encaixa em nenhum caminho.</li>
+                    <li><strong>Fora do Raio Geográfico:</strong> Mora além de 30–40 min (Liminar) ou ~45 min (Particular).</li>
+                    <li><strong>Plano sem Reembolso + Fora de 30–40 min:</strong> Não se encaixa em nenhum caminho.</li>
                     <li><strong>Incompatibilidade Técnica:</strong> Clínica não possui a especialidade ou vaga para a patologia.</li>
-                    <li><strong>Inatividade (Ghosting):</strong> Lead parou de responder após tentativas de acompanhamento (Seção 7).</li>
-                    <li><strong>Contato Não-Lead:</strong> Currículos, fornecedores, SPAM — usar tags específicas. <span class="change-marker change-new">novo</span></li>
+                    <li><strong>Inatividade (Ghosting):</strong> Lead parou de responder após tentativas de acompanhamento (Seção 8).</li>
+                    <li><strong>Contato Não-Lead:</strong> Currículos, fornecedores, SPAM — usar tags específicas.</li>
                 </ul>
             </div>
         </div>
@@ -1002,7 +1137,7 @@
     <div class="section">
         <div class="section-header" onclick="toggleSection(this)">
             <span class="section-number">4</span>
-            <span class="section-title">Kate: Maestro da Jornada do Paciente <span class="change-marker change-new">novo</span></span>
+            <span class="section-title">Kate: Maestro da Jornada do Paciente</span>
             <span class="section-toggle open">▼</span>
         </div>
         <div class="section-content">
@@ -1016,18 +1151,22 @@
             </div>
 
             <div class="card">
-                <h4>Fluxo de Intermediação da Kate</h4>
+                <h4>Fluxo de Intermediação da Kate <span class="change-marker change-v3">v3</span></h4>
+                <p>O fluxo foi reestruturado para que cada etapa represente uma ação de um responsável específico. A Kate já recebe o card sabendo se o paciente é Particular ou Liminar (definido pelo Financeiro na etapa 6).</p>
                 <div class="flow-diagram">
-                    <div class="flow-node flow-node-raquel">👤 Raquel — Acolhimento e Triagem</div>
+                    <div class="flow-node flow-node-raquel">👤 Raquel — Acolhimento e Triagem (1–4)</div>
                     <div class="flow-arrow">↓</div>
-                    <div class="flow-node flow-node-kate">🎯 Kate — Reunião Presencial com Paciente</div>
+                    <div class="flow-node flow-node-kate">🎯 Kate — Reunião Presencial com Paciente (5)</div>
                     <div class="flow-arrow">↓</div>
-                    <div class="flow-node flow-node-fin">💰 Financeiro — Validação de Valores</div>
+                    <div class="flow-node flow-node-fin">💰 Financeiro — Validação de Valores (6)</div>
+                    <div class="flow-label">O Financeiro define: Particular ou Liminar</div>
                     <div class="flow-arrow">↓</div>
-                    <div class="flow-node flow-node-kate">🎯 Kate — Alinha com Paciente</div>
+                    <div class="flow-node flow-node-kate">🎯 Kate — Acolhimento pós-Financeiro (7A ou 7B)</div>
+                    <div class="flow-label">Kate já sabe o caminho do paciente</div>
                     <div class="flow-arrow">↓</div>
-                    <div class="flow-label">⇊ RAMIFICAÇÃO: PARTICULAR OU LIMINAR ⇊</div>
-                    <div class="flow-arrow" style="font-size:12px; color:var(--warning)">ver seção 5 para detalhamento</div>
+                    <div class="flow-node flow-node-adv">⚖️ Advogado — Ação jurídica/contratual (8A ou 8B)</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-node flow-node-kate">🎯 Kate — Devolução e Início do Tratamento (9A ou 9B)</div>
                 </div>
             </div>
 
@@ -1045,24 +1184,24 @@
                     <div class="perm-item perm-blocked"><span class="perm-icon">🚫</span> Valor de recorrência</div>
                 </div>
                 <div class="info-box">
-                    <strong>Implementação no Kommo:</strong> Bloquear a visualização dos campos de valor (pagamento único e recorrência) para o perfil da Kate. É possível configurar essa restrição por campo dentro do CRM.
+                    <strong>Implementação no Kommo:</strong> Bloquear a visualização dos campos de valor (pagamento único e recorrência) para o perfil da Kate. Adicionar campo de "Anotações de Conversa" para Kate registrar resumos de ligações e WhatsApp.
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SECTION 5: Funil -->
+    <!-- SECTION 5: Funil Principal -->
     <div class="section">
         <div class="section-header" onclick="toggleSection(this)">
             <span class="section-number">5</span>
-            <span class="section-title">Detalhamento do Funil <span class="change-marker change-updated">atualizado</span></span>
+            <span class="section-title">Funil Principal <span class="change-marker change-v3">v3 — reestruturado</span></span>
             <span class="section-toggle open">▼</span>
         </div>
         <div class="section-content">
 
             <div class="card">
                 <div class="card-label">Visão geral do funil</div>
-                <p>O funil agora contempla a Kate como intermediária em todas as etapas e ramifica em dois caminhos após a validação financeira.</p>
+                <p>O funil foi reestruturado para que <strong>cada etapa represente uma ação de um responsável único</strong>. As transições entre responsáveis acontecem pela movimentação do card — sem etapas combinadas ("Kate → Advogado"). O Financeiro (etapa 6) é quem define o caminho Particular ou Liminar, e a Kate já recebe na etapa 7 sabendo qual jornada o paciente segue.</p>
             </div>
 
             <!-- Funnel Visual -->
@@ -1070,7 +1209,7 @@
                 <div class="funnel-step">
                     <span class="step-num">0</span>
                     Fora de Perfil (Arquivo / Não-Lead)
-                    <span class="funnel-step step-owner tag tag-lost" style="padding:2px 8px; font-size:10px;">Arquivo</span>
+                    <span class="tag tag-lost" style="margin-left:auto">Arquivo</span>
                 </div>
 
                 <div class="funnel-divider">↑ FILTRO DE QUALIDADE ↑</div>
@@ -1105,7 +1244,7 @@
 
                 <div class="funnel-step">
                     <span class="step-num">5</span>
-                    Reunião Presencial (Kate)
+                    Reunião Presencial
                     <span class="tag tag-kate" style="margin-left:auto">Kate</span>
                 </div>
                 <div class="funnel-arrow">↓</div>
@@ -1115,36 +1254,31 @@
                     Validação Financeira
                     <span class="tag tag-fin" style="margin-left:auto">Financeiro</span>
                 </div>
-                <div class="funnel-arrow">↓</div>
 
-                <div class="funnel-step">
-                    <span class="step-num">7</span>
-                    Alinhamento com Paciente (Kate)
-                    <span class="tag tag-kate" style="margin-left:auto">Kate</span>
-                </div>
-
-                <div class="funnel-divider">⇊ RAMIFICAÇÃO: DOIS CAMINHOS ⇊</div>
+                <div class="funnel-divider">⇊ FINANCEIRO DEFINE: PARTICULAR OU LIMINAR ⇊ <span class="change-marker change-v3" style="margin-left:4px">v3</span></div>
 
                 <div class="funnel-branch">
                     <div class="branch-path branch-particular">
                         <h5>🔵 Caminho Particular</h5>
-                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">8A</span> Kate → Advogado (Assinatura de Contrato)</div>
+                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">7A</span> Kate — Acolhimento Particular <span class="change-marker change-v3" style="margin-left:auto;font-size:8px">v3</span></div>
                         <div class="branch-step"><span class="mini-arrow">↓</span></div>
-                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">9A</span> Advogado → Kate (Devolução)</div>
+                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">8A</span> Advogado — Assinatura de Contrato</div>
                         <div class="branch-step"><span class="mini-arrow">↓</span></div>
-                        <div class="branch-step" style="background:var(--success-bg); color:var(--success); font-weight:600;">✓ Kate — Início do Tratamento</div>
+                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">9A</span> Kate — Devolução + Início Tratamento</div>
+                        <div class="branch-step"><span class="mini-arrow">↓</span></div>
+                        <div class="branch-step" style="background:var(--success-bg); color:var(--success); font-weight:600;">✓ Paciente Ativo</div>
                     </div>
                     <div class="branch-path branch-liminar">
                         <h5>🟢 Caminho Liminar</h5>
-                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">8B</span> Kate → Advogado (Distribuição Jurídica)</div>
+                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">7B</span> Kate — Acolhimento Liminar + Indica Advogado Parceiro <span class="change-marker change-v3" style="margin-left:auto;font-size:8px">v3</span></div>
                         <div class="branch-step"><span class="mini-arrow">↓</span></div>
-                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">9B</span> Advogado → Parceiro Jurídico (Aguardando Liminar)</div>
+                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">8B</span> Advogado Interno — Monitora Esteira Jurídica <span class="change-marker change-v3" style="margin-left:auto;font-size:8px">v3</span></div>
+                        <div class="branch-step"><span class="mini-arrow">↓</span> <small style="color:var(--text-dim)">→ Pipeline separada (Seção 6)</small></div>
+                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">9B</span> Liminar Autorizada → Financeiro (Revalidação)</div>
                         <div class="branch-step"><span class="mini-arrow">↓</span></div>
-                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">10B</span> Liminar Autorizada → Financeiro (Revalidação)</div>
+                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">10B</span> Kate — Devolução + Início Tratamento</div>
                         <div class="branch-step"><span class="mini-arrow">↓</span></div>
-                        <div class="branch-step"><span class="step-num" style="width:22px;height:22px;font-size:9px;border-radius:4px;">11B</span> Financeiro → Kate (Devolução)</div>
-                        <div class="branch-step"><span class="mini-arrow">↓</span></div>
-                        <div class="branch-step" style="background:var(--success-bg); color:var(--success); font-weight:600;">✓ Kate — Início do Tratamento</div>
+                        <div class="branch-step" style="background:var(--success-bg); color:var(--success); font-weight:600;">✓ Paciente Ativo</div>
                     </div>
                 </div>
             </div>
@@ -1173,8 +1307,8 @@
                             <tr>
                                 <td><strong>2. Qualificação</strong></td>
                                 <td><span class="tag tag-raquel">Raquel</span></td>
-                                <td>Escuta ativa, verificação de plano e localização.</td>
-                                <td><strong>Avançar:</strong> Lead #MQL ou #Lead_Comum com interesse real.<br><strong>Perdido:</strong> Sem plano, fora do raio, ghosting.</td>
+                                <td>Escuta ativa, verificação de plano e localização. Aplica tag #MQL.</td>
+                                <td><strong>Avançar:</strong> Lead #MQL (Liminar ou Particular) com interesse real.<br><strong>Perdido:</strong> Sem plano, fora do raio, ghosting.</td>
                             </tr>
                             <tr>
                                 <td><strong>3. Triagem Agendada</strong></td>
@@ -1189,46 +1323,52 @@
                                 <td><strong>Avançar:</strong> Campos técnicos preenchidos no card.<br><strong>Perdido:</strong> Clínica não é solução adequada.</td>
                             </tr>
                             <tr>
-                                <td><strong>5. Reunião (Kate)</strong> <span class="change-marker change-updated" style="margin-left:0">atualizado</span></td>
+                                <td><strong>5. Reunião (Kate)</strong></td>
                                 <td><span class="tag tag-kate">Kate</span></td>
                                 <td>Reunião presencial com o paciente/família. Acolhimento técnico e terapêutico.</td>
                                 <td><strong>Avançar:</strong> Paciente deseja prosseguir → encaminhar para Financeiro.<br><strong>Perdido:</strong> Optou por outra clínica ou desistiu.</td>
                             </tr>
                             <tr>
-                                <td><strong>6. Validação Financeira</strong> <span class="change-marker change-new" style="margin-left:0">novo</span></td>
+                                <td><strong>6. Validação Financeira</strong></td>
                                 <td><span class="tag tag-fin">Financeiro</span></td>
-                                <td>Alinhamento de valores, orçamento e condições de pagamento com o lead.</td>
-                                <td><strong>Avançar:</strong> Valores travados no card → devolver para Kate.<br><strong>Perdido:</strong> Inviabilidade financeira.</td>
+                                <td>Alinhamento de valores. <strong>Define se o paciente segue Particular ou Liminar</strong> (checkbox no card). <span class="change-marker change-v3">v3</span></td>
+                                <td><strong>Avançar:</strong> Valores travados + caminho definido → devolver para Kate (7A ou 7B).<br><strong>Perdido:</strong> Inviabilidade financeira.</td>
                             </tr>
                             <tr>
-                                <td><strong>7. Alinhamento Kate</strong> <span class="change-marker change-new" style="margin-left:0">novo</span></td>
+                                <td><strong>7A. Kate (Particular)</strong> <span class="change-marker change-v3">v3</span></td>
                                 <td><span class="tag tag-kate">Kate</span></td>
-                                <td>Kate recebe o card de volta, alinha com o paciente e direciona para o caminho correto (Particular ou Liminar).</td>
-                                <td><strong>Avançar:</strong> Paciente opta por Particular (→ 8A) ou Liminar (→ 8B).</td>
+                                <td>Kate recebe sabendo que é Particular. Acolhe o paciente e encaminha para o advogado para assinatura de contrato.</td>
+                                <td><strong>Avançar:</strong> Kate movimenta o card para 8A (Advogado).</td>
                             </tr>
                             <tr>
-                                <td><strong>8A. Advogado (Contrato)</strong> <span class="change-marker change-new" style="margin-left:0">novo</span></td>
-                                <td><span class="tag tag-adv">Advogado</span></td>
-                                <td>Assinatura de contrato particular.</td>
-                                <td><strong>Avançar:</strong> Contrato assinado → devolver para Kate.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>8B. Advogado (Liminar)</strong> <span class="change-marker change-new" style="margin-left:0">novo</span></td>
-                                <td><span class="tag tag-adv">Advogado</span></td>
-                                <td>Distribui para advogados parceiros. Card fica parado até liminar ser autorizada.</td>
-                                <td><strong>Avançar:</strong> Liminar autorizada → Financeiro revalida.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>9B–11B. Revalidação</strong> <span class="change-marker change-new" style="margin-left:0">novo</span></td>
-                                <td><span class="tag tag-fin">Financeiro</span> → <span class="tag tag-kate">Kate</span></td>
-                                <td>Financeiro revalida valores pós-liminar. Kate recebe card final.</td>
-                                <td><strong>Avançar:</strong> Tratamento iniciado.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>✓ Paciente Ativo</strong></td>
+                                <td><strong>7B. Kate (Liminar)</strong> <span class="change-marker change-v3">v3</span></td>
                                 <td><span class="tag tag-kate">Kate</span></td>
-                                <td>Início dos atendimentos terapêuticos na clínica.</td>
-                                <td>Card finalizado como ganho.</td>
+                                <td>Kate recebe sabendo que é Liminar. Acolhe e <strong>indica advogados parceiros</strong> ao paciente. Notifica o advogado interno da clínica.</td>
+                                <td><strong>Avançar:</strong> Kate movimenta o card para 8B (Advogado Interno).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8A. Advogado (Contrato)</strong></td>
+                                <td><span class="tag tag-adv">Advogado</span></td>
+                                <td>Elabora e formaliza a assinatura de contrato particular.</td>
+                                <td><strong>Avançar:</strong> Contrato assinado → advogado movimenta card para 9A (Kate).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8B. Advogado Interno (Liminar)</strong> <span class="change-marker change-v3">v3</span></td>
+                                <td><span class="tag tag-adv">Adv. Interno</span></td>
+                                <td>Monitora o processo junto aos advogados parceiros. Card fica aqui durante toda a esteira jurídica. <strong>→ Ver Pipeline Separada na Seção 6.</strong></td>
+                                <td><strong>Avançar:</strong> Liminar autorizada → Financeiro revalida (9B).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>9A. Kate (Devolução Particular)</strong></td>
+                                <td><span class="tag tag-kate">Kate</span></td>
+                                <td>Kate recebe card com contrato assinado. Inicia o tratamento.</td>
+                                <td><strong>Avançar:</strong> Tratamento iniciado. Card → Ganho.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>9B–10B. Revalidação + Kate</strong></td>
+                                <td><span class="tag tag-fin">Fin.</span> → <span class="tag tag-kate">Kate</span></td>
+                                <td>Financeiro revalida valores pós-liminar. Kate recebe card final e inicia tratamento.</td>
+                                <td><strong>Avançar:</strong> Tratamento iniciado. Card → Ganho.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1237,11 +1377,132 @@
         </div>
     </div>
 
-    <!-- SECTION 6: Conexão WhatsApp -->
+    <!-- SECTION 6: Esteira Jurídica -->
     <div class="section">
         <div class="section-header" onclick="toggleSection(this)">
             <span class="section-number">6</span>
-            <span class="section-title">Conexão WhatsApp + Canais <span class="change-marker change-new">novo</span></span>
+            <span class="section-title">Pipeline Separada: Esteira Jurídica (Liminar) <span class="change-marker change-v3">v3 — novo</span></span>
+            <span class="section-toggle open">▼</span>
+        </div>
+        <div class="section-content">
+
+            <div class="card">
+                <div class="card-label">Por que uma pipeline separada?</div>
+                <p>Conforme alinhado na reunião, o processo de liminar possui uma curva de conversão maior e etapas jurídicas específicas que precisam de acompanhamento detalhado. Criar uma <strong>pipeline separada no Kommo</strong> permite ao advogado interno monitorar cada subfase individualmente, gerar relatórios por advogado parceiro e por plano de saúde, e identificar gargalos no processo jurídico.</p>
+            </div>
+
+            <div class="card">
+                <h4>Subfases da Esteira Jurídica</h4>
+                <p>Quando o card entra na etapa 8B do funil principal, ele é espelhado nesta pipeline separada. O advogado interno da clínica opera aqui:</p>
+
+                <div class="esteira-step">
+                    <span class="esteira-num">1</span>
+                    <div>
+                        <strong>Acolhimento do Advogado Parceiro</strong>
+                        <div class="esteira-desc">Paciente foi encaminhado pela Kate ao advogado parceiro indicado. Advogado parceiro faz o primeiro contato.</div>
+                    </div>
+                </div>
+
+                <div class="esteira-step">
+                    <span class="esteira-num">2</span>
+                    <div>
+                        <strong>Coleta de Documentos</strong>
+                        <div class="esteira-desc">Advogado parceiro reúne: RG, CPF, comprovante de renda, carteirinha do plano, histórico médico, laudos e demais documentos necessários.</div>
+                    </div>
+                </div>
+
+                <div class="esteira-step">
+                    <span class="esteira-num">3</span>
+                    <div>
+                        <strong>Negativa do Plano</strong>
+                        <div class="esteira-desc">Advogado parceiro solicita atendimento ao plano de saúde na rede credenciada. As clínicas credenciadas confirmam que não podem atender. Essa desqualificação (negativa) é documentada por escrito.</div>
+                    </div>
+                </div>
+
+                <div class="esteira-step">
+                    <span class="esteira-num">4</span>
+                    <div>
+                        <strong>Protocolar Inicial</strong>
+                        <div class="esteira-desc">Advogado parceiro prepara e protocola o texto inicial do processo judicial com toda a documentação e negativas reunidas.</div>
+                    </div>
+                </div>
+
+                <div class="esteira-step">
+                    <span class="esteira-num">5</span>
+                    <div>
+                        <strong>Deferimento da Liminar</strong>
+                        <div class="esteira-desc">Processo está com o juiz. Aguardando trâmites, recursos dos planos e decisão final sobre a liminar.</div>
+                    </div>
+                </div>
+
+                <div class="esteira-step">
+                    <span class="esteira-num">6</span>
+                    <div>
+                        <strong>Autorização de Início do Tratamento</strong>
+                        <div class="esteira-desc">Liminar deferida ≠ tratamento autorizado. O juiz precisa autorizar especificamente o início do tratamento na Clínica Hippus. Somente após esta autorização o card volta para o funil principal.</div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ ATENÇÃO:</strong> Liminar deferida NÃO significa que o paciente pode começar o tratamento. São duas etapas distintas: (5) Deferimento da liminar e (6) Autorização de início do tratamento na clínica. O advogado só movimenta o card de volta para o funil principal após a etapa 6.
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Campos Obrigatórios no Card (Esteira Jurídica)</h4>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Campo</th><th>Tipo</th><th>Finalidade</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Advogado Parceiro</strong></td>
+                                <td>Caixa de seleção (dropdown)</td>
+                                <td>Selecionar qual advogado parceiro foi indicado ao paciente. Permite relatórios por advogado.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Plano de Saúde</strong></td>
+                                <td>Caixa de seleção (dropdown)</td>
+                                <td>Operadora do paciente (Bradesco, Amil, Unimed, etc.). Permite relatórios por plano.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Status da Fase</strong></td>
+                                <td>Checkbox / Checklist</td>
+                                <td>Advogado interno marca o que já foi concluído em cada subfase. Visão rápida do progresso.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anotações do Advogado</strong></td>
+                                <td>Campo de texto</td>
+                                <td>Advogado interno registra atualizações: pendências, documentos faltantes, prazos, comunicações com parceiro.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>SLAs e Métricas da Esteira Jurídica <span class="change-marker change-v3">v3</span></h4>
+                <p>O CRM deve permitir extrair as seguintes inteligências:</p>
+                <ul class="styled-list">
+                    <li><strong>Tempo por advogado parceiro:</strong> Quanto cada advogado leva para conduzir da fase 1 à fase 6. Identificar advogados que "esfriam" o lead.</li>
+                    <li><strong>Tempo por plano de saúde:</strong> Quanto tempo em média demora a conversão por operadora (ex: Bradesco demora mais porque briga mais; Amil é mais rápido).</li>
+                    <li><strong>SLA por subfase:</strong> Definir prazo esperado para cada transição (ex: coleta de docs → 5 dias, negativa → 7 dias, protocolar → 15 dias acumulados).</li>
+                    <li><strong>Alertas de atraso:</strong> Quando o SLA de uma subfase extrapola, o advogado interno recebe alerta para fazer follow-up com o advogado parceiro.</li>
+                    <li><strong>Distribuição de carga:</strong> Quantos pacientes estão em cada subfase, em cada advogado parceiro — visão gerencial.</li>
+                </ul>
+                <div class="info-box">
+                    <strong>Implementação no Kommo:</strong> Verificar com Rafael como o Kommo compila dados de tempo de transição entre etapas para gerar esses relatórios. Cada movimentação de card registra um timestamp de update — esses dados podem alimentar um dashboard de SLA.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 7: Conexão WhatsApp -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-number">7</span>
+            <span class="section-title">Conexão WhatsApp + Canais <span class="change-marker change-v3">v3 — atualizado</span></span>
             <span class="section-toggle open">▼</span>
         </div>
         <div class="section-content">
@@ -1255,31 +1516,58 @@
                 <h4>Métodos de Conexão do WhatsApp</h4>
                 <div class="whatsapp-compare">
                     <div class="whatsapp-option">
-                        <h5 style="color: var(--success);">📱 QR Code (Integração Nativa)</h5>
+                        <h5 style="color: var(--text-muted);">📱 QR Code (Integração Nativa)</h5>
                         <ul>
                             <li>✅ Sem custo adicional</li>
                             <li>✅ Configuração rápida e simples</li>
                             <li>✅ Mesmo número de telefone</li>
                             <li>⚠️ Risco de banimento em disparos em massa</li>
-                            <li>⚠️ Limitações em automações avançadas</li>
+                            <li>⚠️ Limitações em automações avançadas (sem botões)</li>
+                            <li>⚠️ Pessoa precisa digitar respostas ao invés de clicar</li>
                         </ul>
-                        <div class="success-box" style="margin-top: 12px; font-size: 12px;">
-                            <strong>Recomendado para o momento atual.</strong> Suficiente para o volume de operação inicial.
+                        <div class="info-box" style="margin-top: 12px; font-size: 12px;">
+                            <strong>Opção secundária.</strong> Funcional, mas sem automações avançadas como botões de resposta rápida.
                         </div>
                     </div>
-                    <div class="whatsapp-option">
-                        <h5 style="color: var(--info);">🔗 API Oficial do WhatsApp</h5>
+                    <div class="whatsapp-option" style="border-color: var(--success); border-width: 2px;">
+                        <h5 style="color: var(--success);">🔗 API Oficial do WhatsApp ⭐ RECOMENDADO <span class="change-marker change-v3">v3</span></h5>
                         <ul>
                             <li>✅ Sem risco de banimento</li>
                             <li>✅ Disparos em massa seguros</li>
-                            <li>✅ Automações avançadas</li>
-                            <li>💰 Custo pago (serviço Meta)</li>
-                            <li>📋 Configuração mais complexa</li>
+                            <li>✅ Automações avançadas (botões de resposta)</li>
+                            <li>✅ Custo baixo para o volume da clínica (~R$0,35/msg fora da janela)</li>
+                            <li>📋 Configuração mais complexa (feita pela V4)</li>
                         </ul>
-                        <div class="info-box" style="margin-top: 12px; font-size: 12px;">
-                            <strong>Recomendado para o futuro</strong> — quando o volume de disparos e automações avançadas exigir.
+                        <div class="success-box" style="margin-top: 12px; font-size: 12px;">
+                            <strong>Recomendado para a Hippus.</strong> O volume de atendimento é baixo, então o custo será mínimo. E a clínica ganha automações avançadas com botões interativos no bot.
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Janelas de Atendimento (API Oficial)</h4>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Origem do Lead</th><th>Janela de Atendimento</th><th>O que acontece depois?</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Mensagem orgânica</strong> (WhatsApp direto)</td>
+                                <td>24 horas para responder</td>
+                                <td>A cada resposta do lead, a janela de 24h se reabre. Se expirar, mensagem seguinte é paga (~R$0,35).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Campanha de mensagem</strong> (via anúncio Meta)</td>
+                                <td>72 horas para responder</td>
+                                <td>Mesma lógica: a cada resposta do lead, a janela se reabre. Expirou → mensagem paga.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info-box">
+                    <strong>Na prática:</strong> A intenção é sempre responder imediatamente (o bot responde na hora). A janela é o prazo máximo que o Meta permite — não é um prazo interno de atendimento. O custo só ocorre quando o lead fica inativo por muito tempo e a clínica precisa retomar o contato.
                 </div>
             </div>
 
@@ -1295,10 +1583,10 @@
         </div>
     </div>
 
-    <!-- SECTION 7: SLAs -->
+    <!-- SECTION 8: SLAs -->
     <div class="section">
         <div class="section-header" onclick="toggleSection(this)">
-            <span class="section-number">7</span>
+            <span class="section-number">8</span>
             <span class="section-title">Gestão de SLAs e Alertas de Inatividade</span>
             <span class="section-toggle open">▼</span>
         </div>
@@ -1342,6 +1630,20 @@
                 <h4>Lógica do Alerta Crítico</h4>
                 <p>Três dias antes do arquivamento (aos 12 dias), o sistema notifica o vendedor com alta prioridade. O objetivo é uma tentativa final através de um canal diferente (ex: ligação se o contato era WhatsApp) para "ressuscitar" o lead antes da perda oficial.</p>
             </div>
+
+            <div class="card">
+                <h4>Reativação de Leads Antigos <span class="change-marker change-v3">v3 — novo</span></h4>
+                <p>Leads que foram arquivados por inatividade podem retornar meses depois (caso comum: 6 a 12 meses). Quando isso acontece:</p>
+                <ul class="styled-list">
+                    <li>O CRM gera um novo card automaticamente ao receber a mensagem.</li>
+                    <li>Um <strong>gatilho de automação</strong> deve verificar se aquele número/contato já possui um card anterior na base de perdidos.</li>
+                    <li>Se encontrar, o sistema <strong>puxa o histórico do card anterior</strong> para o novo card, preservando todo o contexto de conversas e anotações anteriores.</li>
+                    <li>O novo card entra na etapa "Novo Lead" com a tag <strong>#Lead_Reativado</strong>, para que a Raquel saiba que se trata de um retorno e consulte o histórico antes de abordar.</li>
+                </ul>
+                <div class="info-box">
+                    <strong>Por que isso importa?</strong> Conforme relatado na reunião, é comum o lead não estar pronto no momento, mas retornar 8+ meses depois. Perder o histórico de acolhimento obriga a Raquel a recomeçar do zero — experiência ruim para o paciente e ineficiente para a equipe.
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1356,14 +1658,12 @@
     }
 
     function switchTab(event, tabId) {
-        // Deactivate all tabs
         const tabs = event.target.closest('.section-content').querySelectorAll('.tab-btn');
         tabs.forEach(t => t.classList.remove('active'));
 
         const contents = event.target.closest('.section-content').querySelectorAll('.tab-content');
         contents.forEach(c => c.classList.remove('active'));
 
-        // Activate selected
         event.target.classList.add('active');
         document.getElementById(tabId).classList.add('active');
     }
