@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento CRM Estratégico - Domino's Pizza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* CSS BASE DO SISTEMA - NÃO ALTERE ESTAS CLASSES */
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 600px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 180px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.medico-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; } .medico-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; } .medico-spec { font-size: 0.85rem; font-weight: 500; color: var(--white-muted); margin-bottom: 0.5rem; line-height: 1.5; }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.8; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento Estratégico CRM</div>
+<h1>Domino's <span>Pizza</span></h1>
+<p class="hero-sub">Projeto Piloto: Loja Vila Clementino. Implementação de IA + Kommo CRM para automação de pedidos e conversão de clientes de agregadores (iFood) para canais próprios.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">B2C e B2B Híbrido</div></div>
+<div class="hero-meta-item"><div class="label">Foco/Nicho</div><div class="value">Food Service / Delivery</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Kommo CRM + IA Integrada</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#contexto" class="nav-link">Contexto & Dores</a>
+<a href="#equipe" class="nav-link">Equipe</a>
+<a href="#fluxo" class="nav-link">Jornada do Lead</a>
+<a href="#funil-vendas" class="nav-link">Funil de Vendas</a>
+<a href="#campos" class="nav-link">Estrutura de Dados</a>
+<a href="#tags" class="nav-link">Tags</a>
+<a href="#automacoes" class="nav-link">Automações</a>
+<a href="#integracao" class="nav-link">Integração Sistema</a>
+<a href="#sla" class="nav-link">SLAs & Acessos</a>
+</div>
+</nav>
+
+<div class="divider"></div>
+<section class="section" id="contexto">
+<div class="section-header reveal">
+<div class="section-number">01 — Contexto Estratégico</div>
+<h2 class="section-title">Diagnóstico & Descoberta</h2>
+</div>
+
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">R$ 90</div><div class="stat-label">Ticket Médio Est.</div></div>
+<div class="stat-card"><div class="stat-num">2 a 3K</div><div class="stat-label">Pedidos/Mês (V.Clementino)</div></div>
+<div class="stat-card"><div class="stat-num">58.000</div><div class="stat-label">Contatos na Base Histórica</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Objetivos</div>
+<h3>O que buscamos resolver?</h3>
+<p>Automatizar o atendimento de vendas via WhatsApp utilizando IA para substituir processos manuais e demorados. Reduzir a dependência de plataformas agregadoras (iFood, 99Food) migrando clientes para a base própria da loja. Acelerar o SLA de atendimento para garantir a excelência da pizza (reduzindo o tempo entre pedido e forno).</p>
+</div>
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Perfil Ideal (ICP)</h3>
+<p><strong>B2C:</strong> Clientes finais da região buscando alta qualidade, rapidez e custo-benefício (ticket de R$90-R$100).<br><strong>B2B:</strong> Faculdades, centros empresariais (ex: Itaú Jabaquara) e eventos que compram em grande volume e recorrência (ex: 70 pizzas por pedido).</p>
+</div>
+</div>
+
+<div class="accordion reveal">
+<div class="accordion-item open">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>🔴 Dores e Desafios Mapeados</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner">
+<div class="grid-2" style="margin-top: 1rem;">
+    <div class="info-box"><strong>Falta de Dados:</strong> Vendas via iFood ocultam o contato do cliente, impedindo remarketing e relacionamento direto a longo prazo.</div>
+    <div class="info-box"><strong>Gargalo Operacional (Lançamento):</strong> Hoje, pedidos do WhatsApp demandam um atendente humano para digitar no sistema interno de PDV e produção. Isso atrasa a produção em até 10 minutos e prejudica o tempo de entrega.</div>
+    <div class="info-box"><strong>Chatbot Engessado:</strong> O bot da franqueadora funciona por menus (clique 1, clique 2). Os clientes se irritam. É necessária uma IA fluida e humanizada.</div>
+    <div class="info-box"><strong>Sincronia de Status:</strong> Plataformas como o iFood disparam mensagens automáticas de "pedido a caminho" baseadas em tempo, sem refletir a realidade da loja, gerando atritos com o cliente.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>Regras de Negócio Inegociáveis</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner" style="margin-top: 1rem;">
+    <p>• <strong>Transparência da IA:</strong> A IA deve agir de forma humanizada, mas se o cliente perguntar "Você é um robô?", ela deve confirmar com simpatia ("Descobriu meu segredo! Mas estou aqui para agilizar sua pizza").</p>
+    <p>• <strong>Contorno de Objeções:</strong> Se o cliente enviar algo aleatório (ex: "vende curso de inglês?"), a IA deve contornar com humor e focar na venda da pizza.</p>
+    <p>• <strong>Endereço Completo:</strong> O fechamento do pedido pela IA <strong>deve obrigar</strong> a coleta de Complemento (Apto, Bloco) e Ponto de Referência.</p>
+    <p>• <strong>Pagamento:</strong> Será coletada a informação de pagamento pela IA (Cartão na entrega, Pix, Dinheiro). Links online estão em análise devido ao risco de fraudes X atrito de venda.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="equipe">
+<div class="section-header reveal">
+<div class="section-number">02 — Estrutura e Equipe</div>
+<h2 class="section-title">Profissionais e Acessos</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;" class="reveal medicos-grid">
+<div class="medico-card"><div class="medico-name">Daniel Sousa</div><div class="medico-spec">Diretoria / Liderança Estratégica</div></div>
+<div class="medico-card"><div class="medico-name">Gelson Montalvão</div><div class="medico-spec">Diretoria de Operações</div></div>
+<div class="medico-card"><div class="medico-name">Emanuel Mesquita</div><div class="medico-spec">Liderança de Implementação IA/CRM</div></div>
+<div class="medico-card"><div class="medico-name">Wendel Lima</div><div class="medico-spec">Gerência (Loja Piloto - Vila Clementino)</div></div>
+<div class="medico-card"><div class="medico-name">Gerentes Trainee</div><div class="medico-spec">Laércio e Vítor (Operação Diária)</div></div>
+<div class="medico-card"><div class="medico-name">Agente IA (SDR Virtual)</div><div class="medico-spec">Atendimento Front-line (Recepção de Pedidos)</div></div>
+</div>
+<div class="info-box reveal" style="margin-top: 2rem;">
+<strong>Nota sobre Privacidade:</strong> A equipe de diretoria e gerência confirmou que não há restrições de visibilidade de dados (financeiros, métricas) entre os usuários de gestão. Todos podem ver os resultados de vendas no CRM.
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="fluxo">
+<div class="section-header reveal">
+<div class="section-number">03 — Fluxo Comercial</div>
+<h2 class="section-title">A Jornada do Lead</h2>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">1. Captação</div><div class="flow-sub">Origem via Link, QR Code ou SMS/Email base antiga</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">2. Triagem e IA</div><div class="flow-sub">Atendimento conversacional humanizado</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">3. Coleta de Dados</div><div class="flow-sub">Sabor, Endereço, Ref, Pagamento</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">4. Integração</div><div class="flow-sub">Disparo do pedido para tela de produção</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Canais de Entrada</div>
+<h3>Origem dos Leads</h3>
+<p>
+<span class="tag tag-red">WhatsApp API</span>
+<span class="tag tag-white">Disparos de SMS (Histórico)</span>
+<span class="tag tag-white">Ações de Panfletagem/CEP</span>
+<span class="tag tag-white">Migração de Agregadores</span>
+</p>
+<p style="margin-top: 1rem; font-size: 0.85rem; color: var(--white-muted);">O foco é trazer o lead que consumia no iFood para o WhatsApp usando tags e promoções direcionadas.</p>
+</div>
+<div class="card">
+<div class="card-label">Abordagem</div>
+<h3>Processo de Qualificação da IA</h3>
+<p>O SDR (IA) será responsável por fazer a saudação, entender a necessidade, tentar <i>upsell</i> (bebidas/sobremesas sugeridas para aumentar PA e TM), solicitar os dados obrigatórios e formalizar o envio do pedido. Caso o cliente desista ("achei caro"), a IA tenta reverter; se não conseguir, marca o lead como perdido, mas o mantém na base para nutrição futura.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="funil-vendas">
+<div class="section-header reveal">
+<div class="section-number">04 — Funil de Vendas</div>
+<h2 class="section-title">Etapas da Conversão (Pipeline Kommo)</h2>
+</div>
+
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background:#f39c12"></div><div class="kanban-col-title">Lead Novo</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+<div class="kanban-card-title">Início do Contato</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Esta é a porta de entrada do CRM. Serve para recepcionar e registrar o exato momento em que o cliente envia a primeira mensagem (seja vindo do iFood, de um flyer ou base antiga). <br><br><strong>Para que serve:</strong> O foco exclusivo desta coluna é medir a volumetria de entrada e disparar o gatilho inicial de SLA. O lead não deve permanecer aqui por mais de 5 segundos, sendo rapidamente movido para a próxima fase assim que o Bot/IA realiza a saudação inicial.</div>
+</div>
+</div>
+</div>
+
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background:#3498db"></div><div class="kanban-col-title">Em Atendimento (IA)</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+<div class="kanban-card-title">Coleta de Dados e Upsell</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> É o "coração" da operação. Serve para hospedar o cliente enquanto a inteligência artificial realiza todo o atendimento conversacional de forma autônoma.<br><br><strong>Para que serve:</strong> Durante esta fase, a IA compreende o pedido, aplica estratégias de upsell (oferecendo bebidas ou sobremesas para aumentar o Ticket Médio), contorna objeções, e solicita os campos obrigatórios parametrizados (Endereço, Complemento, Ponto de Referência e Forma de Pagamento). É a fase de qualificação ativa do lead.</div>
+<div class="kanban-card-tags"><span class="kanban-tag">Ação Automática</span><span class="kanban-tag">SDR Virtual</span></div>
+</div>
+</div>
+</div>
+
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background:#9b59b6"></div><div class="kanban-col-title">Revisão Pendente</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+<div class="kanban-card-title">Validação do Cliente</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Serve como uma "trava de segurança" para evitar prejuízos operacionais e erros de produção na cozinha.<br><br><strong>Para que serve:</strong> Após a IA coletar tudo na etapa anterior, o lead é movido para cá no exato momento em que o robô envia o "Resumo do Pedido" (ex: "Confirma 1 Pizza G de Calabresa para a Rua X, pagando no Pix?"). O CRM aguarda a aprovação explícita do cliente. Se o cliente disser "sim", ele avança para o ganho. Se quiser alterar, volta a conversar. Isso zera a chance de enviar pedidos incorretos ao sistema.</div>
+</div>
+</div>
+</div>
+
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Pedido Integrado</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+<div class="kanban-card-title">Venda Concluída (Sucesso)</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Representa o "Ganho" (Won) no sistema. O cliente confirmou o pedido e a venda foi formalizada.<br><br><strong>Para que serve:</strong> Além de contabilizar as métricas financeiras (Ticket Médio, Taxa de Conversão e Faturamento) nos relatórios gerenciais, é esta a etapa responsável por acionar o Webhook que tentará enviar os dados estruturados do pedido diretamente para a tela do sistema interno de loja (mediante viabilidade técnica pré-avaliada).</div>
+<div class="kanban-card-tags"><span class="kanban-tag">Ganho</span> <span class="kanban-tag">Gatilho de WebHook</span></div>
+</div>
+</div>
+</div>
+
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Não Concluído</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+<div class="kanban-card-title">Desistência ou Timeout</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Representa a "Perda" (Lost) no funil comercial. Engloba clientes que iniciaram contato mas não finalizaram a compra.<br><br><strong>Para que serve:</strong> Mais do que uma lixeira, esta coluna é um repositório estratégico de dados. Serve para qualificar o <i>motivo da perda</i> (ex: Achou a taxa de entrega cara, Endereço fora de área, Parou de responder após 5 minutos). Clientes nesta etapa ficam salvos na base do Kommo para, no futuro, entrarem em réguas de automação de remarketing (ex: "Sentimos sua falta, aqui está um cupom").</div>
+<div class="kanban-card-tags"><span class="kanban-tag">Perdido</span> <span class="kanban-tag">Retenção de Dados</span></div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="kanban-scroll-hint">← Arraste para ver todas as etapas →</div>
+</div>
+
+<div class="reveal" style="margin-top: 1.5rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados (Para filtro futuro)</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-white">Falta de Interação (Sumiu)</span>
+<span class="tag tag-white">Desistência por Tempo Estimado</span>
+<span class="tag tag-white">Área de Entrega não Atendida</span>
+<span class="tag tag-white">Desistência por Preço</span>
+<span class="tag tag-white">Forma de Pagto Incompatível</span>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="campos">
+<div class="section-header reveal">
+<div class="section-number">05 — Estrutura de Dados</div>
+<h2 class="section-title">Campos e Variáveis Obrigatórias</h2>
+</div>
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">👤</div>
+<div><div class="campos-group-title">Dados do Cliente</div><div class="campos-group-sub">Identificação Básica</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Nome Completo</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Telefone / WhatsApp</div><div class="campo-type">Número/Contato</div></div>
+<div class="campo-item"><div class="campo-name">Origem do Cliente</div><div class="campo-type">Lista Suspensa (Base/Ifood/Whats)</div></div>
+</div>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">📍</div>
+<div><div class="campos-group-title">Logística & Endereço</div><div class="campos-group-sub">Exigências da Operação</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">CEP</div><div class="campo-type">Texto/Número</div></div>
+<div class="campo-item"><div class="campo-name">Endereço Principal (Rua/Av)</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Número</div><div class="campo-type">Texto</div></div>
+<div class="campo-item" style="border-color: var(--red);"><div class="campo-name">Complemento (Apto/Bloco)</div><div class="campo-type">Obrigatório</div></div>
+<div class="campo-item" style="border-color: var(--red);"><div class="campo-name">Ponto de Referência</div><div class="campo-type">Obrigatório</div></div>
+</div>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">🍕</div>
+<div><div class="campos-group-title">Dados do Pedido</div><div class="campos-group-sub">Integração Operacional Interna</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Sabor(es) da Pizza</div><div class="campo-type">Texto Múltiplo</div></div>
+<div class="campo-item"><div class="campo-name">Tamanho</div><div class="campo-type">Lista Suspensa</div></div>
+<div class="campo-item"><div class="campo-name">Adicionais (Bebida/Sobremesa)</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Forma de Pagamento</div><div class="campo-type">Lista (Cartão na Entrega/Pix/Cash)</div></div>
+<div class="campo-item"><div class="campo-name">Valor Total do Pedido</div><div class="campo-type">Monetário</div></div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="tags">
+<div class="section-header reveal">
+<div class="section-number">06 — Segmentação</div>
+<h2 class="section-title">Classificação (Tags de CRM)</h2>
+</div>
+<p class="section-desc mb-4">Tags essenciais para segmentação rápida e disparos de e-mail marketing ou WhatsApp API no futuro.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem;" class="reveal">
+<span class="tag tag-red" style="font-size: 0.85rem; padding: 0.5rem 1rem;">B2C - Consumidor</span>
+<span class="tag tag-red" style="font-size: 0.85rem; padding: 0.5rem 1rem;">B2B - Corporativo/Eventos</span>
+<span class="tag tag-red" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Migrado Agregador (iFood)</span>
+<span class="tag tag-red" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Cliente VIP (Alto TM)</span>
+<span class="tag tag-white" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Dados Incompletos</span>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="automacoes">
+<div class="section-header reveal">
+<div class="section-number">07 — Automações e Motor Lógico</div>
+<h2 class="section-title">Gatilhos do Kommo CRM</h2>
+<p class="section-desc">Conforme solicitado explicitamente pela gestão para manter a constância e velocidade do contato.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Gatilho (Quando...)</th><th>Ação do CRM (Faz isso...)</th><th>Objetivo Operacional</th></tr></thead>
+<tbody>
+<tr>
+    <td><strong>Lead sem resposta por 5 minutos</strong> (no funil "Em Atendimento")</td>
+    <td>Disparo de mensagem da IA: <i>"Oi, você ainda tá por aí? O forno tá quente te esperando!"</i></td>
+    <td>Recuperar a atenção do cliente e garantir o fechamento da venda rápida.</td>
+</tr>
+<tr>
+    <td><strong>Lead movido para "Pedido Integrado"</strong></td>
+    <td>Webhook gera pacote JSON com os dados do pedido. <strong>Atenção:</strong> O envio bem-sucedido para o sistema de expedição interno depende obrigatoriamente de prévia avaliação técnica, visto que não há conexão nativa garantida.</td>
+    <td>Zerar o gargalo de digitação manual do gerente, fazendo o pedido cair direto na tela de produção (ação estritamente condicionada à liberação de API).</td>
+</tr>
+<tr>
+    <td><strong>Lead sem compra há 30 dias</strong> (Lead perdido ou inativo)</td>
+    <td>Entrada no Fluxo de Nutrição: Disparo automático de E-mail ou WhatsApp API com promoção de retenção.</td>
+    <td>Reativar base inativa e aumentar o Life Time Value (LTV) gastando o mínimo possível.</td>
+</tr>
+<tr>
+    <td><strong>Cliente vindo do flyer promocional iFood</strong></td>
+    <td>Aplicação automática da tag <strong>[Migrado Agregador (iFood)]</strong> no card do lead.</td>
+    <td>Mensurar com precisão a eficácia das campanhas de mudança de canal de venda.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="integracao">
+<div class="section-header reveal">
+<div class="section-number">08 — Estudo Técnico</div>
+<h2 class="section-title">Avaliação de Integração Pulse/Planes</h2>
+</div>
+
+<div class="info-box reveal" style="border-left-color: #f39c12; background: rgba(243, 156, 18, 0.08); padding: 2rem; border-radius: 8px;">
+<strong style="color: #f39c12; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    Atenção Crítica de Viabilidade Técnica e Sistemas
+</strong>
+<p style="color: var(--white); margin-bottom: 1.2rem; font-size: 0.95rem;">É mandatório ressaltar que a automação ponta a ponta deste projeto — consistindo na recepção do pedido via WhatsApp, orquestração pela IA e o disparo automatizado diretamente para a tela de produção e expedição da loja — <strong>deve ser rigorosamente avaliada quanto à sua viabilidade técnica perante os sistemas operacionais corporativos Pulse e Planes.</strong></p>
+
+<ul style="color: var(--white-muted); margin-left: 1.5rem; display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem;">
+    <li><strong>Ausência de Conexões Nativas:</strong> Atualmente, não existem integrações diretas "plug-and-play" entre a arquitetura do Kommo CRM e o ecossistema fechado do Pulse/Planes mantido pela franqueadora. Não é possível prever um mapeamento de dados imediato sem envolvimento de TI e desenvolvimento.</li>
+    <li><strong>Necessidade de Mapeamento de APIs/Webhooks:</strong> Será imprescindível a realização de um estudo profundo, possivelmente exigindo contato direto com os responsáveis de tecnologia da franqueadora, para investigar a disponibilidade de Endpoints, APIs RESTful abertas ou documentação para recepção de Webhooks externos na loja piloto.</li>
+    <li><strong>Plano de Contingência (RPA):</strong> Caso a franqueadora não autorize o acesso à API ou confirme que o sistema Pulse/Planes é inteiramente blindado a conexões externas, planos alternativos de alta complexidade precisarão ser discutidos (ex: RPA - Robotic Process Automation), utilizando bots estruturais que "assistem" a tela e simulam o comportamento de digitação humana para transcrever os pedidos. O objetivo final será sempre mitigar a dor operacional do gerente em digitar os dados do WhatsApp manualmente para o balcão.</li>
+</ul>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="sla">
+<div class="section-header reveal">
+<div class="section-number">09 — Governança e Acessos</div>
+<h2 class="section-title">SLAs e Níveis de Permissão</h2>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Perfil do Usuário</th><th>Profissionais Associados</th><th>Nível de Acesso e Permissões</th></tr></thead>
+<tbody>
+<tr>
+    <td><strong>Administrador Geral</strong></td>
+    <td>Daniel Sousa / Gelson Montalvão / Emanuel Mesquita</td>
+    <td>Acesso irrestrito. Visão completa de dashboards, faturamentos, funil, configuração de integrações (API/Webhooks) e exportação da base.</td>
+</tr>
+<tr>
+    <td><strong>Gerente de Loja</strong></td>
+    <td>Wendel Lima (Loja Piloto)</td>
+    <td>Acesso à operação de sua loja. Pode ver chats, intervir na IA caso haja erro crítico, alterar status de pedidos e visualizar painel financeiro local.</td>
+</tr>
+<tr>
+    <td><strong>Operador / Agente Virtual</strong></td>
+    <td>Integração IA (Bot) / Atendentes Futuros</td>
+    <td>Acesso apenas à caixa de entrada (Chats). Permissão restrita para criar leads, atualizar dados de cartão/endereço e mover o card para "Integrado". Não pode deletar leads.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<footer class="footer">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
+<div class="logo-text">V4 Company x Domino's Pizza</div>
+<p>Planejamento Estratégico de Implementação IA + CRM</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado a partir de Discovery oficial da operação para implementação Kommo CRM e Automação Conversacional.</p>
+</footer>
+
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório PDF
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_Kommo_CRM_Dominos.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+</script>
+
+</body>
+</html>
