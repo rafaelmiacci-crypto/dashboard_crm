@@ -317,6 +317,37 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </section>
 
 <div class="divider"></div>
+<section class="section" id="pos-vendas">
+<div class="section-header reveal">
+<div class="section-number">04.1 — Funil de Pós-Vendas</div>
+<h2 class="section-title">Acompanhamento e LTV</h2>
+</div>
+
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background: #3498db;"></div><div class="kanban-col-title">Acompanhamento (15 Dias)</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Suporte Clínico Inicial</div><div class="kanban-card-desc">Verificação da recuperação pós-cirúrgica e orientações iniciais.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background: #e67e22;"></div><div class="kanban-col-title">Acompanhamento (3 Meses)</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Avaliação Intermediária</div><div class="kanban-card-desc">Primeiros sinais de crescimento, suporte e possível indicação de mesoterapia.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background: #f1c40f;"></div><div class="kanban-col-title">Acompanhamento (6 Meses)</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Resultados Consolidados</div><div class="kanban-card-desc">Avaliação avançada dos resultados, pedido de feedback/indicações e manutenção.</div></div>
+</div>
+</div>
+</div>
+<div class="kanban-scroll-hint">← Arraste para ver todas as etapas →</div>
+</div>
+</section>
+<div class="divider"></div>
 <section class="section" id="campos">
 <div class="section-header reveal">
 <div class="section-number">05 — Estrutura de Dados</div>
@@ -387,6 +418,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </div>
 </div>
 </section>
+
 <div class="divider"></div>
 <section class="section" id="automacoes">
 <div class="section-header reveal">
@@ -408,9 +440,14 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <td>Identificar oportunidades de remarketing e analisar motivos de perda.</td>
 </tr>
 <tr>
-<td>Lead estagnado por X dias em uma etapa</td>
-<td>Alerta (via CRM ou WhatsApp interno) para o consultor responsável.</td>
-<td>Garantir o follow-up contínuo e evitar que leads sejam esquecidos.</td>
+<td>Lead estagnado por X dias em uma etapa (Ex: 3 dias em "Negociação")</td>
+<td>Alerta interno (via CRM) para a consultora responsável e para os administradores (João/Luciana).</td>
+<td>Garantir o follow-up contínuo e evitar que leads quentes sejam esquecidos.</td>
+</tr>
+<tr>
+<td>Paciente movido no Funil de Pós-Vendas (15 dias, 3 meses, 6 meses)</td>
+<td>Envio de mensagem automática de acompanhamento clínico e suporte.</td>
+<td>Garantir o sucesso do tratamento, satisfação do cliente e abrir portas para cross-sell (mesoterapia).</td>
 </tr>
 <tr>
 <td>Fechamento de venda (Lead em "Venda Concluída")</td>
