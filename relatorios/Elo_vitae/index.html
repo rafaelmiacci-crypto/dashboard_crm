@@ -316,50 +316,74 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </div>
 </section>
 
-<div class="divider"></div>
-<section class="section" id="campos">
 <div class="section-header reveal">
 <div class="section-number">05 — Estrutura de Dados</div>
 <h2 class="section-title">Campos e Tags</h2>
 </div>
+
 <div class="campos-group reveal">
 <div class="campos-group-header">
-<div class="campos-group-icon">📋</div>
-<div><div class="campos-group-title">Campos Customizados</div><div class="campos-group-sub">Variáveis mapeadas</div></div>
+<div class="campos-group-icon">👤</div>
+<div><div class="campos-group-title">Campos de Contato (Paciente)</div><div class="campos-group-sub">Dados pessoais e clínicos atrelados ao cliente</div></div>
 </div>
 <div class="campos-list">
-<div class="campo-item"><div class="campo-name">Origem do Lead</div><div class="campo-type">Texto Curto / Dropdown</div></div>
-<div class="campo-item"><div class="campo-name">Tipo de Serviço de Interesse</div><div class="campo-type">Dropdown</div></div>
-<div class="campo-item"><div class="campo-name">Histórico de Cirurgias Capilares</div><div class="campo-type">Sim/Não</div></div>
+<div class="campo-item"><div class="campo-name">WhatsApp (Principal)</div><div class="campo-type">Telefone</div></div>
+<div class="campo-item"><div class="campo-name">Data de Nascimento</div><div class="campo-type">Data</div></div>
 <div class="campo-item"><div class="campo-name">Cidade de Residência</div><div class="campo-type">Texto Curto</div></div>
 <div class="campo-item"><div class="campo-name">UF de Residência</div><div class="campo-type">Dropdown</div></div>
-<div class="campo-item"><div class="campo-name">Data da Consulta Agendada</div><div class="campo-type">Data</div></div>
-<div class="campo-item"><div class="campo-name">Grau da Calvície (SDR)</div><div class="campo-type">Dropdown</div></div>
+<div class="campo-item"><div class="campo-name">Grau da Calvície (Escala)</div><div class="campo-type">Dropdown</div></div>
+<div class="campo-item"><div class="campo-name">Histórico de Cirurgias Capilares</div><div class="campo-type">Sim/Não</div></div>
 <div class="campo-item"><div class="campo-name">Área Doadora Satisfatória</div><div class="campo-type">Sim/Não</div></div>
+<div class="campo-item"><div class="campo-name">Resistente à Foto</div><div class="campo-type">Sim/Não</div></div>
+</div>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">💰</div>
+<div><div class="campos-group-title">Campos de Lead (Oportunidade)</div><div class="campos-group-sub">Dados da negociação e do serviço específico</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Origem do Lead (Canal/UTM)</div><div class="campo-type">Dropdown</div></div>
+<div class="campo-item"><div class="campo-name">Tipo de Serviço de Interesse</div><div class="campo-type">Dropdown</div></div>
+<div class="campo-item"><div class="campo-name">Data da Consulta Agendada</div><div class="campo-type">Data e Hora</div></div>
+<div class="campo-item"><div class="campo-name">Compareceu à Consulta?</div><div class="campo-type">Sim/Não</div></div>
 <div class="campo-item"><div class="campo-name">Valor da Proposta Enviada</div><div class="campo-type">Moeda</div></div>
 <div class="campo-item"><div class="campo-name">Valor Final da Venda</div><div class="campo-type">Moeda</div></div>
+<div class="campo-item"><div class="campo-name">Motivo de Perda</div><div class="campo-type">Dropdown</div></div>
 </div>
 </div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">🏢</div>
+<div><div class="campos-group-title">Campos de Empresa (Qualificação B2C)</div><div class="campos-group-sub">Dados profissionais para qualificação financeira (Ticket Alto)</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Empresa / Local de Trabalho</div><div class="campo-type">Texto Curto</div></div>
+<div class="campo-item"><div class="campo-name">Profissão / Cargo</div><div class="campo-type">Texto Curto</div></div>
+<div class="campo-item"><div class="campo-name">Faixa de Renda Estimada</div><div class="campo-type">Dropdown</div></div>
+</div>
+</div>
+
 <div class="campos-group reveal">
 <div class="campos-group-header">
 <div class="campos-group-icon">🏷️</div>
-<div><div class="campos-group-title">Tags para Classificação</div><div class="campos-group-sub">Categorização de Leads</div></div>
+<div><div class="campos-group-title">Tags para Classificação</div><div class="campos-group-sub">Categorização rápida e filtros de remarketing</div></div>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
 <span class="tag tag-red">Homem</span>
+<span class="tag tag-red">Mulher</span>
 <span class="tag tag-red">Indicação</span>
 <span class="tag tag-red">Meta Ads</span>
-<span class="tag tag-red">Com SDR</span>
-<span class="tag tag-red">Sem SDR</span>
-<span class="tag tag-red">Resistente à Foto</span>
+<span class="tag tag-red">Rastreado via Tintim</span>
 <span class="tag tag-white">Transplante Capilar</span>
 <span class="tag tag-white">Mesoterapia</span>
 <span class="tag tag-white">Primeira Cirurgia</span>
 <span class="tag tag-white">Reabordagem</span>
+<span class="tag tag-white">Sem Área Doadora</span>
 </div>
 </div>
-</section>
-
 <div class="divider"></div>
 <section class="section" id="automacoes">
 <div class="section-header reveal">
