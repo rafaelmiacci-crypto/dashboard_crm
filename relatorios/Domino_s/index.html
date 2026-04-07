@@ -81,13 +81,15 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="nav-inner">
 <a href="#contexto" class="nav-link">Contexto & Dores</a>
 <a href="#equipe" class="nav-link">Equipe</a>
-<a href="#fluxo" class="nav-link">Jornada do Lead</a>
+<a href="#fluxo" class="nav-link">Jornada Inicial</a>
 <a href="#funil-vendas" class="nav-link">Funil de Vendas</a>
+<a href="#pos-venda" class="nav-link">Pós-Vendas (MKT)</a>
+<a href="#funil-pos-venda" class="nav-link">Funil de Retenção</a>
 <a href="#campos" class="nav-link">Estrutura de Dados</a>
 <a href="#tags" class="nav-link">Tags</a>
 <a href="#automacoes" class="nav-link">Automações</a>
-<a href="#integracao" class="nav-link">Integração Sistema</a>
-<a href="#sla" class="nav-link">SLAs & Acessos</a>
+<a href="#integracao" class="nav-link">Integração</a>
+<a href="#sla" class="nav-link">Acessos</a>
 </div>
 </nav>
 
@@ -174,7 +176,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <section class="section" id="fluxo">
 <div class="section-header reveal">
 <div class="section-number">03 — Fluxo Comercial</div>
-<h2 class="section-title">A Jornada do Lead</h2>
+<h2 class="section-title">A Jornada Inicial do Lead</h2>
 </div>
 
 <div class="flow-diagram reveal">
@@ -211,7 +213,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <section class="section" id="funil-vendas">
 <div class="section-header reveal">
 <div class="section-number">04 — Funil de Vendas</div>
-<h2 class="section-title">Etapas da Conversão (Pipeline Kommo)</h2>
+<h2 class="section-title">Etapas da Conversão (Pipeline Aquisição)</h2>
 </div>
 
 <div class="kanban-wrapper reveal">
@@ -252,7 +254,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="kanban-col-body">
 <div class="kanban-card">
 <div class="kanban-card-title">Venda Concluída (Sucesso)</div>
-<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Representa o "Ganho" (Won) no sistema. O cliente confirmou o pedido e a venda foi formalizada.<br><br><strong>Para que serve:</strong> Além de contabilizar as métricas financeiras (Ticket Médio, Taxa de Conversão e Faturamento) nos relatórios gerenciais, é esta a etapa responsável por acionar o Webhook que tentará enviar os dados estruturados do pedido diretamente para a tela do sistema interno de loja (mediante viabilidade técnica pré-avaliada).</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Representa o "Ganho" (Won) no sistema. O cliente confirmou o pedido e a venda foi formalizada.<br><br><strong>Para que serve:</strong> Além de contabilizar as métricas financeiras (Ticket Médio, Taxa de Conversão e Faturamento) nos relatórios gerenciais, é esta a etapa responsável por acionar o Webhook que tentará enviar os dados estruturados do pedido diretamente para a tela do sistema interno de loja. <strong>Também cria uma cópia do cliente no funil de Pós-Vendas.</strong></div>
 <div class="kanban-card-tags"><span class="kanban-tag">Ganho</span> <span class="kanban-tag">Gatilho de WebHook</span></div>
 </div>
 </div>
@@ -286,9 +288,118 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </section>
 
 <div class="divider"></div>
+<section class="section" id="pos-venda">
+<div class="section-header reveal">
+<div class="section-number">05 — Jornada de Pós-Vendas (Marketing)</div>
+<h2 class="section-title">Régua de Retenção e Reativação</h2>
+<p class="section-desc">Estratégia focada em marketing para maximizar o LTV (Life Time Value). Implementação de um ciclo autônomo de automações para trazer o cliente de volta, condicionado por uma rigorosa lógica de validação de recompra.</p>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Dia 0</div><div class="flow-sub">Compra Efetivada (Ganho)</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">Dia 15</div><div class="flow-sub">Lembrete: "Bateu Saudade?"</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">Dia 30</div><div class="flow-sub">Disparo de Cupom 1</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">Dia 45</div><div class="flow-sub">Oferta Agressiva Final</div></div>
+<div class="flow-arrow">↺</div>
+<div class="flow-box"><div class="flow-title">Encerramento</div><div class="flow-sub">Reinicia Ciclo Futuro</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Motor de Disparo (Etapas)</div>
+<h3>A Jornada do Cliente</h3>
+<p><strong>• 15 Dias:</strong> Mensagem leve e relacional via WhatsApp para incentivar a recompra. <i>Ex: "Faz 15 dias que você pediu sua última Domino's! Que tal repetir a dose hoje?"</i><br><br>
+<strong>• 30 Dias:</strong> Gatilho de conversão intermediário. Envio de um cupom de desconto (Ex: 10% off ou Entrega Grátis).<br><br>
+<strong>• 45 Dias:</strong> Tentativa final de resgate com oferta agressiva (Ex: Sobremesa em dobro). Caso não converta, encerra-se a jornada e o lead volta para a base inativa.</p>
+</div>
+<div class="card" style="border-color: var(--red); background: linear-gradient(145deg, var(--black-card), rgba(197, 26, 42, 0.05));">
+<div class="card-label">Regra de Negócio Crucial</div>
+<h3>Lógica de Validação (Trava de Segurança)</h3>
+<p>Para não incomodar o cliente enviando uma mensagem de "saudade" para alguém que já comprou ontem, o sistema utiliza uma validação estrita.<br><br>
+Antes de <strong>qualquer</strong> disparo (15, 30 ou 45 dias), a automação consulta o campo <strong>"Data da Última Compra"</strong> atrelado ao cadastro do cliente (integrado/atualizado no CRM). <br><br>
+Se o cliente comprou de forma orgânica no Dia 10, a jornada anterior é cancelada e a régua inteira é <strong>resetada</strong>, começando a contar os 15 dias a partir da nova data.</p>
+</div>
+</div>
+</section>
+
+<!-- NOVA SEÇÃO: FUNIL DE PÓS VENDAS -->
+<div class="divider"></div>
+<section class="section" id="funil-pos-venda">
+<div class="section-header reveal">
+<div class="section-number">06 — Pipeline de Retenção</div>
+<h2 class="section-title">Funil de Pós-Vendas (Recompra)</h2>
+<p class="section-desc">Estrutura visual e operacional do CRM para gerenciar ativamente as tentativas de revenda baseadas na jornada de marketing. Leads caem aqui automaticamente após uma compra bem-sucedida.</p>
+</div>
+
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background:#7f8c8d"></div><div class="kanban-col-title">Base Ativa (Standby)</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+<div class="kanban-card-title">Aguardando Janela (Dia 1 a 14)</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> "Estacionamento" temporário do cliente após realizar a compra.<br><br><strong>Ação Estratégica:</strong> O cliente permanece aqui sem sofrer nenhuma ação invasiva para não gerar atrito. O sistema monitora o campo "Data da Última Compra". Se o cliente comprar organicamente neste período, a data é atualizada e ele permanece em Standby.</div>
+<div class="kanban-card-tags"><span class="kanban-tag" style="color:var(--white-dim); border-color:var(--white-dim); background:transparent;">Silêncio Operacional</span></div>
+</div>
+</div>
+</div>
+
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background:#3498db"></div><div class="kanban-col-title">Check-in de 15 Dias</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+<div class="kanban-card-title">Disparo de Lembrete</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Iniciar a estratégia de revenda ativando o desejo pelo produto sem parecer agressivo.<br><br><strong>Ação Estratégica:</strong> Quando o sistema identifica 15 dias exatos sem compra, move o card para cá. Um bot dispara a mensagem: <i>"Oi! Já faz 15 dias que você provou nossa pizza. Deu vontade de repetir a dose hoje?"</i>. A IA fica pronta para recepcionar o pedido caso o lead responda.</div>
+<div class="kanban-card-tags"><span class="kanban-tag">Gatilho de Saudade</span><span class="kanban-tag">IA Ativa</span></div>
+</div>
+</div>
+</div>
+
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background:#f1c40f"></div><div class="kanban-col-title">Ação Promocional (30/45)</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+<div class="kanban-card-title">Resgate com Cupom</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Salvar o cliente que está prestes a esfriar na base, usando ancoragem de preço.<br><br><strong>Ação Estratégica:</strong> Se o cliente ignorou os 15 dias, aos 30 ou 45 dias o card chega aqui. A automação envia promoções exclusivas (ex: "Entrega Grátis hoje!"). A IA está configurada para validar o cupom e seguir com o pedido normalmente caso o lead engaje.</div>
+<div class="kanban-card-tags"><span class="kanban-tag" style="color:#f1c40f; border-color:#f1c40f;">Campanha de Desconto</span></div>
+</div>
+</div>
+</div>
+
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Recompra Confirmada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+<div class="kanban-card-title">Venda Fechada (Sucesso)</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> O ganho máximo do Pós-Vendas. O cliente aceitou a provocação e comprou novamente.<br><br><strong>Ação Estratégica:</strong> Assim que a IA finaliza o pedido, move para cá. O sistema atualiza o LTV do cliente, integra o novo pedido ao Pulse/Planes, zera o contador de dias e joga o cliente novamente para a coluna "Base Ativa (Standby)" para recomeçar o ciclo de lealdade.</div>
+<div class="kanban-card-tags"><span class="kanban-tag">Ganho Recorrente</span> <span class="kanban-tag">Restart de Ciclo</span></div>
+</div>
+</div>
+</div>
+
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Base Congelada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+<div class="kanban-card-title">Sem Conversão no Ciclo</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Organizar os leads que não responderam a nenhuma das tentativas (15, 30 e 45 dias).<br><br><strong>Ação Estratégica:</strong> O lead que chega aqui é encerrado na jornada individualizada de Pós-Vendas para não se tornar spam. Recebe a tag [Cliente Frio] e fica disponível apenas para campanhas de disparo em massa (Broadcasts de grandes feriados ou Black Friday).</div>
+<div class="kanban-card-tags"><span class="kanban-tag" style="color:var(--white-dim); border-color:var(--white-dim); background:transparent;">Perda (Temporária)</span> <span class="kanban-tag" style="color:var(--white-dim); border-color:var(--white-dim); background:transparent;">Tag Frio</span></div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="kanban-scroll-hint">← Arraste para ver a cadência de retenção →</div>
+</div>
+</section>
+
+<div class="divider"></div>
 <section class="section" id="campos">
 <div class="section-header reveal">
-<div class="section-number">05 — Estrutura de Dados</div>
+<div class="section-number">07 — Estrutura de Dados</div>
 <h2 class="section-title">Campos e Variáveis Obrigatórias</h2>
 </div>
 <div class="campos-group reveal">
@@ -320,14 +431,14 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="campos-group reveal">
 <div class="campos-group-header">
 <div class="campos-group-icon">🍕</div>
-<div><div class="campos-group-title">Dados do Pedido</div><div class="campos-group-sub">Integração Operacional Interna</div></div>
+<div><div class="campos-group-title">Dados do Pedido & Marketing</div><div class="campos-group-sub">Integração e Régua de Reativação</div></div>
 </div>
 <div class="campos-list">
 <div class="campo-item"><div class="campo-name">Sabor(es) da Pizza</div><div class="campo-type">Texto Múltiplo</div></div>
-<div class="campo-item"><div class="campo-name">Tamanho</div><div class="campo-type">Lista Suspensa</div></div>
-<div class="campo-item"><div class="campo-name">Adicionais (Bebida/Sobremesa)</div><div class="campo-type">Texto</div></div>
-<div class="campo-item"><div class="campo-name">Forma de Pagamento</div><div class="campo-type">Lista (Cartão na Entrega/Pix/Cash)</div></div>
 <div class="campo-item"><div class="campo-name">Valor Total do Pedido</div><div class="campo-type">Monetário</div></div>
+<div class="campo-item"><div class="campo-name">Forma de Pagamento</div><div class="campo-type">Lista (Cartão na Entrega/Pix/Cash)</div></div>
+<div class="campo-item" style="border-color: var(--red);"><div class="campo-name">Data da Última Compra</div><div class="campo-type">Data (Gatilho Pós-Venda)</div></div>
+<div class="campo-item"><div class="campo-name">Status de Reativação</div><div class="campo-type">Tag/Lista</div></div>
 </div>
 </div>
 </section>
@@ -335,44 +446,51 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="divider"></div>
 <section class="section" id="tags">
 <div class="section-header reveal">
-<div class="section-number">06 — Segmentação</div>
+<div class="section-number">08 — Segmentação</div>
 <h2 class="section-title">Classificação (Tags de CRM)</h2>
 </div>
-<p class="section-desc mb-4">Tags essenciais para segmentação rápida e disparos de e-mail marketing ou WhatsApp API no futuro.</p>
+<p class="section-desc mb-4">Tags essenciais para segmentação rápida e controle preciso das réguas de marketing no Pós-Venda.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem;" class="reveal">
 <span class="tag tag-red" style="font-size: 0.85rem; padding: 0.5rem 1rem;">B2C - Consumidor</span>
 <span class="tag tag-red" style="font-size: 0.85rem; padding: 0.5rem 1rem;">B2B - Corporativo/Eventos</span>
 <span class="tag tag-red" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Migrado Agregador (iFood)</span>
-<span class="tag tag-red" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Cliente VIP (Alto TM)</span>
-<span class="tag tag-white" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Dados Incompletos</span>
+<span class="tag tag-white" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Régua 15 Dias (Ativa)</span>
+<span class="tag tag-white" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Régua 30 Dias (Ativa)</span>
+<span class="tag tag-white" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Régua 45 Dias (Encerrado)</span>
+<span class="tag tag-white" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Cliente Frio</span>
 </div>
 </section>
 
 <div class="divider"></div>
 <section class="section" id="automacoes">
 <div class="section-header reveal">
-<div class="section-number">07 — Automações e Motor Lógico</div>
+<div class="section-number">09 — Automações e Motor Lógico</div>
 <h2 class="section-title">Gatilhos do Kommo CRM</h2>
-<p class="section-desc">Conforme solicitado explicitamente pela gestão para manter a constância e velocidade do contato.</p>
+<p class="section-desc">Regras parametrizadas para a cadência de vendas e sustentação da jornada de marketing.</p>
 </div>
 <div class="table-wrap reveal">
 <table>
 <thead><tr><th>Gatilho (Quando...)</th><th>Ação do CRM (Faz isso...)</th><th>Objetivo Operacional</th></tr></thead>
 <tbody>
 <tr>
-    <td><strong>Lead sem resposta por 5 minutos</strong> (no funil "Em Atendimento")</td>
+    <td><strong>Lead sem resposta por 5 minutos</strong> (no funil de Vendas)</td>
     <td>Disparo de mensagem da IA: <i>"Oi, você ainda tá por aí? O forno tá quente te esperando!"</i></td>
     <td>Recuperar a atenção do cliente e garantir o fechamento da venda rápida.</td>
 </tr>
 <tr>
-    <td><strong>Lead movido para "Pedido Integrado"</strong></td>
-    <td>Webhook gera pacote JSON com os dados do pedido. <strong>Atenção:</strong> O envio bem-sucedido para o sistema de expedição interno depende obrigatoriamente de prévia avaliação técnica, visto que não há conexão nativa garantida.</td>
-    <td>Zerar o gargalo de digitação manual do gerente, fazendo o pedido cair direto na tela de produção (ação estritamente condicionada à liberação de API).</td>
+    <td><strong>Lead movido para "Pedido Integrado" (Won)</strong></td>
+    <td>Webhook gera pacote JSON para o PDV interno. <strong>Grava a "Data da Última Compra" e cria o lead no Funil Pós-Venda</strong>.</td>
+    <td>Zerar digitação manual do gerente e iniciar a contagem para o ciclo de Pós-Vendas.</td>
 </tr>
 <tr>
-    <td><strong>Lead sem compra há 30 dias</strong> (Lead perdido ou inativo)</td>
-    <td>Entrada no Fluxo de Nutrição: Disparo automático de E-mail ou WhatsApp API com promoção de retenção.</td>
-    <td>Reativar base inativa e aumentar o Life Time Value (LTV) gastando o mínimo possível.</td>
+    <td><strong style="color:var(--red);">[MKT] 15 Dias Pós-Compra</strong></td>
+    <td>Se = 15 dias, move lead para coluna de Lembrete e envia mensagem via Bot.</td>
+    <td>Relacionamento e estímulo amigável à recompra.</td>
+</tr>
+<tr>
+    <td><strong style="color:var(--red);">[MKT] 30 e 45 Dias Pós-Compra</strong></td>
+    <td>Se não houve venda nesse intervalo, move coluna e dispara Cupom progressivo.</td>
+    <td>Recuperar o cliente que está esfriando na base utilizando ancoragem de preço/brinde.</td>
 </tr>
 <tr>
     <td><strong>Cliente vindo do flyer promocional iFood</strong></td>
@@ -387,7 +505,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="divider"></div>
 <section class="section" id="integracao">
 <div class="section-header reveal">
-<div class="section-number">08 — Estudo Técnico</div>
+<div class="section-number">10 — Estudo Técnico</div>
 <h2 class="section-title">Avaliação de Integração Pulse/Planes</h2>
 </div>
 
@@ -396,12 +514,12 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
     Atenção Crítica de Viabilidade Técnica e Sistemas
 </strong>
-<p style="color: var(--white); margin-bottom: 1.2rem; font-size: 0.95rem;">É mandatório ressaltar que a automação ponta a ponta deste projeto — consistindo na recepção do pedido via WhatsApp, orquestração pela IA e o disparo automatizado diretamente para a tela de produção e expedição da loja — <strong>deve ser rigorosamente avaliada quanto à sua viabilidade técnica perante os sistemas operacionais corporativos Pulse e Planes.</strong></p>
+<p style="color: var(--white); margin-bottom: 1.2rem; font-size: 0.95rem;">É mandatório ressaltar que a automação ponta a ponta deste projeto — consistindo na recepção do pedido via WhatsApp, orquestração pela IA e o disparo automatizado diretamente para a tela de produção da loja — <strong>deve ser rigorosamente avaliada quanto à sua viabilidade técnica perante a API do cliente (Pulse e Planes).</strong></p>
 
 <ul style="color: var(--white-muted); margin-left: 1.5rem; display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem;">
-    <li><strong>Ausência de Conexões Nativas:</strong> Atualmente, não existem integrações diretas "plug-and-play" entre a arquitetura do Kommo CRM e o ecossistema fechado do Pulse/Planes mantido pela franqueadora. Não é possível prever um mapeamento de dados imediato sem envolvimento de TI e desenvolvimento.</li>
-    <li><strong>Necessidade de Mapeamento de APIs/Webhooks:</strong> Será imprescindível a realização de um estudo profundo, possivelmente exigindo contato direto com os responsáveis de tecnologia da franqueadora, para investigar a disponibilidade de Endpoints, APIs RESTful abertas ou documentação para recepção de Webhooks externos na loja piloto.</li>
-    <li><strong>Plano de Contingência (RPA):</strong> Caso a franqueadora não autorize o acesso à API ou confirme que o sistema Pulse/Planes é inteiramente blindado a conexões externas, planos alternativos de alta complexidade precisarão ser discutidos (ex: RPA - Robotic Process Automation), utilizando bots estruturais que "assistem" a tela e simulam o comportamento de digitação humana para transcrever os pedidos. O objetivo final será sempre mitigar a dor operacional do gerente em digitar os dados do WhatsApp manualmente para o balcão.</li>
+    <li><strong>Ausência de Conexões Nativas:</strong> Atualmente, não existem integrações diretas "plug-and-play" entre a arquitetura do Kommo CRM e o ecossistema fechado mantido pela franqueadora.</li>
+    <li><strong>Necessidade de Mapeamento de APIs/Webhooks:</strong> É imprescindível testar e avaliar a plataforma do cliente para investigar a disponibilidade de Endpoints e liberação de APIs para recepção de Webhooks externos na loja piloto (Fator crítico que gerou o atraso no cronograma).</li>
+    <li><strong>Sincronia com Marketing:</strong> A mesma API que enviará o pedido, idealmente deve retornar o status real de compra para atualizar o campo "Data da Última Compra", viabilizando a régua de validação e o funcionamento do Funil de Pós-Vendas.</li>
 </ul>
 </div>
 </section>
@@ -409,7 +527,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="divider"></div>
 <section class="section" id="sla">
 <div class="section-header reveal">
-<div class="section-number">09 — Governança e Acessos</div>
+<div class="section-number">11 — Governança e Acessos</div>
 <h2 class="section-title">SLAs e Níveis de Permissão</h2>
 </div>
 <div class="table-wrap reveal">
@@ -440,7 +558,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
 <div class="logo-text">V4 Company x Domino's Pizza</div>
 <p>Planejamento Estratégico de Implementação IA + CRM</p>
-<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado a partir de Discovery oficial da operação para implementação Kommo CRM e Automação Conversacional.</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado a partir de Discovery oficial da operação para implementação Kommo CRM e Automação Conversacional com Foco em Reativação (MKT).</p>
 </footer>
 
 <button onclick="downloadPDF()" class="fab-btn">
