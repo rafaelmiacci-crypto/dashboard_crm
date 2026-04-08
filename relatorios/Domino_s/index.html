@@ -128,10 +128,10 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="accordion-body">
 <div class="accordion-body-inner">
 <div class="grid-2" style="margin-top: 1rem;">
-    <div class="info-box"><strong>Falta de Dados:</strong> Vendas via iFood ocultam o contato do cliente, impedindo remarketing e relacionamento direto a longo prazo.</div>
-    <div class="info-box"><strong>Gargalo Operacional (Lançamento):</strong> Hoje, pedidos do WhatsApp demandam um atendente humano para digitar no sistema interno de PDV e produção. Isso atrasa a produção em até 10 minutos e prejudica o tempo de entrega.</div>
-    <div class="info-box"><strong>Chatbot Engessado:</strong> O bot da franqueadora funciona por menus (clique 1, clique 2). Os clientes se irritam. É necessária uma IA fluida e humanizada.</div>
-    <div class="info-box"><strong>Sincronia de Status:</strong> Plataformas como o iFood disparam mensagens automáticas de "pedido a caminho" baseadas em tempo, sem refletir a realidade da loja, gerando atritos com o cliente.</div>
+    <div class="info-box"><strong>Falta de Dados:</strong> Vendas via iFood ocultam o contato do cliente, impedindo remarketing e relacionamento direto a longo prazo.</div>
+    <div class="info-box"><strong>Gargalo Operacional (Lançamento):</strong> Hoje, pedidos do WhatsApp demandam um atendente humano para digitar no sistema interno de PDV e produção. Isso atrasa a produção em até 10 minutos e prejudica o tempo de entrega.</div>
+    <div class="info-box"><strong>Chatbot Engessado:</strong> O bot da franqueadora funciona por menus (clique 1, clique 2). Os clientes se irritam. É necessária uma IA fluida e humanizada.</div>
+    <div class="info-box"><strong>Sincronia de Status:</strong> Plataformas como o iFood disparam mensagens automáticas de "pedido a caminho" baseadas em tempo, sem refletir a realidade da loja, gerando atritos com o cliente.</div>
 </div>
 </div>
 </div>
@@ -143,10 +143,10 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </div>
 <div class="accordion-body">
 <div class="accordion-body-inner" style="margin-top: 1rem;">
-    <p>• <strong>Transparência da IA:</strong> A IA deve agir de forma humanizada, mas se o cliente perguntar "Você é um robô?", ela deve confirmar com simpatia ("Descobriu meu segredo! Mas estou aqui para agilizar sua pizza").</p>
-    <p>• <strong>Contorno de Objeções:</strong> Se o cliente enviar algo aleatório (ex: "vende curso de inglês?"), a IA deve contornar com humor e focar na venda da pizza.</p>
-    <p>• <strong>Endereço Completo:</strong> O fechamento do pedido pela IA <strong>deve obrigar</strong> a coleta de Complemento (Apto, Bloco) e Ponto de Referência.</p>
-    <p>• <strong>Pagamento:</strong> Será coletada a informação de pagamento pela IA (Cartão na entrega, Pix, Dinheiro). Links online estão em análise devido ao risco de fraudes X atrito de venda.</p>
+    <p>• <strong>Transparência da IA:</strong> A IA deve agir de forma humanizada, mas se o cliente perguntar "Você é um robô?", ela deve confirmar com simpatia ("Descobriu meu segredo! Mas estou aqui para agilizar sua pizza").</p>
+    <p>• <strong>Contorno de Objeções:</strong> Se o cliente enviar algo aleatório (ex: "vende curso de inglês?"), a IA deve contornar com humor e focar na venda da pizza.</p>
+    <p>• <strong>Endereço Completo:</strong> O fechamento do pedido pela IA <strong>deve obrigar</strong> a coleta de Complemento (Apto, Bloco) e Ponto de Referência.</p>
+    <p>• <strong>Pagamento:</strong> Será coletada a informação de pagamento pela IA (Cartão na entrega, Pix, Dinheiro). Links online estão em análise devido ao risco de fraudes X atrito de venda.</p>
 </div>
 </div>
 </div>
@@ -186,7 +186,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="flow-arrow">→</div>
 <div class="flow-box highlight"><div class="flow-title">3. Coleta de Dados</div><div class="flow-sub">Sabor, Endereço, Ref, Pagamento</div></div>
 <div class="flow-arrow">→</div>
-<div class="flow-box"><div class="flow-title">4. Integração</div><div class="flow-sub">Disparo do pedido para tela de produção</div></div>
+<div class="flow-box"><div class="flow-title">4. Finalização</div><div class="flow-sub">Lançamento do pedido no sistema interno</div></div>
 </div>
 
 <div class="grid-2 reveal">
@@ -250,12 +250,12 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </div>
 
 <div class="kanban-col won">
-<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Pedido Integrado</div></div>
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Pedido Confirmado</div></div>
 <div class="kanban-col-body">
 <div class="kanban-card">
 <div class="kanban-card-title">Venda Concluída (Sucesso)</div>
-<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Representa o "Ganho" (Won) no sistema. O cliente confirmou o pedido e a venda foi formalizada.<br><br><strong>Para que serve:</strong> Além de contabilizar as métricas financeiras (Ticket Médio, Taxa de Conversão e Faturamento) nos relatórios gerenciais, é esta a etapa responsável por acionar o Webhook que tentará enviar os dados estruturados do pedido diretamente para a tela do sistema interno de loja. <strong>Também cria uma cópia do cliente no funil de Pós-Vendas.</strong></div>
-<div class="kanban-card-tags"><span class="kanban-tag">Ganho</span> <span class="kanban-tag">Gatilho de WebHook</span></div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> Representa o "Ganho" (Won) no sistema. O cliente confirmou o pedido e a venda foi formalizada com a IA.<br><br><strong>Para que serve:</strong> Além de contabilizar as métricas financeiras (Ticket Médio e Taxa de Conversão), é esta a etapa onde a equipe visualiza os dados estruturados do pedido para lançá-lo no sistema interno da loja (PDV). <strong>Também cria uma cópia do cliente no funil de Pós-Vendas.</strong></div>
+<div class="kanban-card-tags"><span class="kanban-tag">Ganho</span> <span class="kanban-tag">Lançamento PDV</span></div>
 </div>
 </div>
 </div>
@@ -319,13 +319,12 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="card-label">Regra de Negócio Crucial</div>
 <h3>Lógica de Validação (Trava de Segurança)</h3>
 <p>Para não incomodar o cliente enviando uma mensagem de "saudade" para alguém que já comprou ontem, o sistema utiliza uma validação estrita.<br><br>
-Antes de <strong>qualquer</strong> disparo (15, 30 ou 45 dias), a automação consulta o campo <strong>"Data da Última Compra"</strong> atrelado ao cadastro do cliente (integrado/atualizado no CRM). <br><br>
+Antes de <strong>qualquer</strong> disparo (15, 30 ou 45 dias), a automação consulta o campo <strong>"Data da Última Compra"</strong> atrelado ao cadastro do cliente (atualizado no CRM). <br><br>
 Se o cliente comprou de forma orgânica no Dia 10, a jornada anterior é cancelada e a régua inteira é <strong>resetada</strong>, começando a contar os 15 dias a partir da nova data.</p>
 </div>
 </div>
 </section>
 
-<!-- NOVA SEÇÃO: FUNIL DE PÓS VENDAS -->
 <div class="divider"></div>
 <section class="section" id="funil-pos-venda">
 <div class="section-header reveal">
@@ -374,7 +373,7 @@ Se o cliente comprou de forma orgânica no Dia 10, a jornada anterior é cancela
 <div class="kanban-col-body">
 <div class="kanban-card">
 <div class="kanban-card-title">Venda Fechada (Sucesso)</div>
-<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> O ganho máximo do Pós-Vendas. O cliente aceitou a provocação e comprou novamente.<br><br><strong>Ação Estratégica:</strong> Assim que a IA finaliza o pedido, move para cá. O sistema atualiza o LTV do cliente, integra o novo pedido ao Pulse/Planes, zera o contador de dias e joga o cliente novamente para a coluna "Base Ativa (Standby)" para recomeçar o ciclo de lealdade.</div>
+<div class="kanban-card-desc"><strong>Objetivo da Etapa:</strong> O ganho máximo do Pós-Vendas. O cliente aceitou a provocação e comprou novamente.<br><br><strong>Ação Estratégica:</strong> Assim que a IA finaliza o pedido, move para cá. O sistema atualiza o LTV do cliente, zera o contador de dias e joga o cliente novamente para a coluna "Base Ativa (Standby)" para recomeçar o ciclo de lealdade.</div>
 <div class="kanban-card-tags"><span class="kanban-tag">Ganho Recorrente</span> <span class="kanban-tag">Restart de Ciclo</span></div>
 </div>
 </div>
@@ -431,7 +430,7 @@ Se o cliente comprou de forma orgânica no Dia 10, a jornada anterior é cancela
 <div class="campos-group reveal">
 <div class="campos-group-header">
 <div class="campos-group-icon">🍕</div>
-<div><div class="campos-group-title">Dados do Pedido & Marketing</div><div class="campos-group-sub">Integração e Régua de Reativação</div></div>
+<div><div class="campos-group-title">Dados do Pedido & Marketing</div><div class="campos-group-sub">Organização e Régua de Reativação</div></div>
 </div>
 <div class="campos-list">
 <div class="campo-item"><div class="campo-name">Sabor(es) da Pizza</div><div class="campo-type">Texto Múltiplo</div></div>
@@ -473,29 +472,29 @@ Se o cliente comprou de forma orgânica no Dia 10, a jornada anterior é cancela
 <thead><tr><th>Gatilho (Quando...)</th><th>Ação do CRM (Faz isso...)</th><th>Objetivo Operacional</th></tr></thead>
 <tbody>
 <tr>
-    <td><strong>Lead sem resposta por 5 minutos</strong> (no funil de Vendas)</td>
-    <td>Disparo de mensagem da IA: <i>"Oi, você ainda tá por aí? O forno tá quente te esperando!"</i></td>
-    <td>Recuperar a atenção do cliente e garantir o fechamento da venda rápida.</td>
+    <td><strong>Lead sem resposta por 5 minutos</strong> (no funil de Vendas)</td>
+    <td>Disparo de mensagem da IA: <i>"Oi, você ainda tá por aí? O forno tá quente te esperando!"</i></td>
+    <td>Recuperar a atenção do cliente e garantir o fechamento da venda rápida.</td>
 </tr>
 <tr>
-    <td><strong>Lead movido para "Pedido Integrado" (Won)</strong></td>
-    <td>Webhook gera pacote JSON para o PDV interno. <strong>Grava a "Data da Última Compra" e cria o lead no Funil Pós-Venda</strong>.</td>
-    <td>Zerar digitação manual do gerente e iniciar a contagem para o ciclo de Pós-Vendas.</td>
+    <td><strong>Lead movido para "Pedido Confirmado" (Won)</strong></td>
+    <td>O sistema sinaliza o fechamento, <strong>grava automaticamente a "Data da Última Compra" e cria o lead no Funil Pós-Venda</strong>.</td>
+    <td>Iniciar automaticamente a contagem para o ciclo de Pós-Vendas (Marketing).</td>
 </tr>
 <tr>
-    <td><strong style="color:var(--red);">[MKT] 15 Dias Pós-Compra</strong></td>
-    <td>Se = 15 dias, move lead para coluna de Lembrete e envia mensagem via Bot.</td>
-    <td>Relacionamento e estímulo amigável à recompra.</td>
+    <td><strong style="color:var(--red);">[MKT] 15 Dias Pós-Compra</strong></td>
+    <td>Se = 15 dias, move lead para coluna de Lembrete e envia mensagem via Bot.</td>
+    <td>Relacionamento e estímulo amigável à recompra.</td>
 </tr>
 <tr>
-    <td><strong style="color:var(--red);">[MKT] 30 e 45 Dias Pós-Compra</strong></td>
-    <td>Se não houve venda nesse intervalo, move coluna e dispara Cupom progressivo.</td>
-    <td>Recuperar o cliente que está esfriando na base utilizando ancoragem de preço/brinde.</td>
+    <td><strong style="color:var(--red);">[MKT] 30 e 45 Dias Pós-Compra</strong></td>
+    <td>Se não houve venda nesse intervalo, move coluna e dispara Cupom progressivo.</td>
+    <td>Recuperar o cliente que está esfriando na base utilizando ancoragem de preço/brinde.</td>
 </tr>
 <tr>
-    <td><strong>Cliente vindo do flyer promocional iFood</strong></td>
-    <td>Aplicação automática da tag <strong>[Migrado Agregador (iFood)]</strong> no card do lead.</td>
-    <td>Mensurar com precisão a eficácia das campanhas de mudança de canal de venda.</td>
+    <td><strong>Cliente vindo do flyer promocional iFood</strong></td>
+    <td>Aplicação automática da tag <strong>[Migrado Agregador (iFood)]</strong> no card do lead.</td>
+    <td>Mensurar com precisão a eficácia das campanhas de mudança de canal de venda.</td>
 </tr>
 </tbody>
 </table>
@@ -511,15 +510,15 @@ Se o cliente comprou de forma orgânica no Dia 10, a jornada anterior é cancela
 
 <div class="info-box reveal" style="border-left-color: #f39c12; background: rgba(243, 156, 18, 0.08); padding: 2rem; border-radius: 8px;">
 <strong style="color: #f39c12; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-    Atenção Crítica de Viabilidade Técnica e Sistemas
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    Atenção Crítica de Viabilidade Técnica e Sistemas
 </strong>
-<p style="color: var(--white); margin-bottom: 1.2rem; font-size: 0.95rem;">É mandatório ressaltar que a automação ponta a ponta deste projeto — consistindo na recepção do pedido via WhatsApp, orquestração pela IA e o disparo automatizado diretamente para a tela de produção da loja — <strong>deve ser rigorosamente avaliada quanto à sua viabilidade técnica perante a API do cliente (Pulse e Planes).</strong></p>
+<p style="color: var(--white); margin-bottom: 1.2rem; font-size: 0.95rem;">É mandatório ressaltar que a automação ponta a ponta deste projeto — consistindo na recepção do pedido via WhatsApp, orquestração pela IA e o disparo automatizado diretamente para a tela de produção da loja — <strong>não será possível de ser concluída via sistema</strong>. Embora tenha sido rigorosamente avaliada quanto à sua viabilidade técnica perante a API do cliente (Pulse e Planes), <strong>o sistema é de uso estritamente interno e a matriz da Domino's não libera a integração com outras plataformas ou ferramentas de terceiros.</strong></p>
 
 <ul style="color: var(--white-muted); margin-left: 1.5rem; display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem;">
-    <li><strong>Ausência de Conexões Nativas:</strong> Atualmente, não existem integrações diretas "plug-and-play" entre a arquitetura do Kommo CRM e o ecossistema fechado mantido pela franqueadora.</li>
-    <li><strong>Necessidade de Mapeamento de APIs/Webhooks:</strong> É imprescindível testar e avaliar a plataforma do cliente para investigar a disponibilidade de Endpoints e liberação de APIs para recepção de Webhooks externos na loja piloto (Fator crítico que gerou o atraso no cronograma).</li>
-    <li><strong>Sincronia com Marketing:</strong> A mesma API que enviará o pedido, idealmente deve retornar o status real de compra para atualizar o campo "Data da Última Compra", viabilizando a régua de validação e o funcionamento do Funil de Pós-Vendas.</li>
+    <li><strong>Ausência de Conexões Nativas e Bloqueio:</strong> Atualmente, não existem integrações diretas "plug-and-play" entre a arquitetura do Kommo CRM e o ecossistema fechado mantido pela franqueadora. A restrição da matriz impossibilita o contorno sistêmico dessa limitação.</li>
+    <li><strong>Impossibilidade de Mapeamento de APIs/Webhooks:</strong> Devido à política de segurança da plataforma, não há disponibilidade de Endpoints nem liberação de APIs para recepção de Webhooks externos na loja piloto. A inserção dos pedidos estruturados pela IA deverá ser feita <strong>manualmente</strong> no PDV pela equipe.</li>
+    <li><strong>Sincronia com Marketing (Ajuste Operacional):</strong> Como a integração foi vetada, não haverá uma API externa retornando o status real de compra do PDV para o CRM. A atualização da "Data da Última Compra" e a alimentação do Funil de Pós-Vendas dependerão da gestão e avanço (ganho/won) do card de venda dentro do próprio Kommo CRM.</li>
 </ul>
 </div>
 </section>
@@ -535,19 +534,19 @@ Se o cliente comprou de forma orgânica no Dia 10, a jornada anterior é cancela
 <thead><tr><th>Perfil do Usuário</th><th>Profissionais Associados</th><th>Nível de Acesso e Permissões</th></tr></thead>
 <tbody>
 <tr>
-    <td><strong>Administrador Geral</strong></td>
-    <td>Daniel Sousa / Gelson Montalvão / Emanuel Mesquita</td>
-    <td>Acesso irrestrito. Visão completa de dashboards, faturamentos, funil, configuração de integrações (API/Webhooks) e exportação da base.</td>
+    <td><strong>Administrador Geral</strong></td>
+    <td>Daniel Sousa / Gelson Montalvão / Emanuel Mesquita</td>
+    <td>Acesso irrestrito. Visão completa de dashboards, faturamentos, funil, configurações automáticas e exportação da base.</td>
 </tr>
 <tr>
-    <td><strong>Gerente de Loja</strong></td>
-    <td>Wendel Lima (Loja Piloto)</td>
-    <td>Acesso à operação de sua loja. Pode ver chats, intervir na IA caso haja erro crítico, alterar status de pedidos e visualizar painel financeiro local.</td>
+    <td><strong>Gerente de Loja</strong></td>
+    <td>Wendel Lima (Loja Piloto)</td>
+    <td>Acesso à operação de sua loja. Pode ver chats, intervir na IA caso haja erro crítico, alterar status de pedidos e visualizar painel financeiro local.</td>
 </tr>
 <tr>
-    <td><strong>Operador / Agente Virtual</strong></td>
-    <td>Integração IA (Bot) / Atendentes Futuros</td>
-    <td>Acesso apenas à caixa de entrada (Chats). Permissão restrita para criar leads, atualizar dados de cartão/endereço e mover o card para "Integrado". Não pode deletar leads.</td>
+    <td><strong>Operador / Agente Virtual</strong></td>
+    <td>Integração IA (Bot) / Atendentes Futuros</td>
+    <td>Acesso apenas à caixa de entrada (Chats). Permissão restrita para criar leads, atualizar dados de cartão/endereço e mover o card para finalização. Não pode deletar leads.</td>
 </tr>
 </tbody>
 </table>
