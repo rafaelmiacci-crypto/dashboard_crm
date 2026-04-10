@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roteiro Discovery — Decarli Balas</title>
-<link href="[https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@300;400;500;600&display=swap](https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@300;400;500;600&display=swap)" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #0e0e0e;
@@ -51,7 +50,7 @@ body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif;
   line-height:.9; text-transform:uppercase; letter-spacing:-1px; margin-bottom:6px;
 }
 .hero h1 span { color:var(--red); }
-.hero-sub { font-size:14px; color:var(--muted2); max-width:520px; margin-top:14px; line-height:1.55; }
+.hero-sub { font-size:14px; color:var(--muted2); max-width:650px; margin-top:14px; line-height:1.55; }
 
 /* META BAR */
 .meta-bar {
@@ -84,6 +83,8 @@ body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif;
 .lp-rafael  { background:var(--rafael-bg);  border:1px solid var(--rafael-border);  color:var(--rafael);  }
 .lp-hualter { background:var(--hualter-bg); border:1px solid var(--hualter-border); color:var(--hualter); }
 .lp-ambos   { background:var(--ambos-bg);   border:1px solid rgba(220,38,38,0.3);   color:#f87171; }
+.lp-confirm { background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.4); color:#22c55e; }
+
 .filter-btn {
   padding:6px 16px; border-radius:4px; font-size:12px; font-weight:600;
   cursor:pointer; border:1px solid var(--border); background:var(--surface2);
@@ -103,9 +104,9 @@ body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif;
   transition:opacity .15s; display:flex; align-items:center; gap:6px;
 }
 .float-btn:hover { opacity:.85; }
-.fb-fields { background:var(--hualter); color:#000; }
+.fb-fields { background:var(--red); color:#fff; }
 .fb-clear  { background:var(--surface3); color:var(--muted2); border:1px solid var(--border); }
-.fb-export { background:var(--red); color:#fff; }
+.fb-export { background:var(--rafael); color:#000; }
 
 /* PROGRESS */
 .progress-bar-wrap { position:fixed; top:0; left:0; right:0; height:3px; background:#1a1a1a; z-index:2000; }
@@ -199,7 +200,7 @@ body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif;
 .sl-hualter { background:var(--hualter-bg); color:var(--hualter); border:1px solid var(--hualter-border); }
 .sl-ambos   { background:var(--ambos-bg);   color:#f87171; border:1px solid rgba(220,38,38,0.25); }
 
-/* Q-CARD */
+/* Q-CARD - OPEN QUESTIONS */
 .q-card {
   background:var(--surface); border:1px solid var(--border); border-radius:8px;
   margin-bottom:12px; overflow:hidden; transition:border-color .15s;
@@ -208,7 +209,7 @@ body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif;
 .q-card-head { display:flex; align-items:flex-start; gap:14px; padding:16px 18px 14px; }
 .q-num {
   font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:20px;
-  color:var(--red); min-width:22px; line-height:1.3;
+  color:var(--red); min-width:22px; line-height:1.3; text-align:center;
 }
 .q-body { flex:1; }
 .q-question { font-size:14px; font-weight:600; color:var(--text); line-height:1.45; margin-bottom:4px; }
@@ -218,36 +219,43 @@ body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif;
   border-radius:0 4px 4px 0; padding:10px 14px; font-size:13px; color:#ccc;
   font-style:italic; line-height:1.6;
 }
-.q-script.sc-confirm { border-left-color:var(--hualter); }
-.q-script.sc-alert   { border-left-color:var(--red); color:#fca5a5; }
+
+/* Q-CARD - CONFIRMED (GREEN) */
+.q-card-confirm {
+  border-color: var(--hualter); background: rgba(34,197,94,0.03);
+}
+.q-card-confirm:hover { border-color: #22c55e; }
+.q-card-confirm .q-num {
+  color: var(--hualter); background: rgba(34,197,94,0.1); 
+  border-radius: 4px; padding: 0 4px; font-size: 18px;
+}
+.q-card-confirm .q-question { color: #22c55e; }
+.q-card-confirm .q-hint { color: #4ade80; opacity: 0.8; }
+.q-card-confirm .q-script {
+  border-left-color: var(--hualter); background: rgba(34,197,94,0.06); color: #e5e5e5;
+}
+.badge-confirm {
+  display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase;
+  background: var(--hualter); color: #000; padding: 2px 6px; border-radius: 3px; 
+  margin-left: 8px; vertical-align: text-bottom; letter-spacing: 0.5px;
+}
+
+/* NOTES INPUT */
 .q-notes-wrap { padding:12px 18px 16px; }
 .q-notes-label {
   font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
   color:var(--muted); margin-bottom:6px; display:flex; align-items:center; gap:5px;
 }
 .q-notes-label::before { content:'✏️'; font-size:11px; }
+.q-card-confirm .q-notes-label::before { content:'✅'; }
 .q-notes {
   width:100%; background:var(--surface2); border:1px solid var(--border);
   border-radius:6px; padding:10px 12px; color:var(--text); font-size:13px;
   font-family:'Barlow',sans-serif; resize:vertical; min-height:64px; outline:none; transition:border-color .15s;
 }
 .q-notes:focus { border-color:#555; }
+.q-card-confirm .q-notes:focus { border-color:var(--hualter); }
 .q-notes::placeholder { color:#4a4a4a; }
-
-/* CONFIRM BLOCK */
-.confirm-block {
-  background:var(--surface); border:1px solid rgba(34,197,94,.2);
-  border-left:3px solid var(--hualter); border-radius:0 8px 8px 0;
-  padding:14px 18px; margin-bottom:16px;
-}
-.confirm-block-title {
-  font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.8px;
-  color:var(--hualter); margin-bottom:12px; display:flex; align-items:center; gap:6px;
-}
-.confirm-item { margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid #2a2a2a; }
-.confirm-item:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
-.confirm-topic { font-size:13px; font-weight:600; color:var(--text); margin-bottom:3px; }
-.confirm-text { font-size:13px; color:var(--muted2); }
 
 /* TRANSITION */
 .transition-block { text-align:center; padding:28px 20px; position:relative; }
@@ -261,16 +269,6 @@ body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif;
   color:var(--red); margin-bottom:6px;
 }
 .transition-script { font-size:13.5px; color:var(--muted2); font-style:italic; max-width:560px; line-height:1.6; }
-
-/* WARNING */
-.warning-block {
-  background:rgba(220,38,38,.06); border:1px solid rgba(220,38,38,.3);
-  border-radius:8px; padding:18px 20px; margin-top:10px; margin-bottom:16px;
-}
-.warning-title {
-  font-size:13px; font-weight:700; color:var(--red-light);
-  display:flex; align-items:center; gap:7px; margin-bottom:10px;
-}
 
 /* CHECKLIST */
 .checklist-block {
@@ -315,12 +313,12 @@ body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif;
 <div class="hero">
   <div class="hero-badge">Documento Interno — Confidencial</div>
   <h1>ROTEIRO <span>DISCOVERY</span><br>DECARLI BALAS</h1>
-  <p class="hero-sub">Call de discovery para implementação de Kommo CRM + IA SDR. Roteiro integrado para condução conjunta entre Rafael (CRM) e Hualter (IA SDR).</p>
+  <p class="hero-sub">Call de discovery para implementação de Kommo CRM + IA SDR. Os dados do briefing já foram mapeados e convertidos em blocos de <b>validação (verde)</b>. Pergunte apenas o que falta.</p>
 </div>
 
 <div class="meta-bar">
   <div class="meta-item"><span class="meta-dot md-red"></span><span class="meta-label">Cliente:</span><span class="meta-val">Decarli Balas</span></div>
-  <div class="meta-item"><span class="meta-dot md-white"></span><span class="meta-label">Segmento:</span><span class="meta-val">Fabricação e venda de balas de coco artesanais premium; confeitaria gourmet</span></div>
+  <div class="meta-item"><span class="meta-dot md-white"></span><span class="meta-label">Segmento:</span><span class="meta-val">Balas de coco artesanais premium</span></div>
   <div class="meta-item"><span class="meta-dot md-rafael"></span><span class="meta-label">CRM:</span><span class="meta-val">Rafael</span></div>
   <div class="meta-item"><span class="meta-dot md-hualter"></span><span class="meta-label">IA SDR:</span><span class="meta-val">Hualter</span></div>
 </div>
@@ -328,16 +326,17 @@ body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif;
 <div class="controls">
   <div class="legend-row">
     <span class="legend-label">Legenda:</span>
+    <span class="legend-pill lp-confirm">✅ Validação (Já Mapeado)</span>
     <span class="legend-pill lp-rafael">Rafael — CRM</span>
     <span class="legend-pill lp-hualter">Hualter — IA SDR</span>
-    <span class="legend-pill lp-ambos">Ambos / Compartilhado</span>
+    <span class="legend-pill lp-ambos">Ambos</span>
   </div>
   <div class="filter-row">
     <span class="filter-label">Filtrar por:</span>
     <button class="filter-btn active-all" onclick="setFilter('all',this)">Todos</button>
     <button class="filter-btn" onclick="setFilter('rafael',this)">Rafael — CRM</button>
     <button class="filter-btn" onclick="setFilter('hualter',this)">Hualter — IA SDR</button>
-    <span class="filter-status" id="filterStatus">Mostrando todas as perguntas</span>
+    <span class="filter-status" id="filterStatus">Mostrando todas as perguntas e validações</span>
   </div>
 </div>
 
@@ -349,314 +348,355 @@ body { background:var(--bg); color:var(--text); font-family:'Barlow',sans-serif;
 
 <div class="main">
 
-  <div class="flow-title">Fluxo da Call – Visão Geral</div>
-  <div class="flow-timeline">
-    <div class="flow-step" onclick="scrollToSection('s01')">
-      <div class="flow-num">01</div>
-      <div class="flow-info"><h3>Abertura &amp; Rapport</h3><p>Apresentação, alinhamento de agenda, quebra-gelo — 3 min</p><span class="owner-tag-flow otf-ambos">Ambos</span></div>
-    </div>
-    <div class="flow-step" onclick="scrollToSection('s02')">
-      <div class="flow-num">02</div>
-      <div class="flow-info"><h3>Contexto Geral do Negócio</h3><p>Ticket, time, CRM anterior, champion — 8 min</p><span class="owner-tag-flow otf-rafael">Rafael</span></div>
-    </div>
-    <div class="flow-step" onclick="scrollToSection('s03')">
-      <div class="flow-num">03</div>
-      <div class="flow-info"><h3>Processo Comercial &amp; CRM</h3><p>Fluxo do lead, gargalos, pipeline — 12 min</p><span class="owner-tag-flow otf-rafael">Rafael</span></div>
-    </div>
-    <div class="flow-step" onclick="scrollToSection('s04')">
-      <div class="flow-num">04</div>
-      <div class="flow-info"><h3>Personalidade &amp; Limites da IA SDR</h3><p>Nome, tom, autonomia, handoff — 8 min</p><span class="owner-tag-flow otf-hualter">Hualter</span></div>
-    </div>
-    <div class="flow-step" onclick="scrollToSection('s05')">
-      <div class="flow-num">05</div>
-      <div class="flow-info"><h3>Infraestrutura Técnica</h3><p>WhatsApp API, Meta Business, integrações — 7 min</p><span class="owner-tag-flow otf-ambos">Ambos</span></div>
-    </div>
-    <div class="flow-step" onclick="scrollToSection('s06')">
-      <div class="flow-num">06</div>
-      <div class="flow-info"><h3>Expectativas, KPIs &amp; Próximos Passos</h3><p>Medos, métricas, checklist, prazo — 5 min</p><span class="owner-tag-flow otf-ambos">Ambos</span></div>
-    </div>
-  </div>
-
+  <!-- ABERTURA -->
   <div class="section-wrap" id="s01">
     <div class="section-header-row"><div class="section-num-big">01</div><div class="section-title-big">Abertura &amp; Rapport</div></div>
     <div class="section-meta"><span class="section-time-badge">⏱ 3 min</span><span class="section-owner-badge sob-ambos">Ambos</span></div>
     <div class="section-divider"></div>
-    <div class="section-objective"><strong>Objetivo:</strong>&nbsp;Criar conexão, alinhar expectativas e deixar o cliente à vontade.</div>
+    
     <div class="subsection-label sl-ambos">Ambos — Abertura Conjunta</div>
     <div class="q-card" data-owner="ambos">
-      <div class="q-card-head"><div class="q-num">1</div><div class="q-body"><div class="q-question">Apresentação da Equipe</div></div></div>
-      <div class="q-script sc-confirm">"Fala Anne (sócia), Zé (sócio), Sandra (Gerente Comercial), tudo bem? Aqui é o Rafael e o Hualter, da V4. O Rafael cuida do CRM — Kommo — e eu, Hualter, da parte de IA de atendimento e vendas. A ideia é entender a operação da Decarli Balas para implementar tudo certinho."</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Participantes, cargos, impressões..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="ambos">
-      <div class="q-card-head"><div class="q-num">2</div><div class="q-body"><div class="q-question">Alinhar a agenda</div></div></div>
-      <div class="q-script sc-confirm">"Já estudamos o formulário de vocês — passamos pelo briefing inicial. Então não é do zero: vamos confirmar alguns pontos, preencher lacunas e sair com o projeto mapeado. Uns 45 minutos. Quem mais do time está aqui?"</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Agenda aprovada, participantes extras..."></textarea></div>
+      <div class="q-card-head"><div class="q-num">1</div><div class="q-body"><div class="q-question">Apresentação e Alinhamento de Expectativa</div></div></div>
+      <div class="q-script">"Fala Anne, Zé, Sandra, tudo bem? Aqui é o Rafael (Kommo CRM) e o Hualter (IA). Nós já devoramos o briefing e o Manual de Copy de vocês. Então nossa call hoje não é do zero: vamos só confirmar os dados que mapeamos e preencher algumas lacunas para desenhar a estrutura técnica. Quem mais do time está aqui hoje?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Participantes, impressões iniciais..."></textarea></div>
     </div>
   </div>
 
   <div class="transition-block">
     <div class="transition-inner">
       <div class="transition-label">Transição — Hualter para Rafael</div>
-      <div class="transition-script">"Ótimo. Vou passar a palavra pro Rafael, que vai entender o contexto geral do negócio e do time de vocês."</div>
+      <div class="transition-script">"Vou passar a palavra pro Rafael, que vai repassar o contexto geral e confirmar quem vai usar as ferramentas."</div>
     </div>
   </div>
+
+  <!-- CONTEXTO GERAL -->
   <div class="section-wrap" id="s02">
     <div class="section-header-row"><div class="section-num-big">02</div><div class="section-title-big">Contexto Geral</div></div>
     <div class="section-meta"><span class="section-time-badge">⏱ 8 min</span><span class="section-owner-badge sob-rafael">Rafael</span></div>
     <div class="section-divider"></div>
-    <div class="section-objective"><strong>Objetivo:</strong>&nbsp;Confirmar o que já sabemos e preencher lacunas básicas do negócio e do time.</div>
-    <div class="confirm-block">
-      <div class="confirm-block-title">✅ Valide — não pergunte do zero</div>
-      <div class="confirm-item"><div class="confirm-topic">Negócio e Produto</div><div class="confirm-text">A empresa vende balas de coco artesanais premium, atuando nos modelos B2C (principal) e B2B. O ticket médio varia entre R$ 130 e R$ 145.</div></div>
-      <div class="confirm-item"><div class="confirm-topic">Usuários do CRM</div><div class="confirm-text">Duas pessoas para uso diário: Sandra (Gerente Comercial) e Ana (ADM/Atendimento). Anne e Zé (sócios) são decisores e acompanharão.</div></div>
-    </div>
+
     <div class="subsection-label sl-rafael">Rafael — Contexto do Negócio</div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">1</div><div class="q-body"><div class="q-question">O que a empresa vende? Qual o ticket médio exato?</div><div class="q-hint">Confirmar segmentos e pegar valor exato — impacta projeção de ROI</div></div></div>
-      <div class="q-script">"O briefing mencionou a visão geral, mas qual é o ticket médio exato de um pedido hoje?"</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Produto/serviço, ticket, modelo..."></textarea></div>
+    
+    <div class="q-card q-card-confirm" data-owner="rafael">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Modelo e Ticket <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">B2C e B2B / Ticket: R$ 130 a R$ 145</div>
+        </div>
+      </div>
+      <div class="q-script">"Vi aqui no briefing que o foco principal é B2C (55% das vendas), com ticket médio de R$ 130 a R$ 145, puxado principalmente pelo Mix 500g e Pistache. Só para confirmar: esse cenário e os valores se mantêm exatos para o nosso projeto, certo?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Se algo mudou, anote aqui..."></textarea></div>
     </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">2</div><div class="q-body"><div class="q-question">Quantas pessoas vão usar o CRM? Quem são?</div><div class="q-hint">Impacta licenças do Kommo e quem recebe leads da IA</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Nomes, funções, qtd..."></textarea></div>
+
+    <div class="q-card q-card-confirm" data-owner="rafael">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Usuários e Decisores <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Sandra e Ana (Uso diário) / Anne e Zé (Decisores)</div>
+        </div>
+      </div>
+      <div class="q-script">"Para o uso diário do CRM e atendimento dos leads, mapeamos a Sandra (Gerente) e a Ana. E como decisores, a Anne e o Zé. É isso mesmo? Vamos precisar de mais alguém com acesso ao Kommo?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Confirmar licenças necessárias..."></textarea></div>
     </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">3</div><div class="q-body"><div class="q-question">Já usaram CRM antes? Qual? Por que trocaram?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="CRM anterior, motivos..."></textarea></div>
+
+    <div class="q-card q-card-confirm" data-owner="rafael">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Histórico de CRM <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Não usam CRM atualmente.</div>
+        </div>
+      </div>
+      <div class="q-script">"Também anotei que hoje vocês não têm um CRM ativo, usam apenas a automação básica do WhatsApp, correto?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Anotações..."></textarea></div>
     </div>
+
     <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">4</div><div class="q-body"><div class="q-question">Precisa migrar histórico de clientes e negociações?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Sim/Não, volume, formato..."></textarea></div>
+      <div class="q-card-head">
+        <div class="q-num">1</div>
+        <div class="q-body">
+          <div class="q-question">Migração de Histórico</div>
+          <div class="q-hint">Pergunta aberta — falta informação no PDF</div>
+        </div>
+      </div>
+      <div class="q-script">"Como não usam CRM, vocês têm alguma base de clientes em planilha ou sistema financeiro que vão querer importar para o Kommo logo de cara? Qual o volume aproximado?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Sim/Não, onde está a base, volume..."></textarea></div>
     </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">5</div><div class="q-body"><div class="q-question">Quem será o responsável por garantir que o time use o CRM?</div><div class="q-hint">Champion interno — ponto focal da IA também</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Nome, cargo..."></textarea></div>
-    </div>
+
     <div class="subsection-label sl-hualter" style="margin-top:8px;">Hualter — Complemento IA</div>
-    <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">6</div><div class="q-body"><div class="q-question">Já tentaram usar chatbot, IA ou automação de atendimento antes?</div><div class="q-hint">Histórico de experiências calibra a implementação</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Ferramenta, resultado, por que não deu certo..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">7</div><div class="q-body"><div class="q-question">Quem é o decisor final do projeto? Tem alguém técnico que vai acompanhar a implementação da IA?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Nome, cargo, nível de envolvimento..."></textarea></div>
+    
+    <div class="q-card q-card-confirm" data-owner="hualter">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Experiência Prévia com IA <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Nunca usaram IA. Apenas saudação.</div>
+        </div>
+      </div>
+      <div class="q-script">"Pelo lado da IA, vi que vocês nunca utilizaram inteligência artificial para atendimento, apenas o robô padrão de saudação. Então essa será a primeira experiência de vocês com uma IA conversacional avançada, certo?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Anotações..."></textarea></div>
     </div>
   </div>
 
   <div class="transition-block">
     <div class="transition-inner">
-      <div class="transition-label">Transição — Rafael continua</div>
-      <div class="transition-script">"Beleza. Agora que entendemos o cenário geral, o Rafael vai aprofundar no processo comercial de vocês. Rafael, contigo."</div>
+      <div class="transition-label">Transição — Rafael Continua</div>
+      <div class="transition-script">"Show. Agora vamos repassar a jornada do lead e o fluxo de vendas no WhatsApp."</div>
     </div>
   </div>
+
+  <!-- PROCESSO COMERCIAL -->
   <div class="section-wrap" id="s03">
     <div class="section-header-row"><div class="section-num-big">03</div><div class="section-title-big">Processo Comercial &amp; CRM</div></div>
     <div class="section-meta"><span class="section-time-badge">⏱ 12 min</span><span class="section-owner-badge sob-rafael">Rafael</span></div>
     <div class="section-divider"></div>
-    <div class="section-objective"><strong>Objetivo:</strong>&nbsp;Entender processo, onde dói mais e classificar como Sales Conversacional ou Tradicional.</div>
-    <div class="confirm-block">
-      <div class="confirm-block-title">✅ Valide — não pergunte do zero</div>
-      <div class="confirm-item"><div class="confirm-topic">Origem e Fluxo</div><div class="confirm-text">Os leads vêm de Instagram orgânico, indicações, site e mídia paga (Meta/Google Ads em estruturação). O principal canal de atendimento é o WhatsApp.</div></div>
-      <div class="confirm-item"><div class="confirm-topic">Gargalos mapeados</div><div class="confirm-text">Perdem vendas por falta de follow-up, sobrecarga da equipe, bugs no site e ausência de atendimento nos fins de semana. Buscam reduzir a sobrecarga e escalar o atendimento qualificado.</div></div>
-    </div>
+
     <div class="subsection-label sl-rafael">Rafael — Processo Atual</div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">1</div><div class="q-body"><div class="q-question">Como chega um lead hoje? (site, anúncio, indicação, redes)</div><div class="q-hint">Hualter: anotar — alimenta canais de entrada da IA</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Fontes de leads..."></textarea></div>
+
+    <div class="q-card q-card-confirm" data-owner="rafael">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Origem e Volume de Leads <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Insta, Indicações, Site, Ads (11.200/mês projetado).</div>
+        </div>
+      </div>
+      <div class="q-script">"Sobre captação: a maior parte vem de orgânico (Insta/indicação) e estão estruturando Ads com projeção de 11.200 leads por mês. Confirmam essa projeção? Hoje já tem noção de quantos leads chamam por dia no WhatsApp?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Volume diário exato, canais mais fortes..."></textarea></div>
     </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">2</div><div class="q-body"><div class="q-question">Lead chegou — o que acontece? Quem atende? Em quanto tempo?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Fluxo atual..."></textarea></div>
+
+    <div class="q-card q-card-confirm" data-owner="rafael">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Fluxo de Atendimento e Gargalos <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Wpp 21% da receita. Falta follow-up e SLA nos finais de semana.</div>
+        </div>
+      </div>
+      <div class="q-script">"Vi que o WhatsApp responde por 21% da receita. O lead chega, recebe saudação e a Sandra/Ana assumem. A dor principal hoje é a sobrecarga, a perda de orçamentos por falta de follow-up e os finais de semana descobertos. O objetivo da IA é justamente fechar esses ralos, correto?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Outras dores no atendimento..."></textarea></div>
     </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">3</div><div class="q-body"><div class="q-question">Atendimento é por WhatsApp, ligação, e-mail ou misturado?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Canal principal, canais secundários..."></textarea></div>
+
+    <div class="q-card q-card-confirm" data-owner="rafael">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Padronização de Processo <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Processo manual / Sem script formal (hoje).</div>
+        </div>
+      </div>
+      <div class="q-script">"Também notei que hoje o processo depende muito da memória das meninas (Sandra/Ana), não existe um playbook engessado no WhatsApp. A venda é bem consultiva, mas não padronizada. Com o Kommo, vamos organizar essas etapas no pipeline."</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Anotações..."></textarea></div>
     </div>
+
     <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">4</div><div class="q-body"><div class="q-question">Cada vendedor tem seu próprio WhatsApp ou é número centralizado?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Individual / centralizado, qtd de números..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">5</div><div class="q-body"><div class="q-question">Existe processo comercial documentado ou cada um faz do seu jeito?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Playbook, script, SOP..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">6</div><div class="q-body"><div class="q-question">Onde vocês sentem que perdem mais vendas? Onde o processo trava?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Etapa crítica, motivo de perda..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">7</div><div class="q-body"><div class="q-question">Quantos leads/mês aproximadamente?</div><div class="q-hint">Volume → escala da IA + pipeline CRM</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Volume mensal..."></textarea></div>
-    </div>
-    <div class="subsection-label sl-rafael" style="margin-top:8px;">Rafael — Classificação</div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">8</div><div class="q-body"><div class="q-question">Vendedor precisa atender e vender pelo WhatsApp?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Sales Conversacional..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">9</div><div class="q-body"><div class="q-question">Gestor precisa ver o que o vendedor está fazendo nas conversas?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Visibilidade..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">10</div><div class="q-body"><div class="q-question">Se o WhatsApp parasse amanhã, a venda travaria?</div><div class="q-hint">SIM → IA tem papel central</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Dependência..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">11</div><div class="q-body"><div class="q-question">Fazem disparo de e-mail? Têm nutrição automatizada?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="E-mail marketing, régua, automação..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">12</div><div class="q-body"><div class="q-question">Existe meta definida por vendedor? Quais indicadores o gestor acompanha?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Metas, KPIs atuais..."></textarea></div>
+      <div class="q-card-head">
+        <div class="q-num">2</div>
+        <div class="q-body">
+          <div class="q-question">Estrutura de Caixas de Entrada (Números)</div>
+          <div class="q-hint">Apenas para mapear no Kommo</div>
+        </div>
+      </div>
+      <div class="q-script">"Hoje todo esse volume cai num único número de WhatsApp centralizado, ou vocês têm números separados para site, B2B e Instagram?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Quantidade de números..."></textarea></div>
     </div>
   </div>
 
   <div class="transition-block">
     <div class="transition-inner">
       <div class="transition-label">Transição — Rafael para Hualter</div>
-      <div class="transition-script">"Show, Rafael. Agora eu, Hualter, vou entrar nas perguntas específicas da IA — personalidade, limites e como ela vai se comportar com o lead de vocês."</div>
+      <div class="transition-script">"Perfeito. Como grande parte do gargalo está no pré-atendimento, o Hualter vai alinhar o comportamento exato que a IA SDR vai ter."</div>
     </div>
   </div>
+
+  <!-- PERSONALIDADE IA SDR -->
   <div class="section-wrap" id="s04">
-    <div class="section-header-row"><div class="section-num-big">04</div><div class="section-title-big">Personalidade &amp; Limites da IA SDR</div></div>
+    <div class="section-header-row"><div class="section-num-big">04</div><div class="section-title-big">Personalidade &amp; Limites da IA</div></div>
     <div class="section-meta"><span class="section-time-badge">⏱ 8 min</span><span class="section-owner-badge sob-hualter">Hualter</span></div>
     <div class="section-divider"></div>
-    <div class="section-objective"><strong>Objetivo:</strong>&nbsp;Definir a identidade, tom e autonomia da IA antes do treinamento.</div>
-    <div class="confirm-block">
-      <div class="confirm-block-title">✅ Valide — não pergunte do zero</div>
-      <div class="confirm-item"><div class="confirm-topic">Escopo de atuação da IA</div><div class="confirm-text">A IA atuará no primeiro contato, qualificação inicial (SDR), atendimento 24/7 e follow-up automático para orçamentos abandonados.</div></div>
-      <div class="confirm-item"><div class="confirm-topic">Canais</div><div class="confirm-text">A IA atuará principalmente no WhatsApp, que é o canal responsável por 21,1% da receita da empresa.</div></div>
-    </div>
-    <div class="subsection-label sl-hualter">Hualter — Personalidade da IA</div>
+
+    <div class="subsection-label sl-hualter">Hualter — Personalidade e Regras</div>
+
     <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">1</div><div class="q-body"><div class="q-question">A IA deve ter um nome? Qual gênero?</div><div class="q-hint">Esse nome vai aparecer no WhatsApp para o lead</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Nome sugerido, feminino/masculino/neutro..."></textarea></div>
+      <div class="q-card-head">
+        <div class="q-num">1</div>
+        <div class="q-body">
+          <div class="q-question">Nome e Gênero da IA</div>
+          <div class="q-hint">Faltou informação no briefing</div>
+        </div>
+      </div>
+      <div class="q-script">"Eu vi todo o detalhamento da marca, mas faltou definirmos o nome do robô. A IA vai ter um nome feminino, masculino, neutro? Já pensaram em algo?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Nome sugerido, gênero..."></textarea></div>
     </div>
-    <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">2</div><div class="q-body"><div class="q-question">Qual tom de comunicação combina com a marca? A IA pode usar emojis?</div></div></div>
-      <div class="q-script">"Mais técnico e formal ou consultivo e próximo? Tem algum emoji que vocês nunca usariam?"</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Tom, nível de formalidade, emojis..."></textarea></div>
+
+    <div class="q-card q-card-confirm" data-owner="hualter">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Tom de Voz e Comunicação <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Premium, afetivo, emojis sutis. Sem gírias.</div>
+        </div>
+      </div>
+      <div class="q-script">"Baseado no Manual de Copy, a IA será configurada para ter um tom afetivo, elegante e confiável. Ela vai se identificar como assistente virtual, usar emojis sutis, sem gírias e sem reduzir o valor do produto (ex: proibido falar 'baratinho' ou 'docinho'). Alinhado?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Se quiserem mudar algo no tom..."></textarea></div>
     </div>
-    <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">3</div><div class="q-body"><div class="q-question">A IA deve se identificar como robô ou não deixar claro que é IA?</div></div></div>
-      <div class="q-script">"A IA se apresenta como assistente virtual, ou não deixa explícito a menos que o lead pergunte diretamente?"</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Transparente / não explícito..."></textarea></div>
+
+    <div class="q-card q-card-confirm" data-owner="hualter">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Regras de Hand-off (Humano) <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Passar pra equipe em B2B, grandes volumes, eventos e reclamações.</div>
+        </div>
+      </div>
+      <div class="q-script">"Mapeamos que a IA vai vender o trivial direto. Mas ela deve passar para a Sandra ou Ana imediatamente quando for: Venda B2B, Eventos Complexos/Casamentos, grandes orçamentos ou qualquer tipo de reclamação. Correto?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Outro gatilho de transbordo..."></textarea></div>
     </div>
+
     <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">4</div><div class="q-body"><div class="q-question">O que a IA NUNCA deve falar, prometer ou responder?</div></div></div>
-      <div class="q-script">"Preço, condições especiais, prazo de entrega específico? O que ela absolutamente não pode prometer ao lead?"</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Tópicos proibidos, promessas que não pode fazer..."></textarea></div>
+      <div class="q-card-head">
+        <div class="q-num">2</div>
+        <div class="q-body">
+          <div class="q-question">Tratamento de Desqualificados</div>
+          <div class="q-hint">Faltou informação no briefing</div>
+        </div>
+      </div>
+      <div class="q-script">"O que acontece com os leads desqualificados? Aquele perfil que reclama do preço ou quer produto de supermercado... A IA encerra educadamente a conversa ou manda para uma lista secundária?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Fluxo de descarte..."></textarea></div>
     </div>
-    <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">5</div><div class="q-body"><div class="q-question">O que acontece quando o lead é desqualificado?</div><div class="q-hint">Fora do ICP ou curioso</div></div></div>
-      <div class="q-script">"A IA encerra educadamente ou encaminha para alguma base secundária de nutrição?"</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Encerrar / base secundária / outro..."></textarea></div>
+
+    <div class="q-card q-card-confirm" data-owner="hualter">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Intepretação e Envio de Arquivos <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Interpreta áudio/imagem. Precisa enviar PDF?</div>
+        </div>
+      </div>
+      <div class="q-script">"Já sabemos que a IA vai interpretar áudios e comprovantes em imagem que o cliente mandar. Mas ela *precisa* enviar algum catálogo em PDF para o cliente ou as respostas textuais com links resolvem?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Precisa enviar PDF/Mídias? Quais?"></textarea></div>
     </div>
-    <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">6</div><div class="q-body"><div class="q-question">A IA pode enviar PDFs, laudos ou imagens pelo WhatsApp?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Pode / não pode, quais arquivos..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">7</div><div class="q-body"><div class="q-question">Querem follow-up automático para leads que não responderam?</div></div></div>
-      <div class="q-script">"Se sim, quantas tentativas e em qual intervalo de tempo?"</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Qtd de tentativas, intervalo, horário..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">8</div><div class="q-body"><div class="q-question">Em que horários a demanda é mais forte? Chega lead fora do horário comercial?</div><div class="q-hint">Define os horários ativos da IA</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Picos, horário fora do comercial..."></textarea></div>
+
+    <div class="q-card q-card-confirm" data-owner="hualter">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Follow-up Automático <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Régua solicitada: D+1, D+3, D+7</div>
+        </div>
+      </div>
+      <div class="q-script">"Vocês solicitaram uma régua de follow-up automático em D+1, D+3 e D+7 para carrinhos/orçamentos abandonados. Confirmam essa estrutura de insistência?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Alteração de datas..."></textarea></div>
     </div>
   </div>
 
   <div class="transition-block">
     <div class="transition-inner">
       <div class="transition-label">Transição — Hualter para Ambos</div>
-      <div class="transition-script">"Ótimo. Agora a gente entra na parte técnica — Rafael e eu vamos mapear as integrações e o status do WhatsApp de vocês."</div>
+      <div class="transition-script">"Perfeito. Entendemos a operação e o papel do robô. Para viabilizar tudo isso, precisamos confirmar dois ou três detalhes técnicos da estrutura de vocês."</div>
     </div>
   </div>
+
+  <!-- INFRAESTRUTURA TÉCNICA -->
   <div class="section-wrap" id="s05">
     <div class="section-header-row"><div class="section-num-big">05</div><div class="section-title-big">Infraestrutura Técnica</div></div>
-    <div class="section-meta"><span class="section-time-badge">⏱ 7 min</span><span class="section-owner-badge sob-ambos">Ambos</span></div>
+    <div class="section-meta"><span class="section-time-badge">⏱ 5 min</span><span class="section-owner-badge sob-ambos">Ambos</span></div>
     <div class="section-divider"></div>
-    <div class="section-objective"><strong>Objetivo:</strong>&nbsp;Mapear WhatsApp API, Meta Business, integrações e red flags técnicos antes de qualquer configuração.</div>
-    <div class="confirm-block">
-      <div class="confirm-block-title">✅ Valide — não pergunte do zero</div>
-      <div class="confirm-item"><div class="confirm-topic">Estrutura Inicial</div><div class="confirm-text">O número de WhatsApp para conexão não foi identificado no briefing. A empresa não possui CRM atualmente, mas há sugestão de implementar o Kommo ou similar.</div></div>
-      <div class="confirm-item"><div class="confirm-topic">Captação</div><div class="confirm-text">Possuem o site decarlibalas.com.br (em correção de bugs). Rodam anúncios pagos via Meta/Google Ads, que estão em fase de estruturação.</div></div>
+
+    <div class="subsection-label sl-ambos">Ambos — WhatsApp e Integrações</div>
+
+    <div class="q-card q-card-confirm" data-owner="ambos">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Migração WhatsApp API <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Migrar do Business para Oficial.</div>
+        </div>
+      </div>
+      <div class="q-script">"Vi que vocês vão migrar do WhatsApp Business comum para a API Oficial para escalar as automações sem risco de banimento. O CNPJ da empresa já está estruturado. Só para confirmar: O Meta Business Manager do Facebook já está verificado?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Verificado? Quem tem acesso?"></textarea></div>
     </div>
-    <div class="subsection-label sl-rafael">Rafael — WhatsApp &amp; CRM</div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">1</div><div class="q-body"><div class="q-question">O número de WhatsApp já está como Business? Quem configurou? É da empresa ou de alguém do time?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Status, responsável..."></textarea></div>
+
+    <div class="q-card" data-owner="ambos">
+      <div class="q-card-head">
+        <div class="q-num">1</div>
+        <div class="q-body">
+          <div class="q-question">Custos da API Oficial</div>
+          <div class="q-hint">Atenção a Custos Variáveis</div>
+        </div>
+      </div>
+      <div class="q-script">"Vocês têm clareza de como a Meta cobra pela API Oficial? Cada conversa iniciada ou reativada após 24h tem um custo (centavos). Isso faz parte do orçamento de marketing?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Ciente dos custos Meta?"></textarea></div>
     </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">2</div><div class="q-body"><div class="q-question">A página do Facebook/Meta está verificada com CNPJ?</div><div class="q-hint">Obrigatório para API Oficial</div></div></div>
-      <div class="q-script sc-alert">Se não: "Vou precisar do login do Facebook da empresa e acesso ao Meta Business Manager. Consegue levantar isso para nós até [data]?"</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Verificada / não verificada, prazo..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">3</div><div class="q-body"><div class="q-question">O CRM vai precisar integrar com algum ERP ou sistema de vocês?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Sistema, tipo de integração..."></textarea></div>
-    </div>
-    <div class="q-card" data-owner="rafael">
-      <div class="q-card-head"><div class="q-num">4</div><div class="q-body"><div class="q-question">Têm intenção de fazer disparos em massa pelo WhatsApp para bases antigas?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Sim / Não, volume estimado..."></textarea></div>
-    </div>
-    <div class="warning-block">
-      <div class="warning-title">⚠️ Atenção: Se o cliente disser SIM para Disparo em Massa</div>
-      <p style="font-size:13px;color:#aaa;margin-bottom:10px;">Seja transparente sobre as regras da API Oficial do WhatsApp:</p>
-      <div class="q-script sc-alert" style="margin:0;">"A API oficial cobra por 'conversa iniciada', não por mensagem. Fora da janela de 24h, só podemos enviar templates pré-aprovados pela Meta — não é igual a e-mail marketing, as regras são bem mais rígidas. Sabendo disso e dos custos, ainda faz sentido para o volume de vocês?"</div>
-    </div>
-    <div class="subsection-label sl-hualter" style="margin-top:8px;">Hualter — Integrações da IA</div>
-    <div class="q-card" data-owner="hualter">
-      <div class="q-card-head"><div class="q-num">5</div><div class="q-body"><div class="q-question">A IA vai precisar consultar algum sistema externo para responder o lead? (tabela de preços, estoque, agenda)</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Integrações necessárias..."></textarea></div>
+
+    <div class="q-card q-card-confirm" data-owner="ambos">
+      <div class="q-card-head">
+        <div class="q-num">✓</div>
+        <div class="q-body">
+          <div class="q-question">Sistemas Externos <span class="badge-confirm">Mapeado</span></div>
+          <div class="q-hint">Integração com Olist / Tray.</div>
+        </div>
+      </div>
+      <div class="q-script">"Sobre integrações, foi sinalizado a necessidade de integrar com Olist e Tray para consulta de logística e estoque. Correto?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Confirmações extras</div><textarea class="q-notes" placeholder="Detalhes técnicos da integração Olist/Tray..."></textarea></div>
     </div>
   </div>
 
   <div class="transition-block">
     <div class="transition-inner">
-      <div class="transition-label">Transição — Fechamento Conjunto</div>
-      <div class="transition-script">"Perfeito. Última parte — a gente alinha expectativas, medos e define os próximos passos concretos."</div>
+      <div class="transition-label">Transição — Fechamento</div>
+      <div class="transition-script">"Para finalizar nossa reunião e passarmos para a construção da conta."</div>
     </div>
   </div>
+
+  <!-- EXPECTATIVAS & PRÓXIMOS PASSOS -->
   <div class="section-wrap" id="s06">
-    <div class="section-header-row"><div class="section-num-big">06</div><div class="section-title-big">Expectativas, KPIs &amp; Próximos Passos</div></div>
+    <div class="section-header-row"><div class="section-num-big">06</div><div class="section-title-big">Expectativas &amp; Próximos Passos</div></div>
     <div class="section-meta"><span class="section-time-badge">⏱ 5 min</span><span class="section-owner-badge sob-ambos">Ambos</span></div>
     <div class="section-divider"></div>
-    <div class="section-objective"><strong>Objetivo:</strong>&nbsp;Alinhar o que é sucesso, identificar riscos ocultos e sair com próximos passos definidos.</div>
-    <div class="confirm-block">
-      <div class="confirm-block-title">✅ Valide — não pergunte do zero</div>
-      <div class="confirm-item"><div class="confirm-topic">Visão de Sucesso</div><div class="confirm-text">Esperam recuperar orçamentos abandonados, reduzir o TMA, liberar a equipe para tarefas estratégicas, padronizar o atendimento e garantir cobertura 24/7.</div></div>
-    </div>
-    <div class="subsection-label sl-ambos">Ambos — Fechamento</div>
+
     <div class="q-card" data-owner="ambos">
-      <div class="q-card-head"><div class="q-num">1</div><div class="q-body"><div class="q-question">Além do tempo de resposta, quais são os principais motivos de perda de negócio hoje?</div></div></div>
-      <div class="q-script">"Preço, frete, concorrente mais rápido, confiança no produto?"</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Motivos de perda..."></textarea></div>
+      <div class="q-card-head">
+        <div class="q-num">1</div>
+        <div class="q-body">
+          <div class="q-question">Motivos Ocultos de Perda</div>
+        </div>
+      </div>
+      <div class="q-script">"Sabemos que as perdas hoje são por bugs do site e falta de follow-up. Mas no tête-à-tête com o cliente, tem alguma objeção matadora? Preço de frete, por exemplo?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Objeções principais na hora de fechar..."></textarea></div>
     </div>
+
     <div class="q-card" data-owner="ambos">
-      <div class="q-card-head"><div class="q-num">2</div><div class="q-body"><div class="q-question">Existe algum medo ou preocupação do time ou da gestão sobre implementar IA e CRM?</div></div></div>
-      <div class="q-script">"Medo de perder controle, de a IA errar com o cliente, de o time não adotar?"</div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Preocupações, resistências..."></textarea></div>
+      <div class="q-card-head">
+        <div class="q-num">2</div>
+        <div class="q-body">
+          <div class="q-question">Gestão e Monitoramento (Dashboards V4)</div>
+        </div>
+      </div>
+      <div class="q-script">"A V4 tem os dashboards de conversão. Quem de vocês vai ficar responsável por olhar os números do CRM junto com a gente toda semana?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Nome do responsável pelas métricas..."></textarea></div>
     </div>
+
     <div class="q-card" data-owner="ambos">
-      <div class="q-card-head"><div class="q-num">3</div><div class="q-body"><div class="q-question">Quem vai acompanhar os dashboards e métricas no dia a dia?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Responsável pelo monitoramento..."></textarea></div>
+      <div class="q-card-head">
+        <div class="q-num">3</div>
+        <div class="q-body">
+          <div class="q-question">Prazos e Expectativas</div>
+        </div>
+      </div>
+      <div class="q-script">"Qual a expectativa real de vocês para começarmos a rodar as primeiras automações de IA? Têm alguma data limite ou urgência?"</div>
+      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Prazos, urgências..."></textarea></div>
     </div>
-    <div class="q-card" data-owner="ambos">
-      <div class="q-card-head"><div class="q-num">4</div><div class="q-body"><div class="q-question">Qual o prazo esperado para início da implementação?</div></div></div>
-      <div class="q-notes-wrap"><div class="q-notes-label">Anotações</div><textarea class="q-notes" placeholder="Data, urgência..."></textarea></div>
-    </div>
+
     <div class="checklist-block" style="margin-top:24px;">
-      <div class="checklist-title">📋 Checklist de Encerramento — Materiais que o cliente precisa entregar</div>
-      <div class="check-item"><input type="checkbox"><span>Login do Facebook / acesso ao Meta Business Manager (caso não tenha verificação ativa)</span></div>
-      <div class="check-item"><input type="checkbox"><span>Número de WhatsApp da empresa + confirmar se já é Business</span></div>
-      <div class="check-item"><input type="checkbox"><span>Nome e definições da personalidade da IA SDR (tom, restrições)</span></div>
-      <div class="check-item"><input type="checkbox"><span>Champion interno definido — responsável pelo CRM + IA no dia a dia</span></div>
-      <div class="check-item"><input type="checkbox"><span>Base de clientes existente para migração no Kommo (se houver)</span></div>
-      <div class="check-item"><input type="checkbox"><span>Lista de preços e diferenciais dos produtos para a base de conhecimento da IA</span></div>
-      <div class="check-item"><input type="checkbox"><span>Data estimada para início da implementação</span></div>
+      <div class="checklist-title">📋 Checklist de Encerramento — Combinados para casa</div>
+      <div class="check-item"><input type="checkbox"><span>Definir nome da IA SDR (Cliente)</span></div>
+      <div class="check-item"><input type="checkbox"><span>Confirmar/prover acesso ao Meta Business Manager para verificação (Cliente)</span></div>
+      <div class="check-item"><input type="checkbox"><span>Garantir número de telefone limpo para migração WhatsApp API (Cliente)</span></div>
+      <div class="check-item"><input type="checkbox"><span>Liberar acessos do Tray/Olist para a equipe técnica da V4</span></div>
+      <div class="check-item"><input type="checkbox"><span>Agendar Call de Hand-off / Onboarding inicial</span></div>
     </div>
   </div>
 
@@ -679,7 +719,7 @@ function setFilter(type,btn){
   if(type==='all'){
     btn.classList.add('active-all');
     document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('hidden-by-filter'));
-    document.getElementById('filterStatus').textContent='Mostrando todas as perguntas';
+    document.getElementById('filterStatus').textContent='Mostrando todas as perguntas e validações';
   } else {
     btn.classList.add('active-'+type);
     document.querySelectorAll('.q-card').forEach(c=>{
@@ -688,7 +728,7 @@ function setFilter(type,btn){
       else c.classList.add('hidden-by-filter');
     });
     const label=type==='rafael'?'Rafael — CRM':'Hualter — IA SDR';
-    document.getElementById('filterStatus').textContent='Mostrando perguntas de: '+label;
+    document.getElementById('filterStatus').textContent='Mostrando itens de: '+label;
   }
 }
 
