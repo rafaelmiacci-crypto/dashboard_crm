@@ -1,0 +1,438 @@
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento CRM Estratégico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* CSS BASE DO SISTEMA - NÃO ALTERE ESTAS CLASSES */
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 600px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 180px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.medico-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; } .medico-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; } .medico-spec { font-size: 0.85rem; font-weight: 500; color: var(--white-muted); margin-bottom: 0.5rem; line-height: 1.5; }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.8; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento Estratégico CRM</div>
+<h1>Decarli Balas de Coco Artesanais</h1>
+<p class="hero-sub">Otimizar e automatizar o processo de vendas para reduzir a dependência manual, aumentar o faturamento e escalar operações B2C e B2B, garantindo atendimento contínuo e eficaz.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">Híbrido (B2C & B2B)</div></div>
+<div class="hero-meta-item"><div class="label">Foco/Nicho</div><div class="value">Balas de Coco Artesanais Gourmet</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Kommo CRM</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#contexto" class="nav-link">Contexto & Dores</a>
+<a href="#equipe" class="nav-link">Equipe</a>
+<a href="#fluxo" class="nav-link">Jornada do Lead</a>
+<a href="#funil-vendas" class="nav-link">Funil de Vendas</a>
+<a href="#campos" class="nav-link">Estrutura de Dados</a>
+<a href="#automacoes" class="nav-link">Automações</a>
+<a href="#sla" class="nav-link">SLAs & Acessos</a>
+</div>
+</nav>
+
+<div class="divider"></div>
+<section class="section" id="contexto">
+<div class="section-header reveal">
+<div class="section-number">01 — Contexto Estratégico</div>
+<h2 class="section-title">Diagnóstico & Descoberta</h2>
+</div>
+
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">R$300</div><div class="stat-label">Ticket Médio (Aprox.)</div></div>
+<div class="stat-card"><div class="stat-num">~400</div><div class="stat-label">Leads/Mês (Estimado)</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Objetivos</div>
+<h3>O que buscamos resolver?</h3>
+<p>Transformar o processo de vendas em uma "máquina de venda sozinha", reduzindo a dependência de ações manuais da equipe. Aumentar o faturamento através da automação e organização, especialmente nas vendas B2B e na recuperação de leads, e garantir atendimento eficiente, inclusive nos fins de semana, sem sobrecarregar a equipe.</p>
+</div>
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Perfil Ideal (ICP)</h3>
+<p>Clientes B2C que buscam balas de coco artesanais e realizam compras por impulso (pagamento via Pix/à vista), com potencial de recompra. Clientes B2B, incluindo revendas e supermercados (ex: Kitanda, Santa Luzia), que buscam parcerias e volumes maiores de compra.</p>
+</div>
+</div>
+
+<div class="accordion reveal">
+<div class="accordion-item open">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>🔴 Dores e Desafios Mapeados</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner">
+<div class="grid-2" style="margin-top: 1rem;">
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Desafio</div>
+<h3>Alta Dependência da Equipe para Vendas</h3>
+<p>A operação de vendas depende fortemente da equipe para posts e estímulo, sobrecarregando os sócios e a equipe administrativa, que desejam um processo mais autônomo.</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Desafio</div>
+<h3>Perda de Vendas no Fim de Semana</h3>
+<p>Não há atendimento dedicado nos fins de semana, resultando na perda de vendas significativas, especialmente para o consumidor final de impulso.</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Desafio</div>
+<h3>Falta de Padronização no Atendimento</h3>
+<p>Não existe um script ou padrão de vendas definido, tornando o processo inconsistente e dificultando a qualificação de leads e o escalonamento.</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Desafio</div>
+<h3>Gargalo no WhatsApp Manual</h3>
+<p>O atendimento manual via WhatsApp impede a visualização clara dos gargalos, a recuperação de leads parados e a escalabilidade dos disparos de promoções devido a limites e riscos de banimento (listas de transmissão).</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Desafio</div>
+<h3>Baixa Performance em Campanhas Manuais</h3>
+<p>Tentativas de promoções via listas de transmissão (254 contatos) resultaram em baixa taxa de resposta (4%) e poucas vendas (3), evidenciando a ineficiência do método atual.</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Desafio</div>
+<h3>Sobrecarga da Equipe Administrativa</h3>
+<p>Ana e Sandra, que atuam no administrativo, precisam realizar as vendas, desviando do foco principal e limitando a capacidade de resposta e follow-up.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>Regras de Negócio Inegociáveis</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner" style="margin-top: 1rem;">
+<div class="grid-2" style="margin-top: 1rem;">
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Princípio</div>
+<h3>Atendimento Humanizado</h3>
+<p>A IA deve ser o mais humanizada possível, simulando uma conversa natural para atender clientes que preferem falar com pessoas, evitando a sensação de 'robô'.</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Princípio</div>
+<h3>Validação Humana nas Vendas Complexas</h3>
+<p>A IA pode qualificar e preparar a venda, mas a finalização de vendas consultivas, a aplicação de descontos e a validação final precisam da intervenção humana para garantir a precisão.</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Princípio</div>
+<h3>Alinhamento de Expectativas</h3>
+<p>O sistema (IA e CRM) será construído e otimizado em conjunto, aceitando que no início não estará perfeito, mas evoluirá com o tempo e feedback.</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Princípio</div>
+<h3>Organização nos Lançamentos</h3>
+<p>Lançamentos de novos produtos devem ser precedidos pela organização interna (CRM/IA) para evitar perda de vendas por falta de atendimento.</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<div class="card-label">Princípio</div>
+<h3>Compromisso com a Implementação Rápida</h3>
+<p>Há pressa e disposição para investir e cumprir as etapas necessárias para a rápida implementação e operação do CRM e da IA.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="equipe">
+<div class="section-header reveal">
+<div class="section-number">02 — Estrutura e Equipe</div>
+<h2 class="section-title">Profissionais / Departamentos</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;" class="reveal medicos-grid">
+<div class="medico-card"><div class="medico-name">Ana (ADM)</div><div class="medico-spec">Administrativo, Atendimento WhatsApp (varejo e revenda), Apoio de Marketing e RH. Primeiro contato com clientes.</div></div>
+<div class="medico-card"><div class="medico-name">Sandra</div><div class="medico-spec">Gerente Administrativo, Atendimento WhatsApp (varejo e revenda) e Vendas.</div></div>
+<div class="medico-card"><div class="medico-name">Anelise De Carli Fenga de Moraes</div><div class="medico-spec">Marketing, Ponto Focal para a implementação do CRM e IA.</div></div>
+<div class="medico-card"><div class="medico-name">Ana (Do Pão ao Caviar)</div><div class="medico-spec">Sócia Decarle, Responsável pelo Do Pão ao Caviar (principal impulsionador de vendas Decarle), Estrategista de Vendas.</div></div>
+<div class="medico-card"><div class="medico-name">Márcio</div><div class="medico-spec">Sócio Decarle, Estrategista Comercial.</div></div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="fluxo">
+<div class="section-header reveal">
+<div class="section-number">03 — Fluxo Comercial</div>
+<h2 class="section-title">A Jornada do Lead</h2>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Descoberta / Engajamento</div><div class="flow-sub">Cliente interage com a marca.</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">Atendimento Pré-Venda (IA)</div><div class="flow-sub">IA qualifica o lead, responde dúvidas, oferece catálogo.</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Atendimento Humano</div><div class="flow-sub">Vendedor assume negociação, aplica descontos, finaliza.</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Finalização da Compra</div><div class="flow-sub">Pagamento via Pix/Site. Pedido registrado na Olist.</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Pós-Venda / Recompra</div><div class="flow-sub">Acompanhamento e estímulo para novas compras.</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Canais de Entrada</div>
+<h3>Origem dos Leads</h3>
+<p>
+<span class="tag tag-red">WhatsApp</span>
+<span class="tag tag-red">Instagram</span>
+<span class="tag tag-red">Site/E-commerce (Olist/Tray)</span>
+<span class="tag tag-red">Indicação / Contato Direto (B2B)</span>
+<span class="tag tag-red">Do Pão ao Caviar (marketing/divulgação)</span>
+</p>
+</div>
+<div class="card">
+<div class="card-label">Abordagem</div>
+<h3>Processo de Qualificação</h3>
+<p>O atendimento inicial será realizado pela IA, que coletará informações essenciais, responderá perguntas frequentes e apresentará o catálogo de produtos. A IA fará a qualificação do lead antes de transferir para o atendimento humano (Sandra ou Ana ADM) para negociações mais consultivas e finalização de venda. O site é a alternativa para auto-serviço de compra.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="funil-vendas">
+<div class="section-header reveal">
+<div class="section-number">04 — Funil de Vendas</div>
+<h2 class="section-title">Etapas da Conversão (Primeira Compra / Novas Vendas)</h2>
+<p class="section-desc">Este funil foca na jornada de novos leads ou primeiras compras. A recorrência será tratada em um funil dedicado ou por automações específicas, conforme alinhado.</p>
+</div>
+
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Novo Lead</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Cliente demonstra interesse</div><div class="kanban-card-desc">Lead entra em contato via WhatsApp, Instagram ou site. IA inicia o atendimento para coleta inicial de informações.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Qualificação (IA)</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Dúvidas iniciais e catálogo</div><div class="kanban-card-desc">IA responde perguntas frequentes sobre produtos, sabores, validade. Apresenta o catálogo e solicita informações para direcionamento.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Atendimento Humano</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Negociação e Proposta</div><div class="kanban-card-desc">IA transfere o lead qualificado para Sandra ou Ana (ADM). Vendedor negocia valores, descontos, frete e apresenta a proposta final.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Aguardando Pagamento</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Confirmação de pagamento</div><div class="kanban-card-desc">Cliente recebe o link de pagamento ou é direcionado para finalizar a compra no site. Vendedor acompanha a confirmação para evitar perdas.</div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Venda Concluída</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Pedido Confirmado</div><div class="kanban-card-desc">Pagamento recebido e pedido registrado na Olist. Inicia-se o processo de entrega. Cliente é movido para o funil de Pós-Venda/Recompra.</div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Venda Perdida</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Razões de Perda</div><div class="kanban-card-desc">Registra-se o motivo da não conversão para análise e otimização futuras do processo.</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="reveal" style="margin-top: 1.5rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-white">Lead Sem Resposta (Pós-Proposta)</span>
+<span class="tag tag-white">Desistência Após Proposta</span>
+<span class="tag tag-white">Falta de Atendimento (Fim de Semana)</span>
+<span class="tag tag-white">Dúvida Não Sanada pela IA</span>
+<span class="tag tag-white">Preço/Frete Não Competitivo</span>
+<span class="tag tag-white">Preferência por Atendimento Humano Imediato</span>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="campos">
+<div class="section-header reveal">
+<div class="section-number">05 — Estrutura de Dados</div>
+<h2 class="section-title">Campos e Tags</h2>
+<p class="section-desc">Campos personalizados para capturar informações cruciais para segmentação e personalização do atendimento, além de otimizar a IA.</p>
+</div>
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">📋</div>
+<div><div class="campos-group-title">Campos Customizados do Lead/Cliente</div><div class="campos-group-sub">Variáveis mapeadas para o Kommo CRM</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Última Compra</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Data Próxima Compra Estimada</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Sabores Preferidos</div><div class="campo-type">Múltipla Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Ticket Médio Histórico</div><div class="campo-type">Número</div></div>
+<div class="campo-item"><div class="campo-name">Canal de Origem</div><div class="campo-type">Texto Curto</div></div>
+<div class="campo-item"><div class="campo-name">Tipo de Cliente</div><div class="campo-type">Seleção Única</div></div>
+<div class="campo-item"><div class="campo-name">Status da Entrega</div><div class="campo-type">Seleção Única</div></div>
+<div class="campo-item"><div class="campo-name">Cupom de Primeira Compra Utilizado</div><div class="campo-type">Sim/Não</div></div>
+<div class="campo-item"><div class="campo-name">Número de WhatsApp (API)</div><div class="campo-type">Telefone</div></div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="automacoes">
+<div class="section-header reveal">
+<div class="section-number">06 — Automações e Motor Lógico</div>
+<h2 class="section-title">Gatilhos do CRM & IA</h2>
+<p class="section-desc">Automações essenciais para otimizar o fluxo de vendas, recuperar leads, gerenciar a recompra e escalar o atendimento.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Gatilho</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
+<tbody>
+<tr><td>Venda Concluída (Primeira Compra)</td><td>Criar um novo card no funil de "Recompra" com data de próximo contato programada.</td><td>Iniciar o ciclo de relacionamento pós-venda para estimular novas compras e fidelização.</td></tr>
+<tr><td>Lead Parado no Funil de Vendas por > 5 Dias</td><td>Atribuir tarefa automática ao vendedor para retomar contato e enviar lembrete.</td><td>Recuperar leads que interromperam a comunicação e evitar a perda de oportunidades.</td></tr>
+<tr><td>Passado X Dias da Última Compra (Ex: 15/30 dias)</td><td>Disparar mensagem (via WhatsApp API) de lembrete de recompra ou promoção segmentada.</td><td>Estimular a fidelização e a recompra de clientes já familiarizados com o produto.</td></tr>
+<tr><td>Cliente Clica em "Não Quero Mais Receber" (em disparo)</td><td>Marcar cliente como "Não Contatar" e remover de futuras campanhas.</td><td>Respeitar a preferência do cliente, manter a base limpa e evitar banimento do WhatsApp API.</td></tr>
+<tr><td>Novo Pedido Chega via Site (Olist/Tray)</td><td>Criar card no funil de vendas "Novo Lead" ou "Atendimento".</td><td>Centralizar todos os leads/pedidos em um único sistema para acompanhamento unificado.</td></tr>
+<tr><td>Disparo de Campanha (WhatsApp API)</td><td>IA assume o atendimento das respostas e qualificação inicial.</td><td>Escalar o atendimento pós-campanha, garantindo que nenhuma interação seja perdida e sem sobrecarregar a equipe humana.</td></tr>
+<tr><td>IA Qualifica Lead e Precisa de Intervenção Humana</td><td>Transferir o atendimento para o vendedor responsável no CRM.</td><td>Garantir que vendas consultivas e negociações complexas sejam finalizadas por um ser humano, respeitando a regra de negócio.</td></tr>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="info-box reveal">
+<strong>Observação sobre Automações da IA:</strong> A IA será configurada para ser o mais humanizada possível. Inicialmente, ela fará o primeiro atendimento, responderá perguntas frequentes e apresentará o catálogo, visando desonerar a Ana e a Sandra do trabalho repetitivo. A meta é que a IA faça a qualificação e transfira o lead "quente" para o vendedor finalizar. A conexão via WhatsApp API é crucial para a segurança e funcionalidade dessas automações, especialmente para follow-ups e disparos em massa.
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="sla">
+<div class="section-header reveal">
+<div class="section-number">07 — Governança e Acessos</div>
+<h2 class="section-title">SLAs e Níveis de Permissão</h2>
+<p class="section-desc">A equipe designada terá acesso e responsabilidades claras dentro do CRM. O prazo de 3 a 4 semanas é esperado para ter o CRM/IA funcional, podendo haver ajustes na comunicação e aprovações (ex: Meta API).</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Perfil</th><th>Função</th><th>Permissões</th></tr></thead>
+<tbody>
+<tr><td>Vendedor (Sandra e Ana ADM)</td><td>Atendimento e Vendas</td><td>Acesso completo aos funis de vendas e recompra, criação e edição de cards, histórico de clientes, campos personalizados. Geração de relatórios básicos de performance individual.</td></tr>
+<tr><td>Marketing (Anelise)</td><td>Coordenação e Estratégia</td><td>Acesso a relatórios de desempenho, configuração de automações (com validação da equipe técnica), visão geral dos funis, gestão de contatos e segmentação para campanhas. Monitoramento da IA e validação de conteúdo. Será o ponto focal de comunicação.</td></tr>
+<tr><td>Gestão (Márcio e Ana)</td><td>Análise e Decisão Estratégica</td><td>Acesso a todos os dados e relatórios da plataforma para análise de performance geral, tomada de decisões e aprovação de estratégias.</td></tr>
+<tr><td>Administrador (V4 Company)</td><td>Configuração e Manutenção</td><td>Acesso total à plataforma, configurações de sistema, API, automações avançadas, gestão de usuários, infraestrutura e otimização da IA.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<footer class="footer">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
+<div class="logo-text">V4 Company</div>
+<p>Planejamento Estratégico de CRM</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado e mapeado automaticamente a partir de transcrição. Uso interno.</p>
+</footer>
+
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_CRM.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+</script>
+
+</body>
+</html>
