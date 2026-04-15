@@ -1,0 +1,407 @@
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento CRM Estratégico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* CSS BASE DO SISTEMA - NÃO ALTERE ESTAS CLASSES */
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 600px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 180px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.medico-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; } .medico-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; } .medico-spec { font-size: 0.85rem; font-weight: 500; color: var(--white-muted); margin-bottom: 0.5rem; line-height: 1.5; }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.8; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento Estratégico CRM</div>
+<h1>Miller Diesel</h1>
+<p class="hero-sub">Centralizar a comunicação e vendas, focando no e-commerce B2C, otimizar a gestão de leads e carteiras de clientes, saindo do modelo tradicional e fragmentado.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">Híbrido (B2B/B2C)</div></div>
+<div class="hero-meta-item"><div class="label">Foco/Nicho</div><div class="value">Distribuição de Peças Diesel</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Kommo CRM</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#contexto" class="nav-link">Contexto & Dores</a>
+<a href="#equipe" class="nav-link">Equipe</a>
+<a href="#fluxo" class="nav-link">Jornada do Lead</a>
+<a href="#funil-vendas" class="nav-link">Funil de Vendas</a>
+<a href="#campos" class="nav-link">Estrutura de Dados</a>
+<a href="#tags" class="nav-link">Tags</a>
+<a href="#automacoes" class="nav-link">Automações</a>
+<a href="#sla" class="nav-link">SLAs & Acessos</a>
+</div>
+</nav>
+
+<div class="divider"></div>
+<section class="section" id="contexto">
+<div class="section-header reveal">
+<div class="section-number">01 — Contexto Estratégico</div>
+<h2 class="section-title">Diagnóstico & Descoberta</h2>
+</div>
+
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">R$ 1 Milhão</div><div class="stat-label">Faturamento (Modelo Antigo)</div></div>
+<div class="stat-card"><div class="stat-num">4-5 mil</div><div class="stat-label">Leads na Base (RP)</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Objetivos</div>
+<h3>O que buscamos resolver?</h3>
+<p>Fazer o novo e-commerce vender mais, encontrar um modelo que converta mais, centralizar a comunicação e gestão de clientes, agregar valor ao invés de focar em guerra de preços e acompanhar a transição do mercado para o online.</p>
+</div>
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Perfil Ideal (ICP)</h3>
+<p>Cliente final (B2C) do e-commerce. Também base existente de reparadores B2B (clientes antigos e inativos), para serem trabalhados de forma estratégica com foco em valor e não desconto.</p>
+</div>
+</div>
+
+<div class="accordion reveal">
+<div class="accordion-item open">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>🔴 Dores e Desafios Mapeados</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner">
+<div class="grid-2" style="margin-top: 1rem;">
+<div class="card" style="border-color: var(--black-border);">
+<div class="card-label">Desafio</div>
+<h3>Fragmentação da Comunicação</h3>
+<p>Vendedores utilizavam múltiplos números de WhatsApp, cada um com sua carteira, dificultando a gestão e perdendo histórico de comunicação quando vendedores saíam.</p>
+</div>
+<div class="card" style="border-color: var(--black-border);">
+<div class="card-label">Desafio</div>
+<h3>Falta de Centralização de Dados</h3>
+<p>Clientes antigos e inativos pulverizados em telefones e sem controle centralizado, dificultando a reativação e campanhas.</p>
+</div>
+<div class="card" style="border-color: var(--black-border);">
+<div class="card-label">Desafio</div>
+<h3>Baixa Visibilidade do E-commerce</h3>
+<p>Site lançado há 14 dias, mas ainda sem visibilidade e conversões significativas, necessitando de um processo comercial digital para gerar vendas.</p>
+</div>
+<div class="card" style="border-color: var(--black-border);">
+<div class="card-label">Desafio</div>
+<h3>Processo de Vendas Desatualizado</h3>
+<p>Modelo tradicional de vendas não acompanha as mudanças do mercado, levando à redução drástica da equipe e foco em "guerra de preço" em vez de valor.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>Regras de Negócio Inegociáveis</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner" style="margin-top: 1rem;">
+<p>— Não queremos mais vender com tanto desconto; o foco é demonstrar valor para o cliente final e para a base B2B que o enxergue.</p>
+<p>— O foco principal neste momento é o e-commerce e o cliente final (B2C).</p>
+<p>— Manter a base de clientes antigos (B2B) ativa, mas com um novo posicionamento de valor, utilizando estratégias de clusterização e opt-in para comunicação via API.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="equipe">
+<div class="section-header reveal">
+<div class="section-number">02 — Estrutura e Equipe</div>
+<h2 class="section-title">Profissionais / Departamentos</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;" class="reveal medicos-grid">
+<div class="medico-card"><div class="medico-name">Ricardo Müller Filho</div><div class="medico-spec">Diretor Comercial e Guardião do CRM (Administrador)</div></div>
+<div class="medico-card"><div class="medico-name">Sil</div><div class="medico-spec">Gerente Operacional (Administrador Compartilhado)</div></div>
+<div class="medico-card"><div class="medico-name">Vendedor 1</div><div class="medico-spec">Especialista em Vendas (Inside Sales - Foco E-commerce)</div></div>
+<div class="medico-card"><div class="medico-name">Vendedor 2</div><div class="medico-spec">Especialista em Vendas (Inside Sales - Foco E-commerce)</div></div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="fluxo">
+<div class="section-header reveal">
+<div class="section-number">03 — Fluxo Comercial</div>
+<h2 class="section-title">A Jornada do Lead</h2>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Lead E-commerce</div><div class="flow-sub">Cliente chega via site ou propaganda</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">Atendimento Centralizado</div><div class="flow-sub">Interação direta via WhatsApp Oficial (API)</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Qualificação & Oferta</div><div class="flow-sub">Vendedor entende a necessidade e faz a proposta</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Pós-Venda / Recorrência</div><div class="flow-sub">Gestão do cliente para novas vendas (Conceito Boltai)</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Canais de Entrada</div>
+<h3>Origem dos Leads</h3>
+<p>
+<span class="tag tag-red">E-commerce (Site)</span>
+<span class="tag tag-red">WhatsApp (Botão no Site)</span>
+<span class="tag tag-red">Base de Clientes (RP)</span>
+<span class="tag tag-red">Prospecção Ativa (Vendedores)</span>
+</p>
+</div>
+<div class="card">
+<div class="card-label">Abordagem</div>
+<h3>Processo de Qualificação</h3>
+<p>Para leads do e-commerce, a abordagem é reativa (cliente já vem com intenção). O atendimento será via WhatsApp oficial da empresa. Para a base antiga, será via prospecção ativa e campanhas direcionadas, com limpeza da base via opt-in/opt-out para WhatsApp API.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="funil-vendas">
+<div class="section-header reveal">
+<div class="section-number">04 — Funil de Vendas</div>
+<h2 class="section-title">Etapas da Conversão (Aquisição - E-commerce)</h2>
+</div>
+
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">1. Novo Lead (E-commerce)</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Chegada do Cliente</div><div class="kanban-card-desc">Cliente entra em contato via site ou botão de WhatsApp do e-commerce, ou é um lead qualificado da base antiga.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">2. Primeiro Contato / Qualificação</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Interação Inicial</div><div class="kanban-card-desc">Vendedor assume o contato, busca entender a demanda do cliente e verifica alinhamento com a proposta de valor da Miller Diesel.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">3. Cotação Enviada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Apresentação da Proposta</div><div class="kanban-card-desc">Vendedor envia a cotação ou proposta com detalhes dos produtos/serviços e preços.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">4. Negociação / Follow-up</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Acompanhamento da Proposta</div><div class="kanban-card-desc">Cliente analisa a cotação, tira dúvidas, e pode haver negociação. Vendas de equipamentos (bancadas) são escaladas para a gerência.</div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">5. Venda Ganha</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Fechamento do Pedido</div><div class="kanban-card-desc">O cliente fechou a compra. Este lead é marcado como 'Venda Ganha' e pode ser direcionado para um funil de Pós-Venda/Recorrência.</div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">6. Venda Perdida</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Não Converteu</div><div class="kanban-card-desc">O cliente não prosseguiu com a compra. Um motivo de perda deve ser selecionado.</div></div>
+</div>
+</div>
+</div>
+<div class="kanban-scroll-hint">← Arraste para ver todas as etapas →</div>
+</div>
+
+<div class="reveal" style="margin-top: 1.5rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-white">Preço (Guerra de Preços)</span>
+<span class="tag tag-white">Não enxerga valor no produto</span>
+<span class="tag tag-white">Concorrência desleal</span>
+<span class="tag tag-white">Cliente inativo/Não responde</span>
+<span class="tag tag-white">Opt-out (Não quer receber mensagens)</span>
+<span class="tag tag-white">Produto não disponível</span>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="campos">
+<div class="section-header reveal">
+<div class="section-number">05 — Estrutura de Dados</div>
+<h2 class="section-title">Campos e Tags</h2>
+</div>
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">📋</div>
+<div><div class="campos-group-title">Campos Customizados</div><div class="campos-group-sub">Variáveis mapeadas para Leads/Contatos</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Origem do Lead</div><div class="campo-type">Lista Suspensa</div></div>
+<div class="campo-item"><div class="campo-name">Canal Preferido de Contato</div><div class="campo-type">Lista Suspensa</div></div>
+<div class="campo-item"><div class="campo-name">Status Base Antiga</div><div class="campo-type">Lista Suspensa</div></div>
+<div class="campo-item"><div class="campo-name">Ticket Médio Histórico</div><div class="campo-type">Numérico</div></div>
+<div class="campo-item"><div class="campo-name">Tipo de Produto de Interesse</div><div class="campo-type">Múltipla Escolha</div></div>
+<div class="campo-item"><div class="campo-name">Data Última Compra</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Consentimento API WhatsApp</div><div class="campo-type">Sim/Não</div></div>
+</div>
+</div>
+<div class="campos-group reveal" id="tags">
+    <div class="campos-group-header">
+        <div class="campos-group-icon">🏷️</div>
+        <div><div class="campos-group-title">Tags</div><div class="campos-group-sub">Classificação e Segmentação</div></div>
+    </div>
+    <div class="campos-list" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+        <span class="tag tag-red">RFV: Ativo</span>
+        <span class="tag tag-red">RFV: Adormecido</span>
+        <span class="tag tag-red">RFV: Novo Cliente</span>
+        <span class="tag tag-red">Engajado WhatsApp</span>
+        <span class="tag tag-red">Opt-in Mensagens</span>
+        <span class="tag tag-red">Opt-out Mensagens</span>
+        <span class="tag tag-red">Lead E-commerce</span>
+        <span class="tag tag-red">Base Antiga</span>
+        <span class="tag tag-red">Escalado Gerência (Maquinário)</span>
+    </div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="automacoes">
+<div class="section-header reveal">
+<div class="section-number">06 — Automações e Motor Lógico</div>
+<h2 class="section-title">Gatilhos do CRM</h2>
+<p class="section-desc">Serão implementadas automações básicas para otimizar o fluxo de trabalho e garantir o acompanhamento dos leads, com foco na eficiência do processo de e-commerce e gestão da base antiga.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Gatilho</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
+<tbody>
+<tr><td>Lead entra na etapa "Novo Lead (E-commerce)"</td><td>Atribuir lead ao vendedor disponível e criar tarefa de "Primeiro Contato".</td><td>Agilizar o atendimento inicial de novos leads do e-commerce.</td></tr>
+<tr><td>Lead permanece > 5 dias em qualquer etapa do funil (exceto "Venda Ganha" ou "Venda Perdida")</td><td>Gerar alerta/tarefa para o vendedor responsável e para o guardião do CRM (Ricardo).</td><td>Evitar que leads fiquem parados e garantir o acompanhamento contínuo.</td></tr>
+<tr><td>Cliente seleciona "Não quero receber mais mensagens" (via botão na API)</td><td>Adicionar tag "Opt-out" ao contato e, se configurado, mover para um funil "Perdido" com motivo "Não quer contato". Desativar envios automáticos para este contato.</td><td>Respeitar a preferência do cliente e manter a base de marketing limpa e qualificada.</td></tr>
+<tr><td>Lead movido para "Venda Ganha"</td><td>Criação de um novo card no funil de "Pós-Venda/Recorrência" (futuro).</td><td>Iniciar automaticamente o processo de retenção e expansão (conceito Boltai).</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="sla">
+<div class="section-header reveal">
+<div class="section-number">07 — Governança e Acessos</div>
+<h2 class="section-title">SLAs e Níveis de Permissão</h2>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Perfil</th><th>Função</th><th>Permissões</th></tr></thead>
+<tbody>
+<tr><td>Administrador (Ricardo e Sil)</td><td>Direção, Monitoramento e Gestão do CRM</td><td>Acesso total a todas as visualizações, configurações do sistema, relatórios e leads. Gerenciamento de usuários e integração. Um usuário gratuito oferecido pela parceria.</td></tr>
+<tr><td>Vendedor (2 pessoas)</td><td>Atendimento e Vendas de Leads</td><td>Acesso limitado aos próprios leads, históricos de comunicação (WhatsApp, e-mail) e tarefas. Não poderá ver os leads de outros vendedores (limitação de visualização para evitar bagunça).</td></tr>
+<tr><td>WhatsApp API Oficial</td><td>Comunicação Centralizada e Segura</td><td>Conexão via API oficial da Meta para centralizar a comunicação do e-commerce. Permite disparos em massa (com custo), histórico centralizado e minimiza risco de banimento.</td></tr>
+<tr><td>WhatsApp Lite (QR Code)</td><td>Comunicação Temporária/Teste</td><td>Pode ser utilizado inicialmente para testes ou para centralizar números antigos através de redirecionamento, mas com riscos de desconexão e banimento. Não recomendado para automações ou disparo em massa.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<footer class="footer">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
+<div class="logo-text">V4 Company</div>
+<p>Planejamento Estratégico de CRM</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado e mapeado automaticamente a partir de transcrição. Uso interno.</p>
+</footer>
+
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_CRM.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+</script>
+
+</body>
+</html>
