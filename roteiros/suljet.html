@@ -1,1 +1,349 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roteiro de Discovery - Suljet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Scrollbar for Dark Theme */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+        
+        .accordion-content {
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .accordion-content.open {
+            max-height: 2500px; /* Large enough to fit content */
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased pb-20 selection:bg-red-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="bg-slate-900 border-b border-red-600 shadow-xl sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center p-6">
+            <div>
+                <h1 class="text-2xl font-bold text-white uppercase tracking-wider flex items-center gap-3">
+                    Discovery Comercial
+                    <span class="bg-red-600/20 text-red-500 border border-red-600/50 text-xs px-2 py-1 rounded-md">CRM</span>
+                </h1>
+                <p class="text-sm text-slate-400 mt-1">Cliente: <span class="font-semibold text-white">SULJET (Codificação e Inspeção Industrial)</span> | Meta 2026: <span class="text-emerald-400 font-bold">R$ 32M</span></p>
+            </div>
+            <div class="text-right hidden sm:block">
+                <span class="bg-slate-800 text-slate-300 border border-slate-700 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide shadow-sm">Uso Privado</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto mt-8 px-4">
+        
+        <!-- Legenda -->
+        <div class="bg-slate-900 p-5 rounded-xl shadow-lg border border-slate-800 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h2 class="font-bold text-slate-100 text-lg">Legenda de Preparação</h2>
+                <p class="text-sm text-slate-400">Marque a caixa ao lado da pergunta durante a call para riscá-la.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 text-sm font-medium">
+                <div class="flex items-center gap-2 bg-slate-800 px-3 py-2 rounded-lg border border-slate-700">
+                    <span class="w-3 h-3 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span> 
+                    <span class="text-emerald-400">Dados Mapeados (Confirmar)</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-800 px-3 py-2 rounded-lg border border-slate-700">
+                    <span class="w-3 h-3 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.6)]"></span> 
+                    <span class="text-red-400">Ponto Cego (Perguntar)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTE 1: Contexto Geral -->
+        <section class="mb-6">
+            <button class="accordion-btn w-full bg-slate-800 text-slate-100 p-5 rounded-t-xl flex justify-between items-center hover:bg-slate-700 transition-all border border-slate-700 shadow-md" onclick="toggleAccordion('part1')">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-900 text-slate-400 font-mono text-sm px-2 py-1 rounded border border-slate-700">01</span>
+                    <span class="font-bold text-lg tracking-wide">Contexto Geral (10 min)</span>
+                </div>
+                <svg class="w-6 h-6 transform transition-transform duration-300 text-slate-400" id="icon-part1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            
+            <div id="part1" class="accordion-content bg-slate-900/50 shadow-inner rounded-b-xl border-x border-b border-slate-800">
+                <div class="p-6 space-y-5">
+                    
+                    <!-- Confirmado -->
+                    <label class="flex items-start gap-4 p-5 bg-emerald-950/20 border-l-4 border-emerald-500 rounded-xl cursor-pointer hover:bg-emerald-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-emerald-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-emerald-400 text-lg">O que a empresa vende?</p>
+                            <p class="text-sm text-slate-300 mt-2 mb-3"><span class="font-semibold text-slate-100">Info Mapeada:</span> B2B. Ticket Alto. Insumos (71%), Equipamentos Hitachi (22%), Serviços (7%).</p>
+                            <div class="bg-slate-900/80 p-3 rounded-lg border border-emerald-500/20 text-emerald-100 text-sm leading-relaxed">
+                                <span class="text-emerald-400 mr-1">💡 Sugestão:</span> "Vi que a força de vocês está na recorrência de insumos (71% da receita). No novo CRM, o foco inicial será blindar e fazer cross-sell nessa base ativa de 379 clientes, ou a prioridade é o funil de novas máquinas?"
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-4 p-5 bg-emerald-950/20 border-l-4 border-emerald-500 rounded-xl cursor-pointer hover:bg-emerald-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-emerald-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-emerald-400 text-lg">Quantas pessoas / Quem são?</p>
+                            <p class="text-sm text-slate-300 mt-2 mb-3"><span class="font-semibold text-slate-100">Info Mapeada:</span> Headcount de 22 pessoas. 15 ext, 4 int, 3 SDRs, 1 Triagem (Cristiane).</p>
+                            <div class="bg-slate-900/80 p-3 rounded-lg border border-emerald-500/20 text-emerald-100 text-sm leading-relaxed">
+                                <span class="text-emerald-400 mr-1">💡 Sugestão:</span> "O time comercial hoje tem cerca de 22 pessoas na linha de frente (SDRs, a Cristiane na triagem, consultores internos e externos). Todos eles vão precisar de licença/acesso diário ao novo CRM?"
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-4 p-5 bg-emerald-950/20 border-l-4 border-emerald-500 rounded-xl cursor-pointer hover:bg-emerald-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-emerald-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-emerald-400 text-lg">Já usaram CRM antes? Por que não deu certo?</p>
+                            <p class="text-sm text-slate-300 mt-2 mb-3"><span class="font-semibold text-slate-100">Info Mapeada:</span> Usam o Agendor. Falha atual: 6+ funis (complexo), preenchimento manual excessivo, gestão às cegas, leads perdidos por falta de SLA.</p>
+                            <div class="bg-slate-900/80 p-3 rounded-lg border border-emerald-500/20 text-emerald-100 text-sm leading-relaxed">
+                                <span class="text-emerald-400 mr-1">💡 Sugestão:</span> "Sei que o Agendor hoje está gerando dor de cabeça com excesso de funis (mais de 6 ativos) e gargalo no handoff. A ideia de vocês é reconstruir e otimizar o Agendor ou migrar para uma ferramenta mais robusta?"
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Pendente -->
+                    <label class="flex items-start gap-4 p-5 bg-red-950/20 border-l-4 border-red-500 rounded-xl cursor-pointer hover:bg-red-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-red-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-red-400 text-lg">Necessidade de migração de histórico?</p>
+                            <div class="bg-slate-900/80 p-3 mt-3 rounded-lg border border-red-500/20 text-red-100 text-sm leading-relaxed">
+                                <span class="text-red-400 mr-1">❓ Pergunta:</span> "Se formos mudar de ferramenta, qual é o volume de histórico que vocês têm no Agendor hoje? É inegociável trazer essas negociações passadas para o novo sistema?"
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-4 p-5 bg-red-950/20 border-l-4 border-red-500 rounded-xl cursor-pointer hover:bg-red-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-red-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-red-400 text-lg">Quem vai ser o responsável por garantir o uso?</p>
+                            <div class="bg-slate-900/80 p-3 mt-3 rounded-lg border border-red-500/20 text-red-100 text-sm leading-relaxed">
+                                <span class="text-red-400 mr-1">❓ Pergunta:</span> "Para a implementação dar certo, precisaremos de um 'campeão' do CRM interno. Quem vai ser a pessoa responsável por cobrar a adesão diária dos 15 vendedores externos para que não voltem a anotar em cadernos?"
+                            </div>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTE 2: Processo Comercial Atual -->
+        <section class="mb-6">
+            <button class="accordion-btn w-full bg-slate-800 text-slate-100 p-5 rounded-t-xl flex justify-between items-center hover:bg-slate-700 transition-all border border-slate-700 shadow-md" onclick="toggleAccordion('part2')">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-900 text-slate-400 font-mono text-sm px-2 py-1 rounded border border-slate-700">02</span>
+                    <span class="font-bold text-lg tracking-wide">Processo Comercial Atual (15 min)</span>
+                </div>
+                <svg class="w-6 h-6 transform transition-transform duration-300 text-slate-400" id="icon-part2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            
+            <div id="part2" class="accordion-content bg-slate-900/50 shadow-inner rounded-b-xl border-x border-b border-slate-800">
+                <div class="p-6 space-y-5">
+                    
+                    <label class="flex items-start gap-4 p-5 bg-emerald-950/20 border-l-4 border-emerald-500 rounded-xl cursor-pointer hover:bg-emerald-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-emerald-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-emerald-400 text-lg">Onde vocês perdem mais vendas? Onde o processo trava?</p>
+                            <p class="text-sm text-slate-300 mt-2 mb-3"><span class="font-semibold text-slate-100">Info Mapeada:</span> Perdem na quebra de SLA (demoram para responder o lead "máquina parada") e na passagem de bastão ("lead quebrado" da Triagem pro Closer).</p>
+                            <div class="bg-slate-900/80 p-3 rounded-lg border border-emerald-500/20 text-emerald-100 text-sm leading-relaxed">
+                                <span class="text-emerald-400 mr-1">💡 Sugestão:</span> "No diagnóstico levantamos que a principal dor é o SLA de 1h não sendo cumprido e informações se perdendo na passagem de bastão da Cristiane para os Closers. O novo CRM precisa travar isso. Como vocês imaginam a regra de distribuição ideal hoje?"
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-4 p-5 bg-emerald-950/20 border-l-4 border-emerald-500 rounded-xl cursor-pointer hover:bg-emerald-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-emerald-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-emerald-400 text-lg">Quantos leads entram por mês?</p>
+                            <p class="text-sm text-slate-300 mt-2 mb-3"><span class="font-semibold text-slate-100">Info Mapeada:</span> ~19 leads de marketing fechando 6. Estimativa de ~20 leads adicionais não capturados por ineficiência.</p>
+                            <div class="bg-slate-900/80 p-3 rounded-lg border border-emerald-500/20 text-emerald-100 text-sm leading-relaxed">
+                                <span class="text-emerald-400 mr-1">💡 Sugestão:</span> "Hoje vocês recebem um volume relativamente baixo, mas de alto valor (cerca de 19 leads de mkt/ano). Com a entrada dos 3 novos SDRs e a expansão do tráfego, para qual volume de leads por mês nós precisamos preparar essa máquina?"
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-4 p-5 bg-red-950/20 border-l-4 border-red-500 rounded-xl cursor-pointer hover:bg-red-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-red-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-red-400 text-lg">Estrutura de Atendimento (WhatsApp / Número Único)</p>
+                            <div class="bg-slate-900/80 p-3 mt-3 rounded-lg border border-red-500/20 text-red-100 text-sm leading-relaxed">
+                                <span class="text-red-400 mr-1">❓ Pergunta:</span> "Sei que há contato via WhatsApp. Hoje, cada um dos 15 vendedores externos tem um chip próprio da Suljet, ou eles usam o celular pessoal? Como a gestão controla as conversas que acontecem fora do e-mail?"
+                            </div>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTE 3: Classificação do Projeto -->
+        <section class="mb-6">
+            <button class="accordion-btn w-full bg-slate-800 text-slate-100 p-5 rounded-t-xl flex justify-between items-center hover:bg-slate-700 transition-all border border-slate-700 shadow-md" onclick="toggleAccordion('part3')">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-900 text-slate-400 font-mono text-sm px-2 py-1 rounded border border-slate-700">03</span>
+                    <span class="font-bold text-lg tracking-wide">Classificação do Projeto (5 min)</span>
+                </div>
+                <svg class="w-6 h-6 transform transition-transform duration-300 text-slate-400" id="icon-part3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            
+            <div id="part3" class="accordion-content bg-slate-900/50 shadow-inner rounded-b-xl border-x border-b border-slate-800">
+                <div class="p-6 space-y-5">
+                    
+                     <label class="flex items-start gap-4 p-5 bg-emerald-950/20 border-l-4 border-emerald-500 rounded-xl cursor-pointer hover:bg-emerald-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-emerald-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-emerald-400 text-lg">O gestor precisa ver as conversas / Nutrição de Leads?</p>
+                            <p class="text-sm text-slate-300 mt-2 mb-3"><span class="font-semibold text-slate-100">Info Mapeada:</span> Sim, reclamam de "gestão às cegas". O planejamento de 2026 pede "Nurturing automatizado gerando MQLs".</p>
+                            <div class="bg-slate-900/80 p-3 rounded-lg border border-emerald-500/20 text-emerald-100 text-sm leading-relaxed">
+                                <span class="text-emerald-400 mr-1">💡 Sugestão:</span> "Como o planejamento foca em sair da 'gestão às cegas' e implementar nutrição automatizada (MQLs), a visibilidade do WhatsApp dos vendedores e automações de email marketing precisarão estar centralizadas, correto?"
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-4 p-5 bg-red-950/20 border-l-4 border-red-500 rounded-xl cursor-pointer hover:bg-red-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-red-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-red-400 text-lg">Dependência do WhatsApp / Disparos</p>
+                            <div class="bg-slate-900/80 p-3 mt-3 rounded-lg border border-red-500/20 text-red-100 text-sm leading-relaxed">
+                                <span class="text-red-400 mr-1">❓ Pergunta:</span> "A venda de vocês (ticket altíssimo) trava se o WhatsApp cair, ou a maior parte das negociações acontece presencialmente (pelos externos) e via email formal? Vocês pretendem usar o CRM para disparo ativo em massa no WhatsApp para a base de 379 clientes?"
+                            </div>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTE 4: Infraestrutura Técnica -->
+        <section class="mb-6">
+            <button class="accordion-btn w-full bg-slate-800 text-slate-100 p-5 rounded-t-xl flex justify-between items-center hover:bg-slate-700 transition-all border border-slate-700 shadow-md" onclick="toggleAccordion('part4')">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-900 text-slate-400 font-mono text-sm px-2 py-1 rounded border border-slate-700">04</span>
+                    <span class="font-bold text-lg tracking-wide">Infraestrutura Técnica (10 min)</span>
+                </div>
+                <svg class="w-6 h-6 transform transition-transform duration-300 text-slate-400" id="icon-part4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            
+            <div id="part4" class="accordion-content bg-slate-900/50 shadow-inner rounded-b-xl border-x border-b border-slate-800">
+                <div class="p-6 space-y-5">
+
+                     <label class="flex items-start gap-4 p-5 bg-emerald-950/20 border-l-4 border-emerald-500 rounded-xl cursor-pointer hover:bg-emerald-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-emerald-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-emerald-400 text-lg">Tem site/form? Anúncios? Base de contatos?</p>
+                            <p class="text-sm text-slate-300 mt-2 mb-3"><span class="font-semibold text-slate-100">Info Mapeada:</span> Têm site Institucional+E-com, rodam Google Ads (mas tá otimizado errado pra curiosos). Base ativa de 379 clientes. Têm integração ERP no radar.</p>
+                            <div class="bg-slate-900/80 p-3 rounded-lg border border-emerald-500/20 text-emerald-100 text-sm leading-relaxed">
+                                <span class="text-emerald-400 mr-1">💡 Sugestão:</span> "Vi que a meta é integrar o Google Ads diretamente ao CRM para enviar o feedback de conversão real (não apenas cliques). O site/e-commerce atual de vocês permite fácil integração de formulários e rastreamento?"
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-4 p-5 bg-red-950/20 border-l-4 border-red-500 rounded-xl cursor-pointer hover:bg-red-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-red-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-red-400 text-lg">Provedor de E-mail / Telefonia / ERP atual</p>
+                            <div class="bg-slate-900/80 p-3 mt-3 rounded-lg border border-red-500/20 text-red-100 text-sm leading-relaxed">
+                                <span class="text-red-400 mr-1">❓ Pergunta:</span> "Qual é o provedor de e-mail corporativo de vocês hoje (Google Workspace, Office 365, Locaweb)? E qual o nome do sistema ERP interno que a operação usa hoje para faturamento?"
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-4 p-5 bg-red-950/20 border-l-4 border-red-500 rounded-xl cursor-pointer hover:bg-red-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-red-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-red-400 text-lg">Acesso à Meta Business Manager</p>
+                            <div class="bg-slate-900/80 p-3 mt-3 rounded-lg border border-red-500/20 text-red-100 text-sm leading-relaxed">
+                                <span class="text-red-400 mr-1">❓ Pergunta:</span> "Vocês já têm a empresa verificada no Facebook/Meta Business? Precisaremos garantir que a pessoa técnica tenha acesso a isso caso optem por WhatsApp API."
+                            </div>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTE 5: Expectativas e Restrições -->
+        <section class="mb-10">
+            <button class="accordion-btn w-full bg-slate-800 text-slate-100 p-5 rounded-t-xl flex justify-between items-center hover:bg-slate-700 transition-all border border-slate-700 shadow-md" onclick="toggleAccordion('part5')">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-900 text-slate-400 font-mono text-sm px-2 py-1 rounded border border-slate-700">05</span>
+                    <span class="font-bold text-lg tracking-wide">Expectativas e Restrições (5 min)</span>
+                </div>
+                <svg class="w-6 h-6 transform transition-transform duration-300 text-slate-400" id="icon-part5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            
+            <div id="part5" class="accordion-content bg-slate-900/50 shadow-inner rounded-b-xl border-x border-b border-slate-800">
+                <div class="p-6 space-y-5">
+
+                     <label class="flex items-start gap-4 p-5 bg-emerald-950/20 border-l-4 border-emerald-500 rounded-xl cursor-pointer hover:bg-emerald-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-emerald-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-emerald-400 text-lg">O que esperam que mude / Medos / Metas?</p>
+                            <p class="text-sm text-slate-300 mt-2 mb-3"><span class="font-semibold text-slate-100">Info Mapeada:</span> Querem sair de R$ 21.4M para R$ 32M (+49%). Ansiedade atual do time com perda de vendas e guerra de preço. Precisam vender valor (TCO).</p>
+                            <div class="bg-slate-900/80 p-3 rounded-lg border border-emerald-500/20 text-emerald-100 text-sm leading-relaxed">
+                                <span class="text-emerald-400 mr-1">💡 Sugestão:</span> "Para atingir os R$ 32M em 2026, sei que a margem e a redução do ciclo de vendas são essenciais. Se o CRM entregar a matriz de BANT/SPIN e garantir o SLA < 1h no Q1, vocês consideram a implementação um sucesso absoluto?"
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-4 p-5 bg-red-950/20 border-l-4 border-red-500 rounded-xl cursor-pointer hover:bg-red-900/30 transition-all border-y border-r border-slate-800 group">
+                        <input type="checkbox" class="peer mt-1 w-5 h-5 accent-red-500 bg-slate-800 border-slate-600 rounded cursor-pointer">
+                        <div class="peer-checked:line-through peer-checked:opacity-40 transition-all w-full">
+                            <p class="font-bold text-red-400 text-lg">Inegociáveis Técnicos e Restrições Ocultas</p>
+                            <div class="bg-slate-900/80 p-3 mt-3 rounded-lg border border-red-500/20 text-red-100 text-sm leading-relaxed">
+                                <span class="text-red-400 mr-1">❓ Pergunta:</span> "Fora a simplificação de funis e o alerta de SLA que já mapeamos, existe alguma funcionalidade ou processo que é 100% inegociável para a operação de vocês rodar amanhã?"
+                            </div>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Red Flags / Avisos Importantes (Consultor) -->
+        <div class="bg-slate-900 text-slate-200 p-6 rounded-xl border border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.15)] relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1 h-full bg-red-500"></div>
+            <h3 class="text-red-400 font-bold text-xl mb-4 flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                Alertas para o Consultor (WhatsApp API)
+            </h3>
+            <p class="text-sm mb-4 text-slate-400">Se a SULJET desejar implementar disparo em massa no WhatsApp para a base de 379 clientes, explique a regra da API Oficial:</p>
+            <ul class="list-disc pl-5 text-sm space-y-2 text-slate-300">
+                <li><span class="text-white font-semibold">Custo é por conversa aberta</span> (sessão de 24h), não por mensagem enviada.</li>
+                <li>Qualquer mensagem ativa fora das 24h exige <span class="text-white font-semibold">Templates pré-aprovados</span> pela Meta.</li>
+                <li>Não é igual Email Marketing (regras rígidas de bloqueio).</li>
+                <li>Requer <span class="text-white font-semibold">Facebook Business Manager (Meta)</span> devidamente verificado (CNPJ).</li>
+            </ul>
+        </div>
+
+    </main>
+
+    <script>
+        // Simple script to handle accordion functionality
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.classList.remove('rotate-180');
+            } else {
+                content.classList.add('open');
+                icon.classList.add('rotate-180');
+            }
+        }
+
+        // Open Part 1 by default for better UX
+        document.addEventListener("DOMContentLoaded", () => {
+            toggleAccordion('part1');
+        });
+    </script>
+</body>
+</html>
