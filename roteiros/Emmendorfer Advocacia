@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discovery CRM - Emmendorfer Advocacia</title>
+    <style>
+        :root {
+            /* Paleta Dark Mode */
+            --bg-body: #121212;
+            --bg-surface: #1E1E1E;
+            --bg-surface-hover: #2A2A2A;
+            --bg-topbar: #000000;
+            
+            --text-main: #F5F5F5;
+            --text-muted: #AAAAAA;
+            --border-color: #333333;
+            
+            --brand-red: #E53935;
+            
+            /* Cores de Ação (Ajustadas para Dark Mode) */
+            --color-confirm: #4CAF50; /* Verde vivo */
+            --color-ask: #FF5252;    /* Vermelho vivo */
+            --color-warning: #FFCA28; /* Amarelo vivo */
+            
+            --bg-confirm-light: rgba(76, 175, 80, 0.1);
+            --bg-ask-light: rgba(255, 82, 82, 0.1);
+            --bg-warning-light: rgba(255, 202, 40, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding-top: 80px; /* Espaço para a barra superior fixa */
+            line-height: 1.6;
+        }
+
+        /* Topbar / Header Fixo */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-topbar);
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            border-bottom: 3px solid var(--brand-red);
+        }
+
+        .topbar-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo-area h1 {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo-area span {
+            color: var(--brand-red);
+            font-weight: bold;
+        }
+
+        .logo-area p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+
+        /* Barra de Progresso no Topo */
+        .progress-container {
+            width: 250px;
+            text-align: right;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .progress-track {
+            height: 8px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--brand-red);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* Conteúdo Principal Centralizado */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            padding-bottom: 50px;
+        }
+
+        /* Acordeão (Blocos Expansíveis) */
+        .accordion-item {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: var(--bg-surface);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .accordion-header {
+            width: 100%;
+            background-color: var(--bg-surface);
+            border: none;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: var(--bg-surface-hover);
+        }
+
+        .accordion-header.active {
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-surface-hover);
+        }
+
+        .accordion-title-area {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .accordion-header h2 {
+            font-size: 1.4rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .accordion-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .accordion-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .timer {
+            font-weight: bold;
+            color: var(--text-main);
+            background: var(--border-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            color: var(--brand-red);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 25px 20px;
+            background-color: var(--bg-body);
+        }
+
+        .accordion-content.show {
+            display: block;
+            animation: fadeInDown 0.3s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Checkbox Items - Foco Total na Clareza */
+        .check-item {
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .check-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .check-item.type-confirm {
+            background-color: var(--bg-confirm-light);
+            border-left: 6px solid var(--color-confirm);
+        }
+
+        .check-item.type-ask {
+            background-color: var(--bg-ask-light);
+            border-left: 6px solid var(--color-ask);
+        }
+        
+        .check-item.type-warning {
+            background-color: var(--bg-warning-light);
+            border-left: 6px solid var(--color-warning);
+        }
+
+        .check-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .check-header input[type="checkbox"] {
+            width: 26px;
+            height: 26px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+        
+        .type-confirm input[type="checkbox"] { accent-color: var(--color-confirm); }
+        .type-ask input[type="checkbox"] { accent-color: var(--color-ask); }
+        .type-warning input[type="checkbox"] { accent-color: var(--color-warning); }
+
+        .check-text {
+            flex: 1;
+        }
+
+        /* Mega Tags de Ação */
+        .action-label {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            color: #000; /* Texto preto para super contraste com o fundo colorido da tag */
+        }
+
+        .type-confirm .action-label { background-color: var(--color-confirm); }
+        .type-ask .action-label { background-color: var(--color-ask); color: #FFF; }
+        .type-warning .action-label { background-color: var(--color-warning); }
+
+        .check-text h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .check-text ul {
+            margin-left: 25px;
+            color: #CCCCCC;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .check-text ul li {
+            margin-bottom: 6px;
+        }
+
+        /* Suggestion Box (Estilo Teleprompter) */
+        .suggestion-box {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .type-confirm .suggestion-box { border-left: 4px solid var(--color-confirm); }
+        .type-ask .suggestion-box { border-left: 4px solid var(--color-ask); }
+        .type-warning .suggestion-box { border-left: 4px solid var(--color-warning); }
+
+        .suggestion-box strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .type-confirm .suggestion-box strong { color: var(--color-confirm); }
+        .type-ask .suggestion-box strong { color: var(--color-ask); }
+        .type-warning .suggestion-box strong { color: var(--color-warning); }
+
+        .suggestion-box p {
+            color: var(--text-main);
+            font-style: italic;
+            margin-bottom: 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        /* Utilidade para itens concluídos */
+        .dimmed {
+            opacity: 0.35;
+            filter: grayscale(80%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Fixo Superior -->
+    <header class="topbar">
+        <div class="topbar-content">
+            <div class="logo-area">
+                <h1>Discovery<span>CRM</span></h1>
+                <p>Emmendorfer Advocacia</p>
+            </div>
+            <div class="progress-container">
+                <div class="progress-text">Progresso: <span id="progress-text">0%</span></div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- PARTE 1: Contexto Geral -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title-area">
+                    <h2>Parte 1: Contexto Geral</h2>
+                    <p>Entender o negócio, quem vai usar e histórico</p>
+                </div>
+                <div class="accordion-meta">
+                    <span class="timer">10 min</span>
+                    <span class="icon">▼</span>
+                </div>
+            </button>
+            <div class="accordion-content">
+                
+                <!-- Confirmar -->
+                <div class="check-item type-confirm">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">✅ CONFIRMAR</div>
+                            <h3>O que a empresa vende</h3>
+                            <ul>
+                                <li>Produto/Serviço: Reestruturação societária, tributário e Planejamento Sucessório.</li>
+                                <li>Ticket Médio: 25% acima do mercado (Alto Padrão).</li>
+                                <li>Público: B2B e B2C (Diretores, sócios, PMEs, Alta Renda SC).</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Sugestão de Confirmação:</strong>
+                                <p>"Alexandre, pelo briefing, sei que o foco de vocês é o corporativo e planejamento sucessório no Vale do Itajaí, com um ticket premium, sem brigar por preço. A ideia do CRM é estruturar a venda desses serviços focando em Diretores e Sócios Administradores, correto?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perguntar -->
+                <div class="check-item type-ask">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">❓ PERGUNTAR</div>
+                            <h3>Usuários e Responsáveis</h3>
+                            <ul>
+                                <li>Quantas pessoas vão usar o CRM no dia a dia?</li>
+                                <li>Quem são essas pessoas? (Secretária vai triar? Sócios vão fechar?)</li>
+                                <li>Quem vai ser o responsável por garantir que o time use o CRM?</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Como Perguntar:</strong>
+                                <p>"Sabendo que a equipe hoje tem 8 pessoas, quem efetivamente vai operar o CRM? A secretária fará a triagem inicial e os 3 sócios conduzem a negociação? E, muito importante para o sucesso: quem será o 'guardião' do CRM para garantir que a equipe não volte para o papel/whatsapp avulso?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perguntar -->
+                <div class="check-item type-ask">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">❓ PERGUNTAR</div>
+                            <h3>Histórico e Migração</h3>
+                            <ul>
+                                <li>Já usaram CRM antes? Qual? Por que não deu certo?</li>
+                                <li>Existe necessidade de migração de histórico de clientes/negociações antigas?</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Como Perguntar:</strong>
+                                <p>"Vocês mencionaram que não usam nenhuma ferramenta hoje. Mas no passado, já tentaram implementar algum sistema que acabou gerando frustração? E sobre a base atual, vocês têm planilhas de contatos que precisaremos importar para o CRM novo?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PARTE 2: Processo Comercial Atual -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title-area">
+                    <h2>Parte 2: Processo Comercial Atual</h2>
+                    <p>Entender se tem processo definido e onde dói mais</p>
+                </div>
+                <div class="accordion-meta">
+                    <span class="timer">15 min</span>
+                    <span class="icon">▼</span>
+                </div>
+            </button>
+            <div class="accordion-content">
+                
+                <!-- Perguntar -->
+                <div class="check-item type-ask">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">❓ PERGUNTAR</div>
+                            <h3>Captação e Triagem (Leads)</h3>
+                            <ul>
+                                <li>Como chega um lead hoje? (site, anúncio pago, indicação?)</li>
+                                <li>Quando o lead chega, o que acontece? Quem atende e em quanto tempo?</li>
+                                <li>Quantos leads entram por mês aproximadamente?</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Como Perguntar:</strong>
+                                <p>"Hoje, o fluxo de novos clientes vem mais de boca a boca ou já rodam alguma captação? Quando alguém procura o escritório, cai no WhatsApp da secretária ou vai direto para os sócios? Vocês têm ideia de quantas novas oportunidades de negócio chegam por mês?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perguntar -->
+                <div class="check-item type-ask">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">❓ PERGUNTAR</div>
+                            <h3>Canais de Atendimento</h3>
+                            <ul>
+                                <li>O atendimento é por WhatsApp, ligação, email ou misturado?</li>
+                                <li>Cada advogado/sócio tem seu número de WhatsApp ou é compartilhado?</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Como Perguntar:</strong>
+                                <p>"Na condução do cliente, vocês centralizam tudo no email corporativo ou usam muito o WhatsApp? Hoje, os clientes falam com os sócios nos WhatsApps pessoais ou existe um número central do escritório?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Confirmar -->
+                <div class="check-item type-confirm">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">✅ CONFIRMAR</div>
+                            <h3>Padronização e Gargalos</h3>
+                            <ul>
+                                <li>Existe um processo comercial definido ou cada um faz do seu jeito? (Sabemos que não há padrão)</li>
+                                <li>Ausência de metas instauradas.</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Sugestão de Confirmação:</strong>
+                                <p>"No briefing, vi que hoje não há uma gestão centralizada ou metas estabelecidas, o que cria uma gestão muito pessoalizada de cada sócio, certo?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perguntar -->
+                <div class="check-item type-ask">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">❓ PERGUNTAR</div>
+                            <h3>Dores no Funil (Gargalo)</h3>
+                            <ul>
+                                <li>Onde vocês sentem que perdem mais vendas? Onde o processo trava?</li>
+                                <li>Quais são os critérios de desqualificação (lucro presumido, jovem aprendiz sem patrimônio)?</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Como Perguntar:</strong>
+                                <p>"Considerando o valor da hora de vocês, onde o processo costuma travar hoje? É na demora para enviar proposta? É atender lead desqualificado? Quais são os 'Deal Breakers' (critérios de recusa) para nem sequer levar um lead para a mesa de reunião?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PARTE 3: Classificação do Projeto -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title-area">
+                    <h2>Parte 3: Classificação do Projeto</h2>
+                    <p>Validar se a plataforma vendida faz sentido</p>
+                </div>
+                <div class="accordion-meta">
+                    <span class="timer">5 min</span>
+                    <span class="icon">▼</span>
+                </div>
+            </button>
+            <div class="accordion-content">
+                
+                <!-- Perguntar -->
+                <div class="check-item type-ask">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">❓ PERGUNTAR</div>
+                            <h3>Diagnóstico: Sales Conversacional</h3>
+                            <ul>
+                                <li>O advogado/sócio precisa atender e vender pelo WhatsApp oficial?</li>
+                                <li>O gestor (Alexandre) precisa ver o que está sendo falado nas conversas?</li>
+                                <li>Se o WhatsApp parasse hoje, a venda de vocês travaria?</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Como Perguntar:</strong>
+                                <p>"Para eu saber se conectamos o WhatsApp diretamente no CRM (Sales Conversacional): Alexandre, como gestor, você precisa auditar as conversas dos advogados com os clientes? A negociação de honorários acontece forte pelo WhatsApp hoje?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perguntar -->
+                <div class="check-item type-ask">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">❓ PERGUNTAR</div>
+                            <h3>Diagnóstico: Automação de Marketing</h3>
+                            <ul>
+                                <li>Vocês fazem disparo de email para base de leads?</li>
+                                <li>Têm nutrição automatizada (ex: enviar conteúdos sobre planejamento sucessório)?</li>
+                                <li>O lead precisa ser aquecido antes de ir para a reunião com o sócio?</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Como Perguntar:</strong>
+                                <p>"Como o foco atual é Planejamento Sucessório, o cliente precisa ser 'educado'. Vocês pretendem criar uma régua de e-mails automáticos ou materiais ricos para aquecer esse diretor antes de o advogado ir para o fechamento?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PARTE 4: Infraestrutura Técnica -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title-area">
+                    <h2>Parte 4: Infraestrutura Técnica</h2>
+                    <p>Mapear integrações, complexidade e Red Flags</p>
+                </div>
+                <div class="accordion-meta">
+                    <span class="timer">10 min</span>
+                    <span class="icon">▼</span>
+                </div>
+            </button>
+            <div class="accordion-content">
+                
+                <!-- Perguntar -->
+                <div class="check-item type-ask">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">❓ PERGUNTAR</div>
+                            <h3>Infra de Sales / Marketing Geral</h3>
+                            <ul>
+                                <li>Usam email comercial? Qual provedor? (Google, Outlook)</li>
+                                <li>Fazem reuniões de vendas online? Qual ferramenta? (Zoom, Meet)</li>
+                                <li>Já tem base de leads (quantos contatos)? Landing Pages? Segmentação?</li>
+                                <li>Tem site com formulário de captação? Roda Meta/Google Ads?</li>
+                                <li>Precisa integrar com algum ERP jurídico ou com a contabilidade externa?</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Como Perguntar:</strong>
+                                <p>"Para mapearmos a tecnologia: o email de vocês é Google ou Microsoft? O site atual já captura leads? Existe alguma exigência de integrar o CRM novo com algum sistema que vocês já rodam, ou mesmo com a contabilidade de vocês?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Warning -->
+                <div class="check-item type-warning">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">⚠️ ATENÇÃO</div>
+                            <h3>Disparo em Massa WhatsApp</h3>
+                            <ul>
+                                <li><strong>Explicar regras Meta API:</strong> Custo por conversa, aprovação de templates, janela de 24h, restrições pesadas, necessita Meta Business verificada.</li>
+                                <li>Perguntas: Já conheciam as regras? Já tem Meta Business verificada? Preferem API oficial ou só chip normal?</li>
+                                <li><em>Acesso:</em> Pedir login do FB/Meta Business e WhatsApp se não souberem responder.</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Como Abordar (se aplicável):</strong>
+                                <p>"Alexandre, é importante alinhar que disparo em massa no WhatsApp via API Oficial tem regras rígidas da Meta (custos, templates aprovados, bloqueio 24h). Não é igual email. Vocês já têm a empresa verificada no Facebook Business para isso ou vamos usar uma abordagem mais consultiva (1 a 1) para esse público de alto ticket?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PARTE 5: Expectativas e Restrições -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title-area">
+                    <h2>Parte 5: Expectativas e Restrições</h2>
+                    <p>Alinhar o que é sucesso e riscos ocultos</p>
+                </div>
+                <div class="accordion-meta">
+                    <span class="timer">5 min</span>
+                    <span class="icon">▼</span>
+                </div>
+            </button>
+            <div class="accordion-content">
+                
+                <!-- Confirmar -->
+                <div class="check-item type-confirm">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">✅ CONFIRMAR</div>
+                            <h3>Objetivos Principais e Inegociáveis</h3>
+                            <ul>
+                                <li>O que esperam: Melhora na gestão, crescimento exponencial impessoalizado, ambiente digital para posicionamento.</li>
+                                <li>Inegociável: Sem banco de imagens no marketing (tudo personalizado, escritório real), ticket premium.</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Sugestão de Confirmação:</strong>
+                                <p>"Para fecharmos, pelo que conversamos, o sucesso desse projeto é o CRM rodando de forma que o escritório pare de depender do CPF dos sócios para crescer, organizando a 'esteira' de Sucessório e Holdings. E no marketing, o inegociável é uma identidade visual premium, com fotos reais de vocês, certo?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perguntar -->
+                <div class="check-item type-ask">
+                    <div class="check-header">
+                        <input type="checkbox" onchange="updateProgress(this)">
+                        <div class="check-text">
+                            <div class="action-label">❓ PERGUNTAR</div>
+                            <h3>Prazos, Dúvidas Financeiras e Medos</h3>
+                            <ul>
+                                <li>Onde mora a diferença de R$ 3.6M anuais (sabendo que o fixo mensal é 200k)?</li>
+                                <li>Tem alguma data importante para subir esse projeto (campanha, meta, sazonalidade)?</li>
+                                <li>Alguma preocupação ou medo forte em relação à implementação do CRM?</li>
+                            </ul>
+                            <div class="suggestion-box">
+                                <strong>Como Perguntar:</strong>
+                                <p>"Do ponto de vista financeiro do funil, vi que faturam 2.4M em fixos e chegam a 6M no ano. Essa diferença volumosa vêm dos êxitos ou reestruturações, correto? Para implementarmos tudo isso, existe algum medo do time não aderir ou um prazo limite que vocês precisam do sistema no ar?"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Lógica de Acordeão (Abrir/Fechar)
+        function toggleAccordion(button) {
+            button.classList.toggle('active');
+            const content = button.nextElementSibling;
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+            } else {
+                content.classList.add('show');
+            }
+        }
+
+        // Deixar o primeiro acordeão aberto por padrão ao carregar a página
+        window.onload = function() {
+            const firstAccordionBtn = document.querySelector('.accordion-header');
+            if (firstAccordionBtn) {
+                toggleAccordion(firstAccordionBtn);
+            }
+        };
+
+        // Lógica da Barra de Progresso e Opacidade
+        function updateProgress(checkbox) {
+            // Efeito visual de "concluído" (reduz a opacidade para focar no próximo item)
+            const itemBox = checkbox.closest('.check-item');
+            if (checkbox.checked) {
+                itemBox.classList.add('dimmed');
+            } else {
+                itemBox.classList.remove('dimmed');
+            }
+
+            // Cálculo da barra de progresso global
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const percentage = Math.round((checked / total) * 100);
+            
+            document.getElementById('progress-text').innerText = `${percentage}%`;
+            document.getElementById('progress-fill').style.width = `${percentage}%`;
+        }
+    </script>
+</body>
+</html>
