@@ -1,1 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discovery CRM - Robótica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar to match the theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; /* slate-950 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ef4444; /* red-500 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b91c1c; /* red-700 */
+        }
+        .accordion-content {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.open {
+            max-height: 2500px; /* arbitrary large height */
+            opacity: 1;
+        }
+        .icon-transition {
+            transition: transform 0.3s ease;
+        }
+        .icon-transition.open {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans min-h-screen p-4 md:p-8">
 
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto mb-8 border-b-2 border-slate-800 pb-6 pt-4">
+        <div class="flex justify-between items-end">
+            <div>
+                <h1 class="text-4xl font-black uppercase tracking-wider text-white">Discovery <span class="text-red-500">CRM</span></h1>
+                <h2 class="text-xl text-slate-400 mt-2 font-medium">Projeto: IA SDR WhatsApp Business &bull; Cliente: Robótica</h2>
+            </div>
+            <div class="text-right text-sm">
+                <span class="inline-block px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 font-bold rounded-lg shadow-sm">
+                    Tempo Est.: 45 min
+                </span>
+            </div>
+        </div>
+        
+        <!-- Legenda -->
+        <div class="mt-6 flex flex-wrap gap-4 text-sm font-medium bg-slate-900/50 p-4 rounded-lg border border-slate-800">
+            <div class="flex items-center">
+                <span class="inline-block w-4 h-4 rounded bg-slate-700 border border-slate-500 mr-2 shadow-sm"></span> 
+                <span class="text-slate-300">Já temos a informação</span>
+            </div>
+            <div class="flex items-center">
+                <span class="inline-block w-4 h-4 rounded bg-emerald-500/20 border border-emerald-500 mr-2 shadow-sm"></span> 
+                <span class="text-emerald-400">Precisamos Confirmar</span>
+            </div>
+            <div class="flex items-center">
+                <span class="inline-block w-4 h-4 rounded bg-red-500/20 border border-red-500 mr-2 shadow-sm"></span> 
+                <span class="text-red-400">Precisamos Perguntar</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto space-y-4 pb-12">
+
+        <!-- Parte 1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl shadow-xl overflow-hidden text-slate-200">
+            <button class="w-full px-6 py-5 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none" onclick="toggleAccordion('part1', 'icon1')">
+                <h3 class="text-lg font-bold uppercase tracking-wide text-white">Parte 1: Contexto Geral <span class="text-red-400 font-medium text-sm ml-2 bg-red-500/10 px-2 py-1 rounded">(10 min)</span></h3>
+                <svg id="icon1" class="w-6 h-6 text-slate-400 icon-transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div id="part1" class="accordion-content bg-slate-900 px-6 py-2">
+                
+                <!-- Já sabemos -->
+                <div class="border-l-4 border-slate-500 p-5 my-5 bg-slate-800/40 rounded-r-lg">
+                    <h4 class="font-bold text-white text-lg">O que a empresa vende?</h4>
+                    <p class="text-slate-300 leading-relaxed mt-2">Sessões de reabilitação robótica domiciliar premium (RaaS). Majoritariamente B2C (famílias) e B2B secundário. Ticket: R$ 5.000 / 10 sessões.</p>
+                </div>
+
+                <div class="border-l-4 border-slate-500 p-5 my-5 bg-slate-800/40 rounded-r-lg">
+                    <h4 class="font-bold text-white text-lg">Quem são essas pessoas?</h4>
+                    <p class="text-slate-300 leading-relaxed mt-2">SDR V4, Fisioterapeutas nas cidades (2 em Curitiba, 1 POA), PM/Account Manager V4 e Diretoria/Cliente (acompanhamento).</p>
+                </div>
+
+                <!-- Confirmar -->
+                <div class="border-l-4 border-emerald-500 p-5 my-5 bg-emerald-900/10 rounded-r-lg">
+                    <h4 class="font-bold text-emerald-400 text-lg">Quantas pessoas vão usar o CRM no dia a dia?</h4>
+                    <p class="text-slate-300 mt-2 mb-3">Temos mapeados SDR + 3 fisios + Gestão (Aprox. 5 ou 6 pessoas iniciais).</p>
+                    <div class="bg-slate-950/50 p-3 rounded border border-emerald-900/30">
+                        <p class="text-emerald-300 italic text-sm font-medium"><span class="font-bold not-italic">💬 Sugestão:</span> "Pelo escopo, teremos o SDR da V4 e os fisioterapeutas no Kommo. Todos os fisios terão licença própria para interagir no CRM ou o SDR concentra tudo?"</p>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-emerald-500 p-5 my-5 bg-emerald-900/10 rounded-r-lg">
+                    <h4 class="font-bold text-emerald-400 text-lg">Quem vai ser o responsável por garantir que o time use o CRM?</h4>
+                    <p class="text-slate-300 mt-2 mb-3">Pela V4, o PM/Coordenação acompanham, mas precisamos de um champion no cliente.</p>
+                    <div class="bg-slate-950/50 p-3 rounded border border-emerald-900/30">
+                        <p class="text-emerald-300 italic text-sm font-medium"><span class="font-bold not-italic">💬 Sugestão:</span> "Do lado da Robótica, quem será a pessoa que vai cobrar os fisioterapeutas de atualizarem o CRM após a avaliação presencial?"</p>
+                    </div>
+                </div>
+
+                <!-- Perguntar -->
+                <div class="border-l-4 border-red-500 p-5 my-5 bg-red-900/10 rounded-r-lg">
+                    <h4 class="font-bold text-red-400 text-lg">Já usaram CRM antes? Por que não deu certo?</h4>
+                    <div class="bg-slate-950/50 p-3 rounded border border-red-900/30 mt-3">
+                        <p class="text-red-300 italic text-sm font-medium"><span class="font-bold not-italic">💬 Sugestão:</span> "Sabemos que essa operação específica é nova, mas na empresa-mãe vocês já utilizam algum CRM? Qual tem sido a experiência de vocês com a adoção pelo time?"</p>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-red-500 p-5 my-5 bg-red-900/10 rounded-r-lg">
+                    <h4 class="font-bold text-red-400 text-lg">Existe necessidade de migração de histórico de clientes/negociações?</h4>
+                    <div class="bg-slate-950/50 p-3 rounded border border-red-900/30 mt-3">
+                        <p class="text-red-300 italic text-sm font-medium"><span class="font-bold not-italic">💬 Sugestão:</span> "Vocês têm alguma base de contatos em planilha, ou leads antigos da marca-mãe que queiram importar para o Kommo agora no início, ou vamos começar do zero?"</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Parte 2 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl shadow-xl overflow-hidden text-slate-200">
+            <button class="w-full px-6 py-5 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none" onclick="toggleAccordion('part2', 'icon2')">
+                <h3 class="text-lg font-bold uppercase tracking-wide text-white">Parte 2: Processo Comercial Atual <span class="text-red-400 font-medium text-sm ml-2 bg-red-500/10 px-2 py-1 rounded">(15 min)</span></h3>
+                <svg id="icon2" class="w-6 h-6 text-slate-400 icon-transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div id="part2" class="accordion-content bg-slate-900 px-6 py-2">
+                
+                <!-- Já sabemos -->
+                <div class="border-l-4 border-slate-500 p-5 my-5 bg-slate-800/40 rounded-r-lg">
+                    <h4 class="font-bold text-white text-lg">Informações já mapeadas:</h4>
+                    <ul class="list-disc pl-5 mt-4 text-slate-300 space-y-2">
+                        <li><strong class="text-white font-medium">Chegada:</strong> Google Ads, Meta/Insta, Linkedin (futuro) e Indicações.</li>
+                        <li><strong class="text-white font-medium">Atendimento:</strong> IA atende em < 30min (SLA). Qualifica e passa para SDR Humano ou agenda fisio.</li>
+                        <li><strong class="text-white font-medium">Canal:</strong> Único via WhatsApp Business.</li>
+                        <li><strong class="text-white font-medium">Número:</strong> 1 número único compartilhado.</li>
+                        <li><strong class="text-white font-medium">Processo:</strong> Muito bem definido (SPIN Selling, BANT, 6 scripts IA, 7 tratativas de objeção).</li>
+                        <li><strong class="text-white font-medium">Gargalos:</strong> SLA alto, fisio demorando > 24h para responder, erro no SPIN, no-show de avaliação.</li>
+                        <li><strong class="text-white font-medium">Volume:</strong> 25-30 inicial, escalando para 50-70/mês.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg my-4 flex items-start">
+                    <span class="text-blue-400 text-xl mr-3">💡</span>
+                    <p class="text-sm text-blue-200 mt-1 leading-relaxed">Nesta etapa, o Discovery do PDF foi muito profundo. Use este momento para revisar e validar essas premissas rapidamente com o cliente.</p>
+                </div>
+
+                <!-- Confirmar -->
+                <div class="border-l-4 border-emerald-500 p-5 my-5 bg-emerald-900/10 rounded-r-lg">
+                    <h4 class="font-bold text-emerald-400 text-lg">Fluxo de passagem de bastão</h4>
+                    <div class="bg-slate-950/50 p-3 rounded border border-emerald-900/30 mt-3">
+                        <p class="text-emerald-300 italic text-sm font-medium"><span class="font-bold not-italic">💬 Sugestão:</span> "Vi que um dos gargalos hoje é o fisioterapeuta demorar mais de 24h para confirmar. O Kommo vai nos ajudar nisso. Podemos configurar um alerta automático para a gestão se um lead qualificado ficar mais de 12h sem interação do fisioterapeuta?"</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Parte 3 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl shadow-xl overflow-hidden text-slate-200">
+            <button class="w-full px-6 py-5 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none" onclick="toggleAccordion('part3', 'icon3')">
+                <h3 class="text-lg font-bold uppercase tracking-wide text-white">Parte 3: Classificação do Projeto <span class="text-red-400 font-medium text-sm ml-2 bg-red-500/10 px-2 py-1 rounded">(5 min)</span></h3>
+                <svg id="icon3" class="w-6 h-6 text-slate-400 icon-transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div id="part3" class="accordion-content bg-slate-900 px-6 py-2">
+
+                <!-- Já sabemos -->
+                <div class="border-l-4 border-slate-500 p-5 my-5 bg-slate-800/40 rounded-r-lg">
+                    <h4 class="font-bold text-white text-lg">Sales Conversacional Confirmado</h4>
+                    <p class="text-slate-300 leading-relaxed mt-2">Sim, venda 100% via WhatsApp. Gestor (Cliente/V4) precisará ver conversas via Kommo. Se o WhatsApp parar, a operação de vendas também para.</p>
+                </div>
+
+                <!-- Confirmar -->
+                <div class="border-l-4 border-emerald-500 p-5 my-5 bg-emerald-900/10 rounded-r-lg">
+                    <h4 class="font-bold text-emerald-400 text-lg">Ferramentas e Aquecimento de Marketing</h4>
+                    <p class="text-slate-300 mt-2 mb-3">O foco é WhatsApp (fundo de funil), mas precisamos garantir se não haverá régua de e-mail.</p>
+                    <div class="bg-slate-950/50 p-3 rounded border border-emerald-900/30">
+                        <p class="text-emerald-300 italic text-sm font-medium"><span class="font-bold not-italic">💬 Sugestão:</span> "A operação vai rodar 100% no WhatsApp, ou vocês têm intenção de fazer disparos de e-mail de nutrição para quem não fechar no primeiro momento (ex: RD Station, ActiveCampaign)?"</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Parte 4 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl shadow-xl overflow-hidden text-slate-200">
+            <button class="w-full px-6 py-5 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none" onclick="toggleAccordion('part4', 'icon4')">
+                <h3 class="text-lg font-bold uppercase tracking-wide text-white">Parte 4: Infraestrutura Técnica <span class="text-red-400 font-medium text-sm ml-2 bg-red-500/10 px-2 py-1 rounded">(10 min)</span></h3>
+                <svg id="icon4" class="w-6 h-6 text-slate-400 icon-transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div id="part4" class="accordion-content bg-slate-900 px-6 py-2">
+
+                <!-- Já sabemos -->
+                <div class="border-l-4 border-slate-500 p-5 my-5 bg-slate-800/40 rounded-r-lg">
+                    <h4 class="font-bold text-white text-lg">Informações Técnicas Básicas</h4>
+                    <ul class="list-disc pl-5 mt-4 text-slate-300 space-y-2">
+                        <li><strong class="text-white font-medium">Números WA:</strong> 1 inicial.</li>
+                        <li><strong class="text-white font-medium">Disparo em massa:</strong> Não. Apenas follow-up leve automatizado.</li>
+                        <li><strong class="text-white font-medium">Site/Landing Page:</strong> Em construção (formulário jogando pro WA).</li>
+                        <li><strong class="text-white font-medium">Anúncios:</strong> Google Ads e Meta Ads.</li>
+                        <li><strong class="text-white font-medium">Integrações:</strong> WA Business + Kommo (agora). Futuro: Pagamento, IoT e Ads.</li>
+                    </ul>
+                </div>
+
+                <!-- Confirmar -->
+                <div class="border-l-4 border-emerald-500 p-5 my-5 bg-emerald-900/10 rounded-r-lg">
+                    <h4 class="font-bold text-emerald-400 text-lg">WhatsApp Business vs API Oficial</h4>
+                    <p class="text-slate-300 mt-2 mb-3">PDF diz que começam com WA Business "normal" (Kommo Basic), mas planejam Cloud API se o volume justificar.</p>
+                    <div class="bg-slate-950/50 p-3 rounded border border-emerald-900/30">
+                        <p class="text-emerald-300 italic text-sm font-medium"><span class="font-bold not-italic">💬 Sugestão:</span> "Para o WhatsApp Business que vamos plugar no Kommo, ele já está criado e rodando em um aparelho? Alguém já tentou fazer a verificação da empresa (Meta Business Manager) na marca-mãe? É bom já ter isso engatilhado para o futuro."</p>
+                    </div>
+                </div>
+
+                <!-- Perguntar -->
+                <div class="border-l-4 border-red-500 p-5 my-5 bg-red-900/10 rounded-r-lg">
+                    <h4 class="font-bold text-red-400 text-lg">Acessos e Redes Sociais</h4>
+                    <div class="bg-slate-950/50 p-3 rounded border border-red-900/30 mt-3">
+                        <p class="text-red-300 italic text-sm font-medium"><span class="font-bold not-italic">💬 Sugestão:</span> "Como a Landing Page ainda está em construção, vocês já têm as páginas do Instagram/Facebook criadas e com o número de WhatsApp vinculado a elas? Precisaremos de acessos administrativos para conectar ao Kommo."</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Parte 5 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl shadow-xl overflow-hidden text-slate-200">
+            <button class="w-full px-6 py-5 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none" onclick="toggleAccordion('part5', 'icon5')">
+                <h3 class="text-lg font-bold uppercase tracking-wide text-white">Parte 5: Expectativas e Restrições <span class="text-red-400 font-medium text-sm ml-2 bg-red-500/10 px-2 py-1 rounded">(5 min)</span></h3>
+                <svg id="icon5" class="w-6 h-6 text-slate-400 icon-transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div id="part5" class="accordion-content bg-slate-900 px-6 py-2">
+
+                <!-- Já sabemos -->
+                <div class="border-l-4 border-slate-500 p-5 my-5 bg-slate-800/40 rounded-r-lg">
+                    <h4 class="font-bold text-white text-lg">O que esperam e Inegociáveis</h4>
+                    <ul class="list-disc pl-5 mt-4 text-slate-300 space-y-2">
+                        <li><strong class="text-white font-medium">Expectativa:</strong> Padronização, SLA rígido, escala sem aumentar custo fixo, CRM preenchido (resumo SPIN) para os fisioterapeutas.</li>
+                        <li><strong class="text-white font-medium">Inegociável:</strong> SLA < 30min; Tom de voz consultivo ("menos marquetês").</li>
+                        <li><strong class="text-white font-medium">Medos:</strong> IA queimar lead quente, fisioterapeuta demorar a atender, mistura de público.</li>
+                    </ul>
+                </div>
+
+                <!-- Perguntar -->
+                <div class="border-l-4 border-red-500 p-5 my-5 bg-red-900/10 rounded-r-lg">
+                    <h4 class="font-bold text-red-400 text-lg">Data de Virada / Lançamento</h4>
+                    <div class="bg-slate-950/50 p-3 rounded border border-red-900/30 mt-3">
+                        <p class="text-red-300 italic text-sm font-medium"><span class="font-bold not-italic">💬 Sugestão:</span> "Com a homologação da IA e setup do Kommo acontecendo agora, qual é a data limite que vocês precisam que tudo esteja 100% no ar para ligar o tráfego nas duas cidades?"</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Abrir o primeiro bloco por padrão ao carregar a tela
+        window.onload = function() {
+            toggleAccordion('part1', 'icon1');
+        };
+
+        function toggleAccordion(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            
+            if (content.classList.contains('open')) {
+                // Fechar
+                content.classList.remove('open');
+                icon.classList.remove('open');
+            } else {
+                // Abrir
+                content.classList.add('open');
+                icon.classList.add('open');
+            }
+        }
+    </script>
+</body>
+</html>
