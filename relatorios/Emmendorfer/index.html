@@ -1,0 +1,425 @@
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento CRM Estratégico - Emmendorfer & Tavares</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* CSS BASE DO SISTEMA - NÃO ALTERE ESTAS CLASSES */
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 600px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; width: 100%; max-width: 100%; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; width: 100%; max-width: 100%; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 180px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.medico-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; } .medico-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; } .medico-spec { font-size: 0.85rem; font-weight: 500; color: var(--white-muted); margin-bottom: 0.5rem; line-height: 1.5; }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.9; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento Estratégico CRM</div>
+<h1>Emmendorfer & Tavares <span>Advogados</span></h1>
+<p class="hero-sub">Centralizar o atendimento via WhatsApp, padronizar a triagem de leads, organizar o histórico do cliente e preparar a operação para escalar com novos canais de marketing de forma simples.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">Híbrida (PF e PJ)</div></div>
+<div class="hero-meta-item"><div class="label">Foco/Nicho</div><div class="value">Jurídico / Advocacia</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Kommo CRM</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#contexto" class="nav-link">Contexto & Dores</a>
+<a href="#equipe" class="nav-link">Equipe</a>
+<a href="#fluxo" class="nav-link">Jornada do Lead</a>
+<a href="#funil-vendas" class="nav-link">Funil de Vendas</a>
+<a href="#campos" class="nav-link">Estrutura de Dados</a>
+<a href="#automacoes" class="nav-link">Automações</a>
+<a href="#sla" class="nav-link">SLAs & Acessos</a>
+</div>
+</nav>
+
+<div class="divider"></div>
+<section class="section" id="contexto">
+<div class="section-header reveal">
+<div class="section-number">01 — Contexto Estratégico</div>
+<h2 class="section-title">Diagnóstico & Descoberta</h2>
+</div>
+
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">8</div><div class="stat-label">Usuários Mapeados</div></div>
+<div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Histórico Centralizado</div></div>
+<div class="stat-card"><div class="stat-num">Zero</div><div class="stat-label">Mistura de Conversas Pessoais</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Objetivos</div>
+<h3>O que buscamos resolver?</h3>
+<p>Sair da dependência do WhatsApp pessoal (mistura de conversas). Criar uma base centralizada para gestão de relacionamento e histórico, permitindo que a triagem seja feita pela secretária antes de envolver o tempo precioso dos advogados especialistas.</p>
+</div>
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Perfil Ideal (ICP)</h3>
+<p>Pessoas Físicas e Jurídicas. Atualmente a origem é majoritariamente indicações orgânicas e prospecção ativa do Dr. Alexandre. O CRM irá preparar o terreno para receber leads digitais de Tráfego Pago (Google/Instagram) no futuro.</p>
+</div>
+</div>
+
+<div class="accordion reveal">
+<div class="accordion-item open">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>🔴 Dores e Desafios Mapeados</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner">
+<div class="grid-2" style="margin-top: 1rem;">
+    <div class="info-box"><strong>Falta de Visibilidade:</strong> Não há um registro centralizado da data da última reunião ou visita presencial feita ao cliente.</div>
+    <div class="info-box"><strong>Mistura de Canais:</strong> Uso do número pessoal do Dr. Alexandre para tratar de negócios, dificultando a gestão do tempo e escalabilidade.</div>
+    <div class="info-box"><strong>Falta de Padronização:</strong> O primeiro atendimento precisa ser unificado, coletando dados vitais antes da análise técnica.</div>
+    <div class="info-box"><strong>Follow-up Manual:</strong> Esquecimento natural de retornos de clientes que param de responder, gerando perda de oportunidades.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>Regras de Negócio Inegociáveis</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner" style="margin-top: 1rem;">
+    <p><strong>1. Simplicidade Extrema no Início:</strong> A operação deve rodar quase como um "WhatsApp com superpoderes", sem funis excessivamente complexos para garantir a adesão da equipe.</p>
+    <p><strong>2. Separação de Visão:</strong> A secretária não deve ficar recebendo notificações de conversas avançadas dos advogados. O responsável pelo <i>card</i> muda conforme a etapa.</p>
+    <p><strong>3. Disparos Seguros:</strong> O uso de mensagens automáticas de confirmação de reunião utilizará um chip/número secundário exclusivo conectado à API Oficial para evitar banimentos no número principal.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="equipe">
+<div class="section-header reveal">
+<div class="section-number">02 — Estrutura e Equipe</div>
+<h2 class="section-title">Profissionais e Acessos</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;" class="reveal medicos-grid">
+<div class="medico-card"><div class="medico-name">Elizabete Soares</div><div class="medico-spec">Secretária / Triagem Inicial</div></div>
+<div class="medico-card"><div class="medico-name">Dr. Alexandre Tavares</div><div class="medico-spec">Sócio / Advogado / Prospecção Ativa</div></div>
+<div class="medico-card"><div class="medico-name">Dra. Ana Catarina Köhler</div><div class="medico-spec">Sócia / Advogada</div></div>
+<div class="medico-card"><div class="medico-name">Dr. João Henrique Tavares</div><div class="medico-spec">Sócio / Advogado</div></div>
+<div class="medico-card"><div class="medico-name">Advogados Associados</div><div class="medico-spec">Atendimento Técnico e Audiências</div></div>
+<div class="medico-card"><div class="medico-name">Estagiários (2x)</div><div class="medico-spec">Apoio Jurídico / Backoffice</div></div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="fluxo">
+<div class="section-header reveal">
+<div class="section-number">03 — Fluxo Comercial</div>
+<h2 class="section-title">A Jornada do Cliente</h2>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Captação</div><div class="flow-sub">Indicação ou Redes</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Triagem (Elizabete)</div><div class="flow-sub">Coleta de Dados Básicos</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">Transição de Dono</div><div class="flow-sub">Passagem p/ Advogado</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Reunião / Análise</div><div class="flow-sub">Contato Técnico</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Contrato Fechado</div><div class="flow-sub">Início do Processo</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Canais de Entrada Mapeados</div>
+<h3>Origem dos Contatos</h3>
+<p>
+<span class="tag tag-red">WhatsApp Principal</span>
+<span class="tag tag-red">Indicações (Boca a Boca)</span>
+<span class="tag tag-red">Prospecção Presencial</span>
+<span class="tag tag-red">Instagram / Google (Futuro)</span>
+</p>
+</div>
+<div class="card">
+<div class="card-label">Dinâmica de Abordagem</div>
+<h3>Acolhimento e Sigilo</h3>
+<p>Elizabete realiza o atendimento inicial cordialmente, coleta informações base (Nome, Telefone, E-mail, Tipo de Causa) e em seguida transfere o cliente no sistema. A partir desse momento, a conversa flui exclusivamente entre Cliente e Advogado, garantindo sigilo e organização.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="funil-vendas">
+<div class="section-header reveal">
+<div class="section-number">04 — Funil Operacional</div>
+<h2 class="section-title">Etapas Iniciais (Foco em Simplicidade)</h2>
+</div>
+
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background: var(--white);"></div><div class="kanban-col-title">Novo Contato</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+    <div class="kanban-card-title">Responsável: Elizabete</div>
+    <div class="kanban-card-desc">Chegada do lead. Foco em responder rápido e iniciar a coleta de dados de qualificação.</div>
+</div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background: #f1c40f;"></div><div class="kanban-col-title">Qualificação Inicial</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+    <div class="kanban-card-title">Preenchimento de Campos</div>
+    <div class="kanban-card-desc">Levantamento de telefone, e-mail e breve resumo da demanda jurídica solicitada.</div>
+</div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background: var(--red);"></div><div class="kanban-col-title">Em Atendimento</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+    <div class="kanban-card-title">Resp: Advogado Especialista</div>
+    <div class="kanban-card-desc">O card já foi repassado. Aqui o advogado analisa, agenda reunião e tira dúvidas técnicas.</div>
+    <div class="kanban-card-tags"><span class="kanban-tag">Sigiloso</span></div>
+</div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot" style="background: #e67e22;"></div><div class="kanban-col-title">Proposta / Contrato</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+    <div class="kanban-card-title">Aguardando Assinatura</div>
+    <div class="kanban-card-desc">Documentação enviada ao cliente. Aguardando a formalização dos honorários.</div>
+</div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Ganho / Ativo</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card">
+    <div class="kanban-card-title">Cliente Fechado</div>
+    <div class="kanban-card-desc">Contrato assinado. O processo passa a tramitar no sistema Legal On e a gestão do sucesso continua.</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="kanban-scroll-hint" style="text-align: center; font-size: 0.75rem; color: var(--white-dim); margin-top: 1rem;">← Arraste horizontalmente para ver todas as etapas →</div>
+</div>
+
+<div class="reveal" style="margin-top: 1.5rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda (Lost)</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-white">Causa Fora do Escopo</span>
+<span class="tag tag-white">Fechou com Concorrente</span>
+<span class="tag tag-white">Sem Viabilidade Financeira</span>
+<span class="tag tag-white">Parou de Responder (Follow-up)</span>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="campos">
+<div class="section-header reveal">
+<div class="section-number">05 — Estrutura de Dados</div>
+<h2 class="section-title">Campos Customizados do CRM</h2>
+<p class="section-desc">Dados desenhados para que, no futuro, o escritório consiga ter análises sólidas de volume PFPJ, cadência de reuniões e campanhas de reativação.</p>
+</div>
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">👤</div>
+<div><div class="campos-group-title">Qualificação Básica</div><div class="campos-group-sub">Triagem Inicial (Elizabete)</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Nome Completo</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Telefone / Celular</div><div class="campo-type">Telefone</div></div>
+<div class="campo-item"><div class="campo-name">E-mail</div><div class="campo-type">E-mail</div></div>
+<div class="campo-item"><div class="campo-name">Tipo de Contrato (PF / PJ)</div><div class="campo-type">Seleção (Lista)</div></div>
+</div>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">⚖️</div>
+<div><div class="campos-group-title">Avançado Jurídico</div><div class="campos-group-sub">Preenchido pelo Advogado</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">CPF / CNPJ</div><div class="campo-type">Numérico</div></div>
+<div class="campo-item"><div class="campo-name">Nacionalidade</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Endereço Completo / CEP</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Data da Última Visita Presencial</div><div class="campo-type">Data / Calendário</div></div>
+<div class="campo-item"><div class="campo-name">Data da Última Reunião On-line</div><div class="campo-type">Data / Calendário</div></div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="automacoes">
+<div class="section-header reveal">
+<div class="section-number">06 — Automações e Motor Lógico</div>
+<h2 class="section-title">Gatilhos de Eficiência</h2>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Gatilho (Quando)</th><th>Ação do CRM (O que faz)</th><th>Objetivo (Por quê)</th></tr></thead>
+<tbody>
+<tr>
+    <td><strong>Lead movido para "Em Atendimento"</strong></td>
+    <td>Muda o Usuário Responsável de Elizabete para o Advogado selecionado.</td>
+    <td>Limpar a visão da secretária, garantindo foco nas triagens e manter o sigilo das conversas jurídicas de negociação.</td>
+</tr>
+<tr>
+    <td><strong>Agendamento de Reunião (Falta 24h)</strong></td>
+    <td>Dispara um lembrete no WhatsApp via número Secundário (API).</td>
+    <td>Diminuir faltas (No-Show) demonstrando profissionalismo sem engessar a conversa no WhatsApp pessoal do advogado.</td>
+</tr>
+<tr>
+    <td><strong>Agendamento de Reunião (Faltam 2h)</strong></td>
+    <td>Dispara WhatsApp de Confirmação Final. ("Por favor, confirme sua presença")</td>
+    <td>Garantir que o advogado não fique aguardando à toa em sala online ou física.</td>
+</tr>
+<tr>
+    <td><strong>Lead na Etapa "Perda/Lost"</strong></td>
+    <td>Após 30 dias na perda por falta de resposta, cria uma Tarefa de Follow-up (Retomada).</td>
+    <td>Garantir que a carteira fria seja constantemente reativada.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="sla">
+<div class="section-header reveal">
+<div class="section-number">07 — Governança e Acessos</div>
+<h2 class="section-title">Visibilidade e Permissões</h2>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Perfil de Usuário</th><th>Profissionais</th><th>Configuração de Acesso (Kommo)</th></tr></thead>
+<tbody>
+<tr>
+    <td><strong>Administradores</strong></td>
+    <td>Dr. Alexandre, Dr. João, Dra. Ana</td>
+    <td>Acesso total. Podem visualizar todos os leads, de todos os usuários, exportar dados e alterar configurações e automações de funil.</td>
+</tr>
+<tr>
+    <td><strong>Triagem / Recepção</strong></td>
+    <td>Elizabete</td>
+    <td>Pode visualizar apenas Leads Não Atribuídos ou atribuídos a ela mesma. Uma vez que transfere para um advogado, o lead some de sua visualização primária.</td>
+</tr>
+<tr>
+    <td><strong>Usuário Padrão</strong></td>
+    <td>Advogados Associados e Estagiários</td>
+    <td>Visualizam e interagem apenas com os negócios e clientes sob os quais são "Usuários Responsáveis" ou "Participantes".</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<footer class="footer">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
+<div class="logo-text" style="font-weight: 700; letter-spacing: 2px;">EMMENDORFER & TAVARES</div>
+<p style="margin-top: 0.5rem;">Planejamento Estratégico de CRM</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado sob medida para implementação. Uso interno restrito.</p>
+</footer>
+
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório PDF
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_CRM_EmmendorferTavares.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+</script>
+
+</body>
+</html>
