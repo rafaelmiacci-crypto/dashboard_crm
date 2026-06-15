@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento CRM Estratégico — Espaço Raygus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* CSS BASE DO SISTEMA - NÃO ALTERE ESTAS CLASSES */
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 600px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 180px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-card:hover { border-color: var(--red); } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-item:hover { border-color: var(--red); } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.funil-block { margin-bottom: 2.5rem; }
+.funil-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.4rem; }
+.funil-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 600; color: var(--red); padding: 0.3rem 0.7rem; border: 1px solid rgba(197,26,42,0.3); border-radius: 6px; background: var(--red-subtle); white-space: nowrap; letter-spacing: 1px; }
+.funil-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; }
+.funil-desc { font-size: 0.88rem; color: var(--white-muted); margin-bottom: 0.5rem; max-width: 760px; }
+.regua-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; } .regua-card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); }
+.regua-head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+.regua-num { width: 40px; height: 40px; border-radius: 10px; background: var(--red-subtle); border: 1px solid rgba(197,26,42,0.3); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--red); font-size: 1rem; flex-shrink: 0; }
+.regua-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; }
+.regua-sub { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); font-weight: 600; }
+.timeline { position: relative; padding-left: 1.5rem; margin-top: 1rem; }
+.timeline::before { content: ''; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px; background: var(--black-border); }
+.timeline-item { position: relative; padding-bottom: 1.1rem; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before { content: ''; position: absolute; left: -1.5rem; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--red); border: 2px solid var(--black); }
+.timeline-when { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); font-weight: 600; letter-spacing: 0.5px; }
+.timeline-text { font-size: 0.85rem; color: var(--white-muted); margin-top: 0.15rem; }
+.timeline-text strong { color: var(--white); }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.8; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+<img src="data:image/png;base64,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" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento Estratégico CRM</div>
+<h1>Espaço <span>Raygus</span></h1>
+<p class="hero-sub">Reestruturação do funil, réguas de relacionamento e automações de follow-up para uma clínica de massoterapia com alto volume de entrada e baixo aproveitamento.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">B2C</div></div>
+<div class="hero-meta-item"><div class="label">Foco/Nicho</div><div class="value">Massoterapia</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Abil CRM (HighLevel)</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#contexto" class="nav-link">Contexto & Dores</a>
+<a href="#equipe" class="nav-link">Equipe & Tecnologia</a>
+<a href="#fluxo" class="nav-link">Jornada do Lead</a>
+<a href="#funil-vendas" class="nav-link">Os Três Funis</a>
+<a href="#reguas" class="nav-link">Réguas de Relacionamento</a>
+<a href="#followup" class="nav-link">Estratégia de Follow-Up</a>
+<a href="#campos" class="nav-link">Estrutura de Dados</a>
+<a href="#automacoes" class="nav-link">Automações</a>
+<a href="#sla" class="nav-link">SLAs & Roadmap</a>
+</div>
+</nav>
+
+<div class="divider"></div>
+<section class="section" id="contexto">
+<div class="section-header reveal">
+<div class="section-number">01 — Contexto Estratégico</div>
+<h2 class="section-title">Diagnóstico & Descoberta</h2>
+<p class="section-desc">A operação capta muito, mas converte pouco. O retrato abaixo resume o que a varredura completa do Abil CRM (whitelabel do HighLevel) revelou.</p>
+</div>
+
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">8.191</div><div class="stat-label">Contatos na base</div></div>
+<div class="stat-card"><div class="stat-num">~99%</div><div class="stat-label">Leads parados na ENTRADA</div></div>
+<div class="stat-card"><div class="stat-num">0,92%</div><div class="stat-label">Taxa de conversão</div></div>
+<div class="stat-card"><div class="stat-num">595</div><div class="stat-label">Conversas não lidas</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Objetivos</div>
+<h3>O que buscamos resolver?</h3>
+<p>Desafogar a etapa de ENTRADA com qualificação ativa, transformar o alto volume de leads em sessões agendadas, e ligar um motor de pós-venda e reativação que hoje está montado mas desligado — aumentando recompra e LTV sem depender exclusivamente de novos anúncios.</p>
+</div>
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Perfil Ideal (ICP)</h3>
+<p>Pessoas em Fortaleza/CE buscando bem-estar e relaxamento via massoterapia (sessões relaxante, 4 mãos, casal, tântrica, aroma, candle). Lead de impulso, sensível a resposta rápida, com forte intenção no momento do contato via WhatsApp e propensão a recompra quando bem acompanhado.</p>
+</div>
+</div>
+
+<div class="accordion reveal">
+<div class="accordion-item open">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>🔴 Dores e Desafios Mapeados</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner">
+<div class="grid-2" style="margin-top: 1rem;">
+<div class="card">
+<div class="card-label">Funil entupido</div>
+<h3>Gargalo na porta de entrada</h3>
+<p>Das ~1.295 oportunidades, ~1.284 estão paradas em ENTRADA. TRIAGEM zerada, 1 em Aguardando, 6 em Qualificado, nenhuma em Sessão Agendada. A qualificação simplesmente não está sendo operada.</p>
+</div>
+<div class="card">
+<div class="card-label">Atendimento</div>
+<h3>Sobrecarga e leads frios</h3>
+<p>595 conversas não lidas indicam que o atendimento (IA + humano) não dá conta do volume. Leads esfriam antes de qualquer follow-up estruturado.</p>
+</div>
+<div class="card">
+<div class="card-label">Pós-venda parado</div>
+<h3>Motor de recompra desligado</h3>
+<p>Workflows de pós-venda, repescagem e reativação existem em rascunho ("On/Off AI", "FUP Convite de Retorno", "Pós vendas → Fluxo de Mensagens") mas estão desligados. Não há régua de recompra rodando.</p>
+</div>
+<div class="card">
+<div class="card-label">Operação</div>
+<h3>Tarefas em atraso e captação frágil</h3>
+<p>Tarefas vencidas entre fevereiro e abril sem responsável claro. Captação depende quase totalmente de anúncios e WhatsApp — não há páginas/funis próprios de conversão.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>Regras de Negócio Inegociáveis</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner" style="margin-top: 1rem;">
+<ul style="list-style:none; display:flex; flex-direction:column; gap:0.8rem;">
+<li style="display:flex; gap:0.6rem; font-size:0.9rem; color:var(--white-muted);"><span style="color:var(--red);">▸</span> O handoff IA → humano deve ser explícito e rastreável via tags <span class="tag tag-red">ativar ai</span> / <span class="tag tag-red">desativar ai</span>.</li>
+<li style="display:flex; gap:0.6rem; font-size:0.9rem; color:var(--white-muted);"><span style="color:var(--red);">▸</span> Todo agendamento ocupa o calendário do terapeuta correto (10 calendários, sessões de 1h30, formato service booking).</li>
+<li style="display:flex; gap:0.6rem; font-size:0.9rem; color:var(--white-muted);"><span style="color:var(--red);">▸</span> Nenhuma régua de marketing dispara para contatos com a tag de bloqueio/opt-out ativa.</li>
+<li style="display:flex; gap:0.6rem; font-size:0.9rem; color:var(--white-muted);"><span style="color:var(--red);">▸</span> Disparos respeitam a janela de 24h da API oficial do WhatsApp; fora dela, usar template aprovado.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="equipe">
+<div class="section-header reveal">
+<div class="section-number">02 — Estrutura, Equipe e Tecnologia</div>
+<h2 class="section-title">Quem opera e o que roda por baixo</h2>
+<p class="section-desc">~14 usuários cadastrados entre administração e equipe de terapeutas, sobre uma stack HighLevel com IA nativa e conector externo de WhatsApp.</p>
+</div>
+
+<div class="info-box reveal">
+<strong>Correção técnica importante.</strong> A IA conversacional NÃO é uma ferramenta de terceiros. É o <strong>Conversation AI nativo do HighLevel</strong> (a Abil é um whitelabel do HighLevel), com um bot chamado <strong>"AgenteIA"</strong> ligado e desligado <strong>contato por contato</strong> via workflows e tags de controle — por isso aparecia "Off" no painel global. O único elemento externo é o conector de disparo de WhatsApp <span style="font-family:'JetBrains Mono',monospace; color:var(--red);">disparo-apioficial.fly.dev</span>, que cuida apenas da conexão/envio das mensagens (instâncias 6252, 9870, 7744), não da inteligência da conversa.
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem;" class="reveal">
+<div class="card">
+<div class="card-label">Cérebro da conversa</div>
+<h3>Conversation AI — "AgenteIA"</h3>
+<p>Bot nativo do HighLevel (modelos OpenAI por baixo). Ativado por contato pela ação "Update Conversation AI Bot and Status" dentro dos workflows. É a primeira linha de atendimento no WhatsApp.</p>
+</div>
+<div class="card">
+<div class="card-label">Encanamento</div>
+<h3>Conector de disparo (Fly.io)</h3>
+<p>Serviço próprio <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">disparo-apioficial.fly.dev</span> com endpoints /resolve-instance e /templates. Gerencia as instâncias "xxxx-raygus" e faz a ponte com a API oficial da Meta. Não gera respostas.</p>
+</div>
+<div class="card">
+<div class="card-label">Administração</div>
+<h3>Gestão da conta</h3>
+<p>Gustavo Araújo, Hilton Nascimento e Rafael Miacci como administradores, responsáveis por configuração, acessos e governança da operação.</p>
+</div>
+<div class="card">
+<div class="card-label">Atendimento & Terapia</div>
+<h3>Equipe de execução</h3>
+<p>Bianca, Camila, Carol, Dara, Kamila, Luana, Natália e demais terapeutas/atendentes. Cada um com calendário próprio para agendamento das sessões.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="fluxo">
+<div class="section-header reveal">
+<div class="section-number">03 — Fluxo Comercial</div>
+<h2 class="section-title">A Jornada do Lead (Redesenhada)</h2>
+<p class="section-desc">A jornada proposta insere qualificação ativa logo após a entrada, para que o lead não morra na porta.</p>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Anúncio / WhatsApp</div><div class="flow-sub">Lead entra</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">AgenteIA qualifica</div><div class="flow-sub">Perguntas-chave + intenção</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Handoff humano</div><div class="flow-sub">Fechamento de agenda</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Sessão realizada</div><div class="flow-sub">Pós-venda + recompra</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Canais de Entrada</div>
+<h3>Origem dos Leads</h3>
+<p>
+<span class="tag tag-red">Google Ads</span>
+<span class="tag tag-red">Meta Ads</span>
+<span class="tag tag-red">Google Business</span>
+<span class="tag tag-red">WhatsApp</span>
+<span class="tag tag-red">Indicação</span>
+</p>
+<p style="margin-top:0.8rem;">~1,71 mil cliques no Google Ads, ~6 mil visualizações no Google Business e 63 chamadas no período. Forte dependência de mídia paga.</p>
+</div>
+<div class="card">
+<div class="card-label">Abordagem</div>
+<h3>Processo de Qualificação</h3>
+<p>O AgenteIA abre a conversa, identifica tipo de sessão desejada e disponibilidade, e aplica critérios objetivos de avanço. Lead qualificado recebe handoff para o humano fechar a agenda; lead frio entra em régua de nutrição automática em vez de ser abandonado.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="funil-vendas">
+<div class="section-header reveal">
+<div class="section-number">04 — Os Três Funis</div>
+<h2 class="section-title">Estrutura dos Pipelines</h2>
+<p class="section-desc">A clínica opera com três funis encadeados. O lead percorre o Funil 01 (Vendas); ao virar cliente, segue para o Funil 02 (Pós-Venda); se esfria ou é perdido em qualquer ponto, vai para o Funil 03 (Nutrição) e pode voltar ao início. Cada etapa abaixo traz o que acontece nela e o critério para avançar.</p>
+</div>
+
+<div class="flow-diagram reveal" style="padding:1rem 0 2.5rem;">
+<div class="flow-box highlight"><div class="flow-title">Funil 01 — Vendas</div><div class="flow-sub">Capta e converte</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">Funil 02 — Pós-Venda</div><div class="flow-sub">Fideliza e faz recomprar</div></div>
+<div class="flow-arrow">↘</div>
+<div class="flow-box"><div class="flow-title">Funil 03 — Nutrição</div><div class="flow-sub">Recupera quem esfriou</div></div>
+</div>
+
+<!-- FUNIL 01 -->
+<div class="funil-block reveal">
+<div class="funil-head"><span class="funil-tag">01 · VENDAS</span><div class="funil-name">Da entrada à primeira sessão</div></div>
+<p class="funil-desc">Onde mora o gargalo de hoje (~99% travados na ENTRADA). O redesenho insere qualificação ativa logo na chegada para que o lead avance em vez de morrer na porta.</p>
+<div class="kanban-wrapper">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Entrada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Lead chega</div><div class="kanban-card-desc">AgenteIA assume em até 1 min e abre a conversa.</div><div class="kanban-card-tags"><span class="kanban-tag">SLA 1 min</span></div></div>
+<div class="kanban-card"><div class="kanban-card-title">Avança quando</div><div class="kanban-card-desc">Lead responde a primeira interação da IA.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Triagem</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Qualificação IA</div><div class="kanban-card-desc">Captura tipo de sessão, intenção e janela de horário.</div><div class="kanban-card-tags"><span class="kanban-tag">Auto</span></div></div>
+<div class="kanban-card"><div class="kanban-card-title">Avança quando</div><div class="kanban-card-desc">Lead demonstra intenção real de agendar.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Aguardando Atendimento</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Handoff humano</div><div class="kanban-card-desc">Tag "desativar ai" + atribuição automática ao atendente.</div><div class="kanban-card-tags"><span class="kanban-tag">SLA 10 min</span></div></div>
+<div class="kanban-card"><div class="kanban-card-title">Avança quando</div><div class="kanban-card-desc">Atendente humano assume a conversa.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Qualificado</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Oferta de horário</div><div class="kanban-card-desc">Atendente apresenta a agenda do terapeuta preferido.</div></div>
+<div class="kanban-card"><div class="kanban-card-title">Avança quando</div><div class="kanban-card-desc">Cliente escolhe um horário.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Sessão Agendada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Booking criado</div><div class="kanban-card-desc">Ocupa o calendário do terapeuta. Dispara a Régua 02 (anti no-show).</div><div class="kanban-card-tags"><span class="kanban-tag">Régua 02</span></div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Cliente Ganho</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Sessão realizada</div><div class="kanban-card-desc">Encerra o Funil 01 e entra no Funil 02 (Pós-Venda).</div><div class="kanban-card-tags"><span class="kanban-tag">→ Funil 02</span></div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Sessão Não Realizada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">No-show / cancelou</div><div class="kanban-card-desc">Vai para a Régua 05 (resgate). Sem retorno → Funil 03.</div><div class="kanban-card-tags"><span class="kanban-tag">Régua 05</span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- FUNIL 02 -->
+<div class="funil-block reveal">
+<div class="funil-head"><span class="funil-tag">02 · PÓS-VENDA</span><div class="funil-name">Da primeira sessão à recompra</div></div>
+<p class="funil-desc">Começa quando o cliente é ganho no Funil 01. É o motor de recompra e LTV — hoje montado mas desligado. Garante que cada cliente atendido vire avaliação, recorrência e indicação.</p>
+<div class="kanban-wrapper">
+<div class="kanban-board">
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Sessão Realizada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Entrada no pós-venda</div><div class="kanban-card-desc">Cliente recém-atendido. Registra "Última Sessão Realizada".</div></div>
+<div class="kanban-card"><div class="kanban-card-title">Avança quando</div><div class="kanban-card-desc">Passa 1 dia da sessão (D+1).</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Pós-Venda (D+1)</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Avaliação de experiência</div><div class="kanban-card-desc">Dispara a Régua 03. Nota alta → pede review no Google; baixa → alerta admin.</div><div class="kanban-card-tags"><span class="kanban-tag">Régua 03</span></div></div>
+<div class="kanban-card"><div class="kanban-card-title">Avança quando</div><div class="kanban-card-desc">Chega a janela ideal de retorno sem novo agendamento.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Repescagem</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Convite de retorno</div><div class="kanban-card-desc">Régua 04 com terapeuta e tipo de sessão preferidos.</div><div class="kanban-card-tags"><span class="kanban-tag">Régua 04</span></div></div>
+<div class="kanban-card"><div class="kanban-card-title">Avança quando</div><div class="kanban-card-desc">Cliente responde ao convite.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Repescagem em Andamento</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Negociando retorno</div><div class="kanban-card-desc">Atendente trabalha o reagendamento ativamente.</div></div>
+<div class="kanban-card"><div class="kanban-card-title">Avança quando</div><div class="kanban-card-desc">Nova sessão é agendada.</div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Cliente Reativado</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Recompra confirmada</div><div class="kanban-card-desc">Cliente recorrente. Volta ao ciclo de recorrência (Régua 04).</div><div class="kanban-card-tags"><span class="kanban-tag">Recorrente</span></div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Sem resposta</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Cliente esfriou</div><div class="kanban-card-desc">Após repescagem sem retorno, segue para o Funil 03.</div><div class="kanban-card-tags"><span class="kanban-tag">→ Funil 03</span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- FUNIL 03 -->
+<div class="funil-block reveal" style="margin-bottom:0;">
+<div class="funil-head"><span class="funil-tag">03 · NUTRIÇÃO</span><div class="funil-name">Recuperação de leads e clientes frios</div></div>
+<p class="funil-desc">Destino de quem esfriou em qualquer funil — desde leads que nunca responderam até clientes antigos. Mantém a base aquecida e recicla os milhares de contatos parados sem novo gasto em mídia.</p>
+<div class="kanban-wrapper">
+<div class="kanban-board">
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Lead Perdido</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Base fria</div><div class="kanban-card-desc">Lead sem resposta ou cliente inativo. Entra na Régua 06 (nutrição).</div><div class="kanban-card-tags"><span class="kanban-tag">Régua 06</span></div></div>
+<div class="kanban-card"><div class="kanban-card-title">Avança quando</div><div class="kanban-card-desc">Responde a um conteúdo ou oferta de reativação.</div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Contato Restabelecido</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Lead reaquecido</div><div class="kanban-card-desc">Reativa o AgenteIA e reentra no Funil 01 para fechamento.</div><div class="kanban-card-tags"><span class="kanban-tag">→ Funil 01</span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="reveal" style="margin-top: 2rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados</h3>
+<p style="font-size:0.85rem; color:var(--white-muted); margin-bottom:0.8rem;">Registrados no campo "Motivo de perda" sempre que um card é perdido, para alimentar análise e segmentação da nutrição.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-white">Sem resposta</span>
+<span class="tag tag-white">Preço/orçamento</span>
+<span class="tag tag-white">Sem horário compatível</span>
+<span class="tag tag-white">Apenas pesquisando</span>
+<span class="tag tag-white">Localização</span>
+<span class="tag tag-white">No-show recorrente</span>
+<span class="tag tag-white">Lead duplicado</span>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="reguas">
+<div class="section-header reveal">
+<div class="section-number">05 — Réguas de Relacionamento</div>
+<h2 class="section-title">Novas Réguas de Relacionamento</h2>
+<p class="section-desc">Seis réguas cobrindo todo o ciclo: do primeiro contato à reativação de inativos. Todas rodam no HighLevel via workflows e respeitam tags de opt-out e a janela de 24h do WhatsApp.</p>
+</div>
+
+<div class="reveal">
+<div class="regua-card">
+<div class="regua-head"><div class="regua-num">01</div><div><div class="regua-title">Resposta Imediata & Qualificação</div><div class="regua-sub">Gatilho: lead novo entra na ENTRADA</div></div></div>
+<p style="font-size:0.9rem; color:var(--white-muted);">Objetivo: atender enquanto a intenção está quente e qualificar sem fricção. O AgenteIA assume na hora; se o lead não responde, follow-ups curtos reaquecem antes de esfriar.</p>
+<div class="timeline">
+<div class="timeline-item"><div class="timeline-when">0 — 1 min</div><div class="timeline-text"><strong>AgenteIA</strong> abre conversa, agradece o contato e pergunta tipo de sessão desejada.</div></div>
+<div class="timeline-item"><div class="timeline-when">+10 min sem resposta</div><div class="timeline-text">Follow-up 1: "Vi que você se interessou pela nossa massagem — quer que eu te mostre os horários disponíveis?"</div></div>
+<div class="timeline-item"><div class="timeline-when">+2 h sem resposta</div><div class="timeline-text">Follow-up 2: prova social curta + oferta de ajuda para escolher o tipo de sessão.</div></div>
+<div class="timeline-item"><div class="timeline-when">+24 h sem resposta</div><div class="timeline-text">Follow-up 3 (template aprovado): última chamada com incentivo leve. Sem resposta → move para Régua 06 (Nutrição).</div></div>
+</div>
+</div>
+
+<div class="regua-card">
+<div class="regua-head"><div class="regua-num">02</div><div><div class="regua-title">Pré-Sessão & Anti No-Show</div><div class="regua-sub">Gatilho: card entra em SESSÃO AGENDADA</div></div></div>
+<p style="font-size:0.9rem; color:var(--white-muted);">Objetivo: reduzir faltas, que são prejuízo direto numa agenda de terapeutas. Sequência de confirmação e lembrete.</p>
+<div class="timeline">
+<div class="timeline-item"><div class="timeline-when">No agendamento</div><div class="timeline-text">Confirmação com data, hora, terapeuta e endereço. Pede um "ok" de confirmação.</div></div>
+<div class="timeline-item"><div class="timeline-when">D-1 (véspera)</div><div class="timeline-text">Lembrete com opção de remarcar em um toque, evitando o no-show silencioso.</div></div>
+<div class="timeline-item"><div class="timeline-when">3 h antes</div><div class="timeline-text">Lembrete final + dicas de chegada. Se cliente sinaliza imprevisto → Régua 05.</div></div>
+</div>
+</div>
+
+<div class="regua-card">
+<div class="regua-head"><div class="regua-num">03</div><div><div class="regua-title">Pós-Venda & Experiência</div><div class="regua-sub">Gatilho: sessão marcada como realizada (pipeline 02)</div></div></div>
+<p style="font-size:0.9rem; color:var(--white-muted);">Objetivo: capturar avaliação, gerar prova social e plantar a semente da recompra. Reativa o workflow "FUP Avaliação de experiência" hoje subutilizado.</p>
+<div class="timeline">
+<div class="timeline-item"><div class="timeline-when">D+1</div><div class="timeline-text"><strong>Agradecimento + avaliação</strong> (nota rápida). Nota alta → pedido de avaliação no Google. Nota baixa → alerta para administração resolver.</div></div>
+<div class="timeline-item"><div class="timeline-when">D+5</div><div class="timeline-text">Conteúdo de cuidado/benefício da massagem, posicionando a clínica como referência.</div></div>
+<div class="timeline-item"><div class="timeline-when">D+10</div><div class="timeline-text">Convite de recompra com janela ideal de retorno + facilidade de reagendar.</div></div>
+</div>
+</div>
+
+<div class="regua-card">
+<div class="regua-head"><div class="regua-num">04</div><div><div class="regua-title">Recorrência & Fidelização</div><div class="regua-sub">Gatilho: cliente com 1+ sessão realizada</div></div></div>
+<p style="font-size:0.9rem; color:var(--white-muted);">Objetivo: transformar cliente único em recorrente, usando o campo "Última Sessão Realizada" para calcular a janela ideal de retorno por tipo de sessão.</p>
+<div class="timeline">
+<div class="timeline-item"><div class="timeline-when">Janela de retorno</div><div class="timeline-text">Mensagem personalizada com a terapeuta preferida e o tipo de sessão favorito do cliente.</div></div>
+<div class="timeline-item"><div class="timeline-when">Datas especiais</div><div class="timeline-text">Aniversário e datas comemorativas com oferta de presente/voucher (sessão casal, candle, aroma).</div></div>
+<div class="timeline-item"><div class="timeline-when">Marco de fidelidade</div><div class="timeline-text">A cada X sessões, benefício de fidelidade para ancorar a recorrência.</div></div>
+</div>
+</div>
+
+<div class="regua-card">
+<div class="regua-head"><div class="regua-num">05</div><div><div class="regua-title">Remarcação & Resgate de No-Show</div><div class="regua-sub">Gatilho: card em SESSÃO NÃO REALIZADA</div></div></div>
+<p style="font-size:0.9rem; color:var(--white-muted);">Objetivo: recuperar a sessão imediatamente em vez de perder o lead já aquecido.</p>
+<div class="timeline">
+<div class="timeline-item"><div class="timeline-when">+1 h após falta</div><div class="timeline-text">Mensagem empática oferecendo remarcar sem custo, com horários próximos disponíveis.</div></div>
+<div class="timeline-item"><div class="timeline-when">+2 dias</div><div class="timeline-text">Segundo convite com leve incentivo. Sem resposta → Régua 06.</div></div>
+</div>
+</div>
+
+<div class="regua-card">
+<div class="regua-head"><div class="regua-num">06</div><div><div class="regua-title">Nutrição & Reativação de Inativos</div><div class="regua-sub">Gatilho: lead frio / perdido (pipeline 03)</div></div></div>
+<p style="font-size:0.9rem; color:var(--white-muted);">Objetivo: manter a base aquecida e reciclar os ~8 mil contatos e milhares de leads parados sem depender de novo investimento em mídia. Liga os workflows "FUP Convite de Retorno" e "Pós vendas → Fluxo de Mensagens" hoje em rascunho.</p>
+<div class="timeline">
+<div class="timeline-item"><div class="timeline-when">Quinzenal</div><div class="timeline-text">Conteúdo de valor (benefícios, cuidados, novidades) — sem venda direta, construindo relação.</div></div>
+<div class="timeline-item"><div class="timeline-when">Mensal</div><div class="timeline-text">Oferta de reativação segmentada por tipo de sessão de interesse (tag de origem/serviço).</div></div>
+<div class="timeline-item"><div class="timeline-when">Resposta positiva</div><div class="timeline-text">Move para "Contato restabelecido" e reentra na Régua 01 com handoff para fechamento.</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="followup">
+<div class="section-header reveal">
+<div class="section-number">06 — Estratégia de Follow-Up</div>
+<h2 class="section-title">Cadência e Princípios de Follow-Up</h2>
+<p class="section-desc">Follow-up no Raygus não é insistência — é a diferença entre 0,92% e uma taxa saudável. Os princípios abaixo regem todas as réguas.</p>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Princípio 1</div>
+<h3>Velocidade vence</h3>
+<p>O primeiro toque acontece em segundos via AgenteIA. Lead de massoterapia é de impulso: cada minuto sem resposta derruba a chance de fechar. O SLA de 1 min na entrada é inegociável.</p>
+</div>
+<div class="card">
+<div class="card-label">Princípio 2</div>
+<h3>Cadência decrescente</h3>
+<p>Follow-ups concentrados nas primeiras 24h (10 min, 2h, 24h), depois espaçando. A maioria das conversões acontece cedo; insistir demais tarde só queima a base.</p>
+</div>
+<div class="card">
+<div class="card-label">Princípio 3</div>
+<h3>Nunca descartar, sempre realocar</h3>
+<p>Lead sem resposta não vira lixo — migra para nutrição (Régua 06). Quem some volta a ser trabalhado mensalmente, recuperando valor sem custo de mídia.</p>
+</div>
+<div class="card">
+<div class="card-label">Princípio 4</div>
+<h3>Respeito à janela e ao opt-out</h3>
+<p>Dentro de 24h, mensagem livre; fora dela, apenas templates aprovados via conector Fly.io. Tag de opt-out interrompe qualquer régua na hora — relação antes de volume.</p>
+</div>
+</div>
+
+<div class="info-box reveal">
+<strong>Variável de controle por contato.</strong> Como o AgenteIA é ligado/desligado individualmente, cada follow-up automático deve checar o status do bot e as tags "ativar ai"/"desativar ai" antes de disparar — evitando que a IA escreva por cima de uma conversa que já está com um humano.
+</div>
+
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Cenário</th><th>Cadência</th><th>Canal</th><th>Saída se sem resposta</th></tr></thead>
+<tbody>
+<tr><td><strong>Lead novo</strong></td><td>1min → 10min → 2h → 24h</td><td>WhatsApp (IA)</td><td>Régua 06 — Nutrição</td></tr>
+<tr><td><strong>Agendado</strong></td><td>No ato → D-1 → 3h antes</td><td>WhatsApp (template)</td><td>Régua 05 — Remarcação</td></tr>
+<tr><td><strong>Pós-sessão</strong></td><td>D+1 → D+5 → D+10</td><td>WhatsApp</td><td>Régua 04 — Recorrência</td></tr>
+<tr><td><strong>No-show</strong></td><td>+1h → +2 dias</td><td>WhatsApp</td><td>Régua 06 — Nutrição</td></tr>
+<tr><td><strong>Inativo</strong></td><td>Quinzenal / mensal</td><td>WhatsApp (template)</td><td>Mantém em nutrição</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="campos">
+<div class="section-header reveal">
+<div class="section-number">07 — Estrutura de Dados</div>
+<h2 class="section-title">Campos e Tags</h2>
+<p class="section-desc">A fundação de dados já é forte para o segmento. Abaixo o que existe e os campos a reforçar para sustentar as réguas.</p>
+</div>
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">📋</div>
+<div><div class="campos-group-title">Campos Customizados</div><div class="campos-group-sub">Existentes + a reforçar</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Data de entrada</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Tipo de Sessão</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Tipo de Massagem</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Atendente/Terapeuta Preferido</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Última Sessão Realizada</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Preferência de terapeuta</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Gênero</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Nº de sessões realizadas</div><div class="campo-type">Numérico ★</div></div>
+<div class="campo-item"><div class="campo-name">Motivo de perda</div><div class="campo-type">Lista ★</div></div>
+<div class="campo-item"><div class="campo-name">Janela ideal de retorno</div><div class="campo-type">Numérico ★</div></div>
+</div>
+<p style="font-size:0.75rem; color:var(--white-dim); margin-top:0.8rem;">★ Campos sugeridos para alimentar as réguas de recorrência e a análise de perda.</p>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">🏷️</div>
+<div><div class="campos-group-title">Tags de Controle</div><div class="campos-group-sub">115 tags mapeadas — núcleo operacional</div></div>
+</div>
+<div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
+<span class="tag tag-red">ativar ai</span>
+<span class="tag tag-red">desativar ai</span>
+<span class="tag tag-red">agente abil</span>
+<span class="tag tag-red">api oficial</span>
+<span class="tag tag-white">anúncio Google</span>
+<span class="tag tag-white">anúncio Meta</span>
+<span class="tag tag-white">amigo / indicação</span>
+<span class="tag tag-white">4 mãos</span>
+<span class="tag tag-white">aroma</span>
+<span class="tag tag-white">candle</span>
+<span class="tag tag-white">casal</span>
+<span class="tag tag-white">instância 6252</span>
+<span class="tag tag-white">instância 7744</span>
+<span class="tag tag-white">instância 9870</span>
+<span class="tag tag-red">opt-out ★</span>
+</div>
+<p style="font-size:0.75rem; color:var(--white-dim); margin-top:0.8rem;">★ Tag de opt-out a padronizar como bloqueio universal de réguas de marketing.</p>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="automacoes">
+<div class="section-header reveal">
+<div class="section-number">08 — Automações e Motor Lógico</div>
+<h2 class="section-title">Gatilhos do CRM</h2>
+<p class="section-desc">As automações que sustentam o funil e as réguas. Várias reaproveitam workflows hoje em rascunho — o esforço é ligar e validar, não construir do zero.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Gatilho</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
+<tbody>
+<tr><td><strong>Lead novo entra (ENTRADA)</strong></td><td>Aplica tag de origem + ativa AgenteIA ("Update Conversation AI Bot → Active") + inicia Régua 01</td><td>Atender em segundos e qualificar</td></tr>
+<tr><td><strong>Critério de qualificação atendido</strong></td><td>Move card para Aguardando Atendimento + tag "desativar ai" + atribuição automática (workflow "atribuir automático")</td><td>Handoff IA → humano limpo</td></tr>
+<tr><td><strong>Sem resposta em 24h</strong></td><td>Move para pipeline 03 (Nutrição) + entra na Régua 06</td><td>Não perder o lead, reciclar a base</td></tr>
+<tr><td><strong>Sessão agendada (booking)</strong></td><td>Dispara Régua 02 (confirmação + lembrete D-1 + 3h antes)</td><td>Reduzir no-show</td></tr>
+<tr><td><strong>Sessão marcada como realizada</strong></td><td>Move para pipeline 02 + dispara Régua 03 (avaliação D+1) — reativa "FUP Avaliação"</td><td>Prova social e satisfação</td></tr>
+<tr><td><strong>No-show registrado</strong></td><td>Move para Sessão Não Realizada + dispara Régua 05</td><td>Resgatar a sessão</td></tr>
+<tr><td><strong>Janela de retorno atingida</strong></td><td>Régua 04 com terapeuta e sessão preferidos do cliente</td><td>Recompra e recorrência</td></tr>
+<tr><td><strong>Lead responde em nutrição</strong></td><td>Move para "Contato restabelecido" + reativa AgenteIA + reentra na Régua 01</td><td>Reaproveitar lead reaquecido</td></tr>
+<tr><td><strong>Tag opt-out aplicada</strong></td><td>Remove de todas as réguas de marketing imediatamente</td><td>Compliance e relação saudável</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box reveal">
+<strong>Prioridade de ativação.</strong> Antes de criar qualquer workflow novo, ligar e validar os que já existem em rascunho: <strong>"On/Off AI"</strong> (controle do AgenteIA por contato), <strong>"FUP Convite de Retorno"</strong>, <strong>"FUP Avaliação de experiência"</strong> e <strong>"Pós vendas → Fluxo de Mensagens"</strong>. Boa parte do motor de recompra já está montada — só precisa ser ligada e testada com poucos contatos antes de escalar.
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="sla">
+<div class="section-header reveal">
+<div class="section-number">09 — Governança e Roadmap</div>
+<h2 class="section-title">SLAs, Acessos e Próximos Passos</h2>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Perfil</th><th>Função</th><th>Permissões</th></tr></thead>
+<tbody>
+<tr><td><strong>Administrador</strong></td><td>Gustavo, Hilton, Rafael — config. e governança</td><td>Acesso total: workflows, calendários, relatórios, usuários</td></tr>
+<tr><td><strong>Atendente</strong></td><td>Handoff e fechamento de agenda</td><td>Conversas, pipeline de vendas, calendário próprio</td></tr>
+<tr><td><strong>Terapeuta</strong></td><td>Execução das sessões</td><td>Agenda própria + ficha do cliente atribuído</td></tr>
+<tr><td><strong>AgenteIA</strong></td><td>Primeira linha de atendimento</td><td>Ativado por contato; opera só dentro das réguas autorizadas</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin:2rem 0 1rem;">SLAs Operacionais</h3>
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">1 min</div><div class="stat-label">1º toque (IA)</div></div>
+<div class="stat-card"><div class="stat-num">10 min</div><div class="stat-label">Handoff humano</div></div>
+<div class="stat-card"><div class="stat-num">0</div><div class="stat-label">Conversas não lidas (meta)</div></div>
+<div class="stat-card"><div class="stat-num">24h</div><div class="stat-label">Resolução de tarefa</div></div>
+</div>
+
+<h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin:2rem 0 1rem;">Roadmap de Implementação</h3>
+<div class="flow-diagram reveal">
+<div class="flow-box highlight"><div class="flow-title">Fase 1 — Destravar</div><div class="flow-sub">Zerar não lidas + critérios de triagem + ligar On/Off AI</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Fase 2 — Réguas core</div><div class="flow-sub">Ligar Réguas 01, 02 e 03</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Fase 3 — Recompra</div><div class="flow-sub">Réguas 04, 05 e 06 + reativação da base</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Fase 4 — Captação</div><div class="flow-sub">Página/funil próprio para reduzir dependência de mídia</div></div>
+</div>
+</section>
+
+<footer class="footer">
+<img src="data:image/png;base64,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" alt="V4 Company">
+<div class="logo-text">V4 Company</div>
+<p>Planejamento Estratégico de CRM — Espaço Raygus</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado e mapeado a partir da varredura do Abil CRM (HighLevel). Uso interno.</p>
+</footer>
+
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_CRM_Raygus.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+</script>
+
+</body>
+</html>
