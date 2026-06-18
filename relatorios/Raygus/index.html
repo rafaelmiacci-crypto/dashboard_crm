@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -268,7 +269,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="section-header reveal">
 <div class="section-number">04 — Os Três Funis</div>
 <h2 class="section-title">Estrutura dos Pipelines</h2>
-<p class="section-desc">A clínica opera com três funis encadeados. O lead percorre o Funil 01 (Vendas); ao virar cliente, segue para o Funil 02 (Pós-Venda); se esfria ou é perdido em qualquer ponto, vai para o Funil 03 (Nutrição) e pode voltar ao início. Cada etapa abaixo traz o que acontece nela e o critério para avançar.</p>
+<p class="section-desc">A clínica opera com três funis encadeados. O lead percorre o Funil 01 (Vendas); ao virar cliente, segue para o Funil 02 (Pós-Venda); se esfria <em>com fit</em> em qualquer ponto, vai para o Funil 03 (Nutrição) e pode voltar ao início. Quem reprova no gate de qualificação (sem fit) é desqualificado e fica fora da nutrição. Cada etapa abaixo traz o que acontece nela e o critério para avançar — ou sair.</p>
 </div>
 
 <div class="flow-diagram reveal" style="padding:1rem 0 2.5rem;">
@@ -295,8 +296,16 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="kanban-col">
 <div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Triagem</div></div>
 <div class="kanban-col-body">
-<div class="kanban-card"><div class="kanban-card-title">Qualificação IA</div><div class="kanban-card-desc">Captura tipo de sessão, intenção e janela de horário.</div><div class="kanban-card-tags"><span class="kanban-tag">Auto</span></div></div>
-<div class="kanban-card"><div class="kanban-card-title">Avança quando</div><div class="kanban-card-desc">Lead demonstra intenção real de agendar.</div></div>
+<div class="kanban-card"><div class="kanban-card-title">Qualificação IA (gate)</div><div class="kanban-card-desc">Aplica o gate de fit: localização (Fortaleza/CE), tipo de sessão disponível e intenção real de agendar. Decisão binária — avança ou sai.</div><div class="kanban-card-tags"><span class="kanban-tag">Auto</span><span class="kanban-tag">Gate de fit</span></div></div>
+<div class="kanban-card"><div class="kanban-card-title">✅ Avança quando</div><div class="kanban-card-desc">Passa nos 3 critérios de fit E demonstra intenção real de agendar.</div></div>
+<div class="kanban-card"><div class="kanban-card-title">❌ Sai quando</div><div class="kanban-card-desc">Fora de Fortaleza, sessão indisponível ou apenas curioso de preço sem intenção → vai para Desqualificado (não entope a nutrição).</div><div class="kanban-card-tags"><span class="kanban-tag">→ Desqualificado</span></div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Desqualificado</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Sem fit</div><div class="kanban-card-desc">Lead que reprovou no gate. Registra "Motivo de perda" (localização, sem horário, só pesquisando) e sai do funil ativo.</div><div class="kanban-card-tags"><span class="kanban-tag">Fora da nutrição</span></div></div>
+<div class="kanban-card"><div class="kanban-card-title">Por que separar</div><div class="kanban-card-desc">Mantém as métricas de conversão e de reativação limpas — só nutre quem tem chance real de comprar.</div></div>
 </div>
 </div>
 <div class="kanban-col">
@@ -333,6 +342,9 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </div>
 </div>
 </div>
+
+<div class="info-box" style="margin-top:1.5rem;">
+<strong>A Triagem é um gate, não uma passagem.</strong> Toda etapa de qualificação saudável tem <strong>duas saídas: avança ou sai</strong> — nunca uma só. Por isso a Triagem aplica um <strong>BANT-simplificado</strong> (fit binário) antes de liberar o handoff humano: (1) <strong>localização</strong> — está em Fortaleza/CE?; (2) <strong>oferta</strong> — o tipo de sessão desejado existe e há agenda?; (3) <strong>intenção</strong> — quer agendar agora ou só pesquisa preço? Quem reprova vai para <span class="tag tag-white">Desqualificado</span> com o <strong>"Motivo de perda"</strong> preenchido — e <strong>não</strong> entra na nutrição. Isso evita inflar a Régua 06 com quem nunca vai converter (fora da praça, sem fit) e mantém limpas tanto a taxa de conversão do Funil 01 quanto as métricas de reativação do Funil 03. Lead frio <em>com fit</em> (tem perfil, mas esfriou) continua indo para nutrição; lead <em>sem fit</em> é desqualificado — são coisas diferentes.
 </div>
 
 <!-- FUNIL 02 -->
@@ -410,15 +422,38 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 
 <div class="reveal" style="margin-top: 2rem;">
 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados</h3>
-<p style="font-size:0.85rem; color:var(--white-muted); margin-bottom:0.8rem;">Registrados no campo "Motivo de perda" sempre que um card é perdido, para alimentar análise e segmentação da nutrição.</p>
+<p style="font-size:0.85rem; color:var(--white-muted); margin-bottom:0.8rem;">Registrados no campo "Motivo de perda" sempre que um card é perdido (ou desqualificado no gate), para alimentar análise e segmentação da nutrição. Nem todo motivo é de marketing: alguns são <strong>sinais operacionais</strong> que devem voltar como recomendação para o cliente.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
 <span class="tag tag-white">Sem resposta</span>
 <span class="tag tag-white">Preço/orçamento</span>
-<span class="tag tag-white">Sem horário compatível</span>
+<span class="tag tag-red">Sem horário compatível ⚙</span>
 <span class="tag tag-white">Apenas pesquisando</span>
-<span class="tag tag-white">Localização</span>
+<span class="tag tag-red">Localização ⚙</span>
 <span class="tag tag-white">No-show recorrente</span>
 <span class="tag tag-white">Lead duplicado</span>
+</div>
+<p style="font-size:0.75rem; color:var(--white-dim); margin-top:0.8rem;">⚙ <strong>Sinais operacionais</strong>, não de marketing. "Sem horário compatível" recorrente pode indicar falta de terapeuta em certos turnos; "Localização" recorrente pode indicar demanda por uma nova unidade ou atendimento em outra região. Esses padrões viram recomendação estratégica para o Espaço Raygus (ver Roadmap).</p>
+</div>
+
+<div class="reveal" style="margin-top: 2.5rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 0.6rem;">Metas de Conversão por Etapa</h3>
+<p style="font-size:0.85rem; color:var(--white-muted); margin-bottom:0.4rem;">SLA mede <strong>tempo</strong>; conversão mede <strong>passagem</strong>. Sem meta por transição, não há como provar o impacto do destravamento. Os números abaixo são <strong>baselines e metas iniciais</strong> a calibrar com 2–4 semanas de dados reais após o go-live.</p>
+<p style="font-size:0.8rem; color:var(--white-dim); margin-bottom:0.8rem;">Baseline = retrato atual da varredura. Meta = alvo após a reestruturação. A coluna "Onde mira a entrega" mostra qual transição cada fase do roadmap deve mover.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Transição</th><th>Baseline (hoje)</th><th>Meta inicial</th><th>Onde mira a entrega</th></tr></thead>
+<tbody>
+<tr><td><strong>Entrada → Triagem</strong></td><td>~0% (lead morre na porta)</td><td>≥ 80%</td><td>Fase 1–2 · resposta &lt; 1 min via AgenteIA</td></tr>
+<tr><td><strong>Triagem → Qualificado (passa no gate)</strong></td><td>indefinido</td><td>40–55%</td><td>Fase 2 · critérios de fit objetivos</td></tr>
+<tr><td><strong>Qualificado → Sessão Agendada</strong></td><td>~0%</td><td>25–35%</td><td>Fase 2 · fechamento humano (próximo gargalo)</td></tr>
+<tr><td><strong>Agendada → Sessão Realizada</strong></td><td>indefinido</td><td>≥ 75% (anti no-show)</td><td>Fase 2 · Régua 02</td></tr>
+<tr><td><strong>Conversão ponta-a-ponta (Entrada → Realizada)</strong></td><td>0,92%</td><td>6–10%</td><td>Efeito combinado das fases 1–2</td></tr>
+<tr><td><strong>Realizada → Recompra (recorrência)</strong></td><td>~0% (motor desligado)</td><td>20–30%</td><td>Fase 3 · Réguas 03/04</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box" style="margin-top:0.5rem;">
+<strong>O gargalo vai migrar — e isso é esperado.</strong> Hoje o gargalo é a <strong>ENTRADA</strong> (99% travados). Quando a qualificação ativa destravar a porta, o gargalo deve se deslocar para <strong>"Qualificado → Sessão Agendada"</strong>, o momento de fechamento humano. Por isso a medição por transição é o que permite enxergar o novo gargalo assim que ele aparece e direcionar o esforço — em vez de comemorar volume de entrada que não vira sessão. Cada fase do roadmap deve ser avaliada pela transição que ela mira, não por métricas genéricas.
 </div>
 </div>
 </section>
@@ -608,7 +643,8 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <thead><tr><th>Gatilho</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
 <tbody>
 <tr><td><strong>Lead novo entra (ENTRADA)</strong></td><td>Aplica tag de origem + ativa AgenteIA ("Update Conversation AI Bot → Active") + inicia Régua 01</td><td>Atender em segundos e qualificar</td></tr>
-<tr><td><strong>Critério de qualificação atendido</strong></td><td>Move card para Aguardando Atendimento + tag "desativar ai" + atribuição automática (workflow "atribuir automático")</td><td>Handoff IA → humano limpo</td></tr>
+<tr><td><strong>Gate de fit aprovado (qualificação)</strong></td><td>Move card para Aguardando Atendimento + tag "desativar ai" + atribuição automática (workflow "atribuir automático")</td><td>Handoff IA → humano limpo</td></tr>
+<tr><td><strong>Gate de fit reprovado</strong></td><td>Move para Desqualificado + grava "Motivo de perda" (localização / sem horário / só pesquisando) + <strong>não</strong> envia para nutrição</td><td>Proteger métricas e não poluir a base</td></tr>
 <tr><td><strong>Sem resposta em 24h</strong></td><td>Move para pipeline 03 (Nutrição) + entra na Régua 06</td><td>Não perder o lead, reciclar a base</td></tr>
 <tr><td><strong>Sessão agendada (booking)</strong></td><td>Dispara Régua 02 (confirmação + lembrete D-1 + 3h antes)</td><td>Reduzir no-show</td></tr>
 <tr><td><strong>Sessão marcada como realizada</strong></td><td>Move para pipeline 02 + dispara Régua 03 (avaliação D+1) — reativa "FUP Avaliação"</td><td>Prova social e satisfação</td></tr>
@@ -659,7 +695,13 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="flow-arrow">→</div>
 <div class="flow-box"><div class="flow-title">Fase 3 — Recompra</div><div class="flow-sub">Réguas 04, 05 e 06 + reativação da base</div></div>
 <div class="flow-arrow">→</div>
-<div class="flow-box"><div class="flow-title">Fase 4 — Captação</div><div class="flow-sub">Página/funil próprio para reduzir dependência de mídia</div></div>
+<div class="flow-box"><div class="flow-title">Fase 4 — Inteligência comercial</div><div class="flow-sub">Análise dos motivos de perda → recomendações operacionais ao cliente</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Fase 5 — Captação</div><div class="flow-sub">Página/funil próprio para reduzir dependência de mídia</div></div>
+</div>
+
+<div class="info-box reveal" style="margin-top:1.2rem;">
+<strong>Fechando o loop dos motivos de perda.</strong> Os motivos marcados com ⚙ ("Sem horário compatível", "Localização") são <strong>sinais operacionais</strong>, não falhas de marketing. Ao acumular volume, esses dados respondem perguntas de negócio: <em>faltam terapeutas em certos turnos? há demanda concentrada numa região sem atendimento? um tipo de sessão esgota agenda antes dos outros?</em> A Fase 4 transforma o campo "Motivo de perda" em <strong>recomendações estratégicas para o Espaço Raygus</strong> — elevando a entrega de "configuração de CRM" para <strong>inteligência comercial</strong>. Recomendações que impliquem mudança de operação (contratação, nova unidade, novos horários) são insumo para o cliente decidir e podem motivar novas SOWs de implementação.
 </div>
 </section>
 
