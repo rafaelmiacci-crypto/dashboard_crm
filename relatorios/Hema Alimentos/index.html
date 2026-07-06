@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento CRM Estratégico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 600px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.kanban-scroll-hint { text-align: center; font-size: 0.7rem; color: var(--white-dim); margin-top: 0.5rem; letter-spacing: 1px; }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 180px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.medico-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; } .medico-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; } .medico-spec { font-size: 0.85rem; font-weight: 500; color: var(--white-muted); margin-bottom: 0.5rem; line-height: 1.5; }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.8; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento Estratégico CRM</div>
+<h1>Hema <span>Alimentos</span></h1>
+<p class="hero-sub">Estruturar o atendimento comercial B2B no CRM, centralizar o WhatsApp com API oficial, organizar a carteira de clientes recorrentes e dar visibilidade aos clientes inativos para reativação.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">B2B (foco) + E-commerce</div></div>
+<div class="hero-meta-item"><div class="label">Foco/Nicho</div><div class="value">Distribuição de Produtos Naturais</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Kommo CRM</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#contexto" class="nav-link">Contexto &amp; Dores</a>
+<a href="#equipe" class="nav-link">Equipe</a>
+<a href="#fluxo" class="nav-link">Jornada do Lead</a>
+<a href="#funil-vendas" class="nav-link">Funil de Vendas</a>
+<a href="#campos" class="nav-link">Estrutura de Dados</a>
+<a href="#tags" class="nav-link">Tags</a>
+<a href="#automacoes" class="nav-link">Automações</a>
+<a href="#sla" class="nav-link">SLAs &amp; Acessos</a>
+</div>
+</nav>
+
+<div class="divider"></div>
+<section class="section" id="contexto">
+<div class="section-header reveal">
+<div class="section-number">01 — Contexto Estratégico</div>
+<h2 class="section-title">Diagnóstico &amp; Descoberta</h2>
+</div>
+
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">300+</div><div class="stat-label">Clientes B2B Ativos (estimativa a validar)</div></div>
+<div class="stat-card"><div class="stat-num">~100</div><div class="stat-label">Clientes Inativos ou Esporádicos (estimativa)</div></div>
+<div class="stat-card"><div class="stat-num">80%</div><div class="stat-label">Da Base B2B Compra de Forma Recorrente</div></div>
+<div class="stat-card"><div class="stat-num">60%</div><div class="stat-label">Fecham já nos Primeiros Contatos (6 de 10)</div></div>
+<div class="stat-card"><div class="stat-num">~2.000</div><div class="stat-label">Itens no Portfólio</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Objetivos</div>
+<h3>O que buscamos resolver?</h3>
+<p>Centralizar o atendimento comercial em uma única plataforma com WhatsApp via API oficial, organizar a distribuição de novos contatos por região, estruturar o acompanhamento da recorrência de compra (semanal, quinzenal e mensal) e, principalmente, dar visibilidade aos clientes inativos para que representantes e atendimento consigam trabalhar a reativação. Registrar o número de compras de cada cliente para viabilizar, no futuro, campanhas e promoções segmentadas.</p>
+</div>
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Perfil Ideal (ICP)</h3>
+<p>Lojas de produtos naturais e cereais (B2B) em Curitiba e região metropolitana, atendidas por 5 representantes com entrega própria em rotas fixas por dia da semana. Clientes de outros estados (como Santa Catarina) e do interior do Paraná são atendidos remotamente pela Dani, com envio via transportadora por conta do cliente. Cliente típico busca linha completa para montar ou abastecer a loja, valoriza qualidade de primeira linha e condições de pagamento flexíveis.</p>
+</div>
+</div>
+
+<div class="accordion reveal">
+<div class="accordion-item open">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>🔴 Dores e Desafios Mapeados</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner">
+<div class="grid-2" style="margin-top: 1rem;">
+<div class="card">
+<div class="card-label">Dor 01</div>
+<h3>Clientes inativos sem visibilidade</h3>
+<p>Existem cerca de 100 clientes inativos ou de compra esporádica que hoje não aparecem para o vendedor ou representante. Maurício apontou este como o ponto mais importante: o CRM precisa evidenciar a inatividade para que a equipe trabalhe a reativação.</p>
+</div>
+<div class="card">
+<div class="card-label">Dor 02</div>
+<h3>Recorrência controlada de forma manual</h3>
+<p>A frequência de compra de cada cliente (semanal, quinzenal, mensal) está na cabeça da Dani e dos representantes. Não há registro estruturado nem contagem de quantas vezes cada cliente já comprou.</p>
+</div>
+<div class="card">
+<div class="card-label">Dor 03</div>
+<h3>Distribuição de contatos por telefone</h3>
+<p>Novos contatos chegam pelo telefone comercial, a região é identificada verbalmente e o telefone do cliente é repassado ao representante por fora de qualquer sistema, sem rastreio do que acontece depois.</p>
+</div>
+<div class="card">
+<div class="card-label">Dor 04</div>
+<h3>Atendimento em WhatsApp descentralizado</h3>
+<p>Cada pessoa atende pelo seu próprio WhatsApp no celular. Não há histórico centralizado das conversas nem visibilidade da gestão sobre os atendimentos.</p>
+</div>
+<div class="card">
+<div class="card-label">Dor 05</div>
+<h3>Resistência da equipe a ferramentas novas</h3>
+<p>Histórico de resistência à adoção de sistemas (caso do representante que usava bloquinho). Será necessário treinamento e acompanhamento próximo na fase de adoção do CRM, com Maurício como responsável interno.</p>
+</div>
+<div class="card">
+<div class="card-label">Dor 06</div>
+<h3>CRM é novidade para a operação</h3>
+<p>A empresa domina bem o ERP (Bling), mas nunca operou um CRM. O próprio Maurício reconhece que precisará se adaptar. A estrutura precisa nascer simples e clara para facilitar a curva de aprendizado.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>Regras de Negócio Inegociáveis</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner" style="margin-top: 1rem;">
+<div class="info-box"><strong>WhatsApp com API oficial.</strong> Decisão validada por Maurício na call: a conexão será feita pela API oficial do WhatsApp, evitando risco de bloqueio com várias pessoas conectadas ao mesmo tempo. Será necessário confirmar os números a conectar (WhatsApp (41) 98427-0648 e fixo VOIP (41) 3349-XXXX, dígitos finais a confirmar no grupo).</div>
+<div class="info-box"><strong>Distribuição por cliente e região.</strong> Clientes de Curitiba e região metropolitana vão para um dos 5 representantes conforme a região informada. Clientes de outros estados e do interior do Paraná vão sempre para a Dani. A distribuição é por cliente, não por território fixo.</div>
+<div class="info-box"><strong>Tabela de preço fixa.</strong> A empresa trabalha com tabela fixa, atualizada e enviada semanalmente aos clientes. Não é o preço mais barato do mercado, e o posicionamento é de qualidade de primeira linha, sem produtos feculados ou de segunda.</div>
+<div class="info-box"><strong>Condições de pagamento.</strong> À vista com 3% de desconto, boleto, Pix e cartão de crédito em até 3x (clientes antigos com compras volumosas podem parcelar em até 5x). Poucas empresas do ramo aceitam cartão, e isso é um diferencial a ser comunicado.</div>
+<div class="info-box"><strong>Dúvidas técnicas de produto vão para o engenheiro de alimentos.</strong> Qualquer questão sobre composição, glúten ou qualidade é direcionada ao engenheiro de alimentos da empresa, não ao comercial. Todos os produtos são rotulados como "contém glúten" por norma da Anvisa, já que o envase ocorre no mesmo ambiente físico.</div>
+<div class="info-box"><strong>Aprovação final é do Maurício.</strong> Ele consulta a equipe e os filhos para opinião, mas a decisão final sobre o planejamento e os ajustes é 100% dele.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="equipe">
+<div class="section-header reveal">
+<div class="section-number">02 — Estrutura e Equipe</div>
+<h2 class="section-title">Profissionais / Departamentos</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;" class="reveal medicos-grid">
+<div class="medico-card"><div class="medico-name">Maurício</div><div class="medico-spec">Sócio e gestor. Administrador do CRM, responsável por garantir a adoção da ferramenta pela equipe, revisar etapas de funil e aprovar o planejamento. Perfil analítico, com formação em análise de sistemas e administração financeira.</div></div>
+<div class="medico-card"><div class="medico-name">Dani (Mara Daniele)</div><div class="medico-spec">Atendimento remoto (home office). Responsável pelos clientes de outros estados e por parte dos clientes de Curitiba e região metropolitana (São José dos Pinhais, Colombo, Campina Grande do Sul). Faz o acompanhamento semanal de recompra da própria carteira.</div></div>
+<div class="medico-card"><div class="medico-name">Comercial Interno</div><div class="medico-spec">Recepciona os contatos que chegam pelo telefone comercial e pelo WhatsApp, identifica a região do cliente e faz a distribuição para o representante correto ou para a Dani.</div></div>
+<div class="medico-card"><div class="medico-name">Administração</div><div class="medico-spec">Colaboradora da área administrativa com necessidade de acesso ao CRM para consulta e apoio à operação.</div></div>
+<div class="medico-card"><div class="medico-name">Representantes Comerciais (5)</div><div class="medico-spec">Atendem os clientes B2B de Curitiba e região metropolitana, cada um com sua carteira. Enviam a tabela de preços semanalmente, fazem contato de recompra e prospectam lojas novas nas redes sociais. Utilizarão contas compartilhadas no CRM para reduzir custo por usuário.</div></div>
+<div class="medico-card"><div class="medico-name">Engenheiro de Alimentos</div><div class="medico-spec">Suporte técnico de produto. Recebe todas as dúvidas de clientes sobre composição, glúten e qualidade dos produtos. Não é usuário direto do CRM, mas é destino de encaminhamento no atendimento.</div></div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="fluxo">
+<div class="section-header reveal">
+<div class="section-number">03 — Fluxo Comercial</div>
+<h2 class="section-title">A Jornada do Lead</h2>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Novo Contato</div><div class="flow-sub">Telefone, WhatsApp, site ou indicação</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">Identificação da Região</div><div class="flow-sub">Curitiba/RM ou outros estados</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Distribuição</div><div class="flow-sub">Representante da região ou Dani</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Atendimento e Negociação</div><div class="flow-sub">Catálogo, prazos e pagamento</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Venda</div><div class="flow-sub">Pedido lançado no Bling</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">Recorrência</div><div class="flow-sub">Carteira ativa e reativação de inativos</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Canais de Entrada</div>
+<h3>Origem dos Leads</h3>
+<p>
+<span class="tag tag-red">Telefone Comercial</span>
+<span class="tag tag-red">WhatsApp</span>
+<span class="tag tag-red">Formulário do Site (novo)</span>
+<span class="tag tag-red">Indicação de Clientes</span>
+<span class="tag tag-red">Prospecção dos Representantes</span>
+<span class="tag tag-red">E-mail comercial@hemaalimentos.com.br</span>
+</p>
+</div>
+<div class="card">
+<div class="card-label">Abordagem</div>
+<h3>Processo de Qualificação</h3>
+<p>O primeiro passo é sempre identificar a região do cliente para definir o responsável. Na sequência, o atendimento responde às perguntas mais frequentes: quais produtos a empresa trabalha (linha completa para loja de produtos naturais, incluindo embalagens), condições de pagamento e prazo, e logística de entrega. O argumento central é a amplitude do catálogo com qualidade de primeira linha. Dos novos contatos, cerca de 6 a cada 10 fecham já nos primeiros contatos, e após a primeira venda o cliente dificilmente deixa de comprar de forma recorrente.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="funil-vendas">
+<div class="section-header reveal">
+<div class="section-number">04 — Funil de Vendas</div>
+<h2 class="section-title">Etapas da Conversão</h2>
+<p class="section-desc">Estrutura em dois funis: o Funil de Atendimento e Vendas recebe novos contatos e clientes ainda não recorrentes, e o Funil de Recorrência e Reativação organiza a carteira ativa e evidencia os clientes inativos, conforme a prioridade apontada pelo Maurício na call.</p>
+</div>
+
+<h3 class="reveal" style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 0.5rem;">Funil 1: Atendimento e Vendas</h3>
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Novo Contato</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Registrar o lead</div><div class="kanban-card-desc">Lead entra pelo WhatsApp, telefone, site ou indicação. Coleta de nome, telefone, cidade e tipo de loja.</div><div class="kanban-card-tags"><span class="kanban-tag">Entrada</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Qualificação de Região</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Identificar região e responsável</div><div class="kanban-card-desc">Preencher o campo de região. Curitiba e região metropolitana vai para um dos representantes; outros estados e interior do Paraná vai para a Dani.</div><div class="kanban-card-tags"><span class="kanban-tag">Distribuição</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Em Atendimento</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Primeiro contato do responsável</div><div class="kanban-card-desc">Representante ou Dani faz o contato o mais rápido possível, apresenta a linha completa e responde as dúvidas de catálogo.</div><div class="kanban-card-tags"><span class="kanban-tag">Contato Rápido</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Catálogo Enviado</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Enviar tabela de preços</div><div class="kanban-card-desc">Envio da tabela atualizada e das categorias de interesse. Registrar as categorias que o cliente demonstrou interesse.</div><div class="kanban-card-tags"><span class="kanban-tag">Tabela Semanal</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Negociação</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Fechar condições</div><div class="kanban-card-desc">Definir forma de pagamento (à vista com 3% de desconto, boleto, Pix ou cartão em até 3x), prazo e logística de entrega ou transportadora.</div><div class="kanban-card-tags"><span class="kanban-tag">Pagamento</span><span class="kanban-tag">Logística</span></div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Venda Realizada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Pedido fechado</div><div class="kanban-card-desc">Pedido lançado no Bling. Marcar a primeira compra no campo de contagem e mover o cliente para o Funil de Recorrência.</div><div class="kanban-card-tags"><span class="kanban-tag">Ganho</span></div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Perdido</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Registrar motivo de perda</div><div class="kanban-card-desc">Selecionar o motivo de perda mapeado para permitir análise futura e eventuais campanhas de recuperação.</div><div class="kanban-card-tags"><span class="kanban-tag">Perda</span></div></div>
+</div>
+</div>
+</div>
+<div class="kanban-scroll-hint">← Arraste para ver todas as etapas →</div>
+</div>
+
+<h3 class="reveal" style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin: 2rem 0 0.5rem;">Funil 2: Recorrência e Reativação</h3>
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Carteira Ativa</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Cliente recorrente</div><div class="kanban-card-desc">Clientes com frequência de compra definida (semanal, quinzenal ou mensal). Recebem a tabela de preços atualizada toda semana.</div><div class="kanban-card-tags"><span class="kanban-tag">Recorrente</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Contato de Recompra</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Retorno na frequência do cliente</div><div class="kanban-card-desc">Representante ou Dani entra em contato conforme a frequência registrada: "está precisando de alguma coisa?". Lembrar de ofertar embalagens junto.</div><div class="kanban-card-tags"><span class="kanban-tag">Frequência</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Pedido em Andamento</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Montagem e confirmação do pedido</div><div class="kanban-card-desc">Cliente montando o pedido da semana ou quinzena. Confirmar itens, disponibilidade e dia da rota de entrega da região.</div><div class="kanban-card-tags"><span class="kanban-tag">Rota de Entrega</span></div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Compra Realizada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Recompra concluída</div><div class="kanban-card-desc">Atualizar o campo de número de compras e a data da última compra. Cliente retorna para a Carteira Ativa para o próximo ciclo.</div><div class="kanban-card-tags"><span class="kanban-tag">Ganho</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Atenção: Sem Comprar</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Cliente fora da frequência habitual</div><div class="kanban-card-desc">Cliente passou do período normal de recompra. Etapa de alerta para o responsável priorizar o contato antes que o cliente se torne inativo.</div><div class="kanban-card-tags"><span class="kanban-tag">Alerta</span></div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Inativo / Reativação</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Trabalhar a base inativa</div><div class="kanban-card-desc">Clientes sem compra prolongada ou de compra esporádica (cerca de 100 na base atual). Ficam visíveis para o vendedor e representante trabalharem a reativação, conforme prioridade definida pelo Maurício.</div><div class="kanban-card-tags"><span class="kanban-tag">Prioridade</span></div></div>
+</div>
+</div>
+</div>
+<div class="kanban-scroll-hint">← Arraste para ver todas as etapas →</div>
+</div>
+
+<div class="reveal" style="margin-top: 1.5rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-white">Sem resposta / contato perdido</span>
+<span class="tag tag-white">Comprou de outro fornecedor</span>
+<span class="tag tag-white">Preço (tabela fixa, sem negociação)</span>
+<span class="tag tag-white">Fora da área de entrega e sem transportadora viável</span>
+<span class="tag tag-white">Produto indisponível no momento</span>
+<span class="tag tag-white">Loja fechou ou mudou de ramo</span>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="campos">
+<div class="section-header reveal">
+<div class="section-number">05 — Estrutura de Dados</div>
+<h2 class="section-title">Campos e Tags</h2>
+</div>
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">📋</div>
+<div><div class="campos-group-title">Campos Customizados</div><div class="campos-group-sub">Variáveis mapeadas</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Nome</div><div class="campo-type">Padrão</div></div>
+<div class="campo-item"><div class="campo-name">Telefone / WhatsApp</div><div class="campo-type">Padrão</div></div>
+<div class="campo-item"><div class="campo-name">E-mail</div><div class="campo-type">Padrão</div></div>
+<div class="campo-item"><div class="campo-name">Estado</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Região / Cidade (Curitiba, região metropolitana, interior PR, outros estados)</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Responsável pelo atendimento (Representante ou Dani)</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Frequência de compra (Semanal, Quinzenal, Mensal, Esporádica)</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Número de compras realizadas</div><div class="campo-type">Numérico</div></div>
+<div class="campo-item"><div class="campo-name">Data da última compra</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Categorias de interesse</div><div class="campo-type">Multiseleção</div></div>
+<div class="campo-item"><div class="campo-name">Forma de pagamento preferida (À vista, Boleto, Pix, Cartão)</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Transportadora de preferência (clientes de fora)</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Motivo de perda</div><div class="campo-type">Seleção</div></div>
+</div>
+</div>
+<div class="campos-group reveal" id="tags">
+<div class="campos-group-header">
+<div class="campos-group-icon">🏷️</div>
+<div><div class="campos-group-title">Tags de Segmentação</div><div class="campos-group-sub">Etiquetas para filtro e campanhas futuras</div></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-red">Primeira Compra</span>
+<span class="tag tag-red">Recorrente</span>
+<span class="tag tag-red">Inativo</span>
+<span class="tag tag-red">Curitiba / RM</span>
+<span class="tag tag-red">Outros Estados</span>
+<span class="tag tag-white">Grãos e Sementes</span>
+<span class="tag tag-white">Encapsulados</span>
+<span class="tag tag-white">Farináceos</span>
+<span class="tag tag-white">Suplementos</span>
+<span class="tag tag-white">Temperos e Condimentos</span>
+<span class="tag tag-white">Ervas Medicinais</span>
+<span class="tag tag-white">Cereais Matinais</span>
+<span class="tag tag-white">Frutas Secas e Desidratadas</span>
+<span class="tag tag-white">Embalagens</span>
+<span class="tag tag-white">Cosméticos Naturais</span>
+<span class="tag tag-white">Doces e Guloseimas</span>
+<span class="tag tag-white">Chocolates e Derivados</span>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="automacoes">
+<div class="section-header reveal">
+<div class="section-number">06 — Automações e Motor Lógico</div>
+<h2 class="section-title">Gatilhos do CRM</h2>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Gatilho</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
+<tbody>
+<tr><td><strong>Lead preenche o formulário do site institucional</strong></td><td>Cria o card automaticamente na etapa Novo Contato do Funil 1</td><td>Centralizar todas as entradas em um só lugar e não perder nenhum contato do site novo</td></tr>
+<tr><td><strong>Campo de região é preenchido</strong></td><td>Notifica o responsável correspondente (representante da região ou Dani)</td><td>Reproduzir no sistema a regra atual de distribuição por cliente e região, com contato o mais rápido possível</td></tr>
+<tr><td><strong>Venda ganha no Funil 1</strong></td><td>Move o cliente automaticamente para a etapa Carteira Ativa do Funil 2</td><td>Garantir que todo cliente que fez a primeira compra entre no ciclo de recorrência sem depender de ação manual</td></tr>
+<tr><td><strong>Compra realizada no Funil 2</strong></td><td>Tarefa para o responsável atualizar o número de compras e a data da última compra</td><td>Construir o histórico de recompra de cada cliente para identificar os melhores compradores</td></tr>
+<tr><td><strong>Cliente ultrapassa o período da sua frequência de compra sem novo pedido</strong></td><td>Move o card para a etapa Atenção: Sem Comprar e notifica o responsável</td><td>Dar visibilidade imediata à inatividade, que é a principal prioridade apontada pelo Maurício</td></tr>
+<tr><td><strong>Cliente atinge marcos de recompra (ex: 10, 20 compras)</strong></td><td>Aplica tag de destaque no cliente</td><td>Preparar a base para, no futuro, disparos de promoções dedicadas aos clientes que mais compram, conforme discutido na call</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box reveal"><strong>Observação:</strong> as automações partem simples nesta primeira fase, respeitando a curva de adaptação da equipe. Disparos de mensagens promocionais em massa ficam mapeados como evolução futura, após a base estar organizada e o gerenciador de anúncios (que hoje não existe) ser estruturado.</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="dependencias">
+<div class="section-header reveal">
+<div class="section-number">07 — Pré-requisitos e Dependências</div>
+<h2 class="section-title">Pontos em Aberto Antes da Implementação</h2>
+<p class="section-desc">Itens levantados na call que precisam ser resolvidos ou definidos antes ou durante a implementação, para que o CRM entre em produção sem retrabalho.</p>
+</div>
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Dependência 01</div>
+<h3>Extração da base do Bling</h3>
+<p>A base de clientes vive no ERP Bling, não em planilha. Maurício acredita que consegue extrair, mas o armazenamento está em cerca de 90% e há aproximadamente 5.000 clientes de e-commerce (Mercado Livre, Shopee, Amazon) misturados no mesmo cadastro. A importação inicial para o CRM exige um filtro que separe os clientes B2B dos clientes de e-commerce, e não será uma extração trivial.</p>
+</div>
+<div class="card">
+<div class="card-label">Dependência 02</div>
+<h3>Definição site vs. e-commerce unificado</h3>
+<p>Na call, o Thiago abriu a possibilidade de migrar o foco do site institucional para um e-commerce unificado, integrando a operação com a dos filhos do Maurício. Essa decisão está em aberto e, se confirmada, muda a forma como os pedidos B2B entram e são registrados. O escopo do CRM assume, por enquanto, o cenário de site institucional B2B com pedidos lançados no Bling.</p>
+</div>
+<div class="card">
+<div class="card-label">Dependência 03</div>
+<h3>Números do WhatsApp a conectar</h3>
+<p>Confirmar no grupo os números que serão conectados via API oficial: o WhatsApp comercial (41) 98427-0648 e o fixo VOIP (41) 3349-XXXX (dígitos finais a confirmar). Também validar quais dos representantes e da equipe interna terão o atendimento centralizado nesses números.</p>
+</div>
+<div class="card">
+<div class="card-label">Dependência 04</div>
+<h3>Validação dos números da base</h3>
+<p>Os volumes de 300+ ativos e ~100 inativos são estimativas que o próprio Maurício sinalizou não ter levantado com precisão. Antes de configurar as automações de inatividade, vale confirmar os números reais e o critério de corte que define quando um cliente passa a ser considerado inativo.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="sla">
+<div class="section-header reveal">
+<div class="section-number">08 — Governança e Acessos</div>
+<h2 class="section-title">SLAs e Níveis de Permissão</h2>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Perfil</th><th>Função</th><th>Permissões</th></tr></thead>
+<tbody>
+<tr><td><strong>Administrador (Maurício)</strong></td><td>Gestão geral e adoção do CRM</td><td>Acesso total: configurações, todos os funis, relatórios, usuários e ajustes de etapas</td></tr>
+<tr><td><strong>Administração (conta compartilhada com o comercial interno, se necessário)</strong></td><td>Apoio administrativo e recepção de contatos</td><td>Visualização e edição de leads, distribuição de novos contatos, sem acesso a configurações</td></tr>
+<tr><td><strong>Comercial Interno</strong></td><td>Recepção, qualificação de região e distribuição</td><td>Acesso aos dois funis para triagem e encaminhamento de leads</td></tr>
+<tr><td><strong>Dani (atendimento remoto)</strong></td><td>Clientes de outros estados e carteira própria</td><td>Acesso à própria carteira nos dois funis, WhatsApp integrado, sem configurações</td></tr>
+<tr><td><strong>Representantes (5 pessoas em 1 a 2 contas compartilhadas)</strong></td><td>Atendimento e recompra em Curitiba e região metropolitana</td><td>Acesso à carteira dos clientes distribuídos, WhatsApp integrado, sem configurações</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box reveal"><strong>Custo por usuário:</strong> a plataforma cobra por quantidade de usuários, e não mensalidade fixa. A estrutura acima considera aproximadamente 7 pessoas na operação com contas compartilhadas na representação para deixar a contratação mais enxuta, conforme alinhado na call. A quantidade final de contas será validada com o Maurício antes da contratação.</div>
+<div class="info-box reveal"><strong>Treinamento e adoção:</strong> após a implementação, será realizado um treinamento com toda a equipe que utilizará a plataforma. Havendo dúvidas depois do uso inicial, será agendado um segundo encontro com tela aberta para revisão. O Maurício será o ponto focal interno para garantir o uso do CRM e sinalizar etapas que precisem de ajuste.</div>
+</section>
+
+<footer class="footer">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
+<div class="logo-text">V4 Company</div>
+<p>Planejamento Estratégico de CRM</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado e mapeado automaticamente a partir de transcrição. Uso interno.</p>
+</footer>
+
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_CRM_Hema.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+</script>
+</body>
+</html>
