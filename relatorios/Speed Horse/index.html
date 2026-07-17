@@ -195,10 +195,10 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="section-header reveal">
 <div class="section-number">02 — Estrutura e Equipe</div>
 <h2 class="section-title">Profissionais / Departamentos</h2>
-<p class="section-desc">Operação enxuta hoje, com um responsável por frente. O agente de IA assume o ciclo completo de SDR a Closer, com o operador humano entrando por exceção ou quando solicitado.</p>
+<p class="section-desc">Operação enxuta hoje, com um responsável por frente. O agente de IA conduz a venda de casos fechados e previsíveis; o operador humano entra quando há negociação, condição especial ou decisão comercial/financeira que precisa de controle da equipe.</p>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;" class="reveal medicos-grid">
-<div class="medico-card"><div class="medico-name">Agente IA (SDR → Closer)</div><div class="medico-spec">Agente de IA da V4 Company. Conduz o atendimento de ponta a ponta: responde na hora, qualifica, monta e envia a proposta/Pix e faz o follow-up. O operador humano entra apenas se necessário ou solicitado.</div></div>
+<div class="medico-card"><div class="medico-name">Agente IA (SDR Comercial)</div><div class="medico-spec">Agente de IA da V4 Company. Responde na hora, qualifica (B2C/B2B), entende uso do animal, quantidade de cavalos, se já suplementa e objeções, e conduz o lead até uma intenção clara de compra. Em casos de escopo fechado e previsível (produto tabelado, preço definido, regra de frete clara), orienta, calcula e envia o caminho de compra. Não gera Pix, não cria proposta personalizada nem negocia condição especial.</div></div>
 <div class="medico-card"><div class="medico-name">Operador B2C</div><div class="medico-spec">1 responsável — consumidor final (donos de cavalo). Assume negociações que o agente escala, casos que pedem intervenção humana e pode devolver o atendimento à IA a qualquer momento.</div></div>
 <div class="medico-card"><div class="medico-name">Operador B2B</div><div class="medico-spec">1 responsável — revenda e distribuição. Conduz negociação de volume e condições comerciais; também pode delegar contatos à IA (ex.: validação de base).</div></div>
 <div class="medico-card"><div class="medico-name">Capacidade da Operação</div><div class="medico-spec">Com o agente absorvendo qualificação e proposta, a capacidade sobe: hoje o tempo estimado por operador cobre o atendimento completo. Com a IA no ciclo, o humano concentra tempo apenas nos casos escalados.</div></div>
@@ -209,28 +209,28 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <section class="section" id="ia-sdr">
 <div class="section-header reveal">
 <div class="section-number">03 — Atendimento com IA</div>
-<h2 class="section-title">Agente IA: SDR a Closer</h2>
-<p class="section-desc">O agente de IA da V4 Company conduz o ciclo comercial completo, do primeiro contato ao fechamento. O operador humano entra por exceção, quando o agente escala ou quando o cliente solicita, e pode devolver o atendimento à IA a qualquer momento.</p>
+<h2 class="section-title">Agente IA: SDR Comercial</h2>
+<p class="section-desc">O agente de IA da V4 Company conduz o atendimento, qualifica, tira dúvidas e leva o lead até uma intenção clara de compra. Ele avança sozinho nos casos de escopo fechado e previsível; o humano entra nas decisões comerciais e financeiras que precisam de controle da equipe. O operador também pode devolver um atendimento à IA a qualquer momento.</p>
 </div>
 
 <div class="grid-2 reveal">
 <div class="card">
 <div class="card-label">Papel no atendimento</div>
-<h3>Ciclo completo, não só triagem</h3>
-<p>O escopo validado é o agente executando o papel completo de SDR até Closer: primeiro contato imediato, qualificação, montagem e envio da proposta/Pix, follow-up e tentativa de fechamento. A IA só passa o bastão ao humano quando é necessário ou solicitado.</p>
+<h3>Conduz a venda, não decide preço</h3>
+<p>O agente faz o papel de SDR comercial: qualifica, entende uso do animal, quantidade de cavalos, se já suplementa e as objeções, e conduz o lead até a intenção de compra. Em casos de escopo fechado (produto tabelado, preço definido, frete pela regra), ele orienta, calcula com base nesses dados e envia o caminho de compra. A fronteira é clara: conduzir a venda ≠ executar proposta personalizada ou operação financeira.</p>
 </div>
 <div class="card">
 <div class="card-label">Qualificação</div>
 <h3>Triagem B2C x B2B</h3>
-<p>A IA identifica se é consumidor final (dono de cavalo) ou revenda, coleta uso do animal, quantidade de cavalos e se já suplementa, preenchendo os campos do CRM automaticamente. Direciona o lead para a frente correta.</p>
+<p>A IA identifica se é consumidor final (dono de cavalo) ou revenda, coleta uso do animal, quantidade de cavalos, se já suplementa e quais objeções existem, preenchendo os campos do CRM automaticamente. Direciona o lead para a frente correta e o conduz até uma intenção clara de compra.</p>
 </div>
 </div>
 
 <div class="grid-2 reveal">
 <div class="card">
 <div class="card-label">Handoff sob demanda</div>
-<h3>Humano entra por exceção</h3>
-<p>O agente conduz a venda inteira. O operador humano é acionado apenas em casos que exigem intervenção (objeção complexa, negociação B2B de volume) ou quando o próprio cliente pede atendimento humano. Ao assumir, o operador vê todo o histórico no card.</p>
+<h3>Quando o humano entra</h3>
+<p>O operador é acionado quando há negociação, volume B2B, condição especial, proposta customizada, exceção de preço, dúvida sensível ou pedido direto por atendimento humano. Nesses casos a IA coleta todas as informações, organiza o contexto e transfere o lead já quente e qualificado, com todo o histórico no card.</p>
 </div>
 <div class="card">
 <div class="card-label">Handoff reverso</div>
@@ -239,10 +239,23 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </div>
 </div>
 
+<div class="grid-2 reveal">
+<div class="card" style="border-color: rgba(46,204,113,0.3);">
+<div class="card-label" style="color:#2ecc71;">✅ A IA pode</div>
+<h3>Escopo fechado e previsível</h3>
+<p style="color:var(--white-muted); font-size:0.85rem;">Qualificar B2C/B2B, entender uso do animal, quantidade de cavalos e se já suplementa. Tirar dúvidas e trabalhar objeções. Identificar quantidade e interesse. Apresentar a opção correta de um produto tabelado com preço definido. Calcular com base na regra clara de frete e enviar o link direto de compra quando o caso é fechado.</p>
+</div>
+<div class="card">
+<div class="card-label">⛔ A IA não deve</div>
+<h3>Decisão comercial/financeira</h3>
+<p style="color:var(--white-muted); font-size:0.85rem;">Gerar Pix, criar proposta personalizada, negociar condição especial, prometer desconto fora da regra ou montar orçamento manual que dependa de validação comercial. Nesses casos, coleta o contexto e transfere para o humano com o lead quente e qualificado.</p>
+</div>
+</div>
+
 <div class="card reveal">
 <div class="card-label">Ganho de capacidade</div>
-<h3>Libera o time e escala o volume</h3>
-<p>Com a IA cobrindo qualificação, proposta e follow-up, a capacidade da operação aumenta em relação ao teto atual, já que hoje o tempo estimado por operador corresponde ao atendimento completo de cada lead. Os humanos passam a atuar por exceção: negociação avançada, casos escalados e fechamento dos leads mais quentes.</p>
+<h3>Escala sem perder o controle comercial</h3>
+<p>Com a IA cobrindo qualificação, dúvidas, objeções e a condução dos casos fechados até o link de compra, a capacidade da operação aumenta em relação ao teto atual, já que hoje o tempo estimado por operador corresponde ao atendimento completo de cada lead. Os humanos passam a concentrar tempo onde há decisão comercial: negociação, volume B2B, condição especial e exceções de preço, sem colocar a IA para tomar decisões financeiras que precisam de controle da equipe.</p>
 </div>
 
 <div class="info-box reveal">
@@ -428,7 +441,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="card">
 <div class="card-label">Abordagem</div>
 <h3>Processo de Qualificação</h3>
-<p>Lead entra pelo WhatsApp e é atendido pelo agente IA, que conduz do primeiro contato ao fechamento e faz a triagem entre B2C (dono de cavalo) e B2B (revenda). Há roteiro de atendimento e follow-up organizado por canal, por motivo de perda e por tempo desde a perda. O CRM formaliza esse roteiro em etapas e automações.</p>
+<p>Lead entra pelo WhatsApp e é atendido pelo agente IA, que qualifica, tira dúvidas, trabalha objeções e faz a triagem entre B2C (dono de cavalo) e B2B (revenda). Em casos fechados, conduz até o link de compra; nos que exigem decisão comercial, transfere para o humano com o lead qualificado. Há roteiro de atendimento e follow-up organizado por canal, por motivo de perda e por tempo desde a perda. O CRM formaliza esse roteiro em etapas e automações.</p>
 </div>
 </div>
 </section>
@@ -464,7 +477,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="kanban-col">
 <div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Proposta / Orçamento</div></div>
 <div class="kanban-col-body">
-<div class="kanban-card"><div class="kanban-card-title">Envio da oferta</div><div class="kanban-card-desc">Orçamento montado pela regra de frete + opções de 1 e 2 meses. Maior ponto de queda: exige cadência de follow-up ativa.</div><div class="kanban-card-tags"><span class="kanban-tag">Gargalo</span><span class="kanban-tag">Auto</span></div></div>
+<div class="kanban-card"><div class="kanban-card-title">Envio da oferta</div><div class="kanban-card-desc">Caso fechado: IA aplica a regra de frete e envia as opções tabeladas de 1 e 2 meses com link de compra. Caso que exige validação (teste com desconto, exceção, Pix): humano assume. Maior ponto de queda, exige follow-up ativo.</div><div class="kanban-card-tags"><span class="kanban-tag">Gargalo</span><span class="kanban-tag">IA + Humano</span></div></div>
 </div>
 </div>
 <div class="kanban-col">
@@ -548,9 +561,9 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </div>
 
 <div class="card reveal">
-<div class="card-label">Automação</div>
-<h3>Orçamento gerado pelo CRM</h3>
-<p>A meta é automatizar a montagem da proposta: o agente coleta quantidade de cavalos e frete estimado, o motor aplica a regra do litro (R$ 90,90 ou R$ 90,90 + sobra), calcula as opções de 1 e 2 meses e, quando houver 2+ cavalos na primeira compra, inclui a opção de teste. A proposta pronta é registrada no card (campo "Valor da proposta" e "Quantidade em litros") e enviada ao cliente. Isso padroniza o orçamento, elimina erro de cálculo manual e acelera a etapa que hoje é o maior gargalo.</p>
+<div class="card-label">Automação com fronteira</div>
+<h3>O que a IA calcula e o que vai para o humano</h3>
+<p><strong>A IA pode</strong> conduzir o caso fechado e previsível: 1 cavalo, frete dentro da regra, produto tabelado. Ela coleta quantidade e frete, aplica a regra do litro (R$ 90,90, ou R$ 90,90 + sobra acima de R$ 50), apresenta as opções de 1 e 2 meses já tabeladas e envia o link direto de compra. <strong>Vai para o humano</strong> tudo que depende de validação comercial: a opção de teste com desconto adicional (2+ cavalos na 1ª compra), negociação de volume B2B, condição especial, exceção de preço ou geração de Pix e proposta customizada. Nesses casos a IA organiza o contexto e transfere o lead quente. Assim a etapa de proposta ganha velocidade nos casos simples sem tirar o controle comercial da equipe.</p>
 </div>
 </section>
 
@@ -731,9 +744,10 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <thead><tr><th>Gatilho</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
 <tbody>
 <tr><td><strong>Novo lead entra no funil</strong></td><td>Agente IA inicia o atendimento na hora, qualifica (B2C/B2B), preenche os campos e registra origem/UTM; dispara alerta de SLA.</td><td>Atendimento imediato e triagem automática, encurtando o tempo de primeira resposta (hoje ~15h).</td></tr>
-<tr><td><strong>Lead qualificado (frete + nº de cavalos)</strong></td><td>Motor aplica a regra de preço do litro e monta a proposta com opções de 1 e 2 meses (e teste, se 2+ cavalos na 1ª compra); grava valor e litros no card.</td><td>Automatizar a etapa de proposta, que é o maior gargalo, e padronizar o orçamento.</td></tr>
+<tr><td><strong>Lead qualificado — caso fechado</strong></td><td>Para 1 cavalo com frete dentro da regra, a IA aplica o preço do litro, apresenta as opções tabeladas de 1 e 2 meses e envia o link direto de compra.</td><td>Dar velocidade ao caso simples e previsível sem intervenção humana.</td></tr>
+<tr><td><strong>Lead qualificado — exige validação</strong></td><td>Teste com desconto (2+ cavalos na 1ª compra), volume B2B, condição especial, exceção de preço, Pix ou proposta customizada: a IA organiza o contexto e transfere para o operador.</td><td>Manter decisão comercial/financeira sob controle da equipe.</td></tr>
 <tr><td><strong>Proposta enviada</strong></td><td>Inicia cadência de follow-up (WhatsApp/ligação) em D+1, D+3, D+7, e reforço em D+15 e D+30.</td><td>Atacar o maior ponto de queda do funil com cadência longa.</td></tr>
-<tr><td><strong>Pix / cobrança enviada</strong></td><td>Registra meio de pagamento (Pix, cartão crédito ou débito), cria tarefa de confirmação em horas e lembrete no dia seguinte se não pago.</td><td>Recuperar o 2º maior motivo de perda (pagamento não concluído).</td></tr>
+<tr><td><strong>Pix / cobrança enviada</strong></td><td>O Pix/cobrança é gerado pelo humano (não pela IA). O CRM registra o meio de pagamento (Pix, cartão crédito ou débito), cria tarefa de confirmação em horas e lembrete no dia seguinte se não pago.</td><td>Recuperar o 2º maior motivo de perda (pagamento não concluído), mantendo a operação financeira com a equipe.</td></tr>
 <tr><td><strong>Operador devolve atendimento à IA</strong></td><td>O card volta para a fila do agente, que assume a conversa (ex.: validar número, requalificar, reativar base).</td><td>Liberar o humano do trabalho repetitivo e usar a IA para atacar a base atual.</td></tr>
 <tr><td><strong>Cliente pede humano ou objeção complexa</strong></td><td>Agente escala para o operador da frente correta e anexa o histórico no card.</td><td>Entregar ao humano só os casos que exigem intervenção.</td></tr>
 <tr><td><strong>Venda ganha</strong></td><td>Cria uma cópia do lead na primeira etapa do funil de pós-venda (Cliente Ativo), grava data da compra e volume.</td><td>Ativar a esteira de CS/recompra sem perder o histórico do funil de vendas.</td></tr>
@@ -758,7 +772,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <table>
 <thead><tr><th>Perfil</th><th>Função</th><th>Permissões</th></tr></thead>
 <tbody>
-<tr><td><strong>Agente IA</strong></td><td>Atendimento SDR → Closer</td><td>Conduz leads no funil de vendas e cadências de pós-venda; preenche campos, monta proposta e move etapas.</td></tr>
+<tr><td><strong>Agente IA</strong></td><td>SDR comercial</td><td>Qualifica, tira dúvidas, conduz casos fechados até o link de compra e preenche campos. Não gera Pix, proposta customizada nem condição especial; transfere esses casos ao humano.</td></tr>
 <tr><td><strong>Operador B2C</strong></td><td>Atendimento consumidor final</td><td>Seus leads/negócios; assume casos escalados, edita campos e etapas, pode devolver atendimento à IA.</td></tr>
 <tr><td><strong>Operador B2B</strong></td><td>Atendimento revenda</td><td>Seus leads/negócios da frente B2B; edição de campos e etapas; pode delegar contatos à IA.</td></tr>
 <tr><td><strong>Gestor</strong></td><td>Coordenação comercial</td><td>Visão de todos os funis, relatórios, redistribuição de leads e configuração de automações.</td></tr>
