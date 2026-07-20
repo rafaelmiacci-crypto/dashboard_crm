@@ -1,0 +1,437 @@
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento CRM Estratégico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* CSS BASE DO SISTEMA - NÃO ALTERE ESTAS CLASSES */
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 600px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 180px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.medico-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; } .medico-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; } .medico-spec { font-size: 0.85rem; font-weight: 500; color: var(--white-muted); margin-bottom: 0.5rem; line-height: 1.5; }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.8; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento Estratégico CRM</div>
+<h1>Zacharias <span>Engenharia</span></h1>
+<p class="hero-sub">Estruturar e proteger o processo comercial que já funciona há 30 anos: dar visibilidade ao pipeline sem criar burocracia, e liberar o tempo do Felipe para o que só ele faz — estar na obra e fechar negócios.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">B2C alto padrão + B2B arquitetos</div></div>
+<div class="hero-meta-item"><div class="label">Foco/Nicho</div><div class="value">Construção e reforma de luxo (SP)</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Pipedrive + WhatsApp Business</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#contexto" class="nav-link">Contexto &amp; Dores</a>
+<a href="#equipe" class="nav-link">Equipe</a>
+<a href="#fluxo" class="nav-link">Jornada do Lead</a>
+<a href="#funil-vendas" class="nav-link">Funil de Vendas</a>
+<a href="#campos" class="nav-link">Estrutura de Dados</a>
+<a href="#tags" class="nav-link">Tags</a>
+<a href="#automacoes" class="nav-link">Automações</a>
+<a href="#sla" class="nav-link">SLAs &amp; Acessos</a>
+</div>
+</nav>
+
+<div class="divider"></div>
+<section class="section" id="contexto">
+<div class="section-header reveal">
+<div class="section-number">01 — Contexto Estratégico</div>
+<h2 class="section-title">Diagnóstico &amp; Descoberta</h2>
+<p class="section-desc">A Zacharias vende há 30 anos por confiança pessoal, presença e reputação. O objetivo do CRM não é mudar o modelo, mas documentá-lo, torná-lo replicável e proteger as oportunidades que já existem. Todo o conhecimento comercial está hoje na cabeça do Felipe.</p>
+</div>
+
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">R$ 20M</div><div class="stat-label">Meta anual</div></div>
+<div class="stat-card"><div class="stat-num">90%</div><div class="stat-label">Receita boca a boca</div></div>
+<div class="stat-card"><div class="stat-num">60-90d</div><div class="stat-label">Ciclo de venda</div></div>
+<div class="stat-card"><div class="stat-num">2-3</div><div class="stat-label">Oportunidades / trimestre</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Objetivos</div>
+<h3>O que buscamos resolver?</h3>
+<p>Dar previsibilidade ao comercial (o desafio não é volume, é previsibilidade), documentar os critérios de qualificação do Felipe, criar cadência de follow-up e transformar o pós-venda intuitivo em processo. Gerenciar vendas de R$ 2-30M via WhatsApp é um risco operacional real.</p>
+</div>
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Perfil Ideal (ICP)</h3>
+<p>Famílias HNWI (renda R$ 80-100K+/mês) buscando construir ou reformar residências de alto padrão, ticket R$ 2-30M. Chegam por indicação de arquiteto ou do mesmo círculo social. Valorizam segurança, transparência e a presença do dono na obra. Canal secundário: escritórios de arquitetura parceiros.</p>
+</div>
+</div>
+
+<div class="accordion reveal">
+<div class="accordion-item open">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>🔴 Dores e Desafios Mapeados</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner">
+<div class="grid-2" style="margin-top: 1rem;">
+<div class="card">
+<div class="card-label">Qualificação por intuição</div>
+<h3>Conhecimento não transferível</h3>
+<p>Felipe cruza mentalmente perfil, projeto e origem da indicação. Funciona por 30 anos de leitura de mercado — mas se ele não estiver disponível, a qualificação para.</p>
+</div>
+<div class="card">
+<div class="card-label">Sem cadência de relacionamento</div>
+<h3>Follow-up depende da memória</h3>
+<p>Oportunidades em decisão ficam sem contato estruturado. A filosofia de "máximo 3 contatos espaçados" é saudável, mas sem CRM o timing depende da memória do Felipe.</p>
+</div>
+<div class="card">
+<div class="card-label">Nutrição de longo prazo inexistente</div>
+<h3>Cliente que adia perde vínculo</h3>
+<p>Clientes que adiam a obra por timing perdem contato com a Zacharias. Quando decidem construir meses depois, a construtora pode já não estar no radar.</p>
+</div>
+<div class="card">
+<div class="card-label">Pós-venda intuitivo</div>
+<h3>Cuidado não programado</h3>
+<p>Felipe já faz excelente pós-venda (envia eletricista, resolve sem cobrar), mas datas de aniversário de obra, check-ins e reativações acontecem por acaso, não por desenho.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>Regras de Negócio Inegociáveis</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner" style="margin-top: 1rem;">
+<div class="info-box"><strong>A Cadeira do Closer sempre será o Felipe.</strong> O cliente compra a presença dele. O CRM e a estrutura existem para liberar seu tempo, nunca para substituí-lo.</div>
+<div class="info-box"><strong>Comercial como "embelezamento interno", não força de vendas agressiva.</strong> O cliente deve enxergar valor na forma de comunicar e nas obras — não ser abordado martelando. Máximo de 3 contatos espaçados por oportunidade.</div>
+<div class="info-box"><strong>Regra dos 3:</strong> a Zacharias não participa se mais de 3 construtoras estão cotando a mesma obra.</div>
+<div class="info-box"><strong>Mão de obra é responsabilidade técnica da Zacharias.</strong> Cliente que quer contratar MO por fora é critério eliminatório.</div>
+<div class="info-box"><strong>Perfis de risco:</strong> recusa total a políticos; cautela alta com médicos e advogados. Cliente focado exclusivamente em preço = obra problemática (sair da briga de preço).</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="equipe">
+<div class="section-header reveal">
+<div class="section-number">02 — Estrutura e Equipe</div>
+<h2 class="section-title">Profissionais / Departamentos</h2>
+<p class="section-desc">Hoje existe 1 pessoa no comercial: o Felipe, que qualifica, reúne, propõe, negocia, fecha e faz pós-venda. A estrutura ideal em 3 funções não o substitui — libera o tempo dele para o que só ele sabe fazer.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;" class="reveal medicos-grid">
+<div class="medico-card"><div class="medico-name">Felipe Zacharias</div><div class="medico-spec">Sócio / Closer / Consultor — sempre a Cadeira 2. Conduz reuniões, propostas, negociação e presença na obra. É a presença que o cliente compra.</div></div>
+<div class="medico-card"><div class="medico-name">Qualificador / SDR</div><div class="medico-spec">Triagem inicial de leads usando os critérios do Felipe. Médio prazo (a designar ou contratar na Fase 2). Libera Felipe da triagem e do primeiro contato.</div></div>
+<div class="medico-card"><div class="medico-name">CS / Relacionamento</div><div class="medico-spec">Gestão da base no CRM: datas, aniversário de obra, check-ins, curadoria de presentes. Longo prazo (Fase 3). Motor de recorrência e indicações.</div></div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="fluxo">
+<div class="section-header reveal">
+<div class="section-number">03 — Fluxo Comercial</div>
+<h2 class="section-title">A Jornada do Lead</h2>
+<p class="section-desc">O cliente de alto padrão não compra em uma reunião — constrói confiança ao longo de semanas ou meses. A jornada respeita esse ritmo, com cadência que nutre sem pressionar.</p>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Contato inicial</div><div class="flow-sub">Recorrência, indicação ou arquiteto</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Qualificação</div><div class="flow-sub">Checklist de critérios do Felipe</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">Conversa com Felipe</div><div class="flow-sub">Entende projeto e apresenta a Zacharias</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Proposta + Maturação</div><div class="flow-sub">IA + Curva ABC, até 3 contatos</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Fechamento</div><div class="flow-sub">Contrato e onboarding</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Canais de Entrada</div>
+<h3>Origem dos Leads</h3>
+<p>
+<span class="tag tag-red">Recorrência / indicação direta</span>
+<span class="tag tag-red">Arquitetos parceiros</span>
+<span class="tag tag-red">Mesmo círculo social (HNWI)</span>
+<span class="tag tag-white">Digital / site (em construção com a V4)</span>
+</p>
+</div>
+<div class="card">
+<div class="card-label">Abordagem</div>
+<h3>Processo de Qualificação</h3>
+<p>Triagem consultiva, nunca agressiva. Aplica-se o checklist do Felipe: regra dos 3 construtoras, perfil de risco, MO própria e foco em valor vs. preço. Lead qualificado sobe para conversa direta com o Felipe. A meta é proteger o tempo dele e só levar oportunidades com fit real.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="funil-vendas">
+<div class="section-header reveal">
+<div class="section-number">04 — Funil de Vendas</div>
+<h2 class="section-title">Etapas da Conversão</h2>
+<p class="section-desc">Pipeline de Nutrição e Fechamento — do primeiro contato ao contrato. Cadência consultiva, ciclo médio de 60-90 dias, com no máximo 3 contatos na maturação.</p>
+</div>
+
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Contato Inicial</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Registrar origem</div><div class="kanban-card-desc">Lead entra por recorrência, indicação ou arquiteto. Primeiro retorno em até 24h.</div><div class="kanban-card-tags"><span class="kanban-tag">SLA 24h</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Qualificação</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Aplicar checklist do Felipe</div><div class="kanban-card-desc">Regra dos 3, perfil, MO própria, valor vs. preço. Classifica em até 48h.</div><div class="kanban-card-tags"><span class="kanban-tag">SLA 48h</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Conversa</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Felipe entende o projeto</div><div class="kanban-card-desc">Apresenta a Zacharias, entende necessidade e checa viabilidade. Prazo 7 dias.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Proposta</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Orçamento via IA + Curva ABC</div><div class="kanban-card-desc">Proposta em 2-3 dias úteis com alternativas ao cliente.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Maturação</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Acompanhamento consultivo</div><div class="kanban-card-desc">Visita técnica, sem pressão. 30-60 dias, máximo 3 contatos espaçados.</div><div class="kanban-card-tags"><span class="kanban-tag">Máx. 3 contatos</span></div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Fechamento (Won)</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Contrato assinado</div><div class="kanban-card-desc">Vai para o pipeline de Onboarding de Projeto.</div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Perdido / Nutrição</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Não perder o vínculo</div><div class="kanban-card-desc">Cliente que adia por timing entra em nutrição de longo prazo — não é descartado.</div></div>
+</div>
+</div>
+</div>
+<div class="kanban-scroll-hint">← Arraste para ver todas as etapas →</div>
+</div>
+
+<div class="reveal" style="margin-top: 1.5rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-white">Mais de 3 construtoras cotando (regra dos 3)</span>
+<span class="tag tag-white">Foco exclusivo em preço</span>
+<span class="tag tag-white">Cliente quer MO por fora</span>
+<span class="tag tag-white">Perfil de risco (político)</span>
+<span class="tag tag-white">Timing / obra adiada (→ nutrição)</span>
+<span class="tag tag-white">Concorrente ofereceu RT ao arquiteto</span>
+</div>
+</div>
+
+<div class="info-box reveal" style="margin-top: 1.5rem;"><strong>Além do funil principal, o CRM gerencia dois pipelines de apoio:</strong> Onboarding de Projeto (do contrato à mobilização — kickoff, planejamento, mobilização, acompanhamento) e Retenção / Pós-Projeto (entrega → suporte → relacionamento → reativação → indicação), que transforma o pós-venda espontâneo em flywheel de recorrência.</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="campos">
+<div class="section-header reveal">
+<div class="section-number">05 — Estrutura de Dados</div>
+<h2 class="section-title">Campos e Tags</h2>
+<p class="section-desc">Campos que registram os critérios do Felipe e dão visibilidade ao pipeline sem burocratizar. O SDR usa as mesmas regras que o Felipe usaria.</p>
+</div>
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">📋</div>
+<div><div class="campos-group-title">Campos Customizados</div><div class="campos-group-sub">Variáveis mapeadas</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Origem do lead</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Arquiteto indicador</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Nº de construtoras cotando</div><div class="campo-type">Número</div></div>
+<div class="campo-item"><div class="campo-name">Red flag / perfil de risco</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">MO própria (elimin.)</div><div class="campo-type">Sim/Não</div></div>
+<div class="campo-item"><div class="campo-name">Score valor vs. preço</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Ticket estimado da obra</div><div class="campo-type">Moeda</div></div>
+<div class="campo-item"><div class="campo-name">Tipo de obra (construir/reformar)</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Terreno / localização</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Nº de contatos na maturação</div><div class="campo-type">Número</div></div>
+<div class="campo-item"><div class="campo-name">Data de entrega da obra</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Aniversário de obra</div><div class="campo-type">Data</div></div>
+</div>
+</div>
+
+<div id="tags" class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">🏷️</div>
+<div><div class="campos-group-title">Tags</div><div class="campos-group-sub">Etiquetas de segmentação</div></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-red">Lead quente (recorrência)</span>
+<span class="tag tag-red">Indicação</span>
+<span class="tag tag-red">Via arquiteto</span>
+<span class="tag tag-white">Nutrição longo prazo</span>
+<span class="tag tag-white">Cliente promotor</span>
+<span class="tag tag-white">Base pós-obra</span>
+<span class="tag tag-red">Arquiteto Tier 1 · Contato</span>
+<span class="tag tag-red">Arquiteto Tier 2</span>
+<span class="tag tag-red">Arquiteto Tier 3</span>
+<span class="tag tag-red">Arquiteto Tier 4 · Prioritário</span>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="automacoes">
+<div class="section-header reveal">
+<div class="section-number">06 — Automações e Motor Lógico</div>
+<h2 class="section-title">Gatilhos do CRM</h2>
+<p class="section-desc">Automações leves que dão visibilidade e ritmo sem tornar o comercial burocrático. O objetivo é lembrar o timing, não substituir a relação pessoal do Felipe.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Gatilho</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
+<tbody>
+<tr><td>Novo lead entra no pipeline</td><td>Cria tarefa de primeiro retorno e notifica o responsável</td><td>Garantir o SLA de 24h de primeiro contato</td></tr>
+<tr><td>Lead sem classificação há 48h</td><td>Alerta de qualificação pendente</td><td>Evitar que oportunidade "esfrie" na triagem</td></tr>
+<tr><td>Proposta enviada</td><td>Agenda cadência de até 3 follow-ups espaçados</td><td>Manter o ritmo consultivo sem depender da memória</td></tr>
+<tr><td>Negócio marcado como perdido por timing</td><td>Move para lista de nutrição de longo prazo</td><td>Preservar o vínculo para quando o cliente decidir construir</td></tr>
+<tr><td>Obra marcada como entregue</td><td>Inicia pipeline de pós-projeto (suporte 90 dias + check-ins trimestrais)</td><td>Transformar pós-venda intuitivo em processo</td></tr>
+<tr><td>Chegada de datas comemorativas / aniversário de obra</td><td>Gera tarefa de curadoria de presente e contato</td><td>Manter a Zacharias "fresca na cabeça" do cliente e do arquiteto</td></tr>
+<tr><td>Arquiteto atinge indicações/fechamentos definidos</td><td>Sobe de tier automaticamente e ajusta cadência de cuidado</td><td>Investir energia proporcional ao retorno de cada parceria</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="sla">
+<div class="section-header reveal">
+<div class="section-number">07 — Governança e Acessos</div>
+<h2 class="section-title">SLAs e Níveis de Permissão</h2>
+<p class="section-desc">SLAs enxutos e permissões alinhadas à realidade de uma operação centralizada no Felipe, com expansão de equipe planejada em fases.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Perfil</th><th>Função</th><th>Permissões</th></tr></thead>
+<tbody>
+<tr><td><strong>Felipe (Admin/Sócio)</strong></td><td>Closer, negociação e decisão comercial</td><td>Acesso total: todos os pipelines, relatórios, campos de custo e configuração</td></tr>
+<tr><td><strong>Qualificador / SDR</strong></td><td>Triagem inicial e primeiro contato</td><td>Pipeline de aquisição, campos de qualificação e criação de tarefas. Sem acesso a custos de proposta</td></tr>
+<tr><td><strong>CS / Relacionamento</strong></td><td>Gestão da base e pós-projeto</td><td>Pipeline de retenção, dados de clientes e arquitetos, agenda de datas. Sem edição de negócios em aberto</td></tr>
+<tr><td><strong>V4 Company</strong></td><td>Implementação e suporte</td><td>Configuração, automações e dashboards durante o projeto</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box reveal"><strong>SLAs principais:</strong> primeiro retorno em 24h · classificação do lead em 48h · proposta em 2-3 dias úteis · suporte pós-entrega por 90 dias · check-ins de relacionamento trimestrais.</div>
+</section>
+
+<footer class="footer">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
+<div class="logo-text">V4 Company</div>
+<p>Planejamento Estratégico de CRM — Zacharias Engenharia</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado e mapeado automaticamente a partir de transcrição. Uso interno.</p>
+</footer>
+
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_CRM.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+</script>
+
+</body>
+</html>
