@@ -87,6 +87,18 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 .window-seg .win-icon { font-size: 1.4rem; margin-bottom: 0.4rem; } .window-seg h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; } .window-seg.free h4 { color: #2ecc71; } .window-seg.paid h4 { color: var(--red); } .window-seg p { font-size: 0.75rem; color: var(--white-muted); line-height: 1.5; }
 .cost-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 8px; margin-top: 0.6rem; } .cost-pill.free { background: rgba(46,204,113,0.12); color: #2ecc71; } .cost-pill.paid { background: var(--red-subtle); color: var(--red); }
 @media (max-width: 600px) { .window-viz { flex-direction: column; } }
+/* Tabela de decisão IA/Humano */
+.decide-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+.decide-badge.ia { background: rgba(46,204,113,0.12); color: #2ecc71; border: 1px solid rgba(46,204,113,0.3); }
+.decide-badge.human { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197,26,42,0.3); }
+/* Pontos em aberto */
+.open-q { display: flex; gap: 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-left: 3px solid #e8a33d; border-radius: 0 10px 10px 0; padding: 1.2rem 1.4rem; margin-bottom: 1rem; transition: all 0.3s ease; } .open-q:hover { border-color: var(--black-border); border-left-color: #e8a33d; }
+.open-q .oq-num { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: #e8a33d; flex-shrink: 0; }
+.open-q .oq-body h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--white); }
+.open-q .oq-body p { font-size: 0.83rem; color: var(--white-muted); line-height: 1.6; }
+.open-q .oq-body .oq-ask { display: inline-block; margin-top: 0.5rem; font-size: 0.72rem; font-weight: 600; color: #e8a33d; text-transform: uppercase; letter-spacing: 1px; }
+.rollout-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+.rollout-step { background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.2rem; position: relative; } .rollout-step .rs-phase { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.4rem; } .rollout-step h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; } .rollout-step p { font-size: 0.78rem; color: var(--white-muted); line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -221,8 +233,8 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </div>
 <div class="card">
 <div class="card-label">Qualificação</div>
-<h3>Triagem B2C x B2B</h3>
-<p>A IA identifica se é consumidor final (dono de cavalo) ou revenda, coleta uso do animal, quantidade de cavalos, se já suplementa e quais objeções existem, preenchendo os campos do CRM automaticamente. Direciona o lead para a frente correta e o conduz até uma intenção clara de compra.</p>
+<h3>Triagem por volume, não só rótulo</h3>
+<p>A IA coleta uso do animal, quantidade de cavalos, se já suplementa e as objeções, preenchendo os campos do CRM. Mais do que classificar B2C ou B2B, ela compara a quantidade/volume com o teto definido: acima dele, o lead vai para o humano mesmo sendo B2C. O rótulo orienta o roteiro; o número decide o roteamento.</p>
 </div>
 </div>
 
@@ -242,13 +254,13 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="grid-2 reveal">
 <div class="card" style="border-color: rgba(46,204,113,0.3);">
 <div class="card-label" style="color:#2ecc71;">✅ A IA pode</div>
-<h3>Escopo fechado e previsível</h3>
-<p style="color:var(--white-muted); font-size:0.85rem;">Qualificar B2C/B2B, entender uso do animal, quantidade de cavalos e se já suplementa. Tirar dúvidas e trabalhar objeções. Identificar quantidade e interesse. Apresentar a opção correta de um produto tabelado com preço definido. Calcular com base na regra clara de frete e enviar o link direto de compra quando o caso é fechado.</p>
+<h3>Dentro da regra numérica</h3>
+<p style="color:var(--white-muted); font-size:0.85rem;">Qualificar, entender uso do animal, quantidade de cavalos, se já suplementa e as objeções. Conduzir até a intenção de compra e, quando o caso cai <strong>dentro dos limites numéricos definidos abaixo</strong> (produto, faixa de quantidade, faixa de frete), apresentar a opção tabelada e enviar o link de compra. A IA não interpreta se o caso é "fechado": ela compara com os números da tabela de decisão.</p>
 </div>
 <div class="card">
 <div class="card-label">⛔ A IA não deve</div>
-<h3>Decisão comercial/financeira</h3>
-<p style="color:var(--white-muted); font-size:0.85rem;">Gerar Pix, criar proposta personalizada, negociar condição especial, prometer desconto fora da regra ou montar orçamento manual que dependa de validação comercial. Nesses casos, coleta o contexto e transfere para o humano com o lead quente e qualificado.</p>
+<h3>Fora da regra → transfere</h3>
+<p style="color:var(--white-muted); font-size:0.85rem;">Qualquer caso que caia <strong>fora das faixas numéricas</strong> (quantidade acima do teto, frete fora da faixa, produto não elegível) ou que exija decisão comercial: gerar Pix manual, proposta personalizada, condição especial, desconto fora da regra. Nesses casos coleta o contexto e transfere o lead quente para o humano. Na dúvida entre dentro e fora, o padrão é transferir.</p>
 </div>
 </div>
 
@@ -256,6 +268,58 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="card-label">Ganho de capacidade</div>
 <h3>Escala sem perder o controle comercial</h3>
 <p>Com a IA cobrindo qualificação, dúvidas, objeções e a condução dos casos fechados até o link de compra, a capacidade da operação aumenta em relação ao teto atual, já que hoje o tempo estimado por operador corresponde ao atendimento completo de cada lead. Os humanos passam a concentrar tempo onde há decisão comercial: negociação, volume B2B, condição especial e exceções de preço, sem colocar a IA para tomar decisões financeiras que precisam de controle da equipe.</p>
+</div>
+
+<div style="margin-top:2.5rem;" class="reveal">
+<h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:0.4rem;">Regra de decisão: quem atende o quê</h3>
+<p class="section-desc" style="margin-bottom:1rem;">Para evitar que a IA precise <em>interpretar</em> se um caso é "fechado" (a zona cinzenta que já gerou erro de classificação em outro cliente), o escopo é traduzido em <strong>critérios numéricos objetivos</strong>. A IA não decide por julgamento: ela compara os dados do lead com as faixas abaixo. Se todos os critérios caem na faixa verde, a IA conduz até o link de compra. Se <strong>qualquer um</strong> cair na faixa vermelha, transfere para o humano.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Critério</th><th>Faixa da IA (conduz)</th><th>Vai para o humano</th></tr></thead>
+<tbody>
+<tr><td><strong>Produto</strong></td><td><span class="decide-badge ia">IA</span> Produto(s) elegível(is) da lista tabelada (a definir com o cliente: começar com 1-2 SKUs).</td><td><span class="decide-badge human">Humano</span> Qualquer produto fora da lista elegível.</td></tr>
+<tr><td><strong>Quantidade (litros)</strong></td><td><span class="decide-badge ia">IA</span> Dentro da faixa baixa definida (ex.: 1 a 4 L). Faixa numérica fixa, não "quantidade específica".</td><td><span class="decide-badge human">Humano</span> Acima do teto de litros definido, independentemente de ser rotulado B2C ou B2B.</td></tr>
+<tr><td><strong>Frete</strong></td><td><span class="decide-badge ia">IA</span> Dentro da faixa que a regra cobre de forma determinística (ex.: R$ 0 a um teto definido).</td><td><span class="decide-badge human">Humano</span> Frete acima do teto ou destino sem regra clara de cálculo.</td></tr>
+<tr><td><strong>Condição comercial</strong></td><td><span class="decide-badge ia">IA</span> Preço tabelado, sem desconto fora da regra e sem exceção.</td><td><span class="decide-badge human">Humano</span> Pedido de desconto, condição especial, proposta customizada ou geração de Pix manual.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box reveal">
+<strong>Teto de volume acima do rótulo B2C/B2B:</strong> o critério de transferência é a <strong>quantidade/volume</strong>, não só o rótulo. Um lead que se apresenta como B2C mas pede volume acima do teto definido deve ir para o humano do mesmo jeito que um B2B. Isso evita deixar passar um B2C de alto volume que precisa de tratamento comercial. Os valores exatos de cada faixa serão fechados com o cliente antes da construção.
+</div>
+
+<div style="margin-top:2.5rem;" class="reveal">
+<h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:0.4rem;">Pontos a alinhar com o cliente</h3>
+<p class="section-desc" style="margin-bottom:1rem;">Dois pontos precisam de decisão do cliente antes de fechar a regra e começar a construir.</p>
+</div>
+<div class="reveal">
+<div class="open-q">
+<div class="oq-num">01</div>
+<div class="oq-body">
+<h4>Pix embutido no link de compra</h4>
+<p>A IA não gera Pix manualmente, mas o link direto de compra que ela envia pode ter Pix embutido no checkout. Na prática, o lead acaba pagando por Pix ali dentro. Precisa confirmar se esse fluxo é aceitável ou se exige algum ajuste (ex.: restringir o checkout a cartão nos casos conduzidos pela IA).</p>
+<span class="oq-ask">Confirmar com o cliente</span>
+</div>
+</div>
+<div class="open-q">
+<div class="oq-num">02</div>
+<div class="oq-body">
+<h4>Teto de volume para transferência</h4>
+<p>Definir o número exato do teto de quantidade/volume que dispara a transferência para o humano, válido inclusive para leads rotulados como B2C. Sem esse número, a triagem por rótulo B2C/B2B sozinha pode deixar passar um B2C de alto volume que deveria ser tratado pela equipe comercial.</p>
+<span class="oq-ask">Definir com o cliente</span>
+</div>
+</div>
+</div>
+
+<div style="margin-top:2rem;" class="reveal">
+<h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:0.4rem;">Rollout: começar estreito e abrir</h3>
+<p class="section-desc" style="margin-bottom:0.5rem;">Em vez de lançar já com o escopo completo, iniciamos com um escopo mais estreito do que o documentado e vamos abrindo conforme os dados mostrarem que a classificação está acertando. Reduz o risco de erro na fronteira logo no começo.</p>
+</div>
+<div class="rollout-steps reveal">
+<div class="rollout-step"><div class="rs-phase">Fase 1 — Piloto</div><h4>Escopo mínimo</h4><p>1-2 produtos, faixa de quantidade baixa (ex.: 1-2 L), frete na faixa mais segura. Tudo fora disso vai para o humano. Meta: medir a taxa de classificação correta.</p></div>
+<div class="rollout-step"><div class="rs-phase">Fase 2 — Expansão</div><h4>Abrir faixas</h4><p>Com a classificação acertando no piloto, ampliar a faixa de quantidade e incluir mais produtos/fretes elegíveis, monitorando os erros de fronteira.</p></div>
+<div class="rollout-step"><div class="rs-phase">Fase 3 — Escopo pleno</div><h4>Escopo documentado</h4><p>Chegar ao escopo completo apenas quando os números sustentarem. Casos de decisão comercial/financeira seguem sempre com o humano.</p></div>
 </div>
 
 <div class="info-box reveal">
@@ -563,7 +627,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="card reveal">
 <div class="card-label">Automação com fronteira</div>
 <h3>O que a IA calcula e o que vai para o humano</h3>
-<p><strong>A IA pode</strong> conduzir o caso fechado e previsível: 1 cavalo, frete dentro da regra, produto tabelado. Ela coleta quantidade e frete, aplica a regra do litro (R$ 90,90, ou R$ 90,90 + sobra acima de R$ 50), apresenta as opções de 1 e 2 meses já tabeladas e envia o link direto de compra. <strong>Vai para o humano</strong> tudo que depende de validação comercial: a opção de teste com desconto adicional (2+ cavalos na 1ª compra), negociação de volume B2B, condição especial, exceção de preço ou geração de Pix e proposta customizada. Nesses casos a IA organiza o contexto e transfere o lead quente. Assim a etapa de proposta ganha velocidade nos casos simples sem tirar o controle comercial da equipe.</p>
+<p>A divisão segue a <strong>regra de decisão numérica</strong> da seção do Agente IA, não uma interpretação de "caso fechado". <strong>A IA conduz</strong> quando produto, quantidade (litros), frete e condição comercial caem todos nas faixas elegíveis: aplica a regra do litro (R$ 90,90, ou R$ 90,90 + sobra acima de R$ 50), apresenta a opção tabelada e envia o link de compra. <strong>Vai para o humano</strong> se qualquer critério sair da faixa: quantidade acima do teto (mesmo em lead B2C), frete fora da faixa, produto não elegível, ou tudo que envolva desconto, exceção, condição especial e Pix manual. As faixas exatas serão fechadas com o cliente antes da construção, e o começo é estreito (Fase 1 do rollout).</p>
 </div>
 </section>
 
@@ -744,8 +808,8 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <thead><tr><th>Gatilho</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
 <tbody>
 <tr><td><strong>Novo lead entra no funil</strong></td><td>Agente IA inicia o atendimento na hora, qualifica (B2C/B2B), preenche os campos e registra origem/UTM; dispara alerta de SLA.</td><td>Atendimento imediato e triagem automática, encurtando o tempo de primeira resposta (hoje ~15h).</td></tr>
-<tr><td><strong>Lead qualificado — caso fechado</strong></td><td>Para 1 cavalo com frete dentro da regra, a IA aplica o preço do litro, apresenta as opções tabeladas de 1 e 2 meses e envia o link direto de compra.</td><td>Dar velocidade ao caso simples e previsível sem intervenção humana.</td></tr>
-<tr><td><strong>Lead qualificado — exige validação</strong></td><td>Teste com desconto (2+ cavalos na 1ª compra), volume B2B, condição especial, exceção de preço, Pix ou proposta customizada: a IA organiza o contexto e transfere para o operador.</td><td>Manter decisão comercial/financeira sob controle da equipe.</td></tr>
+<tr><td><strong>Lead qualificado — dentro da faixa</strong></td><td>Quando produto, quantidade (litros), frete e condição caem todos nas faixas elegíveis, a IA aplica o preço do litro, apresenta a opção tabelada e envia o link de compra.</td><td>Dar velocidade ao caso previsível sem intervenção humana e sem interpretação subjetiva.</td></tr>
+<tr><td><strong>Lead qualificado — fora da faixa</strong></td><td>Qualquer critério fora da faixa (quantidade acima do teto, inclusive em lead B2C; frete fora da faixa; produto não elegível) ou pedido de desconto/condição especial/Pix manual: a IA organiza o contexto e transfere para o operador.</td><td>Manter decisão comercial/financeira sob controle da equipe e não deixar passar B2C de alto volume.</td></tr>
 <tr><td><strong>Proposta enviada</strong></td><td>Inicia cadência de follow-up (WhatsApp/ligação) em D+1, D+3, D+7, e reforço em D+15 e D+30.</td><td>Atacar o maior ponto de queda do funil com cadência longa.</td></tr>
 <tr><td><strong>Pix / cobrança enviada</strong></td><td>O Pix/cobrança é gerado pelo humano (não pela IA). O CRM registra o meio de pagamento (Pix, cartão crédito ou débito), cria tarefa de confirmação em horas e lembrete no dia seguinte se não pago.</td><td>Recuperar o 2º maior motivo de perda (pagamento não concluído), mantendo a operação financeira com a equipe.</td></tr>
 <tr><td><strong>Operador devolve atendimento à IA</strong></td><td>O card volta para a fila do agente, que assume a conversa (ex.: validar número, requalificar, reativar base).</td><td>Liberar o humano do trabalho repetitivo e usar a IA para atacar a base atual.</td></tr>
