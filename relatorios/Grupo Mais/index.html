@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento CRM Estratégico — Grupo Mais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* CSS BASE DO SISTEMA - NÃO ALTERE ESTAS CLASSES */
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 600px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.kanban-scroll-hint { text-align: center; font-size: 0.7rem; color: var(--white-dim); margin-top: 0.8rem; letter-spacing: 1px; }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 180px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-card:hover { border-color: var(--red); } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-item:hover { border-color: rgba(197,26,42,0.4); } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.medico-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; } .medico-card:hover { border-color: var(--red); transform: translateY(-3px); } .medico-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; } .medico-spec { font-size: 0.85rem; font-weight: 500; color: var(--white-muted); margin-bottom: 0.5rem; line-height: 1.5; } .medico-tag { display:inline-block; font-size: 0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:0.15rem 0.6rem; border-radius: 4px; background: var(--red-subtle); color: var(--red); border:1px solid rgba(197,26,42,0.3); }
+.medico-tag.v4 { background: rgba(245,245,245,0.05); color: var(--white-muted); border-color: rgba(245,245,245,0.12); }
+.group-heading { font-family:'JetBrains Mono', monospace; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin: 2.5rem 0 1.2rem; font-weight:600; }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.8; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento Estratégico CRM + IA SDR</div>
+<h1>Grupo <span>Mais</span></h1>
+<p class="hero-sub">Estruturar o comercial do zero no Kommo, colocar a IA SDR para atender e qualificar todo o inbound e entregar o lead pronto para o consultor fechar — com cada real investido rastreado até a venda.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">B2B + B2C (Híbrido)</div></div>
+<div class="hero-meta-item"><div class="label">Frentes</div><div class="value">Stand · Com. Visual · Planejados</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Kommo + IA SDR (WhatsApp API)</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#contexto" class="nav-link">Contexto & Dores</a>
+<a href="#equipe" class="nav-link">Equipe</a>
+<a href="#fluxo" class="nav-link">Jornada do Lead</a>
+<a href="#funil-vendas" class="nav-link">Funil de Vendas</a>
+<a href="#campos" class="nav-link">Estrutura de Dados</a>
+<a href="#tags" class="nav-link">Tags</a>
+<a href="#automacoes" class="nav-link">Automações</a>
+<a href="#sla" class="nav-link">SLAs & Acessos</a>
+</div>
+</nav>
+
+<div class="divider"></div>
+<section class="section" id="contexto">
+<div class="section-header reveal">
+<div class="section-number">01 — Contexto Estratégico</div>
+<h2 class="section-title">Diagnóstico & Descoberta</h2>
+<p class="section-desc">Grupo Mais: 23 anos de mercado e mais de 4.000 projetos em comunicação visual, stands e marcenaria, com produção 100% própria (atendimento 360º). Contas homologadas de peso — Espaço Laser, Pandora, Blue Fit, Smart Fit e Santander. Hoje o comercial roda de forma manual, sem CRM e sem SDR. Este documento desenha essa estrutura.</p>
+</div>
+
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">23</div><div class="stat-label">Anos de mercado</div></div>
+<div class="stat-card"><div class="stat-num">4.000+</div><div class="stat-label">Projetos entregues</div></div>
+<div class="stat-card"><div class="stat-num">~R$350k</div><div class="stat-label">Faturamento médio / mês</div></div>
+<div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Consultores comerciais</div></div>
+<div class="stat-card"><div class="stat-num">0</div><div class="stat-label">CRM hoje (inexistente)</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Objetivos</div>
+<h3>O que buscamos resolver?</h3>
+<p>Fortalecer e digitalizar o comercial, hoje 100% manual, implantando o Kommo como <strong style="color:var(--white)">fonte única da verdade da venda</strong>. Subir a IA SDR para atender e qualificar o alto volume de leads previsto, entregando ao consultor apenas o lead pronto para fechar. Ganhar visão de CPL, MQL, CAC, LTV e ticket por produto. Meta realista: crescimento de <strong style="color:var(--white)">+22% a.a.</strong> (SELIC 14% + prêmio de risco de 8 p.p.), fechando dezembro perto de R$374k/mês.</p>
+</div>
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Perfil Ideal (ICP)</h3>
+<p><strong style="color:var(--white)">Stand:</strong> grandes empresas (fat. &gt; R$4M/mês) e agências de publicidade/marketing que atendem grandes contas (30–50% das vendas passam por agência). <strong style="color:var(--white)">Comunicação Visual:</strong> empresas com fat. &gt; R$200k/mês, construtoras, escritórios de arquitetura e engenharia. <strong style="color:var(--white)">Casa Planejados (marcenaria):</strong> B2C residencial, cliente final.</p>
+</div>
+</div>
+
+<div class="accordion reveal">
+<div class="accordion-item open">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>🔴 Dores e Desafios Mapeados</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner">
+<div class="grid-2" style="margin-top: 1rem;">
+<div class="card"><div class="card-label">Comercial</div><h3>Sem CRM e sem SDR</h3><p>O CRM foi cancelado e não existe. A gestão de leads é manual e dispersa. Os 3 consultores acumulam prospecção e fechamento — sem uma camada de qualificação antes deles.</p></div>
+<div class="card"><div class="card-label">Dados</div><h3>Zero visibilidade</h3><p>Não há CPL, custo por MQL, CAC, LTV nem ticket médio aferido por produto. "Muito investimento no lead e não retornou conversão boa" — sem rastreio, não dava para ligar o real investido à venda.</p></div>
+<div class="card"><div class="card-label">Estrutura</div><h3>Time enxuto e sobrecarga</h3><p>3 consultores, um por frente, com risco de redundância e sobrecarga. Já houve retrabalho e pós-venda alto num contrato grande (~100 lojas em um ciclo) que estourou a capacidade produtiva.</p></div>
+<div class="card"><div class="card-label">Marketing</div><h3>Tráfego pausado e site invadido</h3><p>A agência anterior foi encerrada por insatisfação e o tráfego ficou parado. O site institucional sofreu uma invasão na hospedagem — pré-requisito de traqueamento antes de qualquer campanha.</p></div>
+<div class="card"><div class="card-label">Receita</div><h3>Dependência de contratos-âncora</h3><p>Poucos contratos de altíssimo valor concentram o faturamento. Perder um contrato-âncora tem peso enorme — precisamos pulverizar a carteira sem abrir mão dos grandes.</p></div>
+<div class="card"><div class="card-label">Mercado</div><h3>Fragmentado e sem líder</h3><p>959 empresas de comunicação visual e 240 de stand só em SP. Ninguém é líder — oportunidade de liderança, mas também guerra de preço ("prostituição") contra players que entregam menos qualidade.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>Regras de Negócio Inegociáveis</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner" style="margin-top: 1rem;">
+<div class="grid-2">
+<div class="card"><div class="card-label">Venda</div><h3>Venda consultiva — IA nunca fecha</h3><p>Trata-se de venda técnica (SES): envolve projeto, documentação técnica e orçamento. A IA SDR atende, qualifica e agenda, mas a conversão é 100% do closer humano. Sempre há validação humana antes de qualquer proposta ou desconto.</p></div>
+<div class="card"><div class="card-label">Dado</div><h3>Kommo é a fonte da verdade</h3><p>Toda venda é registrada no Kommo. Sem um lugar único de registro, o traqueamento não fecha o ciclo e o painel não existe.</p></div>
+<div class="card"><div class="card-label">Governança</div><h3>Acessos no nome do Grupo Mais</h3><p>Todo acesso (hospedagem, BM, Ads, GA4, GTM, redes) fica no nome do Grupo Mais, com a V4 convidada como usuária — nunca o contrário.</p></div>
+<div class="card"><div class="card-label">Atendimento</div><h3>IA só inbound, via API oficial</h3><p>A IA responde quem chega (formulário, LP, WhatsApp), não faz outbound frio por padrão. Opera em WhatsApp Business API oficial para evitar banimento e permitir disparo de fluxo.</p></div>
+<div class="card"><div class="card-label">Comercial</div><h3>Diferencial 360º + cobrir orçamento</h3><p>Produção 100% própria (sem terceiros) é o principal diferencial de qualidade e prazo. Cobrir o orçamento do concorrente é tratado como investimento para adquirir o cliente e garantir a renovação no ciclo seguinte.</p></div>
+<div class="card"><div class="card-label">Arquitetura</div><h3>Pipelines separados por frente</h3><p>Stand, Comunicação Visual e Casa Planejados têm ticket, ciclo e mídia diferentes — cada frente tem seu pipeline e seus critérios de MQL. A verba nasce concentrada em stand (60–70%).</p></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="equipe">
+<div class="section-header reveal">
+<div class="section-number">02 — Estrutura e Equipe</div>
+<h2 class="section-title">Quem faz o quê</h2>
+<p class="section-desc">O CRM só funciona com donos claros. Do lado do Grupo Mais, o time comercial opera o funil; do lado da V4, o time implementa e roda a operação. A coordenadora comercial assume o papel de guardiã do CRM (sales ops) — quem garante a disciplina de preenchimento.</p>
+</div>
+
+<div class="group-heading reveal">Grupo Mais — Time Comercial</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;" class="reveal medicos-grid">
+<div class="medico-card"><div class="medico-name">Carlos Heitor</div><div class="medico-spec">CEO / Decisor. Aprova estratégia, verba e meta. Acompanha o projeto do início ao fim.</div><span class="medico-tag">Decisor</span></div>
+<div class="medico-card"><div class="medico-name">Coordenadora Comercial <span style="color:var(--white-dim);font-size:0.7rem">(a confirmar)</span></div><div class="medico-spec">Ponto focal do dia a dia. Papel de guardiã do CRM / sales ops: organiza o funil, distribui leads e garante o preenchimento.</div><span class="medico-tag">Sales Ops</span></div>
+<div class="medico-card"><div class="medico-name">Consultor Comercial 1 <span style="color:var(--white-dim);font-size:0.7rem">(a confirmar)</span></div><div class="medico-spec">Closer. Recebe o lead qualificado (SQL-ready), envia proposta e conduz o fechamento da sua frente.</div><span class="medico-tag">Closer</span></div>
+<div class="medico-card"><div class="medico-name">Consultor Comercial 2 <span style="color:var(--white-dim);font-size:0.7rem">(a confirmar)</span></div><div class="medico-spec">Closer. Frente própria; redundância desenhada para cobrir picos e ausências dos demais.</div><span class="medico-tag">Closer</span></div>
+<div class="medico-card"><div class="medico-name">Consultor Comercial 3 <span style="color:var(--white-dim);font-size:0.7rem">(a confirmar)</span></div><div class="medico-spec">Closer. Frente própria; capacidade estimada de ~68 MQLs/mês por consultor (~3 leads/dia útil).</div><span class="medico-tag">Closer</span></div>
+<div class="medico-card"><div class="medico-name">Assistente de Contratos <span style="color:var(--white-dim);font-size:0.7rem">(a confirmar)</span></div><div class="medico-spec">Suporte de fechamento: contratos, anexos e dados de assinatura no card.</div><span class="medico-tag">Suporte</span></div>
+</div>
+
+</section>
+
+<div class="divider"></div>
+<section class="section" id="fluxo">
+<div class="section-header reveal">
+<div class="section-number">03 — Fluxo Comercial</div>
+<h2 class="section-title">A Jornada do Lead</h2>
+<p class="section-desc">Da geração de demanda até a produção, ponta a ponta. O coração do fluxo é a IA SDR: ela atende todo inbound 24/7, qualifica contra os critérios de MQL, roteia para o pipeline certo e entrega ao consultor apenas o lead pronto para fechar.</p>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Google + Meta / LP / Site</div><div class="flow-sub">geração de demanda</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">IA SDR · WhatsApp</div><div class="flow-sub">atende, transcreve, qualifica</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">MQL + Roteamento</div><div class="flow-sub">Stand / C. Visual / Planejados</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Consultor (Closer)</div><div class="flow-sub">SAL → SQL → proposta</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box won" style="border-color:#2ecc71"><div class="flow-title">Ganho</div><div class="flow-sub">venda registrada no Kommo</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Canais de Entrada</div>
+<h3>Origem dos Leads</h3>
+<p>
+<span class="tag tag-red">Google Ads (primário)</span>
+<span class="tag tag-red">Meta Ads (remarketing)</span>
+<span class="tag tag-red">Meta / Instagram — Planejados</span>
+<span class="tag tag-white">Landing Pages</span>
+<span class="tag tag-white">Site institucional</span>
+<span class="tag tag-white">WhatsApp</span>
+<span class="tag tag-white">Formulários</span>
+<span class="tag tag-white">Google Meu Negócio</span>
+<span class="tag tag-white">Indicação / Agência</span>
+</p>
+<p style="margin-top:1rem">O Google é a alavanca principal para Stand e Comunicação Visual (canal de intencionalidade — o comprador busca "stand para feira X"). O Meta atua como apoio/remarketing e como canal primário para Casa Planejados (público B2C residencial).</p>
+</div>
+<div class="card">
+<div class="card-label">Abordagem</div>
+<h3>Processo de Qualificação</h3>
+<p>A IA SDR recebe o inbound 24/7, transcreve áudios e lê imagens enviadas pelo lead, e aplica um framework consultivo (SPIN, dado o tipo de venda). Valida os critérios de MQL (CNPJ, faturamento, nível de decisão), captura a necessidade real (feira/evento, PDV, expansão, prazo) e dispara follow-ups automáticos para quem some. Quando qualifica, roteia para o pipeline correto e passa o bastão ao consultor — nunca fecha e nunca negocia desconto.</p>
+</div>
+</div>
+
+<div class="info-box reveal"><strong>Setup da IA SDR:</strong> não é plug and play. São ~4 semanas (Discovery → Blueprint → Integrações → Treinamento) mais calibração semanal antes do Go Live. A inteligência é alimentada pelas regras de negócio do Grupo Mais + prints de conversas reais — nada de "buscar no ChatGPT".</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="funil-vendas">
+<div class="section-header reveal">
+<div class="section-number">04 — Funil de Vendas</div>
+<h2 class="section-title">Etapas da Conversão</h2>
+<p class="section-desc">Funil enxuto e fiel ao modelo do Grupo Mais (poucas reuniões, muita negociação por e-mail). Instanciado como pipelines separados por frente (Stand, Comunicação Visual e Casa Planejados), pois ticket, ciclo e critérios diferem. Abaixo, a espinha dorsal comum.</p>
+</div>
+
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Lead — Entrada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">IA SDR atende</div><div class="kanban-card-desc">Card criado automaticamente por webhook (form/LP/Ads) ou pelo WhatsApp. IA responde, transcreve áudio e lê imagem.</div><div class="kanban-card-tags"><span class="kanban-tag">IA SDR</span><span class="kanban-tag">24/7</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">MQL — Qualif. Marketing</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Critérios validados</div><div class="kanban-card-desc">CNPJ válido + faturamento acima do piso da frente + contato de nível decisor (do analista/assistente de marketing ou compras para cima).</div><div class="kanban-card-tags"><span class="kanban-tag">CNPJ</span><span class="kanban-tag">Faturamento</span><span class="kanban-tag">Decisor</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Conexão — SAL</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Aceito pelo comercial</div><div class="kanban-card-desc">É MQL + tem necessidade real declarada (feira, PDV, expansão) + disponibilidade de reunião de diagnóstico em até 5 dias úteis. Os três critérios são obrigatórios.</div><div class="kanban-card-tags"><span class="kanban-tag">Necessidade</span><span class="kanban-tag">Agenda ≤5d</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Proposta Enviada — SQL</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Orçamento na rua</div><div class="kanban-card-desc">Orçamento compatível confirmado (e-mail/reunião), autoridade de decisão e prazo de aceite de até 60 dias. Consultor envia e refina a proposta.</div><div class="kanban-card-tags"><span class="kanban-tag">Orçamento</span><span class="kanban-tag">Autoridade</span><span class="kanban-tag">≤60 dias</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Contrato Enviado</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Fechamento</div><div class="kanban-card-desc">Proposta aprovada; contrato enviado para assinatura. Cobrir orçamento do concorrente pode entrar aqui como investimento para garantir a conta.</div><div class="kanban-card-tags"><span class="kanban-tag">Assinatura</span></div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Ganho</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Venda registrada</div><div class="kanban-card-desc">Contrato assinado e venda registrada no Kommo (fonte da verdade). Dados de fechamento preenchidos no card e time de produção notificado.</div><div class="kanban-card-tags"><span class="kanban-tag">Fonte da verdade</span></div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Perdido</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Motivo obrigatório</div><div class="kanban-card-desc">Card perdido exige motivo de perda padronizado — combustível para o BI e para a calibração da IA e da mídia.</div><div class="kanban-card-tags"><span class="kanban-tag">Motivo obrigatório</span></div></div>
+</div>
+</div>
+</div>
+<div class="kanban-scroll-hint">← Arraste para ver todas as etapas →</div>
+</div>
+
+<div class="reveal" style="margin-top: 1.5rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-white">Faturamento abaixo do critério</span>
+<span class="tag tag-white">Sem CNPJ / pessoa física</span>
+<span class="tag tag-white">Sem necessidade real (só cotação)</span>
+<span class="tag tag-white">Não é decisor / sem autoridade</span>
+<span class="tag tag-white">Preço — perdeu para concorrente</span>
+<span class="tag tag-white">Sem orçamento disponível</span>
+<span class="tag tag-white">Fora do prazo (&gt; 60 dias)</span>
+<span class="tag tag-white">Prazo de entrega incompatível</span>
+<span class="tag tag-white">Sem retorno / lead sumiu</span>
+<span class="tag tag-white">Escolheu terceirizado mais barato</span>
+<span class="tag tag-white">Projeto cancelado / adiado</span>
+</div>
+</div>
+
+</section>
+
+<div class="divider"></div>
+<section class="section" id="campos">
+<div class="section-header reveal">
+<div class="section-number">05 — Estrutura de Dados</div>
+<h2 class="section-title">Campos e Tags</h2>
+<p class="section-desc">Os campos abaixo sustentam a qualificação da IA SDR, o roteamento por frente e o rastreio origem → venda. Boa parte é preenchida automaticamente pela IA ou pelos webhooks; o restante é responsabilidade do consultor.</p>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">🤖</div>
+<div><div class="campos-group-title">Qualificação (preenchido pela IA SDR)</div><div class="campos-group-sub">Base para MQL, SAL e roteamento</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">CNPJ</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Faturamento mensal estimado</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Segmento de interesse</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Cargo / nível de decisão</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Necessidade real declarada</div><div class="campo-type">Sim/Não</div></div>
+<div class="campo-item"><div class="campo-name">Tipo de projeto</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Feira / evento</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Data do evento / prazo</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Disponibilidade p/ diagnóstico</div><div class="campo-type">Seleção</div></div>
+</div>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">💼</div>
+<div><div class="campos-group-title">Comercial (preenchido pelo consultor)</div><div class="campos-group-sub">Da conexão ao fechamento</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Orçamento estimado (R$)</div><div class="campo-type">Número</div></div>
+<div class="campo-item"><div class="campo-name">Ticket previsto (R$)</div><div class="campo-type">Número</div></div>
+<div class="campo-item"><div class="campo-name">Concorrentes no orçamento</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Cobertura de orçamento aplicada?</div><div class="campo-type">Sim/Não</div></div>
+<div class="campo-item"><div class="campo-name">Cliente recorrente / renovação</div><div class="campo-type">Sim/Não</div></div>
+<div class="campo-item"><div class="campo-name">Consultor responsável</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Via agência? (parceiro)</div><div class="campo-type">Sim/Não</div></div>
+</div>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">📈</div>
+<div><div class="campos-group-title">Origem & Rastreio (automático)</div><div class="campos-group-sub">Ligar cada real investido à venda</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Origem do lead</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Canal (Google/Meta/Orgânico)</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">UTM source / medium / campaign</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Custo do lead (CPL)</div><div class="campo-type">Número</div></div>
+</div>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">✅</div>
+<div><div class="campos-group-title">Fechamento (no Ganho)</div><div class="campos-group-sub">Registrado no card do Kommo</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Valor fechado (R$)</div><div class="campo-type">Número</div></div>
+<div class="campo-item"><div class="campo-name">Data de fechamento</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Local / cidade do projeto</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Categoria do projeto</div><div class="campo-type">Seleção</div></div>
+</div>
+</div>
+
+<div class="campos-group reveal" id="tags">
+<div class="campos-group-header">
+<div class="campos-group-icon">🏷️</div>
+<div><div class="campos-group-title">Tags</div><div class="campos-group-sub">Marcadores rápidos de segmentação e prioridade</div></div>
+</div>
+<div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.5rem;">
+<span class="tag tag-red">Stand</span>
+<span class="tag tag-red">Comunicação Visual</span>
+<span class="tag tag-red">Casa Planejados</span>
+<span class="tag tag-white">Agência / Parceiro</span>
+<span class="tag tag-white">Cliente recorrente</span>
+<span class="tag tag-white">Conta-âncora</span>
+<span class="tag tag-white">Renovação</span>
+<span class="tag tag-white">Grande conta</span>
+<span class="tag tag-white">Construtora / Arquitetura</span>
+<span class="tag tag-white">Quente</span>
+<span class="tag tag-white">Morno</span>
+<span class="tag tag-white">Frio</span>
+<span class="tag tag-white">Aguardando cliente</span>
+<span class="tag tag-white">Cobertura de orçamento</span>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="automacoes">
+<div class="section-header reveal">
+<div class="section-number">06 — Automações e Motor Lógico</div>
+<h2 class="section-title">Gatilhos do CRM</h2>
+<p class="section-desc">A régua de automações tira o trabalho manual do meio do caminho: da criação do card à passagem de bastão, aos follow-ups e ao registro da venda. Tudo acontece dentro do Kommo, sem integrações externas.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Gatilho</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
+<tbody>
+<tr><td><strong>Lead entra por form / LP / Ads</strong> (webhook)</td><td>Cria card no pipeline correto com UTMs e origem preenchidos</td><td>Rastrear origem → venda desde o primeiro toque</td></tr>
+<tr><td><strong>Lead chega no WhatsApp</strong></td><td>IA SDR inicia atendimento, transcreve áudio, lê imagem e conversa</td><td>Atendimento 24/7 e triagem sem depender de humano</td></tr>
+<tr><td><strong>IA valida critérios de MQL</strong></td><td>Move o card para MQL, aplica tags e preenche os campos de qualificação</td><td>Passagem de bastão automática e padronizada</td></tr>
+<tr><td><strong>Card vira SAL</strong></td><td>Distribui ao consultor da frente (round-robin), cria tarefa e alerta no WhatsApp</td><td>Garantir SLA de atendimento e nada parado</td></tr>
+<tr><td><strong>Reunião de diagnóstico marcada</strong></td><td>Cria evento no Google Calendar do consultor</td><td>Agenda organizada sem retrabalho</td></tr>
+<tr><td><strong>Lead sem interação por X dias</strong></td><td>IA SDR dispara follow-up automático (cadência)</td><td>Reduzir perda por inércia ("lead sumiu")</td></tr>
+<tr><td><strong>Proposta enviada sem resposta em N dias</strong></td><td>Cria tarefa de follow-up para o consultor</td><td>Cadência comercial disciplinada</td></tr>
+<tr><td><strong>Card marcado como Ganho</strong></td><td>Preenche os dados de fechamento e notifica o time de produção (WhatsApp interno)</td><td>Passar a venda adiante sem ninguém redigitando</td></tr>
+<tr><td><strong>Card marcado como Perdido</strong></td><td>Exige o motivo de perda antes de fechar</td><td>Alimentar o BI e recalibrar mídia e IA</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="sla">
+<div class="section-header reveal">
+<div class="section-number">07 — Governança e Acessos</div>
+<h2 class="section-title">SLAs e Níveis de Permissão</h2>
+<p class="section-desc">A ferramenta organiza, mas a disciplina depende de um guardião do CRM (sales ops). Os perfis abaixo definem quem vê e edita o quê — e o custo de licença de cada usuário no plano Avançado da Kommo.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Perfil</th><th>Função</th><th>Permissões</th><th>Custo / mês (Kommo Avançado)</th></tr></thead>
+<tbody>
+<tr><td><strong>Carlos Heitor (CEO)</strong></td><td>Decisor</td><td>Admin total: todos os pipelines, relatórios, aprovação de estratégia, verba e meta</td><td><strong>US$ 25</strong> /usuário</td></tr>
+<tr><td><strong>Coordenadora Comercial</strong></td><td>Guardiã do CRM / Sales Ops</td><td>Gestão de todo o funil, distribuição de leads, garantia de preenchimento, relatórios do time</td><td><strong>US$ 25</strong> /usuário</td></tr>
+<tr><td><strong>Consultores (x3)</strong></td><td>Closers</td><td>Veem apenas os próprios cards / pipeline da sua frente; editam status e registram propostas</td><td><strong>US$ 75</strong> (3 × US$ 25)</td></tr>
+<tr><td><strong>Assistente de Contratos</strong></td><td>Suporte</td><td>Anexos, contratos e dados de fechamento nos cards ganhos</td><td><strong>US$ 25</strong> /usuário</td></tr>
+<tr><td><strong>IA SDR</strong></td><td>Atendimento e qualificação</td><td>Cria, qualifica, roteia cards e dispara follow-up; <strong>não fecha</strong> e não negocia desconto</td><td>Incluído (agente de IA)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box reveal"><strong>Plano Avançado da Kommo:</strong> US$ 25 por usuário/mês (cobrado US$ 150/usuário a cada 6 meses), com 3 números de WhatsApp, 5.000 leads e 1.250 créditos de IA por licença, e até 3 agentes de IA incluídos. <strong>Total estimado: 6 licenças = US$ 150/mês</strong> (US$ 900 a cada 6 meses). A licença é por conta do Grupo Mais; a IA SDR usa os agentes de IA já inclusos no plano.</div>
+</section>
+
+<footer class="footer">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
+<div class="logo-text">V4 Company</div>
+<p>Planejamento Estratégico de CRM — Grupo Mais</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado e mapeado a partir de transcrições (Kickoff 11/08 e Growth Class 07/08) e do deck de partida. Uso interno.</p>
+</footer>
+
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_CRM_Grupo_Mais.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+</script>
+
+</body>
+</html>
