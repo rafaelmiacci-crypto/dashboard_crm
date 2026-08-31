@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento CRM Estratégico — Supranet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* CSS BASE DO SISTEMA - NÃO ALTERE ESTAS CLASSES */
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 600px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 180px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.medico-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; } .medico-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; } .medico-spec { font-size: 0.85rem; font-weight: 500; color: var(--white-muted); margin-bottom: 0.5rem; line-height: 1.5; }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.8; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+/* Adições específicas deste planejamento */
+.step-list { counter-reset: step; margin: 1.5rem 0; }
+.step-item { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--black-border); align-items: flex-start; }
+.step-item:last-child { border-bottom: none; }
+.step-num { counter-increment: step; flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: var(--red-subtle); border: 1px solid var(--red); color: var(--red); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 0.85rem; }
+.step-num::before { content: counter(step); }
+.step-content h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--white); }
+.step-content p { font-size: 0.85rem; color: var(--white-muted); }
+.warn-box { background: rgba(230, 180, 30, 0.06); border-left: 3px solid #e6b41e; padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .warn-box strong { color: #f0d060; }
+.msg-bubble { background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.2rem 1.4rem; margin: 1rem 0; font-size: 0.88rem; color: var(--white-muted); position: relative; }
+.msg-bubble::before { content: '💬'; position: absolute; top: -12px; left: 16px; background: var(--black); padding: 0 6px; font-size: 0.9rem; }
+.msg-bubble em { color: var(--white); font-style: normal; }
+.pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+</style>
+</head>
+<body>
+<section class="hero">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento Estratégico CRM</div>
+<h1>SUPRANET <span>Telecom</span></h1>
+<p class="hero-sub">Reativação da base parada, blindagem do WhatsApp e recuperação de oportunidades: um plano de ação sobre o CRM Kommo para transformar leads estagnados em receita.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">B2C / Provedor de Internet</div></div>
+<div class="hero-meta-item"><div class="label">Foco/Nicho</div><div class="value">ISP · Planos de Internet</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Kommo CRM</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#contexto" class="nav-link">Contexto & Dores</a>
+<a href="#estrutura" class="nav-link">Estrutura Atual</a>
+<a href="#funil-vendas" class="nav-link">Funis Mapeados</a>
+<a href="#fluxo-cliente" class="nav-link">Fluxo Cliente</a>
+<a href="#fluxo-naoresp" class="nav-link">Fluxo Não Respondeu</a>
+<a href="#fluxo-qualificado" class="nav-link">Recuperar Qualificado</a>
+<a href="#fluxo-reativacao" class="nav-link">Reativação</a>
+<a href="#campos" class="nav-link">Estrutura de Dados</a>
+<a href="#automacoes" class="nav-link">Automações</a>
+</div>
+</nav>
+<div class="divider"></div>
+
+<!-- ================= 01 CONTEXTO ================= -->
+<section class="section" id="contexto">
+<div class="section-header reveal">
+<div class="section-number">01 — Contexto Estratégico</div>
+<h2 class="section-title">Diagnóstico & Descoberta</h2>
+<p class="section-desc">O CRM da Supranet foi mapeado ao vivo no Kommo. A operação capta leads de internet por múltiplos canais e os distribui automaticamente, mas há um grande volume de leads parados sem tratamento ativo — receita esquecida dentro do próprio CRM.</p>
+</div>
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">~3.069</div><div class="stat-label">Leads em "Não Respondeu"</div></div>
+<div class="stat-card"><div class="stat-num">2</div><div class="stat-label">Pipelines ativos</div></div>
+<div class="stat-card"><div class="stat-num">12</div><div class="stat-label">Motivos de perda</div></div>
+<div class="stat-card"><div class="stat-num">40+</div><div class="stat-label">Leads "Já é cliente" parados</div></div>
+</div>
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Objetivos</div>
+<h3>O que buscamos resolver?</h3>
+<p>Ativar as bases estagnadas do CRM com fluxos estruturados: criar tratamento comercial para quem já é cliente, blindar o número de WhatsApp com um fluxo seguro de "Não Respondeu", recuperar os leads travados em "Qualificado" e transformar os motivos de perda em campanhas de reativação. O objetivo final é converter volume parado em novas vendas e upsell.</p>
+</div>
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Perfil Ideal (ICP)</h3>
+<p>Consumidores residenciais e pequenos comércios dentro da área de cobertura da Supranet, buscando contratação ou troca de plano de internet. Entram principalmente por WhatsApp, Instagram, landing page, indicação e tráfego pago (Meta/Google). O ICP secundário é a base de clientes ativos, elegível para upsell de novos produtos e serviços.</p>
+</div>
+</div>
+<div class="accordion reveal">
+<div class="accordion-item open">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>🔴 Dores e Desafios Mapeados</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner">
+<div class="grid-2" style="margin-top: 1rem;">
+<div class="card" style="margin:0;"><div class="card-label">Dor 01</div><h3>Clientes parados sem tratamento</h3><p>Leads marcados como "Já é cliente" acumulam-se na Entrada sem qualquer abordagem ativa. É uma oportunidade perdida de oferecer novos produtos, upgrades e serviços à base que já confia na marca.</p></div>
+<div class="card" style="margin:0;"><div class="card-label">Dor 02</div><h3>Risco de banimento do WhatsApp</h3><p>Leads que param de responder não têm um fluxo seguro. Disparos sem critério ou fora da janela de 24h expõem o número a bloqueio, ameaçando o principal canal de vendas.</p></div>
+<div class="card" style="margin:0;"><div class="card-label">Dor 03</div><h3>Leads travados no "Qualificado"</h3><p>Uma expiração anterior do CRM deixou leads presos na etapa de Qualificado, sem seguir para o processo de venda. São oportunidades quentes esquecidas.</p></div>
+<div class="card" style="margin:0;"><div class="card-label">Dor 04</div><h3>Perdas sem reaproveitamento</h3><p>~3.069 leads em "Não Respondeu" e um histórico de perdas por preço, viabilidade e outros motivos nunca são reativados. O CRM registra o motivo, mas não o utiliza para gerar novas oportunidades.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>Regras de Negócio Inegociáveis</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner" style="margin-top: 1rem;">
+<div class="info-box"><strong>Janela de 24h do WhatsApp:</strong> qualquer disparo automático ativo (fora de resposta do cliente) só pode ocorrer dentro da janela de 24h da última interação. Fora dela, usar apenas templates aprovados (HSM) ou canal alternativo (e-mail/ligação).</div>
+<div class="info-box"><strong>Escalonamento humano:</strong> a automação nunca encerra a oportunidade sozinha. Sem retorno à mensagem, o CRM gera tarefa para a atendente ligar antes de mover para Perda.</div>
+<div class="info-box"><strong>Motivo de perda obrigatório:</strong> nenhum lead vai para "Perda" sem motivo registrado — é o combustível das campanhas de reativação.</div>
+<div class="info-box"><strong>Recuperação manual do "Qualificado":</strong> os leads travados por expiração são movidos manualmente para a primeira etapa do funil de vendas, garantindo tratamento antes de ligar qualquer automação em cima deles.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+
+<!-- ================= 02 ESTRUTURA ATUAL ================= -->
+<section class="section" id="estrutura">
+<div class="section-header reveal">
+<div class="section-number">02 — Estrutura Atual do CRM</div>
+<h2 class="section-title">Canais, Pipelines & Distribuição</h2>
+<p class="section-desc">O Kommo da Supranet opera com dois pipelines complementares e distribuição automática de leads entre atendentes por horário e turno.</p>
+</div>
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Canais de Entrada</div>
+<h3>Origem dos Leads</h3>
+<p>Os leads entram por integrações fixadas e são etiquetados pela origem:</p>
+<div class="pill-row">
+<span class="tag tag-red">WhatsApp (Supranet Telecom)</span>
+<span class="tag tag-red">Instagram (Supranet)</span>
+<span class="tag tag-red">Landing Page (Checkout Supranet / Webform)</span>
+<span class="tag tag-white">Meta Ads</span>
+<span class="tag tag-white">Google Ads</span>
+<span class="tag tag-white">Indicação</span>
+</div>
+</div>
+<div class="card">
+<div class="card-label">Distribuição</div>
+<h3>Robôs de Atendimento</h3>
+<p>Há uma malha robusta de robôs de distribuição e redistribuição (ex.: "Distribuição A/B/C - Semana", "Distribuição Sábado Manhã/Tarde/Noite", "Redistribuição Fim de semana") que direcionam os leads às atendentes por dia e faixa de horário, inclusive fora do expediente. Esse motor já existe e será reaproveitado nos novos fluxos.</p>
+</div>
+</div>
+<div class="info-box reveal"><strong>Achado importante:</strong> a etapa "Não Respondeu" (Funil de Vendas) concentra ~3.069 leads e <em>não possui automação ativa</em> configurada — é o principal gargalo e o ponto de maior risco/oportunidade deste planejamento.</div>
+</section>
+<div class="divider"></div>
+
+<!-- ================= 03 FUNIS MAPEADOS ================= -->
+<section class="section" id="funil-vendas">
+<div class="section-header reveal">
+<div class="section-number">03 — Funis de Vendas</div>
+<h2 class="section-title">Pipelines Mapeados no Kommo</h2>
+<p class="section-desc">Estado atual dos dois funis, etapa por etapa, conforme mapeado ao vivo na conta.</p>
+</div>
+
+<h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:0.3rem;" class="reveal">Pipeline 1 — "Entrada"</h3>
+<p style="color:var(--white-dim);font-size:0.85rem;margin-bottom:0.5rem;" class="reveal">Onde estão as etapas de Qualificado e Cliente citadas na reunião.</p>
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Contato Inicial</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Primeiro atendimento</div><div class="kanban-card-desc">40+ leads. Robôs de "Atendimento Inicial", "Fora de Horário" e "Follow up 24 horas" já ativos.</div><div class="kanban-card-tags"><span class="kanban-tag">🤖 Follow up 24h</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Qualificado</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Lead quente / distribuído</div><div class="kanban-card-desc">Robôs de Distribuição A/B/C e Sábado. ⚠️ Leads antigos travados aqui por expiração do CRM.</div><div class="kanban-card-tags"><span class="kanban-tag">⚠️ Recuperar manual</span></div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Cliente</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Contratou o plano</div><div class="kanban-card-desc">Automação "Criar cliente" (anexa a perfil de cliente). Sem fluxo de pós-venda/upsell hoje.</div><div class="kanban-card-tags"><span class="kanban-tag">🎯 Oportunidade upsell</span></div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Perda</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Oportunidade perdida</div><div class="kanban-card-desc">Exige motivo. Robô "Fechar conversa". Reabre para "Contato Inicial" se o cliente voltar a escrever.</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin:2rem 0 0.3rem;" class="reveal">Pipeline 2 — "Funil de Vendas"</h3>
+<p style="color:var(--white-dim);font-size:0.85rem;margin-bottom:0.5rem;" class="reveal">Funil principal de conversão, com o grande acúmulo em "Não Respondeu".</p>
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Etapa de Entrada</div></div>
+<div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Triagem pré-funil</div><div class="kanban-card-desc">Aceita ou recusa potenciais leads antes de entrarem no funil.</div></div></div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Aquisição</div></div>
+<div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Lead captado</div><div class="kanban-card-desc">Robôs de Redistribuição (Domingo, Noite, ao mover). 1 lead ativo.</div></div></div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Em Contato</div></div>
+<div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Negociação ativa</div><div class="kanban-card-desc">Distribuição C/A Semana, Salesbot #25, Redistribuição Sáb/Dom. 11 leads.</div><div class="kanban-card-tags"><span class="kanban-tag">🤖 Salesbot #25</span></div></div></div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Não Respondeu</div></div>
+<div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">🔴 Gargalo crítico</div><div class="kanban-card-desc">~3.069 leads acumulados SEM automação. Alvo nº 1 do fluxo de reativação seguro.</div><div class="kanban-card-tags"><span class="kanban-tag">⚠️ Sem tratamento</span></div></div></div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Venda</div></div>
+<div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Fechou</div><div class="kanban-card-desc">"Criar cliente" + Webhook ao entrar na etapa.</div></div></div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Perda</div></div>
+<div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Perdido c/ motivo</div><div class="kanban-card-desc">12 motivos de perda mapeados. Robô "Fechar conversa". Reabre se cliente escrever.</div></div></div>
+</div>
+</div>
+</div>
+
+<div class="reveal" style="margin-top: 1.5rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados (base da reativação)</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-white">Viabilidade / Cobertura</span>
+<span class="tag tag-white">Tempo (Instalação / Urgência)</span>
+<span class="tag tag-red">Preço / Condições</span>
+<span class="tag tag-white">Fechou com o concorrente</span>
+<span class="tag tag-white">Processo / Atendimento</span>
+<span class="tag tag-white">Produto / Plano</span>
+<span class="tag tag-white">Análise / Cadastro</span>
+<span class="tag tag-white">Cliente da base</span>
+<span class="tag tag-white">Débito / Negativado</span>
+<span class="tag tag-white">Inatividade (7 dias)</span>
+<span class="tag tag-white">Contratou em loja / PAP</span>
+<span class="tag tag-white">Currículo</span>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+
+<!-- ================= FLUXO 1 — CLIENTE ================= -->
+<section class="section" id="fluxo-cliente">
+<div class="section-header reveal">
+<div class="section-number">04 — Fluxo Estratégico 01</div>
+<h2 class="section-title">Funil & Comunicação para a etapa "Cliente"</h2>
+<p class="section-desc">Quem já é cliente está parado sem tratamento ativo. Vamos criar um funil dedicado de pós-venda e relacionamento para gerar upsell e cross-sell na base que já confia na Supranet.</p>
+</div>
+
+<div class="card reveal">
+<div class="card-label">A Solução</div>
+<h3>Novo pipeline "Base de Clientes"</h3>
+<p>Criar um pipeline separado do funil de aquisição, alimentado automaticamente sempre que um lead entra em "Cliente" (Entrada) ou "Venda" (Funil de Vendas). Isso tira quem já contratou da caixa de leads novos e dá a ele uma jornada própria de onboarding, relacionamento e ofertas — sem se misturar com quem ainda está sendo prospectado.</p>
+</div>
+
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col"><div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Cliente Ativo</div></div><div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Onboarding (D+0 a D+7)</div><div class="kanban-card-desc">Recém-contratado. Boas-vindas, confirmação de instalação/plano e canais de suporte.</div><div class="kanban-card-tags"><span class="kanban-tag">🏷️ cliente-ativo</span></div></div></div></div>
+<div class="kanban-col"><div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Em Relacionamento</div></div><div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Régua 30/60/90</div><div class="kanban-card-desc">Cliente estável recebendo check-ins de satisfação e conteúdo de valor. Mantém o vínculo (e o número) quente.</div></div></div></div>
+<div class="kanban-col"><div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Elegível p/ Oferta</div></div><div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Gatilho de upsell</div><div class="kanban-card-desc">Bateu o critério (tempo de casa, plano de entrada, sinal de uso). Pronto para uma oferta específica.</div><div class="kanban-card-tags"><span class="kanban-tag">🎯 upsell/cross-sell</span></div></div></div></div>
+<div class="kanban-col"><div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Em Oferta</div></div><div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Abordagem ativa</div><div class="kanban-card-desc">Atendente conduzindo a proposta (upgrade de velocidade, ponto extra, combo).</div></div></div></div>
+<div class="kanban-col won"><div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Upsell Fechado</div></div><div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Nova receita</div><div class="kanban-card-desc">Contratou produto/serviço adicional. Volta para "Em Relacionamento" no novo patamar.</div></div></div></div>
+<div class="kanban-col lost"><div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Sem Interesse</div></div><div class="kanban-col-body"><div class="kanban-card"><div class="kanban-card-title">Retomar depois</div><div class="kanban-card-desc">Recusou a oferta. Retorna ao ciclo de relacionamento e reentra em "Elegível" no próximo trimestre.</div></div></div></div>
+</div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Mecânica no Kommo — entrada</div>
+<h3>Como o cliente cai na base</h3>
+<p>Gatilho na automação digital: ao mover para "Cliente"/"Venda", o Kommo <strong>duplica a oportunidade</strong> no pipeline "Base de Clientes" (etapa "Cliente Ativo") e aplica a tag <span class="tag tag-red">cliente-ativo</span>. A venda original é encerrada normalmente, sem perder histórico.</p>
+</div>
+<div class="card">
+<div class="card-label">Mecânica no Kommo — elegibilidade</div>
+<h3>Quem vira "Elegível p/ Oferta"</h3>
+<p>Regra automática por tempo de casa + plano atual: ex.: cliente há 90+ dias em plano de entrada → move para "Elegível" e gera tarefa. A segmentação usa os campos <strong>Nome do plano</strong>, <strong>Data instalação</strong> e <strong>Cidade</strong> já existentes.</p>
+</div>
+</div>
+
+<h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin:1.5rem 0 0.5rem;" class="reveal">Régua de comunicação da base</h3>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Momento</th><th>Objetivo</th><th>Ação / Mensagem</th><th>Canal</th></tr></thead>
+<tbody>
+<tr><td><strong>D+0</strong></td><td>Boas-vindas</td><td>Agradecimento + confirmação de plano e data de instalação.</td><td>WhatsApp (dentro da janela)</td></tr>
+<tr><td><strong>D+7</strong></td><td>Onboarding / suporte</td><td>Checagem se a instalação correu bem e reforço dos canais de suporte.</td><td>WhatsApp / E-mail</td></tr>
+<tr><td><strong>D+30 / D+60</strong></td><td>Relacionamento</td><td>Check-in de satisfação e conteúdo de valor (uso, dicas, benefícios).</td><td>E-mail / WhatsApp (HSM)</td></tr>
+<tr><td><strong>D+90</strong></td><td>Elegibilidade p/ oferta</td><td>Move para "Elegível" e dispara a oferta segmentada pelo plano atual.</td><td>Tarefa + WhatsApp (HSM) / E-mail</td></tr>
+<tr><td><strong>Recorrente</strong></td><td>Cross-sell</td><td>Comunicar novos produtos/combos lançados para a base compatível.</td><td>E-mail / WhatsApp (HSM)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin:1.5rem 0 0.5rem;" class="reveal">Fluxo de comunicação — passo a passo</h3>
+<div class="step-list reveal">
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Entrada automática na base</h4><p>Ao mover para "Cliente"/"Venda", o gatilho copia o lead para "Base de Clientes" (etapa "Cliente Ativo") e aplica a tag <span class="tag tag-red">cliente-ativo</span>.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Boas-vindas e onboarding</h4><p>Salesbot envia agradecimento + confirmação de plano e instalação (campos "Nome do plano" e "Data instalação") e reforça os canais de suporte.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Régua de relacionamento</h4><p>Em D+30/60/90, mensagens de satisfação e valor. Fora da janela de 24h, usar template HSM ou e-mail — mantendo o número saudável.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Oferta segmentada (upsell)</h4><p>Ao virar "Elegível", dispara oferta específica pelo plano atual (upgrade de velocidade, ponto adicional, combos) e gera tarefa para a atendente conduzir a venda em "Em Oferta".</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Fechamento ou retomada</h4><p>Aceitou → "Upsell Fechado" (nova receita) e volta a "Em Relacionamento". Recusou → "Sem Interesse", com nova tentativa no ciclo seguinte.</p></div></div>
+</div>
+
+<div class="msg-bubble reveal">Modelo — Boas-vindas (D+0, dentro da janela):<br><br><em>"Seja bem-vindo(a) à Supranet! 🎉 Seu plano [Nome do plano] já está confirmado e a instalação está agendada para [Data instalação]. Qualquer dúvida, é só chamar por aqui — nosso time fica à disposição. 😊"</em></div>
+<div class="msg-bubble reveal">Modelo — Oferta de upsell (HSM aprovado, fora da janela):<br><br><em>"Olá, [Nome]! Tudo certo com sua internet Supranet? Temos uma condição especial para deixar sua conexão ainda mais rápida com um upgrade de plano. Quer que eu te mostre? Responda SIM que já te explico. 🚀"</em></div>
+
+<div class="reveal" style="margin-top:1.5rem;">
+<h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:0.8rem;">Campos e tags necessários</h3>
+<div class="pill-row">
+<span class="tag tag-red">Tag: cliente-ativo</span>
+<span class="tag tag-white">Nome do plano</span>
+<span class="tag tag-white">Data instalação</span>
+<span class="tag tag-white">Cidade</span>
+<span class="tag tag-white">Novo campo: Data de elegibilidade</span>
+<span class="tag tag-white">Novo campo: Produto ofertado</span>
+</div>
+</div>
+
+<div class="info-box reveal"><strong>Ganho:</strong> a base ativa deixa de ser um número parado e passa a ser uma fonte recorrente de receita (upsell/cross-sell), com comunicação regular que ainda reduz churn e mantém o número de WhatsApp aquecido com contatos legítimos.</div>
+</section>
+<div class="divider"></div>
+
+<!-- ================= FLUXO 2 — NÃO RESPONDEU ================= -->
+<section class="section" id="fluxo-naoresp">
+<div class="section-header reveal">
+<div class="section-number">05 — Fluxo Estratégico 02</div>
+<h2 class="section-title">Fluxo Seguro de "Não Respondeu"</h2>
+<p class="section-desc">Um fluxo desenhado para reengajar quem parou de responder <em>sem colocar o número de WhatsApp em risco de banimento</em>. Respeita a janela de 24h e escalona para o humano antes de descartar.</p>
+</div>
+
+<div class="warn-box reveal"><strong>Regra de ouro:</strong> disparos ativos apenas dentro da janela de 24h da última interação. Fora dela, usar exclusivamente template aprovado (HSM) ou pular direto para a ligação. Nunca disparar em massa fora de padrão — é o que dispara o banimento.</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Entrou em "Não Respondeu"</div><div class="flow-sub">Última interação registrada</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">1. Reengajamento</div><div class="flow-sub">1 mensagem · regra de 24h</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">2. Tarefa de ligação</div><div class="flow-sub">Humano · sem novo disparo</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">3. Perda c/ motivo</div><div class="flow-sub">Alimenta a reativação</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Dentro da janela de 24h</div>
+<h3>Mensagem livre — 1 toque só</h3>
+<p>Se a última resposta do cliente foi há menos de 24h, o robô pode enviar <strong>uma única</strong> mensagem livre de reengajamento (modelo do "Follow up 24 horas"). Respondeu → volta para "Em Contato". Não respondeu → segue para a ligação, sem novo disparo.</p>
+</div>
+<div class="card">
+<div class="card-label">Fora da janela de 24h</div>
+<h3>Só template aprovado (HSM)</h3>
+<p>Passadas as 24h, mensagem livre é bloqueada pelas regras do WhatsApp. Aqui só entra <strong>template HSM previamente aprovado</strong> — ou, de preferência, a ligação humana. É a diferença entre reengajar com segurança e queimar o número.</p>
+</div>
+</div>
+
+<div class="step-list reveal">
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Reengajamento (única mensagem)</h4><p>Ao entrar em "Não Respondeu", o Salesbot envia <strong>uma</strong> mensagem, respeitando a janela: livre se dentro de 24h, HSM se fora. Nada de sequência de vários disparos. Respondeu → move automaticamente para "Em Contato".</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Sem resposta (24–48h) → tarefa de ligação</h4><p>Sem retorno no prazo, o CRM gera <strong>tarefa para a atendente ligar</strong>. O contato humano substitui novos disparos — zero risco para o número e maior taxa de recuperação.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Ainda sem retorno → Perda com motivo</h4><p>Se a ligação também não converter, mover para "Perda" com <strong>motivo obrigatório</strong> (ex.: "Inatividade (7 dias)"). Robô "Fechar conversa" encerra o atendimento e o lead entra na base de reativação.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Reabertura natural</h4><p>Se o cliente voltar a escrever a qualquer momento, o Kommo reabre a oportunidade para "Contato Inicial" e ela retorna ao atendimento ativo.</p></div></div>
+</div>
+
+<div class="msg-bubble reveal">Modelo — dentro da janela 24h (mensagem livre, já em uso no "Follow up 24 horas"):<br><br><em>"Olá! Tudo bem? Passando para saber se você ainda tem interesse na contratação da nossa internet. Estamos com condições bem interessantes para novas instalações e posso te explicar rapidinho se quiser. 😊"</em></div>
+<div class="msg-bubble reveal">Modelo — fora da janela (template HSM a submeter para aprovação):<br><br><em>"Olá, {{1}}! Aqui é da Supranet. Vimos que você demonstrou interesse em nossos planos de internet. Ainda podemos te ajudar com a contratação? Se sim, responda esta mensagem que um atendente dá sequência. 📶"</em></div>
+
+<h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin:1.5rem 0 0.5rem;" class="reveal">Camadas de proteção do número</h3>
+<p style="color:var(--white-dim);font-size:0.85rem;margin-bottom:0.5rem;" class="reveal">Os controles concretos que impedem o banimento — o coração deste fluxo.</p>
+<div class="step-list reveal">
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Uma mensagem por lead</h4><p>Sem sequências agressivas. Um único toque automático; o resto é ligação humana.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Respeito absoluto à janela de 24h</h4><p>Fora dela, somente HSM aprovado. O robô checa a data da última interação antes de qualquer envio.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Higienização da lista</h4><p>Antes de qualquer ação sobre os ~3.069 leads: remover números inválidos, duplicados e quem não é mais WhatsApp. Lista suja = denúncia = banimento.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Volume escalonado (aquecimento)</h4><p>Nunca disparar os 3 mil de uma vez. Começar com lotes pequenos (ex.: 100–200/dia) e crescer aos poucos, monitorando bloqueios e taxa de resposta.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Opt-out e horário comercial</h4><p>Oferecer saída fácil ("responda SAIR para não receber mais") e disparar apenas em horário comercial. Reduz denúncias — o principal gatilho de banimento.</p></div></div>
+</div>
+
+<div class="info-box reveal"><strong>Por que é seguro:</strong> volume controlado (uma mensagem por lead), respeito à janela de 24h com HSM fora dela, lista higienizada, aquecimento gradual, opt-out e escalonamento humano por ligação. É o oposto do disparo em massa que queima o número — reengaja recuperando receita sem arriscar o principal canal de vendas.</div>
+</section>
+<div class="divider"></div>
+
+<!-- ================= FLUXO 3 — QUALIFICADO ================= -->
+<section class="section" id="fluxo-qualificado">
+<div class="section-header reveal">
+<div class="section-number">06 — Fluxo Estratégico 03</div>
+<h2 class="section-title">Recuperação dos leads travados em "Qualificado"</h2>
+<p class="section-desc">Uma expiração anterior do CRM deixou leads presos na etapa de Qualificado. São oportunidades quentes que nunca seguiram para a venda.</p>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Por quê manual</div>
+<h3>Evitar disparo indevido</h3>
+<p>Fazer a recuperação manualmente evita disparar as automações de distribuição/mensagem em cima de leads antigos de forma desordenada. Depois de reposicionados, eles entram no fluxo normal e recebem tratamento controlado.</p>
+</div>
+</div>
+
+<div class="step-list reveal">
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Filtrar os leads travados</h4><p>Na etapa "Qualificado", filtrar pelos leads antigos afetados pela expiração (por data de criação / sem tarefa / sem atividade recente).</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Mover para a 1ª etapa do funil</h4><p>A movimentação é feita manualmente para "Contato Inicial" / "Aquisição", em lotes controlados para não sobrecarregar a equipe de uma vez.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Tratar no fluxo normal</h4><p>A partir daí seguem o processo padrão de qualificação e a régua já existente, agora com acompanhamento ativo.</p></div></div>
+</div>
+
+<div class="warn-box reveal"><strong>Cuidado ao mover em lote:</strong> mover muitos leads de uma vez pode acionar automações e gerar disparos simultâneos. Recomenda-se mover em pequenos lotes e/ou pausar temporariamente os gatilhos de mensagem enquanto a recuperação é feita.</div>
+</section>
+<div class="divider"></div>
+
+<!-- ================= FLUXO 4 — REATIVAÇÃO ================= -->
+<section class="section" id="fluxo-reativacao">
+<div class="section-header reveal">
+<div class="section-number">07 — Fluxo Estratégico 04</div>
+<h2 class="section-title">Estratégia de Reativação (Disparos)</h2>
+<p class="section-desc">Transformar os motivos de perda em campanhas segmentadas. Cada motivo aponta para uma objeção específica — e para a oferta que a resolve.</p>
+</div>
+
+<div class="card reveal">
+<div class="card-label">Conceito</div>
+<h3>O motivo de perda vira segmento de campanha</h3>
+<p>Como todo lead perdido é registrado com motivo, é possível montar listas segmentadas e disparar (via WhatsApp com template aprovado ou e-mail simples) ofertas sob medida no momento certo — quando a objeção original deixa de existir.</p>
+</div>
+
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Motivo de Perda</th><th>Oferta / Gatilho de reativação</th><th>Canal</th></tr></thead>
+<tbody>
+<tr><td><strong>Preço / Condições</strong></td><td>Nova promoção, desconto na adesão ou condição especial de fidelidade.</td><td>WhatsApp (HSM) / E-mail</td></tr>
+<tr><td><strong>Viabilidade / Cobertura</strong></td><td>Avisar quando a cobertura chegar à região do lead (expansão de rede).</td><td>WhatsApp (HSM) / E-mail</td></tr>
+<tr><td><strong>Tempo (Instalação / Urgência)</strong></td><td>Oferta de instalação expressa / agendamento prioritário.</td><td>WhatsApp / Ligação</td></tr>
+<tr><td><strong>Fechou com o concorrente</strong></td><td>Campanha de portabilidade / migração com benefício, próximo do vencimento do contrato.</td><td>E-mail / WhatsApp</td></tr>
+<tr><td><strong>Produto / Plano</strong></td><td>Comunicar novos planos, upgrades de velocidade ou combos lançados.</td><td>E-mail / WhatsApp</td></tr>
+<tr><td><strong>Débito / Negativado</strong></td><td>Campanha de negociação / condições de reentrada quando regularizar.</td><td>WhatsApp / Ligação</td></tr>
+<tr><td><strong>Inatividade (7 dias)</strong></td><td>Reengajamento leve — "ainda dá tempo" com nova condição.</td><td>WhatsApp (HSM)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="step-list reveal">
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Segmentar por motivo de perda</h4><p>Usar os filtros/segmentos do Kommo (ou exportação) para montar listas por motivo, cidade e origem.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Definir a oferta certa por segmento</h4><p>Cada campanha responde à objeção original (tabela acima), no timing em que ela deixa de valer.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Disparar com segurança</h4><p>WhatsApp somente via template aprovado (HSM) para contatos fora da janela; e-mail simples como alternativa de baixo risco. Volume controlado e escalonado.</p></div></div>
+<div class="step-item"><div class="step-num"></div><div class="step-content"><h4>Reabrir a oportunidade</h4><p>Quem responder é reaberto para o funil ativo (o Kommo já reabre para "Contato Inicial" quando o cliente escreve) e passa para atendimento humano.</p></div></div>
+</div>
+<div class="warn-box reveal"><strong>Proteção do número:</strong> disparos frios em WhatsApp devem usar exclusivamente templates aprovados e listas higienizadas. Priorizar e-mail para grandes volumes e reservar o WhatsApp para os segmentos mais quentes.</div>
+</section>
+<div class="divider"></div>
+
+<!-- ================= 08 ESTRUTURA DE DADOS ================= -->
+<section class="section" id="campos">
+<div class="section-header reveal">
+<div class="section-number">08 — Estrutura de Dados</div>
+<h2 class="section-title">Campos e Tags</h2>
+<p class="section-desc">Campos customizados já configurados no CRM. São a base de segmentação dos fluxos e das campanhas de reativação.</p>
+</div>
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">📋</div>
+<div><div class="campos-group-title">Campos do Lead</div><div class="campos-group-sub">Negócio / Oportunidade</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Nome do plano</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Origem do lead</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Viabilidade técnica</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Data instalação</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Observações</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Cidade</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Venda (valor)</div><div class="campo-type">Monetário</div></div>
+<div class="campo-item"><div class="campo-name">Usuário responsável</div><div class="campo-type">Usuário</div></div>
+</div>
+</div>
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">👤</div>
+<div><div class="campos-group-title">Campos do Contato</div><div class="campos-group-sub">Pessoa</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Empresa</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Tel. comercial</div><div class="campo-type">Telefone</div></div>
+<div class="campo-item"><div class="campo-name">Email comercial</div><div class="campo-type">E-mail</div></div>
+<div class="campo-item"><div class="campo-name">Cargo</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">CEP</div><div class="campo-type">Texto</div></div>
+</div>
+</div>
+<div class="reveal">
+<h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;margin:1rem 0;">Origem do lead (opções configuradas)</h3>
+<div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+<span class="tag tag-red">LP</span>
+<span class="tag tag-red">Indicação</span>
+<span class="tag tag-red">Whatsapp</span>
+<span class="tag tag-red">Meta Ads</span>
+<span class="tag tag-red">Google Ads</span>
+</div>
+</div>
+<div class="info-box reveal"><strong>Sugestão:</strong> criar tags/campos de controle para os novos fluxos — ex.: <span class="tag tag-white">cliente-ativo</span> <span class="tag tag-white">elegivel-upsell</span> <span class="tag tag-white">reativacao-preco</span> — para separar quem já entrou em cada campanha e evitar disparos repetidos no mesmo lead.</div>
+</section>
+<div class="divider"></div>
+
+<!-- ================= 09 AUTOMAÇÕES ================= -->
+<section class="section" id="automacoes">
+<div class="section-header reveal">
+<div class="section-number">09 — Automações e Motor Lógico</div>
+<h2 class="section-title">Gatilhos do CRM</h2>
+<p class="section-desc">Automações a configurar (novas) e a reaproveitar (existentes) para colocar os quatro fluxos em pé.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Gatilho (quando)</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
+<tbody>
+<tr><td>Lead entra na etapa <strong>Cliente / Venda</strong></td><td>Move/copia para o pipeline "Base de Clientes" e aplica tag <em>cliente-ativo</em> + mensagem de boas-vindas.</td><td>Iniciar pós-venda e upsell da base</td></tr>
+<tr><td>Cliente na base há 30/60/90 dias</td><td>Envia régua de relacionamento + gera tarefa de oferta segmentada.</td><td>Gerar receita recorrente e reduzir churn</td></tr>
+<tr><td>Lead entra em <strong>Não Respondeu</strong></td><td>Envia UMA mensagem de reengajamento dentro da janela de 24h (modelo Follow up 24h).</td><td>Reengajar com segurança</td></tr>
+<tr><td>Sem resposta após 24–48h em Não Respondeu</td><td>Gera <strong>tarefa de ligação</strong> para a atendente.</td><td>Escalonamento humano antes do descarte</td></tr>
+<tr><td>Ligação sem retorno</td><td>Move para <strong>Perda</strong> exigindo motivo + robô "Fechar conversa".</td><td>Descarte organizado que alimenta reativação</td></tr>
+<tr><td>Lead em <strong>Qualificado</strong> travado (expiração)</td><td>Movimentação <strong>manual</strong> para a 1ª etapa do funil.</td><td>Recuperar oportunidades quentes sem disparo indevido</td></tr>
+<tr><td>Segmento por <strong>motivo de perda</strong></td><td>Campanha de disparo (HSM WhatsApp / e-mail) com oferta específica.</td><td>Reativar oportunidades perdidas</td></tr>
+<tr><td>Cliente perdido volta a escrever</td><td>Reabre automaticamente para "Contato Inicial" (já existe).</td><td>Não perder quem retorna</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box reveal"><strong>Reaproveitar o que já existe:</strong> robôs "Follow up 24 horas", "Atendimento Inicial", a malha de "Distribuição/Redistribuição" (por dia e turno) e o "Salesbot #25" já estão configurados. Os novos fluxos devem se apoiar neles em vez de recriar do zero.</div>
+</section>
+
+
+<footer class="footer">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
+<div class="logo-text">V4 Company</div>
+<p>Planejamento Estratégico de CRM — Supranet Telecom</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento mapeado ao vivo no Kommo. Uso interno.</p>
+</footer>
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório
+</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_CRM_Supranet.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+</script>
+</body>
+</html>
