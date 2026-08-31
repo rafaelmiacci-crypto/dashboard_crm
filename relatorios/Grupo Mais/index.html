@@ -197,7 +197,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="flow-arrow">→</div>
 <div class="flow-box"><div class="flow-title">MQL + Roteamento</div><div class="flow-sub">Stand / C. Visual / Planejados</div></div>
 <div class="flow-arrow">→</div>
-<div class="flow-box"><div class="flow-title">Consultor (Closer)</div><div class="flow-sub">SAL → SQL → proposta</div></div>
+<div class="flow-box"><div class="flow-title">Consultor (Closer)</div><div class="flow-sub">projeto → proposta → revisão</div></div>
 <div class="flow-arrow">→</div>
 <div class="flow-box won" style="border-color:#2ecc71"><div class="flow-title">Ganho</div><div class="flow-sub">venda registrada no Kommo</div></div>
 </div>
@@ -258,9 +258,21 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </div>
 </div>
 <div class="kanban-col">
-<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Proposta Enviada — SQL</div></div>
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Projeto Inicial — SQL</div></div>
 <div class="kanban-col-body">
-<div class="kanban-card"><div class="kanban-card-title">Orçamento na rua</div><div class="kanban-card-desc">Orçamento compatível confirmado (e-mail/reunião), autoridade de decisão e prazo de aceite de até 60 dias. Consultor envia e refina a proposta.</div><div class="kanban-card-tags"><span class="kanban-tag">Orçamento</span><span class="kanban-tag">Autoridade</span><span class="kanban-tag">≤60 dias</span></div></div>
+<div class="kanban-card"><div class="kanban-card-title">Briefing e conceito</div><div class="kanban-card-desc">SQL confirmado: orçamento compatível, autoridade de decisão e prazo de aceite ≤60 dias. Consultor levanta o briefing e monta o desenho/conceito inicial e a documentação técnica preliminar.</div><div class="kanban-card-tags"><span class="kanban-tag">SQL</span><span class="kanban-tag">Briefing</span><span class="kanban-tag">≤60 dias</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Envio de Proposta</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Proposta na rua</div><div class="kanban-card-desc">Proposta comercial formal enviada com base no projeto inicial. Refinamento de valores e escopo por e-mail com o cliente.</div><div class="kanban-card-tags"><span class="kanban-tag">Proposta</span><span class="kanban-tag">Escopo</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Revisão de Projeto</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Ajustes com o cliente</div><div class="kanban-card-desc">Cliente pede ajustes de desenho, escopo ou valor; consultor revisa o projeto e itera até a aprovação final. Comum em stand (várias revisões).</div><div class="kanban-card-tags"><span class="kanban-tag">Revisão</span><span class="kanban-tag">Iteração</span></div></div>
 </div>
 </div>
 <div class="kanban-col">
