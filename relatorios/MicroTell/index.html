@@ -71,7 +71,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="hero-meta">
 <div class="hero-meta-item"><div class="label">Operação</div><div class="value">B2C (ISP)</div></div>
 <div class="hero-meta-item"><div class="label">Foco/Nicho</div><div class="value">Internet · Montes Claros/MG · ~27 cidades</div></div>
-<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Upchat/AtenderBem + ERP Hubsoft</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma Recomendada</div><div class="value">RD Station · ERP Hubsoft</div></div>
 </div>
 <div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
 </section>
@@ -83,6 +83,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <a href="#campos" class="nav-link">Estrutura de Dados</a>
 <a href="#tags" class="nav-link">Tags & Segmentos</a>
 <a href="#automacoes" class="nav-link">Automações</a>
+<a href="#plataforma" class="nav-link">Plataforma & Integração</a>
 </div>
 </nav>
 <div class="divider"></div>
@@ -401,7 +402,96 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 </tbody>
 </table>
 </div>
-<div class="info-box reveal"><strong>Dependência técnica:</strong> os gatilhos por contrato/plano/consumo dependem da integração <strong>Upchat ↔ Hubsoft</strong> (o Upchat possui API: URL + token + Queue ID). Onde a integração automática não for viável no ciclo, o gatilho roda por importação controlada e é registrado como dependência no relatório de premissas.</div>
+<div class="info-box reveal"><strong>Dependência técnica:</strong> os gatilhos por contrato/plano/consumo dependem da integração <strong>Hubsoft → RD Station</strong>, detalhada na seção <a href="#plataforma" style="color:var(--red);">Plataforma & Integração</a>. A ponte de ciclo de vida é orquestrada via n8n; onde a sincronização automática não for viável no ciclo, o gatilho roda por importação controlada e é registrado como dependência no relatório de premissas.</div>
+</section>
+<div class="divider"></div>
+
+<!-- ============ 08 PLATAFORMA & INTEGRAÇÃO ============ -->
+<section class="section" id="plataforma">
+<div class="section-header reveal">
+<div class="section-number">07 — Plataforma de Execução</div>
+<h2 class="section-title">A Plataforma: RD Station</h2>
+<p class="section-desc">Mapeada a régua, resta a decisão de ferramenta. Esta seção recomenda a plataforma que executa tudo o que foi desenhado, mostra como os dados do Hubsoft chegam até ela, e registra as premissas comerciais da integração — inclusive o que muda para a Microtel no futuro.</p>
+</div>
+
+<!-- Recomendação destaque -->
+<div class="reveal" style="background: linear-gradient(135deg, var(--red-subtle), transparent); border: 2px solid var(--red); border-radius: 14px; padding: 1.5rem 1.8rem; margin-bottom: 2rem; display: flex; align-items: flex-start; gap: 1.2rem;">
+<div style="font-size: 2rem; line-height: 1; flex-shrink: 0;">✅</div>
+<div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--red); font-weight: 700; margin-bottom: 0.5rem;">Recomendação de plataforma</div>
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem;">Executar a régua no <span style="color: var(--red);">RD Station</span></h3>
+<p style="color: var(--white-muted); font-size: 0.92rem; margin: 0;">O <strong style="color:var(--white)">RD Station CRM</strong> é o núcleo do novo funil de pós-vendas — onde vivem as etapas, os campos de contrato e os motivos de churn. Ele opera em conjunto com o <strong style="color:var(--white)">RD Station Marketing</strong> (automação, atribuição e LGPD) e o <strong style="color:var(--white)">RD Station Conversas</strong> (disparo no WhatsApp). Juntos, cobrem a régua de ponta a ponta, do lead ao winback.</p>
+</div>
+</div>
+
+<!-- Por que RD -->
+<h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin:2.5rem 0 1rem;">Por que o RD Station é a melhor escolha</h3>
+<div class="grid-2 reveal">
+<div class="card"><div class="card-label">LGPD nativa</div><h3>Consentimento no código</h3><p>Base legal e opt-out são atribuídos por API e por fluxo de automação — exatamente a regra inegociável de "LGPD antes do primeiro envio". A régua fala só com quem consentiu, com registro auditável.</p></div>
+<div class="card"><div class="card-label">Dor 2 · Aquisição</div><h3>Destrava o rastreio de mídia</h3><p>Captura utm_source/medium/campaign, gclid e fbclid e registra a origem nativamente. É a resposta direta à mídia sem tracking — algo que o Upchat não fazia, onde a origem era uma lista fixa sem Google/UTM.</p></div>
+<div class="card"><div class="card-label">Motor da régua</div><h3>Gatilho em tempo real</h3><p>As comunicações (D0/D+1/D+7, mês 11, risco de churn) disparam por evento, no momento certo — e não em lotes manuais. É o oposto do disparo avulso de "migração" que existe hoje.</p></div>
+<div class="card"><div class="card-label">Escopo protegido</div><h3>Funil de pós-vendas isolado</h3><p>Cria um funil e etapas novos sem encostar no funil comercial existente — cumprindo a regra de que aquisição e pós-vendas convivem em estruturas independentes.</p></div>
+<div class="card"><div class="card-label">Feito pra ISP</div><h3>Identifica por telefone</h3><p>O RD casa o contato por telefone/WhatsApp, não só por e-mail. Decisivo para uma base onde o e-mail é escasso e o WhatsApp é a chave real de contato.</p></div>
+<div class="card"><div class="card-label">Inteligência de churn</div><h3>Motivo de saída padronizado</h3><p>Os motivos de perda do RD viram os motivos de cancelamento da régua — alimentando a estratégia com o "porquê" real de cada saída.</p></div>
+</div>
+<div class="info-box reveal" style="margin-top:1.5rem;"><strong>Vantagem de operação:</strong> plataforma brasileira, com suporte em português, preço em reais e conformidade com a LGPD — e a V4 já opera o RD Station em outros projetos, o que encurta a curva de implementação e reduz o risco de execução.</div>
+
+<!-- Módulos -->
+<h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin:2.5rem 0 1rem;">Os módulos que a régua usa</h3>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Módulo RD</th><th>Papel na régua</th><th>O que entrega</th></tr></thead>
+<tbody>
+<tr><td><strong>RD Station CRM</strong></td><td>Núcleo do novo funil de pós-vendas</td><td>Funil e etapas dedicados, campos de contrato, motivos de perda (churn), fontes de aquisição</td></tr>
+<tr><td><strong>RD Station Marketing</strong></td><td>Motor de automação e dados</td><td>Fluxos por gatilho, campos personalizados, eventos de conversão, tags e segmentação, bases legais (LGPD)</td></tr>
+<tr><td><strong>RD Station Conversas</strong></td><td>Canal de disparo</td><td>Envio de templates no WhatsApp via broker, carteiras e histórico de atendimento</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Integração -->
+<h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin:2.5rem 0 1rem;">Como os dados do Hubsoft chegam ao RD</h3>
+<p style="color:var(--white-muted); font-size:0.92rem; margin-bottom:1.2rem;">O Hubsoft é a origem da verdade (contrato, plano, fatura). Há dois caminhos de integração, e o projeto usa os dois — cada um para uma finalidade.</p>
+
+<div class="grid-2 reveal">
+<div class="card"><div class="card-label">Caminho 1 · Nativo</div><h3>Conector Hubsoft ↔ RD (aquisição)</h3><p>O Hubsoft já lista o RD Station como integração nativa na categoria CRM, voltada à captação de leads. Cobre de prateleira a entrada de leads da mídia no funil de aquisição — sem desenvolvimento adicional e sem dependência da V4.</p></div>
+<div class="card"><div class="card-label">Caminho 2 · Orquestrado</div><h3>Via n8n (ciclo de vida)</h3><p>Para os dados que disparam a retenção — data de ativação, tempo de casa, MRR, status de pagamento e consumo — a ponte é orquestrada no n8n: recebe os eventos do Hubsoft em tempo real e atualiza o RD, com os campos e as tags certos.</p></div>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Hubsoft</div><div class="flow-sub">API + Webhooks · origem da verdade</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">n8n</div><div class="flow-sub">Tradução + Health Score + gatilhos derivados</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">RD Station</div><div class="flow-sub">Campos · fluxos · WhatsApp</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Cliente</div><div class="flow-sub">Régua no momento certo</div></div>
+</div>
+
+<div class="reveal">
+<p style="color:var(--white-muted); font-size:0.9rem; margin-bottom:0.8rem;">O que o n8n faz nessa camada:</p>
+<ul style="color:var(--white-muted); font-size:0.9rem; padding-left:1.2rem; line-height:2;">
+<li><strong style="color:var(--white)">Sincroniza em tempo real:</strong> o webhook do Hubsoft dispara e o n8n atualiza o contato no RD na hora (contrato ativado, pagamento mudou).</li>
+<li><strong style="color:var(--white)">Carrega a base:</strong> os ~70 mil contatos sobem em lotes controlados, respeitando os limites de requisição do RD.</li>
+<li><strong style="color:var(--white)">Calcula o Health Score:</strong> cruza os sinais do Hubsoft (dias offline, inadimplência, chamados) num score de risco que nenhum dos dois sistemas calcula sozinho.</li>
+<li><strong style="color:var(--white)">Resolve o gatilho de "11 meses":</strong> por ser uma condição de data (não um evento do ERP), roda por verificação diária agendada.</li>
+</ul>
+</div>
+
+<!-- RESSALVA n8n -->
+<h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin:2.5rem 0 1rem;">Premissa comercial: a titularidade da integração</h3>
+<div class="reveal" style="background: linear-gradient(135deg, rgba(230,126,34,0.12), transparent); border: 2px solid #e67e22; border-radius: 14px; padding: 1.5rem 1.8rem; margin-bottom: 1.5rem; display:flex; align-items:flex-start; gap:1.2rem;">
+<div style="font-size:2rem; line-height:1; flex-shrink:0;">⚠️</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; color:#e67e22; font-weight:700; margin-bottom:0.5rem;">Leia com atenção · Transparência</div>
+<h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--white); margin-bottom:0.6rem;">A camada n8n pode gerar custo futuro se a Microtel deixar de ser cliente V4</h3>
+<p style="color:var(--white-muted); font-size:0.92rem; margin:0 0 0.8rem;">O caminho nativo (Caminho 1) vive diretamente entre Hubsoft e RD e <strong style="color:var(--white)">não depende da V4</strong>. Já a integração de ciclo de vida via n8n (Caminho 2) é construída <strong style="color:var(--white)">e operada pela V4</strong>: o n8n é uma peça de infraestrutura — hospedagem, fluxos e credenciais — que hoje roda no ambiente da V4.</p>
+<p style="color:var(--white-muted); font-size:0.92rem; margin:0 0 0.8rem;">Enquanto a Microtel for cliente V4, isso está coberto pela operação, <strong style="color:var(--white)">sem custo adicional</strong>. Caso a parceria seja encerrada, a continuidade dessa integração passa a exigir que a Microtel assuma o ambiente n8n (hospedagem + manutenção dos fluxos + gestão de tokens) ou contrate quem o mantenha — um custo recorrente que hoje não existe para ela.</p>
+<p style="color:var(--white-muted); font-size:0.92rem; margin:0;"><strong style="color:var(--white)">Recomendação:</strong> definir em contrato, desde o início, a titularidade da integração e um plano de handover — documentação dos fluxos, transferência de credenciais e, se desejado, migração do n8n para um ambiente da própria Microtel. Assim a decisão é tomada com transparência total, sem surpresa no futuro.</p>
+</div>
+</div>
+
+<div class="info-box reveal"><strong>Premissas de execução a validar:</strong> operações em massa e parte do RD Conversas exigem o plano Advanced do RD; a API do RD usa OAuth2 (com renovação de token) na maior parte das operações; e os pesos do Health Score precisam ser definidos com o cliente antes do go-live. Cada item entra no relatório de premissas do projeto.</div>
 </section>
 <footer class="footer">
 <img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
