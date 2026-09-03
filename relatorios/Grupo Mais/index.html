@@ -118,7 +118,7 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="card">
 <div class="card-label">Público-Alvo</div>
 <h3>Perfil Ideal (ICP)</h3>
-<p><strong style="color:var(--white)">Stand:</strong> grandes empresas (fat. &gt; R$4M/mês) e agências de publicidade/marketing que atendem grandes contas (30–50% das vendas passam por agência). <strong style="color:var(--white)">Comunicação Visual (B2B):</strong> empresas com fat. &gt; R$200k/mês, construtoras, escritórios de arquitetura e engenharia — inclui subcategorias como fachadas, luminosos e impressão digital em grandes formatos. <strong style="color:var(--white)">Marcenaria (B2B):</strong> redes e franquias que fecham o pacote completo. O <strong style="color:var(--white)">Casa Planejados</strong> (marcenaria residencial B2C) é outra unidade e <strong style="color:var(--white)">não está no escopo atual</strong> — pendente de alinhamento com o Lucas.</p>
+<p><strong style="color:var(--white)">Stand:</strong> grandes empresas (fat. &gt; R$4M/mês) e agências de publicidade/marketing que atendem grandes contas (30–50% das vendas passam por agência). <strong style="color:var(--white)">Comunicação Visual (B2B) — um dos produtos mais fortes hoje:</strong> fachadas, luminosos e impressão digital em grandes formatos para redes e franquias (faz a fachada de todas as Smart Fit, das franquias da Espaço Laser e afins), além de construtoras e escritórios de arquitetura (fat. &gt; R$200k/mês). <strong style="color:var(--white)">Marcenaria (B2B):</strong> redes e franquias que fecham o pacote completo. O <strong style="color:var(--white)">Casa Planejados</strong> (marcenaria residencial B2C) é outra unidade e <strong style="color:var(--white)">não está no escopo atual</strong> — pendente de alinhamento com o Lucas.</p>
 </div>
 </div>
 
@@ -222,13 +222,10 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="card">
 <div class="card-label">Abordagem</div>
 <h3>Processo de Qualificação</h3>
-<p>Quando o lead vem da <strong style="color:var(--white)">Landing Page (formulário)</strong>, o card cai no Kommo e a IA SDR faz o <strong style="color:var(--white)">primeiro contato por WhatsApp API oficial</strong>; quando chega direto no WhatsApp, ela responde na hora. Transcreve áudios, lê imagens e aplica um framework consultivo (SPIN). Valida os critérios de MQL (CNPJ, faturamento, nível de decisão), captura a necessidade real (feira/evento, PDV, expansão, prazo) e dispara follow-ups para quem some. Quando qualifica, roteia para o pipeline correto e passa o bastão ao consultor — nunca fecha e nunca negocia desconto.</p>
+<p>Quando o lead vem da <strong style="color:var(--white)">Landing Page (formulário)</strong>, o card cai no Kommo e a IA SDR faz o <strong style="color:var(--white)">primeiro contato por WhatsApp API oficial</strong>; quando chega direto no WhatsApp, ela responde na hora. Transcreve áudios, lê imagens e aplica um framework consultivo (SPIN). O <strong style="color:var(--white)">primeiro passo é identificar a linha de produto</strong> — Stand, Comunicação Visual (fachada, impressão digital, luminosos) ou Marcenaria de planejados para escritórios — porque cada uma tem ticket, público e critério de MQL próprios. Só então valida o MQL da linha (CNPJ, faturamento, nível de decisão), captura a necessidade real (feira/evento, fachada de loja/rede, ambiente corporativo, prazo) e dispara follow-ups para quem some. Qualificado, roteia para o pipeline daquela linha e passa o bastão ao consultor — nunca fecha e nunca negocia desconto.</p>
 </div>
 </div>
 
-<div class="info-box reveal"><strong>Setup da IA SDR:</strong> não é plug and play. São ~4 semanas (Discovery → Blueprint → Integrações → Treinamento) mais calibração semanal antes do Go Live. A inteligência é alimentada pelas regras de negócio do Grupo Mais + prints de conversas reais — nada de "buscar no ChatGPT".</div>
-
-<div class="info-box reveal"><strong>Dependências para o topo de funil operar:</strong> (1) <strong>nova Landing Page</strong> em produção com o Félix, focada em conversão e nos produtos B2B — Comunicação Visual (com destaque para impressão digital em grandes formatos, fachadas e luminosos), Marcenaria e Stands — substituindo a LP atual, que estava quebrada; <strong>serralheria será removida</strong> da LP e do site oficial; (2) <strong>refazer o traqueamento do zero</strong> — GA4 e GTM recriados (o acesso da agência anterior não foi liberado) e instalados via plugin no WordPress; (3) <strong>consolidar e parametrizar no Kommo a definição de MQL</strong>, para medir quantos leads viram MQL de fato; e (4) obter do cliente os acessos e a lista de clientes ainda pendentes.</div>
 </section>
 
 <div class="divider"></div>
@@ -299,6 +296,28 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="kanban-scroll-hint">← Arraste para ver todas as etapas →</div>
 </div>
 
+<div class="reveal" style="margin-top: 2rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 0.4rem;">Mapeamento por tipo de produto</h3>
+<p style="color:var(--white-muted); font-size:0.9rem; margin-bottom:1.2rem;">A mesma espinha dorsal roda em três pipelines. A IA SDR identifica a linha logo no primeiro contato e roteia com o critério certo — nenhuma linha é secundária, cada uma tem seu público, ticket e mídia.</p>
+<div class="grid-2">
+<div class="card">
+<div class="card-label">Um dos produtos mais fortes hoje</div>
+<h3>Comunicação Visual (B2B)</h3>
+<p><strong style="color:var(--white)">Produtos:</strong> fachadas (ACM), letreiros e luminosos, adesivos e — como subcategoria de peso — <strong style="color:var(--white)">impressão digital em grandes formatos</strong> (lonas), inclusive fornecida para outras empresas e para stands.<br><br><strong style="color:var(--white)">Público:</strong> redes e franquias que padronizam ponto — faz a fachada de todas as Smart Fit, das franquias da Espaço Laser e afins — além de construtoras e escritórios de arquitetura.<br><br><strong style="color:var(--white)">MQL:</strong> CNPJ + fat. &gt; R$200k/mês. <strong style="color:var(--white)">Mídia:</strong> Google Search + Meta (remarketing).</p>
+</div>
+<div class="card">
+<div class="card-label">Alto ticket</div>
+<h3>Stand</h3>
+<p><strong style="color:var(--white)">Produtos:</strong> projeto, execução, montagem, logística e suporte de stands para feiras e eventos — operação 360º com produção própria.<br><br><strong style="color:var(--white)">Público:</strong> grandes empresas (fat. &gt; R$4M/mês) e agências de publicidade/marketing que atendem grandes contas (30–50% das vendas via agência).<br><br><strong style="color:var(--white)">MQL:</strong> CNPJ + fat. &gt; R$4M/mês. <strong style="color:var(--white)">Mídia:</strong> Google Search (intencionalidade) — hoje concentra 60–70% da verba.</p>
+</div>
+<div class="card">
+<div class="card-label">Corporativo</div>
+<h3>Marcenaria — Planejados p/ escritórios</h3>
+<p><strong style="color:var(--white)">Produtos:</strong> móveis planejados e marcenaria sob medida para <strong style="color:var(--white)">ambientes corporativos e escritórios</strong> (B2B), muitas vezes dentro do pacote completo de redes e franquias.<br><br><strong style="color:var(--white)">Público:</strong> empresas, escritórios e construtoras que mobiliam ambientes corporativos.<br><br><strong style="color:var(--white)">MQL:</strong> piso corporativo a consolidar com o cliente. <strong style="color:var(--white)">Fora do escopo:</strong> Casa Planejados (planejados residencial B2C) — outra unidade, pendente de alinhamento com o Lucas.</p>
+</div>
+</div>
+</div>
+
 <div class="reveal" style="margin-top: 1.5rem;">
 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados</h3>
 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
@@ -334,11 +353,12 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <div class="campos-list">
 <div class="campo-item"><div class="campo-name">CNPJ</div><div class="campo-type">Texto</div></div>
 <div class="campo-item"><div class="campo-name">Faturamento mensal estimado</div><div class="campo-type">Seleção</div></div>
-<div class="campo-item"><div class="campo-name">Segmento de interesse</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Linha de produto</div><div class="campo-type">Stand · C.Visual · Marcenaria</div></div>
+<div class="campo-item"><div class="campo-name">Subproduto</div><div class="campo-type">Seleção</div></div>
 <div class="campo-item"><div class="campo-name">Cargo / nível de decisão</div><div class="campo-type">Seleção</div></div>
 <div class="campo-item"><div class="campo-name">Necessidade real declarada</div><div class="campo-type">Sim/Não</div></div>
-<div class="campo-item"><div class="campo-name">Tipo de projeto</div><div class="campo-type">Seleção</div></div>
-<div class="campo-item"><div class="campo-name">Feira / evento</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Feira / evento (Stand)</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Rede / marca (Com. Visual)</div><div class="campo-type">Texto</div></div>
 <div class="campo-item"><div class="campo-name">Data do evento / prazo</div><div class="campo-type">Data</div></div>
 <div class="campo-item"><div class="campo-name">Disponibilidade p/ diagnóstico</div><div class="campo-type">Seleção</div></div>
 </div>
@@ -409,6 +429,10 @@ body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; heigh
 <span class="tag tag-red">Stand</span>
 <span class="tag tag-red">Comunicação Visual</span>
 <span class="tag tag-red">Marcenaria (B2B)</span>
+<span class="tag tag-white">Fachada / ACM</span>
+<span class="tag tag-white">Impressão digital (grandes formatos)</span>
+<span class="tag tag-white">Luminosos / letreiros</span>
+<span class="tag tag-white">Planejados p/ escritório</span>
 <span class="tag tag-white">Agência / Parceiro</span>
 <span class="tag tag-white">Cliente recorrente</span>
 <span class="tag tag-white">Conta-âncora</span>
