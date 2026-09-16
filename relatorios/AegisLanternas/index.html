@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AEGIS × V4 · CRM RD Station · Diagnóstico e Recomendações</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A0A0B;
+    --steel:#141418;
+    --steel-2:#1B1B21;
+    --line:#2A2A32;
+    --line-soft:#202028;
+    --bone:#F2F0EC;
+    --ash:#9A9AA4;
+    --ash-dim:#6E6E78;
+    --signal:#E4002B;
+    --signal-deep:#B00020;
+    --signal-glow:rgba(228,0,43,.14);
+    --ok:#D8D6D0;
+    --maxw:1080px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--bone);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none!important;animation:none!important}
+  }
+
+  a{color:inherit}
+  h1,h2,h3,h4{font-family:'Chakra Petch',sans-serif;font-weight:600;line-height:1.1;margin:0}
+  .mono{font-family:'IBM Plex Mono',monospace}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  /* ---------- TOP NAV ---------- */
+  header.bar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,10,11,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .bar-inner{
+    max-width:var(--maxw);margin:0 auto;padding:14px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .lockup{display:flex;align-items:center;gap:12px;font-family:'Chakra Petch',sans-serif;font-weight:700;letter-spacing:.04em}
+  .lockup .x{color:var(--ash-dim);font-weight:400}
+  .lockup .v4{color:var(--signal)}
+  nav.sections{display:flex;gap:4px;flex-wrap:wrap}
+  nav.sections a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;text-decoration:none;
+    color:var(--ash);padding:6px 10px;border-radius:2px;transition:color .15s,background .15s;
+  }
+  nav.sections a:hover{color:var(--bone)}
+  nav.sections a.active{color:var(--bone);background:var(--steel-2)}
+  @media(max-width:820px){nav.sections{display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line-soft)}
+  .hero .reticle{
+    position:absolute;top:-120px;right:-120px;width:520px;height:520px;pointer-events:none;opacity:.5;
+  }
+  .hero-inner{max-width:var(--maxw);margin:0 auto;padding:78px 28px 66px;position:relative}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.02em;
+    color:var(--signal);display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--signal);display:inline-block}
+  .hero h1{font-size:clamp(34px,5.4vw,60px);font-weight:700;letter-spacing:-.01em;max-width:15ch}
+  .hero h1 em{font-style:normal;color:var(--signal)}
+  .hero .lede{margin-top:24px;max-width:60ch;color:var(--ash);font-size:18px}
+  .meta-strip{
+    margin-top:34px;display:flex;flex-wrap:wrap;gap:8px 26px;
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ash-dim);
+  }
+  .meta-strip b{color:var(--bone);font-weight:500}
+
+  /* ---------- STATUS PANEL ---------- */
+  .panel{
+    margin-top:52px;border:1px solid var(--line);background:
+      linear-gradient(180deg,var(--steel),var(--void));
+  }
+  .panel-head{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 20px;border-bottom:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ash);
+  }
+  .panel-head .dot{display:inline-flex;align-items:center;gap:8px}
+  .panel-head .dot::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px var(--signal)}
+  .readouts{display:grid;grid-template-columns:repeat(5,1fr)}
+  .readout{padding:22px 20px;border-right:1px solid var(--line-soft)}
+  .readout:last-child{border-right:0}
+  .readout .num{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:30px;line-height:1}
+  .readout.crit .num{color:var(--signal)}
+  .readout .lab{margin-top:10px;font-size:12.5px;color:var(--ash);line-height:1.35}
+  @media(max-width:760px){.readouts{grid-template-columns:repeat(2,1fr)}.readout:nth-child(even){border-right:0}.readout{border-bottom:1px solid var(--line-soft)}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:74px 0;border-bottom:1px solid var(--line-soft)}
+  .sec-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--signal);margin-bottom:14px;
+  }
+  .sec-title{font-size:clamp(26px,3.4vw,38px);font-weight:700;max-width:20ch}
+  .sec-intro{margin-top:18px;max-width:68ch;color:var(--ash);font-size:17px}
+
+  /* ---------- PRINCIPLES ---------- */
+  .principles{margin-top:44px;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft)}
+  .principle{background:var(--void);padding:26px 24px}
+  .principle .k{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ash-dim)}
+  .principle h3{margin-top:10px;font-size:19px;font-weight:600}
+  .principle p{margin:10px 0 0;color:var(--ash);font-size:15px}
+  @media(max-width:680px){.principles{grid-template-columns:1fr}}
+
+  /* ---------- DIAGNOSIS LIST ---------- */
+  .findings{margin-top:40px;display:flex;flex-direction:column;gap:14px}
+  .finding{
+    display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;
+    border:1px solid var(--line);background:var(--steel);padding:20px 22px;
+  }
+  .finding .sev{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;
+    color:var(--signal);border:1px solid var(--signal-deep);padding:4px 8px;white-space:nowrap;
+    background:var(--signal-glow);height:fit-content;
+  }
+  .finding h4{font-size:17px;font-weight:600}
+  .finding p{margin:8px 0 0;color:var(--ash);font-size:15px}
+
+  /* ---------- RECOMMENDATIONS ---------- */
+  .recs{margin-top:44px;display:flex;flex-direction:column;gap:18px}
+  .rec{border:1px solid var(--line);background:var(--steel)}
+  .rec-top{display:flex;gap:16px;align-items:baseline;padding:22px 24px 6px}
+  .rec-id{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--signal);font-weight:600}
+  .rec-top h3{font-size:21px;font-weight:600}
+  .rec-body{padding:0 24px 24px;display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:16px;background:var(--line-soft);border-top:1px solid var(--line)}
+  .cell{background:var(--steel);padding:18px 20px}
+  .cell .h{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;margin-bottom:10px}
+  .cell.now .h{color:var(--signal)}
+  .cell.do .h{color:var(--bone)}
+  .cell p{margin:0;font-size:15px;color:var(--ash)}
+  .cell.do p{color:var(--bone)}
+  .cell ul{margin:0;padding-left:18px;font-size:15px;color:var(--bone)}
+  .cell ul li{margin:6px 0}
+  .cell ul li::marker{color:var(--signal)}
+  @media(max-width:680px){.rec-body{grid-template-columns:1fr}}
+
+  /* ---------- ACTION PLAN ---------- */
+  .plan-head{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:40px}
+  .progress-box{min-width:240px;flex:1}
+  .progress-meta{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ash);margin-bottom:8px}
+  .progress-meta b{color:var(--signal)}
+  .track{height:6px;background:var(--steel-2);border:1px solid var(--line);overflow:hidden}
+  .fill{height:100%;width:0;background:linear-gradient(90deg,var(--signal-deep),var(--signal));transition:width .35s ease}
+  .weeks{margin-top:34px;display:flex;flex-direction:column;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft)}
+  .week{background:var(--void)}
+  .week-h{display:flex;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line-soft)}
+  .week-h .w{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:15px;color:var(--signal);letter-spacing:.03em}
+  .week-h .t{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:18px}
+  .tasks{padding:8px 22px 18px}
+  .task{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line-soft);cursor:pointer}
+  .task:last-child{border-bottom:0}
+  .task input{appearance:none;-webkit-appearance:none;margin:2px 0 0;width:20px;height:20px;border:1.5px solid var(--ash-dim);background:transparent;cursor:pointer;flex-shrink:0;position:relative;transition:border-color .15s}
+  .task input:hover{border-color:var(--signal)}
+  .task input:checked{border-color:var(--signal);background:var(--signal)}
+  .task input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid var(--void);border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .task input:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+  .task label{font-size:15px;color:var(--bone);cursor:pointer;flex:1}
+  .task.done label{color:var(--ash-dim);text-decoration:line-through}
+
+  /* ---------- FIELD TABLE ---------- */
+  .fieldtable{margin-top:36px;border:1px solid var(--line);overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px}
+  thead th{
+    text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;
+    color:var(--ash);font-weight:500;padding:14px 18px;background:var(--steel-2);border-bottom:1px solid var(--line)
+  }
+  tbody td{padding:14px 18px;border-bottom:1px solid var(--line-soft);color:var(--bone);vertical-align:top}
+  tbody tr:last-child td{border-bottom:0}
+  td .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:3px 7px;border:1px solid var(--line);color:var(--ash)}
+  td .tag.keep{color:var(--bone);border-color:var(--ash-dim)}
+  td .tag.fix{color:var(--signal);border-color:var(--signal-deep);background:var(--signal-glow)}
+  td .tag.cut{color:var(--ash-dim)}
+
+  /* ---------- CLOSING ---------- */
+  .closing{padding:70px 0 84px;border-bottom:0}
+  .homework{
+    border:1px solid var(--line);background:linear-gradient(180deg,var(--steel),var(--void));
+    padding:30px 30px 32px;margin-top:34px
+  }
+  .homework h3{font-size:20px;font-weight:600;display:flex;align-items:center;gap:12px}
+  .homework h3::before{content:"›";color:var(--signal);font-family:'Chakra Petch',sans-serif}
+  .homework ol{margin:16px 0 0;padding-left:20px;color:var(--bone)}
+  .homework ol li{margin:9px 0}
+  .homework ol li::marker{font-family:'IBM Plex Mono',monospace;color:var(--signal)}
+  .sign{margin-top:40px;display:flex;gap:14px;align-items:center;color:var(--ash);font-size:14px;flex-wrap:wrap}
+  .sign .v4{color:var(--signal);font-family:'Chakra Petch',sans-serif;font-weight:700;letter-spacing:.05em}
+
+  footer{padding:30px 0 60px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ash-dim)}
+
+  /* ---------- AUDIT ADDITIONS ---------- */
+  .rec-plain{padding:18px 24px 2px;display:flex;gap:14px;align-items:baseline}
+  .rec-plain .h{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--signal);white-space:nowrap;margin-top:3px}
+  .rec-plain p{margin:0;color:var(--bone);font-size:15.5px;line-height:1.62}
+  @media(max-width:680px){.rec-plain{flex-direction:column;gap:6px}}
+  .rec-accept{padding:16px 24px;border-top:1px solid var(--line);background:var(--steel-2);display:flex;gap:14px;align-items:baseline}
+  .rec-accept .h{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--ok);white-space:nowrap}
+  .rec-accept p{margin:0;font-size:14.5px;color:var(--ash)}
+  @media(max-width:680px){.rec-accept{flex-direction:column;gap:6px}}
+  .callout{border:1px solid var(--signal-deep);background:var(--signal-glow);padding:22px 24px;margin-top:28px}
+  .callout .h{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--signal);margin-bottom:10px}
+  .callout p{margin:0;color:var(--bone);font-size:15px;line-height:1.6}
+  .note{border-left:2px solid var(--ash-dim);padding:6px 0 6px 16px;margin-top:18px;color:var(--ash);font-size:14px;line-height:1.55}
+  td .tag.add{color:var(--ok);border-color:var(--ash-dim);background:transparent}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-inner">
+    <div class="lockup">AEGIS <span class="x">×</span> <span class="v4">V4</span></div>
+    <nav class="sections" id="nav">
+      <a href="#diagnostico">diagnóstico</a>
+      <a href="#principios">princípios</a>
+      <a href="#recomendacoes">recomendações</a>
+      <a href="#campos">campos</a>
+      <a href="#sequencia">sequência</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <svg class="reticle" viewBox="0 0 200 200" fill="none" stroke="#E4002B" stroke-width="0.5" aria-hidden="true">
+    <circle cx="100" cy="100" r="78"/>
+    <circle cx="100" cy="100" r="52"/>
+    <circle cx="100" cy="100" r="3" fill="#E4002B" stroke="none"/>
+    <line x1="100" y1="6" x2="100" y2="46"/>
+    <line x1="100" y1="154" x2="100" y2="194"/>
+    <line x1="6" y1="100" x2="46" y2="100"/>
+    <line x1="154" y1="100" x2="194" y2="100"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="eyebrow">CRM · RD STATION · DIAGNÓSTICO E RECOMENDAÇÕES</div>
+    <h1>Um CRM que <em>trabalha sozinho</em>, do primeiro “oi” à nota fiscal.</h1>
+    <p class="lede">O objetivo aqui não é um CRM sofisticado. É um CRM enxuto e funcional que capta, organiza e cobra follow-up sem depender de ninguém digitar. Este documento mostra o que encontramos no CRM da Aegis hoje e exatamente o que fazer para colocá-lo para rodar.</p>
+    <div class="meta-strip">
+      <span>PARA <b>Denis · Gabriel · Ellen</b></span>
+      <span>POR <b>V4 · Rafa (CRM) + Hualter (IA)</b></span>
+      <span>ESCOPO <b>Auditoria · a V4 diagnostica e especifica</b></span>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="dot">ESTADO ATUAL DO CRM</span>
+        <span>LEVANTAMENTO 04.09.2026</span>
+      </div>
+      <div class="readouts">
+        <div class="readout crit">
+          <div class="num">99</div>
+          <div class="lab">negociações travadas em “Fechando Negócio”</div>
+        </div>
+        <div class="readout crit">
+          <div class="num">R$160k</div>
+          <div class="lab">declarados nesse estágio, mas <b>não auditados</b>. O ticket real (R$390 a R$590) aponta pipeline de R$39k a R$58k</div>
+        </div>
+        <div class="readout crit">
+          <div class="num">2 de 3</div>
+          <div class="lab">funis (Lojista e Governo) totalmente vazios</div>
+        </div>
+        <div class="readout crit">
+          <div class="num">2.044</div>
+          <div class="lab">contatos sem nenhuma negociação vinculada</div>
+        </div>
+        <div class="readout crit">
+          <div class="num">0</div>
+          <div class="lab">alertas de esfriamento e metas configurados</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DIAGNÓSTICO ===================== -->
+<section id="diagnostico">
+  <div class="wrap">
+    <div class="sec-tag">01 · O QUE ENCONTRAMOS</div>
+    <h2 class="sec-title">O CRM está montado, mas não está operando.</h2>
+    <p class="sec-intro">A boa notícia: a base já existe, com catálogo de produtos, fontes de origem padronizadas e três funis criados. O problema não é falta de estrutura, é falta de fluxo. Hoje o CRM é uma foto parada. Na verificação de 08/09 não havia um papel de atendimento comercial definido na conta e a fila acumulava 86 conversas sem resposta, algumas há até doze dias, então o CRM não sabe se o cliente comprou, esfriou ou sumiu.</p>
+
+    <div class="callout">
+      <div class="h">PREMISSA DECLARADA</div>
+      <p>Todas as recomendações que dependem de trabalho humano pressupõem que exista uma pessoa designada para o atendimento comercial. Na verificação de 08/09 essa pessoa não constava na conta e a fila acumulava 86 conversas sem resposta. Enquanto isso não for resolvido, as recomendações de alerta, cadência e reativação (R-02, R-04, R-08) não devem ser ligadas.</p>
+    </div>
+
+    <div class="findings">
+      <div class="finding">
+        <span class="sev">CRÍTICO</span>
+        <div>
+          <h4>Todo mundo empilhado numa etapa só</h4>
+          <p>As 101 negociações estão no funil Consumidor Final, e 99 delas paradas em “Fechando Negócio”: 98% de concentração, o que na prática é ausência de funil. É sintoma do loop de venda aberto (abaixo), não causa isolada. Higienizar essas 99 negociações é o primeiro passo, antes de redesenhar etapas.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="sev">CRÍTICO</span>
+        <div>
+          <h4>Ninguém é avisado quando o lead esfria</h4>
+          <p>Nenhuma etapa tem o alerta de “negociação esfriando” ativado. É exatamente a dor descrita: o cliente de segunda ficou parado, o de terça ficou parado, o do mês passado ficou parado. O sistema não cobra ninguém.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="sev">CRÍTICO</span>
+        <div>
+          <h4>Entrada de lead 100% manual</h4>
+          <p>Com o time enxuto, catalogar cliente na mão é inviável, e por isso não acontece. Sem cadastro automático na chegada, o CRM nunca reflete a operação real.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="sev">ALTO</span>
+        <div>
+          <h4>Base de 2.044 contatos parada</h4>
+          <p>Contatos sem negociação vinculada e sem campanha de reativação. É patrimônio comercial dormindo: gente que já demonstrou interesse e nunca mais foi trabalhada.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="sev">MÉDIO</span>
+        <div>
+          <h4>Sem priorização e sem meta</h4>
+          <p>Qualificação automática desativada, estrelas sem pontuação máxima e zero metas. O closer não tem como saber quem atacar primeiro, e o painel não mede nada.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="sev">CRÍTICO</span>
+        <div>
+          <h4>Loop de venda aberto (causa raiz)</h4>
+          <p>O cliente pergunta no WhatsApp e compra no site um minuto depois, sem avisar. Como o Bling não devolve a venda para o CRM, o card nunca recebe o Ganho e não sai de “Fechando Negócio”. É a raiz do empilhamento acima: mesmo com a etapa mais bem desenhada do mundo, se ninguém registra o Ganho, o card empilha do mesmo jeito.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRINCÍPIOS ===================== -->
+<section id="principios">
+  <div class="wrap">
+    <div class="sec-tag">02 · COMO VAMOS CONSTRUIR</div>
+    <h2 class="sec-title">Quatro princípios que guiam cada decisão daqui pra frente.</h2>
+    <p class="sec-intro">Todas as recomendações seguem a mesma diretriz definida com vocês: priorizar simplicidade e funcionalidade, evitando complexidade que não gera retorno prático.</p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="k">PRINCÍPIO 01</div>
+        <h3>Automático na entrada, manual só onde precisa</h3>
+        <p>O que pode ser máquina é máquina: cadastro, triagem, follow-up e registro de venda. O trabalho humano fica reservado para negociar lojista e governo, onde ele realmente vale.</p>
+      </div>
+      <div class="principle">
+        <div class="k">PRINCÍPIO 02</div>
+        <h3>Quanto menos campo, melhor</h3>
+        <p>Só entra campo que vira relatório ou decisão. Ninguém vai parar o atendimento para preencher ficha. Cadastro leve é cadastro que acontece.</p>
+      </div>
+      <div class="principle">
+        <div class="k">PRINCÍPIO 03</div>
+        <h3>O CRM cobra, não a pessoa</h3>
+        <p>Com o time pequeno, a inteligência tem que estar no sistema. É ele que avisa quem falta responder, quem esfriou e o que precisa andar, não a memória de ninguém.</p>
+      </div>
+      <div class="principle">
+        <div class="k">PRINCÍPIO 04</div>
+        <h3>O básico funcionando antes de qualquer sofisticação</h3>
+        <p>Estrutura simples rodando de ponta a ponta primeiro. Depois que o essencial opera de forma confiável, evoluímos com incrementos, não antes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RECOMENDAÇÕES ===================== -->
+<section id="recomendacoes">
+  <div class="wrap">
+    <div class="sec-tag">03 · O QUE FAZER</div>
+    <h2 class="sec-title">Oito movimentos para colocar o CRM para operar.</h2>
+    <p class="sec-intro">Cada bloco tem quatro partes: um <b>resumo em linguagem simples</b>, o <b>estado atual</b> (o que existe hoje), a <b>ação</b> (o que fazer) e o <b>pronto quando</b> (como saber que ficou pronto, que é o que a Aegis usa para cobrar o fornecedor). As referências R-01 a R-08 servem só para citar cada ponto nas reuniões; a ordem em que executar está na seção “Em que ordem”.</p>
+
+    <div class="recs">
+
+      <div class="rec">
+        <div class="rec-top"><span class="rec-id">R-01</span><h3>Redesenhar os 4 funis com etapas que fazem o card andar</h3></div>
+        <div class="rec-plain"><span class="h">EM RESUMO</span><p>Hoje quase todos os cards empacam numa etapa chamada “Fechando Negócio”, que descreve uma situação e não obriga ninguém a nada. A ideia é trocar por etapas nomeadas pela próxima ação (o que falta fazer), para cada card ter um dono e uma saída óbvia.</p></div>
+        <div class="rec-body">
+          <div class="cell now">
+            <div class="h">ESTADO ATUAL</div>
+            <p>Três funis, mas tudo empilhado em “Fechando Negócio”. As etapas descrevem uma situação, não uma ação, então o card não sai do lugar.</p>
+          </div>
+          <div class="cell do">
+            <div class="h">AÇÃO</div>
+            <ul>
+              <li>Assumir os <b>4 funis</b> já mapeados: Consumidor Final Inbound (quente, automatizado), Consumidor Final Outbound (prospecção), Lojista e Governo.</li>
+              <li>Poucas etapas por funil, cada uma nomeada pela <b>ação que falta</b> (ex.: “Enviar link”, “Cobrar pagamento”), não por um estado vago.</li>
+              <li>Critério objetivo de saída em cada etapa: o card só avança quando a ação aconteceu.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rec-accept"><span class="h">PRONTO QUANDO</span><p>Cada etapa tem um critério de saída escrito e testável, e nenhuma concentra quase todos os cards depois da higiene das 99 negociações legadas.</p></div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-top"><span class="rec-id">R-02</span><h3>Ligar o alerta de esfriamento com prazo por etapa</h3></div>
+        <div class="rec-plain"><span class="h">EM RESUMO</span><p>O sistema passa a avisar sozinho quando uma negociação fica parada tempo demais, para nenhum cliente esfriar no silêncio. O detalhe que decide tudo: este alerta só pode entrar <b>depois</b> da R-05, senão ele vai cobrar quem já comprou. O porquê está no último item da ação.</p></div>
+        <div class="rec-body">
+          <div class="cell now">
+            <div class="h">ESTADO ATUAL</div>
+            <p>Nenhuma etapa destaca negociação parada. Lead esfria em silêncio e ninguém percebe.</p>
+          </div>
+          <div class="cell do">
+            <div class="h">AÇÃO</div>
+            <ul>
+              <li>Ativar o destaque de “esfriando” em <b>todas</b> as etapas.</li>
+              <li>Definir prazo por perfil: inbound quente ~1 dia, lojista ~3 dias, governo ~7 dias.</li>
+              <li>Passou do prazo, o card acende e vira fila de recuperação para o closer.</li>
+              <li><b>Ligar só depois da R-05 e da limpeza das 99 negociações antigas.</b> O motivo, em detalhe: o alerta mede uma coisa só, há quantos dias o card está parado na etapa. Ele não sabe <i>por que</i> parou, então, para ele, quem comprou (e o CRM não registrou) fica idêntico a quem esfriou. Enquanto a venda não voltar do Bling (R-05), ligar o alerta faz ele acender em cima de quem já pagou. Some a isso as 99 negociações que já estão paradas há semanas: no instante em que o alerta liga, as 99 passam do prazo de uma vez e disparam juntas. Um alerta que erra assim logo no lançamento ensina a equipe a ignorar o vermelho por reflexo, e aí ele deixa de servir até quando o caso é de verdade.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rec-accept"><span class="h">PRONTO QUANDO</span><p>Depois de R-05 no ar, nenhum card de cliente que já comprou aparece na fila de esfriamento.</p></div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-top"><span class="rec-id">R-03</span><h3>Cadastro e triagem automáticos na chegada (via GPT Maker)</h3></div>
+        <div class="rec-plain"><span class="h">EM RESUMO</span><p>Em vez de alguém digitar cliente na mão, o robô cria o lead no CRM assim que a pessoa manda o primeiro “oi”, já classificando no funil certo (consumidor, lojista ou governo). Exige preparar a conta antes, porque hoje ela está zerada de campos e conexões.</p></div>
+        <div class="rec-body">
+          <div class="cell now">
+            <div class="h">ESTADO ATUAL</div>
+            <p>Lead só entra se alguém digitar, e o time não tem como catalogar à mão no meio do atendimento.</p>
+          </div>
+          <div class="cell do">
+            <div class="h">AÇÃO</div>
+            <ul>
+              <li>Assim que chega um “oi” no <b>WhatsApp ou Instagram</b> (canais hoje conectados), o GPT Maker <b>cria/atualiza o lead</b> no CRM com a fonte preenchida. O canal Mercado Livre <b>não existe na conta</b> e precisa ser criado antes de entrar na regra.</li>
+              <li>Uma pergunta de triagem (“tem CNPJ?”) já joga o card no funil certo, com lojista/governo separados do consumidor final. Depende de o campo personalizado existir para gravar a resposta (ver seção Campos).</li>
+              <li><b>Caminho de integração:</b> API v1 do RD Station como principal (webhook POST em <span class="mono">crm.rdstation.com/api/v1/deals</span>, token de usuário com Modo Desenvolvedor, limite de 120 req/min, requer plano Basic ou superior). MCP como alternativa a testar. n8n só numa segunda fase.</li>
+              <li><b>Pré-requisitos que hoje não existem na conta</b> (0 campos personalizados, 0 webhooks, 0 intenções, 0 integrações ativas): criar os campos de triagem, o webhook de saída e ensinar o robô a responder preço antes desta recomendação rodar. R-03 é construção do zero, não configuração.</li>
+              <li>Pré-requisito técnico duro: tirar a obrigatoriedade do campo Estado (ver seção Campos). Campo obrigatório trava a chamada da API em silêncio.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rec-accept"><span class="h">PRONTO QUANDO</span><p>20 conversas consecutivas de WhatsApp geram 20 contatos no CRM, com origem preenchida, no funil correto e sem nenhuma duplicata.</p></div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-top"><span class="rec-id">R-04</span><h3>Follow-up automatizado por cadência</h3></div>
+        <div class="rec-plain"><span class="h">EM RESUMO</span><p>Quando o cliente some no meio da conversa, o sistema manda sozinho um “você ainda está aí?”. Como o robô também faz isso, é preciso combinar quem fala quando, senão o mesmo cliente recebe duas mensagens repetidas de dois sistemas diferentes.</p></div>
+        <div class="rec-body">
+          <div class="cell now">
+            <div class="h">ESTADO ATUAL</div>
+            <p>Depois da primeira resposta, o contato morre. Nenhum retorno é disparado.</p>
+          </div>
+          <div class="cell do">
+            <div class="h">AÇÃO</div>
+            <ul>
+              <li>Cadência automática de reengajamento por etapa: o sistema faz o “você ainda está aí?” sem depender do time.</li>
+              <li><b>Arbitragem entre o robô e o CRM</b> (senão o mesmo cliente recebe duas mensagens de dois sistemas que não se falam): o agente é dono exclusivo das primeiras 24 horas, o CRM assume do dia seguinte em diante (D+1), qualquer resposta de um lado zera o contador do outro, e teto de três toques por lead.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rec-accept"><span class="h">PRONTO QUANDO</span><p>Nenhum lead recebe mais de três toques automáticos somando robô e CRM, e uma resposta ao robô impede o disparo do CRM no dia seguinte.</p></div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-top"><span class="rec-id">R-05</span><h3>Fechar o loop de venda: Bling → CRM</h3></div>
+        <div class="rec-plain"><span class="h">EM RESUMO</span><p>Hoje o cliente compra no site e o CRM não fica sabendo, porque o Bling (sistema da nota fiscal) não devolve a venda. Esta recomendação cria esse caminho de volta, para o CRM saber quem comprou, o quê e por quanto. É a peça que destrava várias das outras.</p></div>
+        <div class="rec-body">
+          <div class="cell now">
+            <div class="h">ESTADO ATUAL</div>
+            <p>O cliente compra no site e não avisa. O CRM não registra a venda nem sabe o produto.</p>
+          </div>
+          <div class="cell do">
+            <div class="h">AÇÃO</div>
+            <ul>
+              <li>Quando o Bling emite a nota, a negociação correspondente vai para <b>Ganho</b> com valor e produto. Definir a <b>chave de correspondência</b>: a negociação nasce no WhatsApp com telefone, o pedido nasce na loja com e-mail e CPF, e esses conjuntos não se cruzam sozinhos.</li>
+              <li>Tratar <b>reversões</b> (nota cancelada, devolução, estorno) com um evento que desfaz o Ganho. Sem isso o CRM acumula Ganhos falsos e o faturamento fica errado para cima.</li>
+              <li>Filtrar por <b>canal no Bling</b>: a conta concentra loja e marketplaces. Sem filtro, todo pedido de marketplace vira negociação ganha no CRM e polui o funil pela outra ponta.</li>
+              <li>A loja hoje é <b>Nuvemshop</b> (confirmado em 08/09). A migração para Shopify é hipótese pendente de confirmação do Denis, não fato: só amarrar link de produto por essa via depois que ela se confirmar.</li>
+              <li>Fecha a pergunta “quem comprou?” e alimenta relatório real de faturamento por funil.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rec-accept"><span class="h">PRONTO QUANDO</span><p>Uma venda emitida no Bling move a negociação certa para Ganho em minutos, e um cancelamento reverte esse Ganho no mesmo dia.</p></div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-top"><span class="rec-id">R-06</span><h3>Qualificação simples e automática (priorização)</h3></div>
+        <div class="rec-plain"><span class="h">EM RESUMO</span><p>O CRM passa a marcar sozinho quais leads são mais quentes, para o closer saber por quem começar. É o item de menor impacto do conjunto e pode ficar por último, ou até ser cortado.</p></div>
+        <div class="rec-body">
+          <div class="cell now">
+            <div class="h">ESTADO ATUAL</div>
+            <p>Estrelas de 1 a 5 sem nota máxima e qualificação automática desligada. O closer não sabe por onde começar.</p>
+          </div>
+          <div class="cell do">
+            <div class="h">AÇÃO</div>
+            <ul>
+              <li>Definir a pontuação máxima e uma regra enxuta: inbound quente pontua alto, outbound frio pontua baixo.</li>
+              <li>Ligar a qualificação automática para o card já entrar priorizado, sem ninguém avaliar na mão.</li>
+              <li>Menor retorno do conjunto: pode entrar por último ou ser cortado sem prejuízo do essencial.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rec-accept"><span class="h">PRONTO QUANDO</span><p>O closer abre a fila e os cards já vêm ordenados por prioridade, sem ninguém pontuar na mão.</p></div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-top"><span class="rec-id">R-07</span><h3>Ajustar usuários, licenças e definir um guardião</h3></div>
+        <div class="rec-plain"><span class="h">EM RESUMO</span><p>Ajustar quantas pessoas têm acesso ao CRM e nomear um responsável pela saúde dele. Antes de comprar qualquer licença, confirmar com o RD Station se o plano atual já entrega as automações, porque a resposta muda bastante o custo (de R$1,5 mil para R$5,6 mil por ano).</p></div>
+        <div class="rec-body">
+          <div class="cell now">
+            <div class="h">ESTADO ATUAL</div>
+            <p>Plano Basic com 1 licença. Sem separação de papéis e sem responsável pela saúde do CRM.</p>
+          </div>
+          <div class="cell do">
+            <div class="h">AÇÃO</div>
+            <ul>
+              <li>Subir para <b>pelo menos 2 licenças</b>: closer (Ellen) e gestão (Gabriel/Denis).</li>
+              <li>Custo (página de planos do RD, 15/09): Basic R$73/usuário/mês (R$65,70 no anual, mínimo 1); Pro R$131/usuário/mês (mínimo <b>4</b>). Dois Basic dão R$1.576,80/ano; quatro Pro (mínimo do plano) dão R$5.659,20/ano, 3,6 vezes mais.</li>
+              <li><b>Antes de comprar, confirmar o tier</b> (confirmar com o suporte do RD Station quais destas automações já existem no plano Basic): se as automações de R-02 a R-06 exigirem Pro, o mínimo salta de 2 para 4 usuários. A extração da página veio inconsistente nesse ponto, então isto ainda não está confirmado.</li>
+              <li>O GPT Maker entra via API e não consome licença de usuário. Ressalva: a API v1 age sob a identidade de um usuário existente; se hoje só há uma licença, token e operação ficam amarrados nela.</li>
+              <li>Eleger um <b>guardião</b> do CRM: garante que as automações rodam e os dados estão certos. Quem é essa pessoa é decisão da Aegis.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rec-accept"><span class="h">PRONTO QUANDO</span><p>A decisão de compra é tomada com o tier confirmado e o custo anual na mesa, não na palavra do parecer. Esta verificação é pré-requisito das demais: se o tier não entregar as automações, R-02 a R-06 são hipotéticas.</p></div>
+      </div>
+
+      <div class="rec">
+        <div class="rec-top"><span class="rec-id">R-08</span><h3>Metas e higiene da base</h3></div>
+        <div class="rec-plain"><span class="h">EM RESUMO</span><p>Registrar um ponto de partida (o “antes”) e limpar a base antes de criar metas e disparar reativação. Assim dá para medir de verdade em 90 dias, e ninguém escreve para quem ainda está esperando resposta na fila.</p></div>
+        <div class="rec-body">
+          <div class="cell now">
+            <div class="h">ESTADO ATUAL</div>
+            <p>Zero metas, base de 2.044 contatos parada, 68 empresas “Não realizado” e um produto-teste (R$0) no catálogo.</p>
+          </div>
+          <div class="cell do">
+            <div class="h">AÇÃO</div>
+            <ul>
+              <li>Registrar um <b>baseline</b> (o “antes”) antes de mexer em qualquer meta. Sem ele, em 90 dias ninguém consegue dizer se funcionou.</li>
+              <li>Configurar ao menos uma meta de volume/conversão por funil, sobre 60 dias de dado real, para o painel medir algo.</li>
+              <li>Segmentar a base parada (comprou / nunca comprou / produto de interesse) e rodar reativação pelo RD Marketing, <b>em lotes e só depois de limpar a fila de 86</b>, para não escrever para quem ainda está esperando resposta.</li>
+              <li><b>Base legal (LGPD):</b> os 2.044 contatos foram captados em atendimento, sem opt-in registrado. Confirmar a base legal antes do disparo. Atenção também ao campo livre “Interesse / Observação”, alimentado por conversa de WhatsApp, onde CPF e endereço acabam parando.</li>
+              <li>Limpar o catálogo: remover o item de teste (R$0) e revisar as 68 empresas em aberto.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rec-accept"><span class="h">PRONTO QUANDO</span><p>Existe um baseline salvo, a base foi segmentada, e nenhum disparo sai antes da base legal confirmada e da fila de 86 zerada.</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CAMPOS ===================== -->
+<section id="campos">
+  <div class="wrap">
+    <div class="sec-tag">04 · CAMPOS PERSONALIZADOS</div>
+    <h2 class="sec-title">Menos campos, cada um com uma razão de existir.</h2>
+    <p class="sec-intro">Regra prática: se o campo não vira relatório nem decisão, ele sai. E nenhum campo obrigatório pode travar o cadastro automático. O que a máquina não consegue preencher sozinha não pode barrar a entrada do lead.</p>
+
+    <div class="fieldtable">
+      <table>
+        <thead>
+          <tr><th>Campo</th><th>Situação</th><th>Recomendação</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Interesse / Observação</td>
+            <td><span class="tag keep">MANTER</span></td>
+            <td>Campo livre único para o que surgiu na conversa (ex.: “quer 50 lanternas”). É o registro que o Denis pediu.</td>
+          </tr>
+          <tr>
+            <td>Produto de interesse</td>
+            <td><span class="tag keep">MANTER</span></td>
+            <td>Vincular ao catálogo já existente. Facilita preencher valor e alimentar relatório de produto mais procurado.</td>
+          </tr>
+          <tr>
+            <td>Motivo de perda</td>
+            <td><span class="tag add">CRIAR</span></td>
+            <td>Lista fechada com cinco opções. É o campo de maior retorno por esforço que falta hoje: sem ele o funil informa que perdeu, nunca por quê.</td>
+          </tr>
+          <tr>
+            <td>Chave de identidade (deduplicação)</td>
+            <td><span class="tag add">DEFINIR</span></td>
+            <td>Definir a chave (telefone normalizado, e-mail ou CPF) antes de a R-03 criar/atualizar leads sobre os 2.044 registros antigos. Sem isso a base vira 3.000 com duplicatas em seis meses.</td>
+          </tr>
+          <tr>
+            <td>Idade</td>
+            <td><span class="tag fix">CORRIGIR</span></td>
+            <td>Hoje é texto livre e não gera relatório confiável. Virar faixa/número, ou remover se não for usado em decisão.</td>
+          </tr>
+          <tr>
+            <td>Estado (obrigatório)</td>
+            <td><span class="tag fix">CORRIGIR</span></td>
+            <td>Tirar a obrigatoriedade no cadastro automático (ou preencher via integração). Obrigatório trava a automação.</td>
+          </tr>
+          <tr>
+            <td>Quantidade / porte (lojista e governo)</td>
+            <td><span class="tag keep">AVALIAR</span></td>
+            <td>Útil só nos funis manuais, onde o volume orienta a negociação. Não replicar no consumidor final.</td>
+          </tr>
+          <tr>
+            <td>Demais campos de perfil</td>
+            <td><span class="tag cut">CORTAR</span></td>
+            <td>Faixa etária “de perfil”, humor e afins não são práticos agora. Entram depois, só se fizerem falta real.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note">A lista de campos deste documento e a lista de campos personalizados do plano do agente têm <b>um único campo em comum</b> (“Produto de interesse”). Antes de executar, os dois times precisam fazer um <b>de-para numa tabela só</b>, senão a integração manda campos que não existem do outro lado.</p>
+  </div>
+</section>
+
+<!-- ===================== SEQUÊNCIA ===================== -->
+<section id="sequencia">
+  <div class="wrap">
+    <div class="sec-tag">05 · EM QUE ORDEM</div>
+    <h2 class="sec-title">A sequência que a auditoria recomenda.</h2>
+    <p class="sec-intro">Isto é recomendação de ordem, não cronograma: as datas são da Aegis. A lógica é fechar a saída antes de ligar o alerta, e confirmar o plano do RD antes de qualquer coisa que dependa de automação.</p>
+
+    <div class="fieldtable">
+      <table>
+        <thead>
+          <tr><th>#</th><th>O quê</th><th>Por quê nesta posição</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>Confirmar tier e custo do RD Station (R-07)</td><td>Se der negativo, metade do plano muda hoje, não daqui a dois meses.</td></tr>
+          <tr><td>1</td><td>Designar quem atende e limpar a fila de 86</td><td>Sem pessoa, todo o resto vira fila abandonada.</td></tr>
+          <tr><td>2</td><td>Higiene do legado: 99 negociações, produto-teste, 68 empresas em aberto</td><td>Tudo depois é construído sobre esses dados.</td></tr>
+          <tr><td>3</td><td>R-01 reduzido, com critério de saída escrito e campo de motivo de perda</td><td>Poucos funis com operador valem mais que muitos no papel.</td></tr>
+          <tr><td>4</td><td>Corrigir os campos, principalmente tirar a obrigatoriedade do Estado</td><td>Bloqueio técnico duro da R-03.</td></tr>
+          <tr><td>5</td><td>R-03 entrada automática, com regra de deduplicação</td><td>Alimenta o funil.</td></tr>
+          <tr><td>6</td><td>R-05 loop Bling → CRM</td><td>Fecha a saída. Entrada sem saída recria o depósito em três meses.</td></tr>
+          <tr><td>7</td><td>R-02 esfriamento</td><td>Só agora o alerta é confiável.</td></tr>
+          <tr><td>8</td><td>R-04 cadência, com a arbitragem robô/CRM definida</td><td>Depende dos anteriores estáveis.</td></tr>
+          <tr><td>9</td><td>Metas, sobre 60 dias de dado real</td><td>Baseline antes de meta.</td></tr>
+          <tr><td>10</td><td>Reativação dos 2.044, em lotes</td><td>Só se sobrar capacidade humana.</td></tr>
+          <tr><td>11</td><td>R-06 qualificação, ou cortar</td><td>Menor valor do conjunto.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="h">A RECONCILIAR COM O PLANO DO AGENTE ANTES DE EXECUTAR</div>
+      <p>Os dois planos vão para as mesmas pessoas e hoje se cruzam em pontos que só apareceriam na execução. Antes de circular: unificar o de-para de campos (têm um só campo em comum), definir dono único do reengajamento (robô nas primeiras 24h, CRM de D+1), unificar o pedido de conteúdo feito a Gabriel e Ellen, e ler os números numa leitura só (os R$160k a auditar, a fila de 86, os 2.044 dormentes e os 405 contatos do GPT Maker).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CLOSING ===================== -->
+<section class="closing">
+  <div class="wrap">
+    <div class="sign">
+      <span class="v4">V4 COMPANY</span>
+      <span>· Consultoria de CRM e Marketing · Parecer sob contrato de auditoria · Rafa (CRM) + Hualter (IA) · Setembro 2026</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>AEGIS LANTERNAS TÁTICAS × V4</span>
+    <span>CRM · RD STATION · DIAGNÓSTICO E RECOMENDAÇÕES</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---- Scrollspy ----
+  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var map = links.map(function(a){
+    return { link:a, sec:document.querySelector(a.getAttribute('href')) };
+  }).filter(function(m){return m.sec;});
+
+  function onScroll(){
+    var y = window.scrollY + 120;
+    var current = null;
+    map.forEach(function(m){
+      if(m.sec.offsetTop <= y){ current = m; }
+    });
+    links.forEach(function(a){a.classList.remove('active');});
+    if(current){ current.link.classList.add('active'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
