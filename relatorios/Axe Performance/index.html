@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento CRM · Axe Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* CSS BASE DO SISTEMA - NÃO ALTERE ESTAS CLASSES */
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 640px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.kanban-scroll-hint { text-align: center; font-size: 0.7rem; color: var(--white-dim); margin-top: 0.8rem; letter-spacing: 1px; text-transform: uppercase; }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 160px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-card:hover { border-color: var(--red); } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-item:hover { border-color: rgba(197, 26, 42, 0.4); } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.medico-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; } .medico-card:hover { border-color: var(--red); transform: translateY(-3px); } .medico-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; } .medico-spec { font-size: 0.85rem; font-weight: 500; color: var(--white-muted); margin-bottom: 0.5rem; line-height: 1.5; }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.8; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento Estratégico CRM</div>
+<h1>Axe <span>Performance</span></h1>
+<p class="hero-sub">Implementação do primeiro CRM da operação na Kommo, com IA SDR na porta de entrada para qualificar leads, estruturar o follow-up e migrar o foco comercial da manutenção para a reprogramação e performance de caminhonetes diesel.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">B2C</div></div>
+<div class="hero-meta-item"><div class="label">Foco/Nicho</div><div class="value">Performance Diesel</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">Kommo CRM</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#contexto" class="nav-link">Contexto &amp; Dores</a>
+<a href="#equipe" class="nav-link">Equipe</a>
+<a href="#fluxo" class="nav-link">Jornada do Lead</a>
+<a href="#funil-vendas" class="nav-link">Funil de Vendas</a>
+<a href="#campos" class="nav-link">Estrutura de Dados</a>
+<a href="#automacoes" class="nav-link">Automações</a>
+<a href="#sla" class="nav-link">SLAs &amp; Acessos</a>
+</div>
+</nav>
+
+<div class="divider"></div>
+<section class="section" id="contexto">
+<div class="section-header reveal">
+<div class="section-number">01 · Contexto Estratégico</div>
+<h2 class="section-title">Diagnóstico &amp; Descoberta</h2>
+<p class="section-desc">Levantamento feito na call de Discovery do processo comercial. A Axe Performance nunca utilizou CRM, então este é o marco zero da estruturação de relacionamento e vendas da empresa.</p>
+</div>
+
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Leads via WhatsApp</div></div>
+<div class="stat-card"><div class="stat-num">1</div><div class="stat-label">Usuário no CRM</div></div>
+<div class="stat-card"><div class="stat-num">24h</div><div class="stat-label">Janela de Atendimento</div></div>
+<div class="stat-card"><div class="stat-num">IA SDR</div><div class="stat-label">Qualificação na Entrada</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Objetivos</div>
+<h3>O que buscamos resolver?</h3>
+<p>Estruturar o primeiro CRM da Axe Performance com IA SDR na porta de entrada, garantindo que nenhum lead que demonstrou interesse fique sem acompanhamento e direcionando o comercial para vender reprogramação e performance, não apenas manutenção pontual.</p>
+</div>
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Perfil Ideal (ICP)</h3>
+<p>Donos de caminhonetes diesel que buscam mais performance e querem destravar a limitação de fábrica do veículo. Também entram clientes que precisam de proteção da injeção (Protect Plug) para evitar danos na bomba de alta e nos bicos e sensores.</p>
+</div>
+</div>
+
+<div class="accordion reveal">
+<div class="accordion-item open">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>🔴 Dores e Desafios Mapeados</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner">
+<div class="grid-2" style="margin-top: 1rem;">
+<div class="card">
+<div class="card-label">Processo</div>
+<h3>Sem CRM e sem padrão</h3>
+<p>Primeira ferramenta de relacionamento da empresa. Atendimento e histórico ficam descentralizados, sem funil e sem visão do que acontece com cada lead.</p>
+</div>
+<div class="card">
+<div class="card-label">Atendimento</div>
+<h3>100% manual no WhatsApp</h3>
+<p>Todo o fluxo passa pelo WhatsApp de um único atendente, sem script e sem apoio de automação. O gargalo mora numa pessoa só.</p>
+</div>
+<div class="card">
+<div class="card-label">Conversão</div>
+<h3>Follow-up inconsistente</h3>
+<p>O cliente raramente decide na hora: consulta a esposa, pensa, conversa com um amigo que já fez o serviço. Sem acompanhamento estruturado, o lead esfria e se perde.</p>
+</div>
+<div class="card">
+<div class="card-label">Posicionamento</div>
+<h3>Demanda ainda de manutenção</h3>
+<p>Boa parte dos contatos chega buscando conserto ou uma peça, quando o objetivo do negócio é vender reprogramação e preparação de performance.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+<h3>Regras de Negócio Inegociáveis</h3>
+<div class="accordion-icon">+</div>
+</div>
+<div class="accordion-body">
+<div class="accordion-body-inner" style="margin-top: 1rem;">
+<div class="grid-2">
+<div class="card">
+<div class="card-label">Prioridade Máxima</div>
+<h3>Nunca perder quem mandou mensagem</h3>
+<p>Todo lead que chegou a conversar precisa de acompanhamento. Recuperar o cliente que sumiu é a regra número um do negócio.</p>
+</div>
+<div class="card">
+<div class="card-label">Abordagem</div>
+<h3>Entender antes de precificar</h3>
+<p>Mapear a necessidade real do cliente antes de mandar preço. Nada de resposta robotizada de copiar e colar: cada cliente é de um jeito.</p>
+</div>
+<div class="card">
+<div class="card-label">Recomendação</div>
+<h3>Urgência do cliente vem primeiro</h3>
+<p>Quando houver risco para a bomba de alta, recomendar o Protect Plug, mesmo que o remap Stage 2 traga mais receita. Confiança gera venda futura.</p>
+</div>
+<div class="card">
+<div class="card-label">Perfil</div>
+<h3>Foco em caminhonete diesel</h3>
+<p>A linha diesel de caminhonetes é o forte da operação. Caminhão não entra no perfil de atendimento.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="equipe">
+<div class="section-header reveal">
+<div class="section-number">02 · Estrutura e Equipe</div>
+<h2 class="section-title">Quem Opera o CRM</h2>
+<p class="section-desc">Como a ferramenta cobra por usuário, a operação foi desenhada para um único usuário humano, apoiado pela IA SDR na qualificação. Modelo enxuto e de baixo custo de licença.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;" class="reveal medicos-grid">
+<div class="medico-card">
+<div class="medico-name">Vinícius</div>
+<div class="medico-spec">Atendimento comercial e guardião do CRM. Único usuário humano, responsável por operar o funil, montar orçamentos e conduzir o follow-up.</div>
+<span class="tag tag-red">Usuário Admin</span>
+</div>
+<div class="medico-card">
+<div class="medico-name">Henrique</div>
+<div class="medico-spec">Referência de processo comercial. Detém o contexto do atendimento anterior e o acesso ao sistema de cadastro e histórico de serviços da loja.</div>
+<span class="tag tag-white">Apoio / Contexto</span>
+</div>
+<div class="medico-card">
+<div class="medico-name">IA SDR</div>
+<div class="medico-spec">Qualificação automática na entrada. Atende 24 horas por dia, entende a necessidade, coleta os dados do veículo e entrega o lead pronto para o fechamento.</div>
+<span class="tag tag-red">Robô de Qualificação</span>
+</div>
+</div>
+<div class="info-box reveal">
+<strong>Nota sobre licença:</strong> a Kommo cobra por usuário. Manter um único usuário humano deixa a contratação mais barata, e a IA SDR trabalha na entrada sem consumir uma licença de operador.
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="fluxo">
+<div class="section-header reveal">
+<div class="section-number">03 · Fluxo Comercial</div>
+<h2 class="section-title">A Jornada do Lead</h2>
+<p class="section-desc">Do clique na campanha até o serviço agendado. A IA SDR abre a conversa e qualifica; o Vinícius assume para aprofundar a necessidade e fechar.</p>
+</div>
+
+<div class="flow-diagram reveal">
+<div class="flow-box"><div class="flow-title">Campanha</div><div class="flow-sub">Meta Ads</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">WhatsApp</div><div class="flow-sub">API Oficial</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box highlight"><div class="flow-title">IA SDR</div><div class="flow-sub">Qualificação</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Vinícius</div><div class="flow-sub">Atendimento humano</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Orçamento</div><div class="flow-sub">Proposta sob medida</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Follow-up</div><div class="flow-sub">Acompanhamento</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="flow-title">Serviço</div><div class="flow-sub">Agendado</div></div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Canais de Entrada</div>
+<h3>Origem dos Leads</h3>
+<p style="margin-bottom: 0.8rem;">Hoje quase todo o volume chega de campanhas voltadas ao painel Start Stop e ao volante, direcionadas 100% para o WhatsApp.</p>
+<p>
+<span class="tag tag-red">WhatsApp API Oficial</span>
+<span class="tag tag-red">Meta Ads</span>
+<span class="tag tag-white">Campanha Start Stop / Volante</span>
+</p>
+</div>
+<div class="card">
+<div class="card-label">Abordagem</div>
+<h3>Processo de Qualificação</h3>
+<p>A IA SDR inicia a conversa, identifica o que o cliente procura e coleta os dados do veículo. Em seguida entrega o lead qualificado para o Vinícius, que entende a necessidade a fundo e monta o orçamento certo, seja completo, por kit ou item a item, sem resposta pronta.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="funil-vendas">
+<div class="section-header reveal">
+<div class="section-number">04 · Funil de Vendas</div>
+<h2 class="section-title">Etapas da Conversão</h2>
+<p class="section-desc">Pipeline único na Kommo, do primeiro contato ao serviço fechado, com etapa dedicada de follow-up para os leads em decisão.</p>
+</div>
+
+<div class="kanban-wrapper reveal">
+<div class="kanban-board">
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Lead de Entrada</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Novo contato no WhatsApp</div><div class="kanban-card-desc">Lead chega pela campanha e cai automaticamente no funil.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Qualificação IA SDR</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">IA conversa e coleta dados</div><div class="kanban-card-desc">Entende a necessidade, identifica o veículo e o interesse principal.</div><div class="kanban-card-tags"><span class="kanban-tag">Automático</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Lead Qualificado</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Repassado ao Vinícius</div><div class="kanban-card-desc">Lead entregue com contexto e campos preenchidos, pronto para o humano.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Orçamento Enviado</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Proposta sob medida</div><div class="kanban-card-desc">Envio conforme a necessidade: completo, por kit ou item a item.</div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Follow-up / Negociação</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Cliente em decisão</div><div class="kanban-card-desc">Acompanhamento do lead que está pensando ou consultando. Etapa que não deixa ninguém esfriar.</div><div class="kanban-card-tags"><span class="kanban-tag">Prioridade</span></div></div>
+</div>
+</div>
+<div class="kanban-col">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Agendamento</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Revisão ou serviço marcado</div><div class="kanban-card-desc">Data agendada e evento criado no Google Calendar.</div></div>
+</div>
+</div>
+<div class="kanban-col won">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Ganho</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Serviço fechado</div><div class="kanban-card-desc">Venda concluída e cliente pronto para remarketing futuro.</div></div>
+</div>
+</div>
+<div class="kanban-col lost">
+<div class="kanban-col-header"><div class="kanban-col-dot"></div><div class="kanban-col-title">Perdido</div></div>
+<div class="kanban-col-body">
+<div class="kanban-card"><div class="kanban-card-title">Lead sem avanço</div><div class="kanban-card-desc">Registrado com o motivo da perda para análise.</div></div>
+</div>
+</div>
+</div>
+<div class="kanban-scroll-hint">← Arraste para ver todas as etapas →</div>
+</div>
+
+<div class="reveal" style="margin-top: 1.5rem;">
+<h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Motivos de Perda Mapeados</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+<span class="tag tag-white">Preço acima do esperado</span>
+<span class="tag tag-white">Sem resposta / sumiu</span>
+<span class="tag tag-white">Fechou com concorrente</span>
+<span class="tag tag-white">Fora do perfil (caminhão / não diesel)</span>
+<span class="tag tag-white">Buscava só manutenção pontual</span>
+<span class="tag tag-white">Sem interesse no momento</span>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="campos">
+<div class="section-header reveal">
+<div class="section-number">05 · Estrutura de Dados</div>
+<h2 class="section-title">Campos e Tags</h2>
+<p class="section-desc">Conjunto enxuto, focado no que a IA SDR precisa coletar para qualificar e no que o Vinícius precisa para orçar e fazer remarketing depois.</p>
+</div>
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">📋</div>
+<div><div class="campos-group-title">Campos Customizados</div><div class="campos-group-sub">Preenchidos pela IA SDR na qualificação</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Modelo da caminhonete</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Ano do veículo</div><div class="campo-type">Numérico</div></div>
+<div class="campo-item"><div class="campo-name">Interesse principal</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Objetivo do cliente</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Nível de interesse</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Origem do lead</div><div class="campo-type">Lista</div></div>
+<div class="campo-item"><div class="campo-name">Valor do orçamento</div><div class="campo-type">Monetário</div></div>
+<div class="campo-item"><div class="campo-name">Próximo follow-up</div><div class="campo-type">Data</div></div>
+<div class="campo-item"><div class="campo-name">Já é cliente</div><div class="campo-type">Sim / Não</div></div>
+</div>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">🏷️</div>
+<div><div class="campos-group-title">Tags de Segmentação</div><div class="campos-group-sub">Para direcionar o funil e o remarketing</div></div>
+</div>
+<div style="margin-top: 0.4rem;">
+<p style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); margin-bottom: 0.5rem;">Produto de interesse</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 1.2rem;">
+<span class="tag tag-red">Remap / Stage 2</span>
+<span class="tag tag-red">Protect Plug</span>
+<span class="tag tag-red">Downpipe</span>
+<span class="tag tag-red">Difusor</span>
+<span class="tag tag-red">Painel</span>
+<span class="tag tag-red">Start Stop</span>
+<span class="tag tag-red">Volante</span>
+</div>
+<p style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); margin-bottom: 0.5rem;">Temperatura do lead</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 1.2rem;">
+<span class="tag tag-white">Quente</span>
+<span class="tag tag-white">Morno</span>
+<span class="tag tag-white">Frio</span>
+</div>
+<p style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); margin-bottom: 0.5rem;">Perfil e relacionamento</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
+<span class="tag tag-white">Performance</span>
+<span class="tag tag-white">Proteção</span>
+<span class="tag tag-white">Recompra (cliente antigo)</span>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="automacoes">
+<div class="section-header reveal">
+<div class="section-number">06 · Automações e Motor Lógico</div>
+<h2 class="section-title">Gatilhos do CRM</h2>
+<p class="section-desc">Automações simples e diretas, sustentadas pela IA SDR na entrada e pela integração com a agenda. O objetivo é não deixar nenhum lead sem resposta ou sem acompanhamento.</p>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Gatilho</th><th>Ação do CRM</th><th>Objetivo</th></tr></thead>
+<tbody>
+<tr><td><strong>Lead entra pelo WhatsApp</strong></td><td>IA SDR inicia a qualificação automática</td><td>Responder na hora e nunca deixar lead novo sem atendimento</td></tr>
+<tr><td><strong>IA SDR conclui a qualificação</strong></td><td>Move para Lead Qualificado, preenche campos e tags e notifica o Vinícius</td><td>Entregar o lead pronto para o fechamento</td></tr>
+<tr><td><strong>Lead movido para Agendamento</strong></td><td>Cria o evento no Google Calendar via integração</td><td>Centralizar a agenda sem lançamento manual</td></tr>
+<tr><td><strong>Lead marcado como Quente</strong></td><td>Cria tarefa de follow-up prioritário para o Vinícius</td><td>Garantir acompanhamento de quem tem maior intenção de compra</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box reveal">
+<strong>Custo da API Oficial do WhatsApp:</strong> mensagens iniciadas pelo cliente e as respostas dentro da janela de 24h não têm custo adicional. Para reabrir a conversa depois de 24h de silêncio, é enviado um template aprovado pela Meta, com custo aproximado de R$0,30 por disparo. O mesmo vale para disparos em massa: o valor é multiplicado pela quantidade de leads. Esse custo é separado da contratação da ferramenta.
+</div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="sla">
+<div class="section-header reveal">
+<div class="section-number">07 · Governança e Acessos</div>
+<h2 class="section-title">SLAs e Níveis de Permissão</h2>
+</div>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Perfil</th><th>Função</th><th>Permissões</th></tr></thead>
+<tbody>
+<tr><td><strong>Vinícius</strong></td><td>Guardião do CRM, único usuário humano</td><td>Acesso total: funil, contatos, orçamentos, automações e relatórios</td></tr>
+<tr><td><strong>IA SDR</strong></td><td>Qualificação automática na entrada</td><td>Atua nos leads novos, preenche dados, aplica tags e move de etapa. Não consome licença de usuário</td></tr>
+<tr><td><strong>Henrique</strong></td><td>Apoio e contexto de processo</td><td>Consulta quando necessário. Ponte com o sistema de cadastro e histórico da loja</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box reveal">
+<strong>SLA de atendimento:</strong> a IA SDR responde imediatamente na entrada e o Vinícius assume assim que o lead é qualificado. <strong>SLA de follow-up:</strong> todo lead que enviou mensagem recebe acompanhamento, conforme a regra inegociável do negócio de não deixar nenhum contato esfriar.
+</div>
+<div class="info-box reveal">
+<strong>Pendências para validar com o cliente:</strong> confirmar com o Henrique se existe um sistema de cadastro ou planilha com base de clientes antigos para importar ao CRM, e receber a relação completa de produtos e serviços para configurar os campos e as listas de interesse.
+</div>
+</section>
+
+<footer class="footer">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
+<div class="logo-text">V4 Company</div>
+<p>Planejamento Estratégico de CRM</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado a partir da call de Discovery. Uso interno.</p>
+</footer>
+
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_CRM_Axe_Performance.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+</script>
+
+</body>
+</html>
