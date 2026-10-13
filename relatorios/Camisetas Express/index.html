@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reativação da Base — Camiseta Express</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* CSS BASE DO SISTEMA - NÃO ALTERE ESTAS CLASSES */
+:root {
+--black: #0a0a0a; --black-soft: #141414; --black-card: #1a1a1a; --black-border: #2a2a2a;
+--red: #c51a2a; --red-dark: #9b1420; --red-glow: rgba(197, 26, 42, 0.15); --red-subtle: rgba(197, 26, 42, 0.08);
+--white: #f5f5f5; --white-muted: #b0b0b0; --white-dim: #888; --gray: #333; --gray-light: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 50% 30%, var(--red-glow) 0%, transparent 50%); animation: heroGlow 8s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(2%, -3%) scale(1.1); } }
+.hero-logo { width: 200px; max-width: 80vw; height: auto; margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border: 1px solid var(--red); border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.05s both; font-weight: 600; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.1s both; }
+.hero h1 span { color: var(--red); }
+.hero-sub { font-size: 1.1rem; color: var(--white-muted); margin-top: 1.5rem; max-width: 600px; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.2s both; }
+.hero-meta { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; animation: fadeDown 0.8s ease 0.3s both; }
+.hero-meta-item { text-align: center; } .hero-meta-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-bottom: 0.3rem; font-weight: 600; } .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--white); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--white-dim); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; animation: bounce 2s ease infinite; font-weight: 600; }
+.scroll-indicator .line { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--red), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--black-border); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; } .nav-inner::-webkit-scrollbar { display: none; }
+.nav-link { padding: 1rem 1.2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dim); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--red); border-bottom-color: var(--red); }
+.section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; } .section-header { margin-bottom: 3rem; } .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; } .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.2; } .section-desc { color: var(--white-muted); margin-top: 0.8rem; max-width: 700px; font-size: 0.95rem; } .divider { width: 100%; height: 1px; background: var(--black-border); max-width: 1100px; margin: 0 auto; }
+.card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.4s ease; } .card:hover { border-color: var(--red); box-shadow: 0 0 40px var(--red-subtle); } .card-label { font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 0.8rem; } .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; } .card p { color: var(--white-muted); font-size: 0.9rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.info-box { background: var(--red-subtle); border-left: 3px solid var(--red); padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; color: var(--white-muted); } .info-box strong { color: var(--white); }
+.kanban-wrapper { overflow-x: auto; padding: 1rem 0 2rem; scrollbar-width: thin; scrollbar-color: var(--red) var(--black-card); } .kanban-wrapper::-webkit-scrollbar { height: 6px; } .kanban-wrapper::-webkit-scrollbar-track { background: var(--black-card); border-radius: 3px; } .kanban-wrapper::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.kanban-board { display: flex; gap: 1rem; min-width: max-content; padding-bottom: 0.5rem; }
+.kanban-col { width: 250px; flex-shrink: 0; background: var(--black-soft); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; } .kanban-col:hover { border-color: rgba(197, 26, 42, 0.4); }
+.kanban-col-header { padding: 1rem; border-bottom: 1px solid var(--black-border); display: flex; align-items: center; gap: 0.6rem; } .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex-shrink: 0; } .kanban-col.won .kanban-col-dot { background: #2ecc71; } .kanban-col.lost .kanban-col-dot { background: var(--white-dim); } .kanban-col-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
+.kanban-col-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.kanban-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; padding: 1rem; transition: all 0.3s ease; cursor: default; } .kanban-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 20px var(--red-subtle); } .kanban-card-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; } .kanban-card-desc { font-size: 0.75rem; color: var(--white-dim); line-height: 1.5; } .kanban-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+.kanban-tag { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.5rem; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.2); border-radius: 4px; font-size: 0.6rem; font-weight: 600; color: var(--red); }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--black-border); margin: 1.5rem 0; } table { width: 100%; border-collapse: collapse; font-size: 0.85rem; } thead th { background: var(--black-card); padding: 1rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); border-bottom: 1px solid var(--black-border); white-space: nowrap; } tbody td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--black-border); color: var(--white-muted); vertical-align: top; } tbody tr:hover { background: var(--red-subtle); } tbody td strong { color: var(--white); }
+.flow-diagram { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; padding: 2rem 0; } .flow-box { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1rem 1.5rem; text-align: center; min-width: 180px; transition: all 0.3s ease; } .flow-box:hover { border-color: var(--red); transform: translateY(-2px); } .flow-box.highlight { border-color: var(--red); background: var(--red-subtle); } .flow-box .flow-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; } .flow-box .flow-sub { font-size: 0.75rem; color: var(--white-dim); } .flow-arrow { color: var(--red); font-size: 1.5rem; font-weight: 300; }
+.tag { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0.2rem; } .tag-red { background: var(--red-subtle); color: var(--red); border: 1px solid rgba(197, 26, 42, 0.3); } .tag-white { background: rgba(245, 245, 245, 0.05); color: var(--white-muted); border: 1px solid rgba(245, 245, 245, 0.1); }
+.accordion { margin: 1rem 0; } .accordion-item { border: 1px solid var(--black-border); border-radius: 10px; margin-bottom: 0.8rem; overflow: hidden; transition: all 0.3s ease; } .accordion-item.open { border-color: var(--red); } .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; cursor: pointer; background: var(--black-card); transition: all 0.3s ease; } .accordion-header h3 { font-size: 0.95rem; font-weight: 600; } .accordion-icon { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--black-border); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--red); transition: all 0.3s ease; flex-shrink: 0; } .accordion-item.open .accordion-icon { transform: rotate(45deg); border-color: var(--red); } .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; } .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; } .stat-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 10px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; } .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--red); line-height: 1; } .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.5rem; }
+.campos-group { margin-bottom: 2rem; } .campos-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--black-border); } .campos-group-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--red-subtle); border: 1px solid rgba(197, 26, 42, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; } .campos-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; } .campos-group-sub { font-size: 0.7rem; font-weight: 500; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; } .campos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.6rem; } .campo-item { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; background: var(--black-card); border: 1px solid var(--black-border); border-radius: 8px; transition: all 0.3s ease; } .campo-name { font-size: 0.82rem; font-weight: 500; color: var(--white); } .campo-type { font-size: 0.65rem; font-weight: 600; color: var(--white-dim); margin-left: auto; padding: 0.15rem 0.5rem; background: rgba(245, 245, 245, 0.05); border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.medico-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; } .medico-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; } .medico-spec { font-size: 0.85rem; font-weight: 500; color: var(--white-muted); margin-bottom: 0.5rem; line-height: 1.5; }
+.footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--black-border); color: var(--white-dim); font-size: 0.8rem; } .footer img { width: 140px; margin-bottom: 1rem; opacity: 0.8; }
+.fab-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--red); color: var(--white); border: none; padding: 14px 24px; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; z-index: 10000; box-shadow: 0 4px 20px var(--red-glow); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.fab-btn:hover { background-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 25px rgba(197, 26, 42, 0.4); }
+@media (max-width: 768px) { .section { padding: 3rem 1.2rem; } .flow-diagram { flex-direction: column; } .flow-arrow { transform: rotate(90deg); } .fab-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.85rem; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+<style>
+/* Complementos (não alteram as classes base) */
+.kanban-scroll-hint { text-align: center; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--white-dim); margin-top: 0.8rem; font-weight: 600; }
+.logo-text { display: none; }
+.medico-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
+.sub-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin: 2.5rem 0 1rem; }
+.card ul { color: var(--white-muted); font-size: 0.88rem; padding-left: 1.1rem; margin-top: 0.5rem; }
+.card ul li { margin-bottom: 0.35rem; }
+.legend { font-size: 0.75rem; color: var(--white-dim); margin-top: 0.5rem; }
+</style>
+<style>
+/* ===== Fluxogramas e quadros explicativos ===== */
+.simple-box{background:rgba(46,204,113,.06);border:1px solid rgba(46,204,113,.3);border-radius:12px;padding:1.2rem 1.5rem;margin:1.5rem 0;}
+.simple-label{display:flex;align-items:center;gap:.45rem;font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;margin-bottom:.6rem;}
+.simple-label::before{content:'💡';font-size:.85rem;letter-spacing:0;}
+.simple-box p{color:var(--white);font-size:.95rem;}
+.simple-box p+p{margin-top:.6rem;}
+.simple-box ul{color:var(--white);font-size:.92rem;padding-left:1.1rem;margin-top:.4rem;}
+.simple-box li{margin-bottom:.35rem;}
+.simple-box strong{color:var(--white);font-weight:700;}
+.simple-box code,.mono{font-family:'JetBrains Mono',monospace;font-size:.8rem;background:rgba(245,245,245,.06);padding:.05rem .4rem;border-radius:4px;color:var(--white);}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;}
+.role-emoji{font-size:1.6rem;margin-bottom:.5rem;}
+
+/* Fluxogramas */
+.fc-wrap{background:var(--black-soft);border:1px solid var(--black-border);border-radius:14px;padding:2rem 1.5rem;margin:2rem 0;}
+.fc-head{text-align:center;margin-bottom:1.8rem;}
+.fc-kicker{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:600;}
+.fc-title{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;margin-top:.3rem;}
+.fc-caption{font-size:.82rem;color:var(--white-dim);margin:.4rem auto 0;max-width:560px;}
+.fc{display:flex;flex-direction:column;align-items:center;}
+.fc-node{position:relative;background:var(--black-card);border:1px solid var(--black-border);border-radius:10px;padding:.85rem 1.2rem;text-align:center;width:100%;max-width:440px;}
+.fc-node b{display:block;font-size:.9rem;font-weight:600;color:var(--white);line-height:1.4;}
+.fc-node span{display:block;font-size:.76rem;color:var(--white-dim);margin-top:.25rem;line-height:1.5;}
+.fc-node.start{border-color:var(--red);background:var(--red-subtle);border-radius:100px;padding:.9rem 1.8rem;}
+.fc-node.ask{border:1px dashed var(--red);padding-top:1.45rem;}
+.fc-node.ask::before{content:'Pergunta';position:absolute;top:.45rem;left:50%;transform:translateX(-50%);font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);}
+.fc-node.ok{border-color:#2ecc71;background:rgba(46,204,113,.08);}
+.fc-node.stop{border-color:var(--gray-light);background:rgba(245,245,245,.03);}
+.fc-node.stop b{color:var(--white-muted);}
+.fc-arrow{display:flex;flex-direction:column;align-items:center;margin:.25rem 0;}
+.fc-arrow::before{content:'';width:2px;height:20px;background:var(--red);}
+.fc-arrow::after{content:'';width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--red);}
+.fc-arrow em,.fc-harrow em{font-style:normal;font-size:.6rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#fff;background:var(--red);padding:.15rem .6rem;border-radius:100px;margin:.2rem 0;text-align:center;max-width:220px;line-height:1.4;}
+.fc-arrow.yes::before{background:#2ecc71;} .fc-arrow.yes::after{border-top-color:#2ecc71;}
+.fc-arrow.yes em,.fc-harrow.yes em{background:#2ecc71;color:#0a0a0a;}
+.fc-row{display:grid;grid-template-columns:1fr minmax(0,440px) 1fr;align-items:center;width:100%;}
+.fc-row>.fc-node{grid-column:2;}
+.fc-exit{grid-column:3;display:flex;align-items:center;}
+.fc-exit .fc-node{max-width:none;}
+.fc-harrow{display:flex;align-items:center;flex-shrink:0;padding:0 .2rem;}
+.fc-harrow::before{content:'';width:14px;height:2px;background:var(--gray-light);}
+.fc-harrow::after{content:'';width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:8px solid var(--gray-light);}
+.fc-harrow em{background:var(--gray-light);margin:0 .2rem;}
+.fc-split{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;width:100%;max-width:860px;}
+.fc-split.two{max-width:660px;}
+.fc-branch{display:flex;flex-direction:column;align-items:center;}
+.fc-branch .fc-node{max-width:none;flex:1;}
+.fc-note{font-size:.78rem;color:var(--white-dim);text-align:center;margin-top:1.2rem;max-width:620px;margin-left:auto;margin-right:auto;}
+.fc-legend{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;}
+.fc-legend .fc-node{width:auto;max-width:none;padding:.6rem 1rem;}
+.fc-legend .fc-node.ask{padding-top:1.3rem;}
+
+/* Passos numerados */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;counter-reset:step;}
+.step{position:relative;background:var(--black-card);border:1px solid var(--black-border);border-radius:10px;padding:1rem;}
+.step::before{counter-increment:step;content:counter(step);display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-weight:700;font-size:.8rem;margin-bottom:.6rem;}
+.step.done{border-color:#2ecc71;}
+.step.done::before{background:#2ecc71;color:#0a0a0a;}
+.step b{display:block;font-size:.86rem;color:var(--white);line-height:1.4;}
+.step span{display:block;font-size:.75rem;color:var(--white-dim);margin-top:.3rem;line-height:1.5;}
+.step .st{display:inline-block;margin-top:.5rem;font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#2ecc71;}
+
+/* Problema -> solução */
+.ps-head,.ps-row{display:grid;grid-template-columns:1fr 32px 1fr;gap:.6rem;align-items:stretch;}
+.ps-head{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:.4rem;}
+.ps-head div:first-child{color:var(--red);} .ps-head div:last-child{color:#2ecc71;}
+.ps-list{display:flex;flex-direction:column;gap:.6rem;}
+.ps-cell{background:var(--black-card);border:1px solid var(--black-border);border-radius:8px;padding:.75rem 1rem;font-size:.84rem;color:var(--white-muted);line-height:1.5;}
+.ps-cell b{color:var(--white);display:block;font-size:.88rem;}
+.ps-cell.sol{border-color:rgba(46,204,113,.4);}
+.ps-cell .done{color:#2ecc71;font-weight:700;font-size:.7rem;letter-spacing:1px;text-transform:uppercase;}
+.ps-arrow{display:flex;align-items:center;justify-content:center;color:var(--red);font-size:1.3rem;}
+
+/* Raias RD x Odoo */
+.lanes{display:grid;grid-template-columns:1fr 110px 1fr;gap:1rem;align-items:stretch;}
+.lane{background:var(--black-card);border:1px solid var(--black-border);border-radius:12px;padding:1.2rem;}
+.lane.odoo{border-color:rgba(46,204,113,.4);}
+.lane-title{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);}
+.lane.odoo .lane-title{color:#2ecc71;}
+.lane-sub{font-size:.76rem;color:var(--white-dim);margin:.2rem 0 .9rem;line-height:1.5;}
+.lane-steps{display:flex;flex-direction:column;gap:.45rem;}
+.lane-step{padding:.55rem .8rem;border-radius:6px;background:var(--black-soft);border:1px solid var(--black-border);font-size:.84rem;color:var(--white);display:flex;gap:.6rem;align-items:center;}
+.lane-step i{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--red);}
+.lane.odoo .lane-step i{color:#2ecc71;}
+.lane-handoff{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--white-muted);font-size:.66rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;gap:.3rem;line-height:1.4;}
+.lane-handoff .big{font-size:2rem;color:var(--red);line-height:1;}
+.loop-note{margin-top:1rem;padding:.9rem 1.1rem;border:1px dashed rgba(46,204,113,.5);border-radius:10px;font-size:.84rem;color:var(--white-muted);text-align:center;}
+.loop-note b{color:#2ecc71;}
+
+/* Termômetro */
+.thermo{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;}
+.thermo-lvl{border-radius:8px;padding:.9rem .6rem;text-align:center;color:#fff;border:1px solid transparent;}
+.thermo-lvl b{display:block;font-size:.78rem;}
+.thermo-lvl .n{display:block;font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:800;line-height:1.2;margin:.15rem 0;}
+.thermo-lvl span{display:block;font-size:.68rem;opacity:.9;line-height:1.4;}
+.t1{background:var(--red);} .t2{background:rgba(197,26,42,.62);} .t3{background:rgba(197,26,42,.32);}
+.t4{background:rgba(120,160,220,.16);border-color:rgba(120,160,220,.35);} .t5{background:var(--gray);color:var(--white-muted);}
+.thermo-scale{display:flex;justify-content:space-between;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--white-dim);margin-top:.6rem;gap:1rem;}
+
+/* Mapa de réguas */
+.rmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;}
+.rmap-col{background:var(--black-card);border:1px solid var(--black-border);border-radius:12px;padding:1.1rem;}
+.rmap-title{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);}
+.rmap-sub{font-size:.74rem;color:var(--white-dim);margin:.15rem 0 .8rem;}
+.rmap-item{padding:.6rem .75rem;border-radius:6px;background:var(--black-soft);border:1px solid var(--black-border);margin-bottom:.45rem;}
+.rmap-item .if{display:block;font-size:.74rem;color:var(--white-dim);}
+.rmap-item .then{display:block;font-size:.84rem;color:var(--white);font-weight:600;margin-top:.15rem;}
+.rmap-item .then::before{content:'→ ';color:var(--red);}
+.rmap-stop{margin-top:1rem;text-align:center;font-size:.84rem;color:var(--white-muted);padding:.75rem;border:1px solid var(--gray-light);border-radius:8px;}
+
+/* SE -> ENTÃO */
+.ifthen{display:grid;grid-template-columns:1fr 40px 1fr;gap:.6rem;align-items:stretch;max-width:640px;margin:1rem auto 0;}
+.ifthen div{border-radius:8px;padding:.8rem 1rem;font-size:.86rem;color:var(--white);text-align:center;}
+.ifthen .se{border:1px dashed var(--red);} .ifthen .entao{border:1px solid #2ecc71;background:rgba(46,204,113,.08);}
+.ifthen small{display:block;font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:.25rem;}
+.ifthen .se small{color:var(--red);} .ifthen .entao small{color:#2ecc71;}
+.ifthen .arr{display:flex;align-items:center;justify-content:center;color:var(--red);font-size:1.4rem;padding:0;}
+
+/* Dicionário */
+.gloss-search{width:100%;max-width:420px;background:var(--black-card);border:1px solid var(--black-border);border-radius:100px;padding:.75rem 1.2rem;color:var(--white);font-family:'Montserrat',sans-serif;font-size:.88rem;margin-bottom:1.5rem;outline:none;}
+.gloss-search:focus{border-color:var(--red);}
+.glossary{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem;}
+.gloss-item{background:var(--black-card);border:1px solid var(--black-border);border-radius:10px;padding:1rem 1.1rem;}
+.gloss-term{font-size:.9rem;font-weight:700;color:var(--white);}
+.gloss-def{font-size:.8rem;color:var(--white-muted);margin-top:.3rem;line-height:1.55;}
+
+
+/* Viabilidade técnica */
+.viab{scroll-margin-top:70px;position:relative;border:2px solid #f5a623;background:linear-gradient(180deg,rgba(245,166,35,.10),rgba(245,166,35,.03));border-radius:16px;padding:2.2rem 2rem;margin:2.5rem 0;box-shadow:0 0 50px rgba(245,166,35,.12);}
+.viab-top{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem;margin-bottom:.6rem;}
+.viab-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .9rem;border-radius:100px;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.viab-badge.att{background:#f5a623;color:#0a0a0a;}
+.viab-badge.yes{background:rgba(46,204,113,.15);color:#2ecc71;border:1px solid rgba(46,204,113,.5);}
+.viab h3{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:700;line-height:1.25;margin:.4rem 0 .6rem;}
+.viab-lead{color:var(--white);font-size:.98rem;max-width:760px;}
+.viab-list{display:grid;gap:1rem;margin-top:1.6rem;}
+.viab-item{display:grid;grid-template-columns:44px 1fr;gap:1rem;background:var(--black-card);border:1px solid rgba(245,166,35,.35);border-radius:12px;padding:1.2rem 1.3rem;}
+.viab-num{width:44px;height:44px;border-radius:50%;background:#f5a623;color:#0a0a0a;font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;display:flex;align-items:center;justify-content:center;}
+.viab-item h4{font-size:.98rem;font-weight:700;color:var(--white);margin-bottom:.35rem;}
+.viab-item p{font-size:.86rem;color:var(--white-muted);}
+.viab-item p+p{margin-top:.4rem;}
+.viab-item .acao{display:block;margin-top:.6rem;font-size:.8rem;color:#f5a623;font-weight:600;}
+.viab-item .acao::before{content:'→ ';}
+.viab-ok{margin-top:1.4rem;padding:1rem 1.2rem;border-radius:10px;background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.35);font-size:.88rem;color:var(--white-muted);}
+.viab-ok strong{color:#2ecc71;}
+@media (max-width:768px){.viab{padding:1.5rem 1.1rem;}.viab-item{grid-template-columns:1fr;}.viab-num{width:36px;height:36px;font-size:1.05rem;}}
+
+.lanes.three{grid-template-columns:1fr 70px 1fr 70px 1fr;}
+.lane.ia{border-color:rgba(120,160,220,.5);}
+.lane.ia .lane-title,.lane.ia .lane-step i{color:#8fb3ec;}
+.ia-tag{display:inline-block;padding:.1rem .5rem;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(120,160,220,.15);color:#8fb3ec;border:1px solid rgba(120,160,220,.4);margin-left:.3rem;vertical-align:middle;}
+.fc-node.ia{border-color:rgba(120,160,220,.6);background:rgba(120,160,220,.08);}
+@media (max-width:1000px){.lanes.three{grid-template-columns:1fr;}.lanes.three .lane-handoff{flex-direction:row;padding:.3rem 0;}.lanes.three .lane-handoff .big{transform:rotate(90deg);}}
+
+/* Plano RD */
+.plan{scroll-margin-top:70px;border:2px solid var(--red);background:linear-gradient(180deg,var(--red-glow),rgba(197,26,42,.03));border-radius:16px;padding:2.2rem 2rem;margin:2.5rem 0;box-shadow:0 0 50px var(--red-subtle);}
+.plan-badge{display:inline-block;padding:.35rem .9rem;border-radius:100px;background:var(--red);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.plan h3{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin:.6rem 0 .4rem;}
+.plan-lead{color:var(--white);font-size:.98rem;max-width:760px;}
+.plan-nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.8rem;margin:1.6rem 0;}
+.plan-num{background:var(--black-card);border:1px solid var(--black-border);border-radius:10px;padding:1rem 1.1rem;}
+.plan-num .v{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:800;color:var(--white);line-height:1.2;}
+.plan-num .l{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--white-dim);margin-bottom:.35rem;}
+.plan-num .d{font-size:.76rem;color:var(--white-dim);margin-top:.3rem;line-height:1.5;}
+.plan-user{margin-top:1.4rem;display:grid;grid-template-columns:56px 1fr;gap:1rem;align-items:center;border:2px solid #2ecc71;background:rgba(46,204,113,.08);border-radius:12px;padding:1.2rem 1.4rem;}
+.plan-user .ic{width:56px;height:56px;border-radius:50%;background:#2ecc71;color:#0a0a0a;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;}
+.plan-user h4{font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:.25rem;}
+.plan-user p{font-size:.88rem;color:var(--white-muted);}
+.plan-why{margin-top:1.4rem;}
+.plan-why h4{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:.6rem;}
+.plan-why ul{color:var(--white-muted);font-size:.88rem;padding-left:1.1rem;}
+.plan-why li{margin-bottom:.4rem;}
+.plan-why li strong{color:var(--white);}
+.plan-foot{font-size:.74rem;color:var(--white-dim);margin-top:1.2rem;}
+@media (max-width:768px){.plan{padding:1.5rem 1.1rem;}.plan-user{grid-template-columns:1fr;}}
+@media (max-width: 900px){
+.fc-row{grid-template-columns:1fr;justify-items:center;}
+.fc-row>.fc-node,.fc-exit{grid-column:auto;}
+.fc-exit{flex-direction:column;width:100%;max-width:440px;}
+.fc-harrow{flex-direction:column;padding:.1rem 0;}
+.fc-harrow::before{width:2px;height:12px;}
+.fc-harrow::after{border-top:8px solid var(--gray-light);border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:0;}
+.fc-harrow em{margin:.2rem 0;}
+}
+@media (max-width: 768px){
+.fc-wrap{padding:1.5rem 1rem;}
+.ps-head{display:none;}
+.ps-row{grid-template-columns:1fr;gap:.3rem;}
+.ps-arrow{transform:rotate(90deg);height:24px;}
+.lanes{grid-template-columns:1fr;}
+.lane-handoff{flex-direction:row;padding:.3rem 0;}
+.lane-handoff .big{transform:rotate(90deg);}
+.thermo{grid-template-columns:1fr;}
+.ifthen{grid-template-columns:1fr;}
+.ifthen .arr{transform:rotate(90deg);height:28px;}
+}
+</style>
+
+</head>
+<body>
+
+<section class="hero">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company" class="hero-logo">
+<div class="hero-badge">Planejamento de Reativação · RD Station → Odoo</div>
+<h1>Camiseta <span>Express</span></h1>
+<p class="hero-sub">Reativar a base histórica de clientes das planilhas com e-mails automáticos no RD Station Marketing, qualificar os interessados com a IA SDR da V4 e enviar ao Odoo quem estiver pronto para comprar.</p>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="label">Operação</div><div class="value">B2B · Fábrica + Loja</div></div>
+<div class="hero-meta-item"><div class="label">Foco</div><div class="value">Reativação da base das planilhas</div></div>
+<div class="hero-meta-item"><div class="label">Plataforma</div><div class="value">RD Station + IA SDR V4 + Odoo</div></div>
+</div>
+<div class="scroll-indicator"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+<a href="#resumo" class="nav-link">Resumo</a>
+<a href="#viabilidade" class="nav-link">⚠ Viabilidade</a>
+<a href="#plano-rd" class="nav-link">Plano RD</a>
+<a href="#base" class="nav-link">A Base</a>
+<a href="#jornada" class="nav-link">Jornada</a>
+<a href="#estrutura" class="nav-link">Campos & Tags</a>
+<a href="#reguas" class="nav-link">Réguas</a>
+<a href="#ia" class="nav-link">IA SDR</a>
+<a href="#odoo" class="nav-link">Envio ao Odoo</a>
+</div>
+</nav>
+
+<!-- 00 RESUMO -->
+<div class="divider"></div>
+<section class="section" id="resumo">
+<div class="section-header reveal">
+<div class="section-number">00 — Comece por aqui</div>
+<h2 class="section-title">O Projeto em 1 Minuto</h2>
+<p class="section-desc">Um resumo em linguagem simples para entender o plano inteiro antes dos detalhes.</p>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card"><div class="card-label">O problema</div><h3>Muitos clientes antigos pararam de comprar</h3><p>Em 30 anos, a Camiseta Express juntou milhares de contatos de empresas em planilhas, e-mails e celulares. A equipe não tem tempo de falar com todos, e hoje só os principais clientes recebem atenção.</p></div>
+<div class="card"><div class="card-label">A solução</div><h3>Voltar a conversar por e-mail, no automático</h3><p>A base das planilhas, já limpa e aprovada, entra no RD Station. Cada grupo recebe uma sequência de e-mails feita para ele. Quem mostrar interesse conversa com a IA SDR da V4, que entende o pedido e envia ao Odoo. A vendedora assume a venda.</p></div>
+</div>
+
+<div class="fc-wrap reveal">
+<div class="fc-head"><div class="fc-kicker">Fluxograma · Visão geral</div><div class="fc-title">O plano inteiro em 5 passos</div></div>
+<div class="steps">
+<div class="step done"><b>Base pronta</b><span>As planilhas viraram uma lista só, com 33.562 contatos separados em grupos.</span><div class="st">✓ Concluído e aprovado</div></div>
+<div class="step"><b>Importar no RD Station</b><span>Os contatos entram com etiquetas que dizem o grupo de cada um.</span></div>
+<div class="step"><b>Enviar as réguas de e-mail</b><span>Cada grupo recebe seus e-mails. Quem abre e clica ganha pontos.</span></div>
+<div class="step"><b>IA SDR qualifica</b><span>Quem pede orçamento conversa com a IA no chat do site ou no WhatsApp. Ela descobre volume, prazo e tipo de cliente.</span></div>
+<div class="step"><b>Mandar os interessados ao Odoo</b><span>A vendedora recebe o contato com o resumo e leva para a Fábrica (100+ peças) ou para a Loja.</span></div>
+</div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card" style="border-color:rgba(46,204,113,.45);"><div class="card-label" style="color:#2ecc71;">✓ O que entra nesta etapa</div><h3>Reativação da base das planilhas</h3>
+<ul>
+<li>Importação da base aprovada no RD Station Marketing</li>
+<li>Réguas de e-mail por grupo e temperatura</li>
+<li>Pontuação de interesse (Lead Scoring)</li>
+<li>IA SDR da V4 no chat do site e no WhatsApp (API oficial, número novo)</li>
+<li>Envio dos contatos interessados ao Odoo</li>
+</ul></div>
+<div class="card"><div class="card-label" style="color:var(--white-dim);">Fora desta etapa</div><h3>Fica de fora deste planejamento</h3>
+<ul>
+<li>Réguas para leads novos do site e formulários</li>
+<li>Respostas em áudio da IA (ficam para depois, pelo custo)</li>
+<li>Réguas de pós-venda e de clientes perdidos</li>
+<li>Gestão de campanhas de mídia</li>
+</ul></div>
+</div>
+
+<div class="viab reveal" id="viabilidade">
+<div class="viab-top"><span class="viab-badge att">⚠ Ponto de atenção</span><span class="viab-badge yes">✓ Viável no RD Station e no Odoo</span></div>
+<h3>Viabilidade técnica: o que confirmar antes da implementação</h3>
+<p class="viab-lead">O planejamento pode ser implementado no RD Station Marketing, na IA SDR da V4 e no Odoo. Quatro pontos precisam ser confirmados ou ajustados antes de começar, para não haver surpresa.</p>
+<div class="viab-list">
+<div class="viab-item"><div class="viab-num">1</div><div>
+<h4>O envio automático ao Odoo depende do plano do Odoo</h4>
+<p>Para o RD e a IA SDR criarem a oportunidade no Odoo sozinhos, é preciso a API externa do Odoo. No Odoo Online, essa API só está disponível no plano <strong style="color:var(--white)">Custom</strong>. Se o plano atual não tiver, o envio é feito por planilha, que funciona em qualquer plano (veja a seção Envio ao Odoo).</p>
+<span class="acao">Confirmar qual é o plano atual do Odoo da Camiseta Express</span>
+</div></div>
+<div class="viab-item"><div class="viab-num">2</div><div>
+<h4>Não existe integração pronta entre RD e Odoo</h4>
+<p>A versão automática é montada por webhook e API ou por um conector de mercado (como Zapier, Make ou Albato). A versão por planilha não precisa de integração nenhuma.</p>
+<span class="acao">Escolher a forma de envio e considerar o custo do conector, se for usado</span>
+</div></div>
+<div class="viab-item"><div class="viab-num">3</div><div>
+<h4>Dois itens do RD funcionam de forma um pouco diferente</h4>
+<p><strong style="color:var(--white)">Score inicial:</strong> o Lead Scoring do RD é calculado pelo próprio sistema. O score de 0 a 100 da planilha entra como campo personalizado e é usado para segmentar e priorizar os contatos.</p>
+<p><strong style="color:var(--white)">Etapas do funil:</strong> o RD tem como etapas nativas Lead, Lead Qualificado e Cliente. “Em Reativação” e “Engajado” serão controladas por segmentações e tags.</p>
+<span class="acao">Validar esses dois pontos com o suporte do RD Station na contratação</span>
+</div></div>
+<div class="viab-item"><div class="viab-num">4</div><div>
+<h4>WhatsApp ativo tem regras da Meta</h4>
+<p>A IA SDR só usa o WhatsApp pela API oficial, com um número novo. Quando a empresa inicia a conversa (fora da janela de 24h), a mensagem precisa ser um modelo aprovado e é cobrada por conversa, por isso o cartão fica vinculado à Business Manager. A Meta também pede que o contato aceite receber mensagens (opt-in) e começa números novos com um limite diário baixo, que sobe conforme a qualidade.</p>
+<span class="acao">Começar a IA pelo chat do site e pelas respostas aos e-mails, e liberar o WhatsApp ativo aos poucos</span>
+</div></div>
+</div>
+<div class="viab-ok"><strong>Funciona como planejado:</strong> importação da base com campos e tags, réguas de e-mail, automações, domínio autenticado e aquecimento de envio (RD Station Marketing Pro); atendimento por texto no chat do site e no WhatsApp oficial (IA SDR); importação de contatos e funil de vendas (Odoo).</div>
+</div>
+
+<div class="plan reveal" id="plano-rd">
+<span class="plan-badge">Plano necessário</span>
+<h3>RD Station Marketing Pro</h3>
+<p class="plan-lead">É o plano que cobre tudo o que a reativação precisa. Os planos Light e Basic não servem, porque não têm Lead Scoring e só fazem sequências de e-mail em linha reta.</p>
+
+<div class="plan-user">
+<div class="ic">1</div>
+<div><h4>Precisamos de apenas 1 usuário</h4><p>Para começar, basta um acesso, de administrador, com o Thiago. O RD não cobra por usuário: se for preciso, outros acessos são liberados depois, sem custo extra.</p></div>
+</div>
+
+<div class="plan-why">
+<h4>Por que o Pro</h4>
+<ul>
+<li><strong>Lead Scoring:</strong> dá os pontos que mostram quem está pronto para a vendedora. Só existe nos planos Pro e Advanced.</li>
+<li><strong>Automação com caminhos:</strong> permite a regra “cada contato entra em uma régua só” e a saída automática para o Odoo. No Light e no Basic, as sequências são só em linha reta.</li>
+<li><strong>Não precisa do Advanced:</strong> os recursos do Pro atendem o volume desta base.</li>
+<li><strong>Não precisa de adicional de WhatsApp do RD:</strong> o WhatsApp roda na IA SDR da V4, pela API oficial.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- 01 BASE -->
+<div class="divider"></div>
+<section class="section" id="base">
+<div class="section-header reveal">
+<div class="section-number">01 — A Base</div>
+<h2 class="section-title">De Onde Partimos</h2>
+<p class="section-desc">Consolidado da Growth Class (17/09/2026) e do Touch Point (28/09/2026) com Débora, Thiago e equipe V4.</p>
+</div>
+
+<div class="stats-row reveal">
+<div class="stat-card"><div class="stat-num">52.891</div><div class="stat-label">Registros brutos lidos</div></div>
+<div class="stat-card"><div class="stat-num">33.562</div><div class="stat-label">Contatos únicos após limpeza</div></div>
+<div class="stat-card"><div class="stat-num">23.576</div><div class="stat-label">E-mails aptos para o RD</div></div>
+<div class="stat-card"><div class="stat-num">2.107</div><div class="stat-label">Contatos em supressão</div></div>
+</div>
+
+<div class="simple-box reveal">
+<div class="simple-label">Em palavras simples</div>
+<p>Pegamos todos os contatos das planilhas, que estavam em <strong>38 lugares diferentes</strong>. Tiramos os repetidos e corrigimos os errados. Sobraram <strong>33.562 pessoas diferentes</strong>. Dessas, <strong>23.576 podem receber e-mail</strong>. Outras <strong>2.107 não vão receber nada</strong> (pediram para sair, o e-mail não existe, são da própria equipe, testes ou spam).</p>
+</div>
+
+<div class="fc-wrap reveal">
+<div class="fc-head"><div class="fc-kicker">Problema → Solução</div><div class="fc-title">O que muda com a reativação</div></div>
+<div class="ps-head"><div>O problema hoje</div><div></div><div>Como o projeto resolve</div></div>
+<div class="ps-list">
+<div class="ps-row"><div class="ps-cell"><b>Dados espalhados e sujos</b>Contatos repetidos, sem DDD e com e-mail errado, em várias planilhas</div><div class="ps-arrow">→</div><div class="ps-cell sol"><b>Uma lista única e limpa</b>Base unificada, corrigida e aprovada · <span class="done">✓ Feito</span></div></div>
+<div class="ps-row"><div class="ps-cell"><b>Limite de envio</b>O Odoo envia cerca de 300 e-mails/dia e a Locaweb rende pouco</div><div class="ps-arrow">→</div><div class="ps-cell sol"><b>RD Station Marketing</b>Domínio autenticado e envio subindo até ~2.000/dia</div></div>
+<div class="ps-row"><div class="ps-cell"><b>Falta de tempo</b>Débora e Rose não conseguem falar com toda a base</div><div class="ps-arrow">→</div><div class="ps-cell sol"><b>Réguas automáticas + IA SDR</b>Os e-mails saem sozinhos e a IA faz o primeiro atendimento</div></div>
+<div class="ps-row"><div class="ps-cell"><b>WhatsApp sem API oficial</b>Risco de banir os números atuais</div><div class="ps-arrow">→</div><div class="ps-cell sol"><b>Número novo na API oficial</b>Os números atuais nunca entram nos disparos</div></div>
+<div class="ps-row"><div class="ps-cell"><b>Tudo feito à mão</b>Sem pontuação, é difícil saber quem está interessado</div><div class="ps-arrow">→</div><div class="ps-cell sol"><b>Lead Scoring</b>O RD dá pontos e mostra quem está pronto para a vendedora</div></div>
+</div>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card">
+<div class="card-label">Público-Alvo</div>
+<h3>Com quem vamos falar</h3>
+<p>Ex-clientes corporativos que deixaram de comprar: empresas de médio e grande porte que compram camisetas personalizadas para equipes, eventos e ações de marca (indústria, varejo e supermercados, bancos, agências). É uma base “quente”, com histórico de boa resposta a e-mails.</p>
+</div>
+<div class="card">
+<div class="card-label">Destino da venda</div>
+<h3>Fábrica ou Loja</h3>
+<p><strong style="color:var(--white)">Projetos acima de 100 peças</strong>, com prazo maior, vão para a <strong style="color:var(--white)">Fábrica</strong>. <strong style="color:var(--white)">Projetos menores e com prazo apertado</strong> vão para a <strong style="color:var(--white)">Loja</strong>. Pessoa física é encaminhada à atendente dedicada.</p>
+</div>
+</div>
+
+<h3 class="sub-title reveal">Regras do Projeto</h3>
+<div class="reveal">
+<div class="info-box"><strong>Nenhum cliente fica sem atendimento.</strong> Não existe pedido mínimo. Pedidos grandes vão para a Fábrica, pequenos para a Loja, e pessoa física para a atendente dedicada. A IA e as réguas nunca descartam um contato por volume.</div>
+<div class="info-box"><strong>Números atuais são intocáveis.</strong> O WhatsApp da IA usa um número novo, exclusivo. Nenhum número da Débora, da Rose ou das vendedoras entra nos disparos.</div>
+<div class="info-box"><strong>RD Station = somente RD Station Marketing.</strong> Não haverá RD Conversas: o WhatsApp roda pela API oficial conectada à IA da V4, e o Odoo continua sendo o CRM de vendas.</div>
+<div class="info-box"><strong>Nada de disparo por e-mail pessoal.</strong> Todo envio em massa sai pelo RD Station, com domínio autenticado, para não cair em spam.</div>
+<div class="info-box"><strong>Vendas não precisa operar o RD.</strong> As vendedoras continuam no Odoo e recebem o contato já interessado.</div>
+<div class="info-box"><strong>Pensar antes de construir.</strong> Réguas e e-mails são desenhados e aprovados pela Débora antes de irem ao ar.</div>
+</div>
+</section>
+
+<!-- 02 JORNADA -->
+<div class="divider"></div>
+<section class="section" id="jornada">
+<div class="section-header reveal">
+<div class="section-number">02 — Jornada</div>
+<h2 class="section-title">Da Planilha até a Venda</h2>
+<p class="section-desc">O RD Station reativa e mede o interesse, a IA SDR conversa e qualifica, e o Odoo recebe apenas quem está pronto para comprar.</p>
+</div>
+
+<div class="fc-wrap reveal">
+<div class="fc-head"><div class="fc-kicker">Fluxograma · Passo a passo</div><div class="fc-title">O caminho de um contato da planilha</div><div class="fc-caption">Siga as setas de cima para baixo. Nas caixas de pergunta, a resposta decide o caminho.</div></div>
+<div class="fc">
+<div class="fc-node start"><b>Contato da planilha aprovada</b><span>33.562 contatos separados em grupos</span></div>
+<div class="fc-arrow"></div>
+<div class="fc-row">
+<div class="fc-node ask"><b>Está na aba Supressão?</b><span>Pediu para sair, e-mail não existe, interno, teste ou spam</span></div>
+<div class="fc-exit"><div class="fc-harrow"><em>Sim</em></div><div class="fc-node stop"><b>Não é importado</b><span>Não recebe nada</span></div></div>
+</div>
+<div class="fc-arrow"><em>Não</em></div>
+<div class="fc-node"><b>Importado no RD Station</b><span>Com as etiquetas do seu grupo e temperatura</span></div>
+<div class="fc-arrow"></div>
+<div class="fc-split two">
+<div class="fc-branch"><div class="fc-arrow"><em>Todos com e-mail</em></div><div class="fc-node"><b>Recebe a régua de e-mails do seu grupo</b><span>Cada e-mail tem um botão “Quero um orçamento”, que abre a conversa com a IA</span></div></div>
+<div class="fc-branch"><div class="fc-arrow"><em>A Qualificar com WhatsApp</em></div><div class="fc-node ia"><b>IA SDR chama no WhatsApp</b><span>Pela API oficial, com número novo, liberado aos poucos</span></div></div>
+</div>
+<div class="fc-arrow"></div>
+<div class="fc-row">
+<div class="fc-node ask"><b>Mostrou interesse?</b><span>Clicou em “Quero um orçamento”, respondeu a IA ou atingiu a pontuação definida</span></div>
+<div class="fc-exit"><div class="fc-harrow"><em>Não</em></div><div class="fc-node stop"><b>Termina a régua sem resposta</b><span>Sai dos disparos para proteger a reputação de envio</span></div></div>
+</div>
+<div class="fc-arrow yes"><em>Sim</em></div>
+<div class="fc-node ia"><b>Conversa com a IA SDR</b><span>No chat do site ou no WhatsApp: volume, prazo, segmento e se é empresa (PJ) ou pessoa física (PF)</span></div>
+<div class="fc-arrow"></div>
+<div class="fc-node ok"><b>Lead Qualificado → vai para o Odoo</b><span>Com o resumo da conversa. Sai das réguas do RD e a vendedora é avisada.</span></div>
+<div class="fc-arrow"></div>
+<div class="fc-row">
+<div class="fc-node ask"><b>É pessoa física?</b></div>
+<div class="fc-exit"><div class="fc-harrow yes"><em>Sim</em></div><div class="fc-node ok"><b>Atendente PF</b></div></div>
+</div>
+<div class="fc-arrow"><em>Não</em></div>
+<div class="fc-node ask"><b>Quantas peças e qual prazo?</b></div>
+<div class="fc-split two">
+<div class="fc-branch"><div class="fc-arrow"><em>100 peças ou mais</em></div><div class="fc-node ok"><b>Fábrica</b><span>Projetos maiores, com prazo maior</span></div></div>
+<div class="fc-branch"><div class="fc-arrow"><em>Menos de 100 ou prazo curto</em></div><div class="fc-node ok"><b>Loja</b><span>Projetos menores e com prazo apertado</span></div></div>
+</div>
+</div>
+<p class="fc-note">A vendedora assume a conversa no momento do fechamento. A IA nunca fecha a venda sozinha.</p>
+</div>
+
+<div class="fc-wrap reveal">
+<div class="fc-head"><div class="fc-kicker">Quem cuida de cada etapa</div><div class="fc-title">RD Station reativa, IA qualifica, Odoo vende</div></div>
+<div class="lanes three">
+<div class="lane"><div class="lane-title">RD Station Marketing</div><div class="lane-sub">Onde o contato é reativado · as vendedoras não mexem aqui</div>
+<div class="lane-steps"><div class="lane-step"><i>1</i>Em Reativação</div><div class="lane-step"><i>2</i>Engajado (abriu e clicou)</div><div class="lane-step"><i>3</i>Pediu orçamento</div></div></div>
+<div class="lane-handoff"><span class="big">→</span>Abre a conversa</div>
+<div class="lane ia"><div class="lane-title">IA SDR · V4</div><div class="lane-sub">Onde o interessado é atendido · chat do site e WhatsApp</div>
+<div class="lane-steps"><div class="lane-step"><i>A</i>Primeiro atendimento</div><div class="lane-step"><i>B</i>Perguntas de qualificação</div><div class="lane-step"><i>C</i>Resumo enviado ao Odoo</div></div></div>
+<div class="lane-handoff"><span class="big">→</span>Passa para as vendedoras</div>
+<div class="lane odoo"><div class="lane-title">Odoo</div><div class="lane-sub">Onde a venda acontece · trabalho das vendedoras</div>
+<div class="lane-steps"><div class="lane-step"><i>4</i>Oportunidade</div><div class="lane-step"><i>5</i>Proposta / Negociação</div><div class="lane-step"><i>6</i>Ganho ou Perdido</div></div></div>
+</div>
+</div>
+</section>
+
+<!-- 03 CAMPOS E TAGS -->
+<div class="divider"></div>
+<section class="section" id="estrutura">
+<div class="section-header reveal">
+<div class="section-number">03 — Estrutura no RD</div>
+<h2 class="section-title">Campos e Tags da Importação</h2>
+<p class="section-desc">Tudo já está preenchido na planilha aprovada. Na importação, cada coluna é ligada a um campo do RD.</p>
+</div>
+
+<div class="simple-box reveal">
+<div class="simple-label">Em palavras simples</div>
+<p><strong>Campo</strong> é uma coluna da planilha com uma informação do contato (nome, empresa, setor…). <strong>Tag</strong> é uma etiqueta colada no contato para separar os grupos. Exemplo: <code>temp:quente</code> quer dizer temperatura quente, e <code>carteira:rose</code> quer dizer contato da carteira da Rose.</p>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">👤</div>
+<div><div class="campos-group-title">Dados de Contato</div><div class="campos-group-sub">Campos padrão do RD</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Nome</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">E-mail (validado)</div><div class="campo-type">E-mail</div></div>
+<div class="campo-item"><div class="campo-name">Telefone · (DD) 9XXXX-XXXX</div><div class="campo-type">Telefone</div></div>
+<div class="campo-item"><div class="campo-name">Empresa</div><div class="campo-type">Texto</div></div>
+<div class="campo-item"><div class="campo-name">Cidade / UF</div><div class="campo-type">Texto</div></div>
+</div>
+</div>
+
+<div class="campos-group reveal">
+<div class="campos-group-header">
+<div class="campos-group-icon">📋</div>
+<div><div class="campos-group-title">Campos Personalizados</div><div class="campos-group-sub">Usados para separar os grupos e passar ao Odoo</div></div>
+</div>
+<div class="campos-list">
+<div class="campo-item"><div class="campo-name">Núcleo (Fábrica / Loja / A qualificar)</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Temperatura (5 níveis)</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Score inicial (0–100)</div><div class="campo-type">Número</div></div>
+<div class="campo-item"><div class="campo-name">Setor</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Porte da conta (Chave / Média / Única)</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Faixa de volume (até 100 / acima de 100)</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">Carteira (vendedora de origem)</div><div class="campo-type">Seleção</div></div>
+<div class="campo-item"><div class="campo-name">ID da base (CE000001…)</div><div class="campo-type">Texto</div></div>
+</div>
+</div>
+
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Tag</th><th>Para que serve</th><th>Exemplos</th></tr></thead>
+<tbody>
+<tr><td><strong>temp:</strong></td><td>Escolher a régua pela temperatura</td><td>temp:quente · temp:morno · temp:frio</td></tr>
+<tr><td><strong>pagina:</strong></td><td>Escolher a régua pelo grupo da planilha</td><td>pagina:contas_chave · pagina:agencias_brindes_graficas · pagina:uniforme_escolar</td></tr>
+<tr><td><strong>nucleo: · volume:</strong></td><td>Indicar à vendedora se vai para Fábrica ou Loja</td><td>nucleo:fabrica · nucleo:loja · volume:acima_100</td></tr>
+<tr><td><strong>setor:</strong></td><td>Personalizar o texto do e-mail</td><td>Agências, Supermercados, Educação, Indústria…</td></tr>
+<tr><td><strong>empresa: · carteira:</strong></td><td>Personalizar por conta e assinar pela vendedora de origem</td><td>Carrefour · Nestlé · carteira:debora · carteira:rose</td></tr>
+<tr><td><strong>Criadas pelo RD</strong></td><td>Marcar o que aconteceu depois da importação</td><td><span class="tag tag-red">enviado_odoo</span><span class="tag tag-red">sem_engajamento</span></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- 04 RÉGUAS -->
+<div class="divider"></div>
+<section class="section" id="reguas">
+<div class="section-header reveal">
+<div class="section-number">04 — Réguas de Reativação</div>
+<h2 class="section-title">Quem Recebe o Quê</h2>
+<p class="section-desc">O conteúdo de cada e-mail será criado com o time de recorrência e aprovado pela Débora antes de ir ao ar.</p>
+</div>
+
+<div class="simple-box reveal">
+<div class="simple-label">Em palavras simples</div>
+<p>Uma <strong>régua</strong> é uma sequência de e-mails programados, enviados sozinhos, um depois do outro. Cada contato entra em <strong>uma régua só</strong>, escolhida pelas perguntas do fluxograma abaixo.</p>
+</div>
+
+<div class="fc-wrap reveal">
+<div class="fc-head"><div class="fc-kicker">Termômetro · Tag temp:</div><div class="fc-title">Quão perto de comprar cada contato está</div></div>
+<div class="thermo">
+<div class="thermo-lvl t1"><b>🔥 Quente</b><span class="n">417</span><span>Pediu orçamento nos últimos 90 dias</span></div>
+<div class="thermo-lvl t2"><b>Relac. ativo</b><span class="n">1.174</span><span>5+ e-mails trocados</span></div>
+<div class="thermo-lvl t3"><b>Morno</b><span class="n">10.441</span><span>Algum sinal no último ano</span></div>
+<div class="thermo-lvl t4"><b>❄️ Frio</b><span class="n">19.423</span><span>Sem sinal há 12 meses</span></div>
+<div class="thermo-lvl t5"><b>⛔ Não contatar</b><span class="n">2.107</span><span>Supressão</span></div>
+</div>
+<div class="thermo-scale"><span>← Mais perto de comprar</span><span>Mais longe →</span></div>
+</div>
+
+<div class="fc-wrap reveal">
+<div class="fc-head"><div class="fc-kicker">Fluxograma · Regra de entrada</div><div class="fc-title">Qual régua cada contato recebe</div><div class="fc-caption">As perguntas são feitas nesta ordem. Na primeira resposta “sim”, o contato entra naquela régua e para por ali.</div></div>
+<div class="fc">
+<div class="fc-node start"><b>Contato importado no RD</b></div>
+<div class="fc-arrow"></div>
+<div class="fc-row"><div class="fc-node ask"><b>Pediu orçamento nos últimos 90 dias?</b><span>temp:quente</span></div><div class="fc-exit"><div class="fc-harrow yes"><em>Sim</em></div><div class="fc-node ok"><b>Follow-up Quentes</b></div></div></div>
+<div class="fc-arrow"><em>Não</em></div>
+<div class="fc-row"><div class="fc-node ask"><b>É Conta-Chave ou tem relacionamento ativo?</b><span>pagina:contas_chave ou temp:relacionamento_ativo</span></div><div class="fc-exit"><div class="fc-harrow yes"><em>Sim</em></div><div class="fc-node ok"><b>Contas-Chave e Relac. Ativo</b></div></div></div>
+<div class="fc-arrow"><em>Não</em></div>
+<div class="fc-row"><div class="fc-node ask"><b>É agência, brindes ou gráfica?</b><span>pagina:agencias_brindes_graficas</span></div><div class="fc-exit"><div class="fc-harrow yes"><em>Sim</em></div><div class="fc-node ok"><b>Canal Indireto</b></div></div></div>
+<div class="fc-arrow"><em>Não</em></div>
+<div class="fc-row"><div class="fc-node ask"><b>É de uniforme escolar?</b><span>pagina:uniforme_escolar</span></div><div class="fc-exit"><div class="fc-harrow yes"><em>Sim</em></div><div class="fc-node ok"><b>Uniforme Escolar</b></div></div></div>
+<div class="fc-arrow"><em>Não</em></div>
+<div class="fc-row"><div class="fc-node ask"><b>Ainda falta saber a empresa ou o volume?</b><span>nucleo:a_qualificar</span></div><div class="fc-exit"><div class="fc-harrow yes"><em>Sim</em></div><div class="fc-node ia"><b>A Qualificar</b><span>IA SDR no WhatsApp + e-mail</span></div></div></div>
+<div class="fc-arrow"><em>Não</em></div>
+<div class="fc-row"><div class="fc-node ask"><b>Teve algum sinal no último ano?</b><span>temp:morno</span></div><div class="fc-exit"><div class="fc-harrow yes"><em>Sim</em></div><div class="fc-node ok"><b>Reativação — Mornos</b></div></div></div>
+<div class="fc-arrow"><em>Não</em></div>
+<div class="fc-node ok"><b>Reativação — Frios</b><span>temp:frio</span></div>
+</div>
+</div>
+
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Régua</th><th>Público</th><th>Cadência sugerida</th><th>Objetivo</th></tr></thead>
+<tbody>
+<tr><td><strong>Follow-up Quentes</strong></td><td>temp:quente · 417 contatos</td><td>Retomada imediata do orçamento + 2 lembretes em até 7 dias; os contatos com WhatsApp também recebem a IA SDR</td><td>Converter as propostas em aberto</td></tr>
+<tr><td><strong>Contas-Chave e Relac. Ativo</strong></td><td>pagina:contas_chave + temp:relacionamento_ativo · 3.624 + 1.174</td><td>3 e-mails em ~14 dias, personalizados por conta e assinados pela carteira de origem</td><td>Retomar o contato com quem já é cliente recorrente</td></tr>
+<tr><td><strong>Canal Indireto</strong></td><td>pagina:agencias_brindes_graficas · 5.328</td><td>Sequência para parceiros: condições de revenda, prazos e catálogo</td><td>Ativar agências, brindeiros e gráficas como revendedores</td></tr>
+<tr><td><strong>Uniforme Escolar</strong></td><td>pagina:uniforme_escolar · 74</td><td>Sequência sazonal antes da volta às aulas</td><td>Venda de kits e revenda</td></tr>
+<tr><td><strong>A Qualificar</strong></td><td>nucleo:a_qualificar · 9.891 (7.019 com WhatsApp)</td><td>IA SDR faz a qualificação pelo WhatsApp; os 2.748 contatos com e-mail recebem 1 e-mail de apresentação</td><td>Descobrir empresa e volume</td></tr>
+<tr><td><strong>Reativação — Mornos</strong></td><td>temp:morno · 10.441</td><td>4 e-mails em ~21 dias, por setor (cases, portfólio, Loja com produção rápida)</td><td>Reaquecer e gerar pontos de interesse</td></tr>
+<tr><td><strong>Reativação — Frios</strong></td><td>temp:frio · 19.423</td><td>2 e-mails: reapresentação + “ainda faz sentido receber nossas novidades?”</td><td>Recuperar quem engaja e limpar quem não responde</td></tr>
+</tbody>
+</table>
+</div>
+<p class="legend reveal">Os números de público são os totais de cada grupo na planilha. Como cada contato entra em uma régua só, o total enviado por régua pode ser um pouco menor.</p>
+
+<div class="fc-wrap reveal">
+<div class="fc-head"><div class="fc-kicker">Fluxograma · Ordem dos envios</div><div class="fc-title">Começar devagar, por quem mais conhece a empresa</div><div class="fc-caption">Se todos os e-mails saírem de uma vez, Gmail e Outlook acham que é spam. Por isso o volume sobe aos poucos até ~2.000 por dia, e a base inteira é percorrida em cerca de 2 a 3 semanas.</div></div>
+<div class="steps">
+<div class="step"><b>Autenticar o domínio</b><span>SPF, DKIM e DMARC: provam que o e-mail é mesmo da Camiseta Express</span></div>
+<div class="step"><b>Quentes</b><span>417 contatos</span></div>
+<div class="step"><b>Contas-Chave e Relac. Ativo</b><span>Quem já é cliente recorrente</span></div>
+<div class="step"><b>Canal Indireto, Uniforme e A Qualificar</b><span>Grupos específicos</span></div>
+<div class="step"><b>Mornos</b><span>10.441 contatos</span></div>
+<div class="step"><b>Frios</b><span>19.423 contatos</span></div>
+</div>
+</div>
+</section>
+
+<!-- IA SDR -->
+<div class="divider"></div>
+<section class="section" id="ia">
+<div class="section-header reveal">
+<div class="section-number">05 — IA SDR da V4</div>
+<h2 class="section-title">A Assistente que Qualifica os Interessados</h2>
+<p class="section-desc">A IA SDR faz o primeiro atendimento de quem responde à reativação e passa para a vendedora só quem está pronto para comprar.</p>
+</div>
+
+<div class="simple-box reveal">
+<div class="simple-label">Em palavras simples</div>
+<p>A IA SDR é uma <strong>assistente virtual que conversa por texto</strong>, com tom o mais humano possível. Ela faz as perguntas que a vendedora faria no começo (quantas peças, para quando, para que tipo de empresa) e entrega ao Odoo um <strong>resumo pronto</strong>. Assim, a vendedora já começa a conversa sabendo o que o cliente quer.</p>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card"><div class="card-label">Onde ela atende</div><h3>Dois canais, em duas etapas</h3>
+<ul>
+<li><strong style="color:var(--white)">1º · Chat do site:</strong> quem clica em “Quero um orçamento” no e-mail cai na conversa com a IA.</li>
+<li><strong style="color:var(--white)">2º · WhatsApp oficial:</strong> com o número novo ativo, a IA também atende pelo WhatsApp e chama o grupo A Qualificar e os Quentes que têm WhatsApp.</li>
+</ul></div>
+<div class="card"><div class="card-label">O que ela pergunta</div><h3>As 4 perguntas da qualificação</h3>
+<ul>
+<li><strong style="color:var(--white)">Volume:</strong> quantas peças?</li>
+<li><strong style="color:var(--white)">Prazo:</strong> para quando precisa?</li>
+<li><strong style="color:var(--white)">Segmento:</strong> qual é a empresa e o setor?</li>
+<li><strong style="color:var(--white)">Tipo:</strong> é empresa (PJ) ou pessoa física (PF)?</li>
+</ul></div>
+</div>
+
+<div class="fc-wrap reveal">
+<div class="fc-head"><div class="fc-kicker">Fluxograma · Conversa com a IA</div><div class="fc-title">Do “oi” até a vendedora</div></div>
+<div class="fc">
+<div class="fc-node start"><b>Contato inicia a conversa</b><span>Clicou no e-mail, respondeu o WhatsApp ou chamou no chat do site</span></div>
+<div class="fc-arrow"></div>
+<div class="fc-node ia"><b>IA SDR se apresenta e entende o pedido</b><span>Usa as informações da base de conhecimento (documento de Discovery)</span></div>
+<div class="fc-arrow"></div>
+<div class="fc-node ia"><b>Faz as 4 perguntas</b><span>Volume · prazo · segmento · PJ ou PF</span></div>
+<div class="fc-arrow"></div>
+<div class="fc-row">
+<div class="fc-node ask"><b>Tem interesse real de compra?</b></div>
+<div class="fc-exit"><div class="fc-harrow"><em>Ainda não</em></div><div class="fc-node"><b>Volta para as réguas do RD</b><span>Continua recebendo e-mails</span></div></div>
+</div>
+<div class="fc-arrow yes"><em>Sim</em></div>
+<div class="fc-node ok"><b>IA envia ao Odoo com o resumo</b><span>E avisa que uma pessoa vai continuar o atendimento</span></div>
+<div class="fc-arrow yes"></div>
+<div class="fc-node ok"><b>Vendedora ou atendente PF assume</b><span>Fábrica, Loja ou pessoa física</span></div>
+</div>
+</div>
+
+</section>
+
+<!-- 05 ENVIO AO ODOO -->
+<div class="divider"></div>
+<section class="section" id="odoo">
+<div class="section-header reveal">
+<div class="section-number">06 — Envio ao Odoo</div>
+<h2 class="section-title">Quando e Como o Contato Vai para Vendas</h2>
+<p class="section-desc">O Odoo só recebe quem mostrou interesse de verdade. Assim a vendedora não perde tempo com contatos frios.</p>
+</div>
+
+<div class="grid-2 reveal">
+<div class="card"><div class="card-label">Quando vai</div><h3>3 sinais de interesse</h3>
+<ul>
+<li><strong style="color:var(--white)">Foi qualificado pela IA SDR</strong> depois de clicar em “Quero um orçamento” ou de responder no WhatsApp. A IA envia na hora, com o resumo.</li>
+<li><strong style="color:var(--white)">Atingiu a pontuação definida</strong> no Lead Scoring, abrindo e clicando nos e-mails.</li>
+<li><strong style="color:var(--white)">Respondeu o e-mail com interesse.</strong> A resposta chega na caixa de entrada do remetente, e a equipe passa o contato ao Odoo.</li>
+</ul></div>
+<div class="card"><div class="card-label">O que vai junto</div><h3>Dados que a vendedora recebe</h3>
+<ul>
+<li>Nome, empresa, e-mail e telefone</li>
+<li>Núcleo (Fábrica ou Loja) e faixa de volume</li>
+<li>Carteira de origem e score</li>
+<li>Régua de onde veio e ID da base</li>
+<li>Resumo da conversa com a IA (volume, prazo, segmento, PJ ou PF)</li>
+</ul></div>
+</div>
+
+<div class="fc-wrap reveal">
+<div class="fc-head"><div class="fc-kicker">Duas formas de enviar</div><div class="fc-title">Automática ou por planilha</div><div class="fc-caption">Vale para os contatos que chegam pela pontuação do RD. A IA SDR envia pela API do Odoo; sem a API, ela manda o resumo para a equipe, que segue a forma B. A escolha depende do plano do Odoo (veja o quadro de Viabilidade).</div></div>
+<div class="fc-split two" style="margin:0 auto;">
+<div class="fc-branch">
+<div class="fc-node start"><b>A · Automática</b><span>Precisa da API do Odoo (plano Custom) ou de um conector</span></div>
+<div class="fc-arrow"></div>
+<div class="fc-node"><b>Contato vira Lead Qualificado no RD</b></div>
+<div class="fc-arrow"></div>
+<div class="fc-node"><b>A integração cria a oportunidade no Odoo</b><span>Na hora, com os dados acima</span></div>
+<div class="fc-arrow yes"></div>
+<div class="fc-node ok"><b>Vendedora é avisada</b></div>
+</div>
+<div class="fc-branch">
+<div class="fc-node start"><b>B · Por planilha</b><span>Funciona em qualquer plano do Odoo</span></div>
+<div class="fc-arrow"></div>
+<div class="fc-node"><b>RD avisa a equipe por e-mail</b><span>A cada novo Lead Qualificado</span></div>
+<div class="fc-arrow"></div>
+<div class="fc-node"><b>Thiago exporta a lista do RD e importa no Odoo</b><span>Todo dia útil, pela importação de planilha do CRM</span></div>
+<div class="fc-arrow yes"></div>
+<div class="fc-node ok"><b>Vendedora assume no Odoo</b></div>
+</div>
+</div>
+</div>
+
+<h3 class="sub-title reveal">Automações no RD</h3>
+<div class="table-wrap reveal">
+<table>
+<thead><tr><th>Se acontecer…</th><th>O RD faz…</th></tr></thead>
+<tbody>
+<tr><td><strong>Contato importado com tag de temperatura ou grupo</strong></td><td>Coloca o contato na régua correspondente</td></tr>
+<tr><td><strong>Abertura ou clique em e-mail</strong></td><td>Soma pontos de interesse</td></tr>
+<tr><td><strong>Clique em “Quero um orçamento”</strong></td><td>Abre a conversa com a IA SDR</td></tr>
+<tr><td><strong>IA SDR qualificou ou pontuação atingida</strong></td><td>Marca como Lead Qualificado, tira das réguas, coloca a tag <em>enviado_odoo</em> e envia ao Odoo</td></tr>
+<tr><td><strong>Fim da régua de Frios sem engajamento</strong></td><td>Coloca a tag <em>sem_engajamento</em> e tira dos disparos</td></tr>
+<tr><td><strong>Hard bounce ou descadastro</strong></td><td>Marca como inválido ou opt-out, conforme a LGPD</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box reveal"><strong>Primeiro contato da vendedora:</strong> sugestão de até 1 dia útil depois que o contato entra no Odoo (a validar com a equipe de vendas).</div>
+</section>
+
+<footer class="footer">
+<img src="https://carreira.inhire.com.br/wp-content/uploads/2024/04/v4company-02-03-1024x279.png" alt="V4 Company">
+<div class="logo-text">V4 Company</div>
+<p>Planejamento de Reativação da Base · Camiseta Express · Outubro de 2026</p>
+<p style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--gray-light);">Documento gerado e mapeado automaticamente a partir de transcrição. Uso interno.</p>
+</footer>
+
+<button onclick="downloadPDF()" class="fab-btn">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+Baixar Relatório
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function downloadPDF() {
+const btn = document.querySelector('.fab-btn');
+btn.style.display = 'none';
+document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+const opt = {
+margin: [10, 0, 10, 0],
+filename: 'Planejamento_CRM_Camiseta_Express.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0a0a0a' },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+html2pdf().set(opt).from(document.body).save().then(() => {
+btn.style.display = 'flex';
+});
+}
+
+function toggleAccordion(header) {
+const item = header.parentElement;
+const body = item.querySelector('.accordion-body');
+const isOpen = item.classList.contains('open');
+document.querySelectorAll('.accordion-item').forEach(ai => { ai.classList.remove('open'); ai.querySelector('.accordion-body').style.maxHeight = null; });
+if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+}
+document.querySelectorAll('.accordion-item.open').forEach(item => { item.querySelector('.accordion-body').style.maxHeight = item.querySelector('.accordion-body').scrollHeight + 'px'; });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => { if (scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+});
+const glossSearch = document.getElementById('glossSearch');
+if (glossSearch) {
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+glossSearch.addEventListener('input', () => {
+const q = norm(glossSearch.value);
+document.querySelectorAll('.gloss-item').forEach(it => { it.style.display = norm(it.textContent).includes(q) ? '' : 'none'; });
+});
+}
+
+</script>
+
+</body>
+</html>
